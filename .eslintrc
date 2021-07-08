@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "algolia",
+    "algolia/react",
+    "algolia/typescript",
+    "next",
+    "next/core-web-vitals",
+    "prettier"
+  ],
+  "globals": { "React": true, "JSX": true }
+}
