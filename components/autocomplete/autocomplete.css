@@ -1,0 +1,22 @@
+.aa-Autocomplete {
+  --aa-input-border-color-rgb: transparent;
+  --aa-panel-border-color-rgb: transparent;
+  --aa-search-input-height: 0;
+
+  @apply full-size flex items-center justify-center;
+}
+
+.aa-DetachedSearchButton {
+  @apply full-size flex flex-row-reverse items-center justify-between;
+}
+
+.aa-DetachedSearchButtonPlaceholder {
+  @apply text-neutral-dark;
+
+  /* Override */
+  @apply body-regular;
+}
+
+.aa-DetachedSearchButtonIcon {
+  @apply text-brand-black w-auto;
+}
