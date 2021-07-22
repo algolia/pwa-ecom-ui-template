@@ -9,12 +9,25 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@algolia/autocomplete-js": "^1.2.1",
+    "@algolia/autocomplete-plugin-query-suggestions": "^1.2.1",
+    "@algolia/autocomplete-preset-algolia": "^1.2.1",
+    "@material-ui/icons": "^4.11.2",
+    "algoliasearch": "^4.10.3",
     "next": "11.0.1",
+    "qs": "^6.10.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-instantsearch-dom": "^6.12.0"
   },
   "devDependencies": {
+    "@tweakpane/core": "^1.0.4",
+    "@types/node": "^16.0.1",
+    "@types/qs": "^6.9.7",
     "@types/react": "17.0.13",
+    "@types/react-dom": "^17.0.9",
+    "@types/react-instantsearch-dom": "^6.10.2",
+    "@types/tailwindcss": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
     "autoprefixer": "^10.2.6",
@@ -31,11 +44,12 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "postcss": "^8.3.5",
+    "postcss-easy-import": "^3.0.0",
     "prettier": "^2.3.2",
-    "sass": "^1.35.2",
     "stylelint": "^13.13.1",
-    "stylelint-config-recommended": "^5.0.0",
+    "stylelint-config-standard": "^22.0.0",
     "tailwindcss": "^2.2.4",
+    "tweakpane": "^3.0.3",
     "typescript": "^4.3.5"
   }
 }

@@ -1,0 +1,37 @@
+@layer base {
+  :root {
+    /* ========== Color styles */
+
+    /* ---------- Brand */
+    --color-brand-nebula: #5468ff;
+    --color-brand-black: #23263b;
+
+    /* ---------- Neutral */
+    --color-neutral-light: #d3d4d8;
+    --color-neutral-dark: #91929d;
+  }
+
+  body {
+    @apply body-regular;
+  }
+
+  h1 {
+    @apply heading-1;
+  }
+
+  h2 {
+    @apply heading-2;
+  }
+
+  h3 {
+    @apply heading-3;
+  }
+
+  h4 {
+    @apply heading-4;
+  }
+
+  h5 {
+    @apply heading-5;
+  }
+}
