@@ -11,4 +11,4 @@
   [[plugins.inputs.audits]]
     url = "https://algolia-pwa-ui-template-preview.netlify.app"
 
-    output_path = "reports/lighthouse.html"
+    output_path = "out/lighthouse.html"
