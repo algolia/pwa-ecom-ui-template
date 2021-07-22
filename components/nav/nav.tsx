@@ -2,12 +2,16 @@ import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined'
 import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined'
 import PersonOutlinedIcon from '@material-ui/icons/PersonOutlined'
 import PinDropOutlinedIcon from '@material-ui/icons/PinDropOutlined'
+import dynamic from 'next/dynamic'
 import { useMemo } from 'react'
 
 import Autocomplete from '@/components/autocomplete/autocomplete'
 import Button from '@/components/button/button'
 import IconLabel from '@/components/icon-label/icon-label'
-import Logo from '@/components/logo/logo'
+
+const Logo = dynamic(
+  () => import(/* webpackChunkName: 'svg' */ '@/components/logo/logo')
+)
 
 function TopNav(): JSX.Element {
   return (
