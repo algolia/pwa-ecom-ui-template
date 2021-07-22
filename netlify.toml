@@ -8,7 +8,8 @@
 [[plugins]]
   package = "@netlify/plugin-lighthouse"
 
+  [plugins.inputs]
+    output_path = "reports/lighthouse.html"
+
   [[plugins.inputs.audits]]
     url = "https://algolia-pwa-ui-template-preview.netlify.app"
-
-    output_path = "out/lighthouse.html"
