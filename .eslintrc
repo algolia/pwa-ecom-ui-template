@@ -7,5 +7,20 @@
     "next/core-web-vitals",
     "prettier"
   ],
-  "globals": { "React": true, "JSX": true }
+  "globals": { "React": true, "JSX": true },
+  "rules": {
+    "react/function-component-definition": [
+      2,
+      { "namedComponents": "function-declaration" }
+    ],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "spaced-comment": ["error", "always", { "markers": ["/"] }],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["accu"]
+      }
+    ]
+  }
 }
