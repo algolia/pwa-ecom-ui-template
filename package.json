@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@types/react": "17.0.13",
+    "@types/tailwindcss": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
     "autoprefixer": "^10.2.6",
@@ -31,10 +32,10 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "postcss": "^8.3.5",
+    "postcss-easy-import": "^3.0.0",
     "prettier": "^2.3.2",
-    "sass": "^1.35.2",
     "stylelint": "^13.13.1",
-    "stylelint-config-recommended": "^5.0.0",
+    "stylelint-config-standard": "^22.0.0",
     "tailwindcss": "^2.2.4",
     "typescript": "^4.3.5"
   }

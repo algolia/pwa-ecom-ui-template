@@ -1,0 +1,54 @@
+@layer utilities {
+  /* ========== Text utilities */
+
+  /* ---------- Heading */
+  .heading-1,
+  .heading-2,
+  .heading-4,
+  .heading-5 {
+    @apply font-bold;
+  }
+
+  .heading-1 {
+    @apply text-5xl tracking-[-0.02em];
+  }
+
+  .heading-2 {
+    @apply text-[2.5rem] leading-[1.2] tracking-[-0.02em];
+  }
+
+  .heading-3 {
+    @apply text-[2rem] leading-[1.1] tracking-[2px] font-semibold;
+  }
+
+  .heading-4 {
+    @apply text-[1.5rem] leading-[1.1];
+  }
+
+  .heading-5 {
+    @apply text-[1.25rem] leading-[1.4];
+  }
+
+  /* ---------- Body */
+  .body-regular {
+    @apply font-sans text-[0.875rem] leading-[1.3];
+  }
+
+  .body-bold {
+    @apply body-regular font-bold;
+  }
+
+  /* ---------- Tag */
+  .tag-regular {
+    @apply text-[0.5625rem] leading-[1.4] uppercase;
+  }
+
+  .tag-bold {
+    @apply tag-regular font-bold;
+  }
+
+  /* ========== Layout utilities */
+  .full-size {
+    @apply w-full h-full;
+  }
+}
