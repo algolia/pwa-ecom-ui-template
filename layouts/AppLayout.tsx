@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { useMemo, useReducer } from 'react'
 
 import AppContext from '@/contexts/AppContext'
@@ -20,19 +19,5 @@ export default function AppLayout({ children }: AppLayoutProps): JSX.Element {
     [state]
   )
 
-  return (
-    <AppContext.Provider value={value}>
-      <Head>
-        {/* <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/satellite-min.css"
-        /> */}
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-theme-classic"
-        />
-      </Head>
-      {children}
-    </AppContext.Provider>
-  )
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }
