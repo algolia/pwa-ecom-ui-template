@@ -13,3 +13,4 @@
 
   [[plugins.inputs.audits]]
     url = "https://algolia-pwa-ui-template-preview.netlify.app"
+    path = "./"
