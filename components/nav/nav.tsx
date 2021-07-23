@@ -1,7 +1,7 @@
-import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined'
-import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined'
-import PersonOutlinedIcon from '@material-ui/icons/PersonOutlined'
-import PinDropOutlinedIcon from '@material-ui/icons/PinDropOutlined'
+import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
+import PersonIcon from '@material-design-icons/svg/outlined/person.svg'
+import PinDropIcon from '@material-design-icons/svg/outlined/pin_drop.svg'
+import ShoppingBagIcon from '@material-design-icons/svg/outlined/shopping_bag.svg'
 import dynamic from 'next/dynamic'
 import { useMemo } from 'react'
 
@@ -19,9 +19,9 @@ function TopNav(): JSX.Element {
       <Logo />
 
       <div className="flex gap-6">
-        <IconLabel icon={PinDropOutlinedIcon} label="Stores" />
-        <IconLabel icon={PersonOutlinedIcon} label="Account" />
-        <IconLabel icon={LocalMallOutlinedIcon} label="Cart" />
+        <IconLabel icon={PinDropIcon} label="Stores" />
+        <IconLabel icon={PersonIcon} label="Account" />
+        <IconLabel icon={ShoppingBagIcon} label="Cart" />
       </div>
     </div>
   )
@@ -33,7 +33,7 @@ function BottomNav(): JSX.Element {
   return (
     <div className="flex px-4 divide-x border-b border-neutral-light laptop:mx-20 laptop:px-0">
       <Button className="p-3 pl-0">
-        <IconLabel icon={MenuOutlinedIcon} label="Menu" labelPosition="right" />
+        <IconLabel icon={MenuIcon} label="Menu" labelPosition="right" />
       </Button>
 
       <div className="w-full pl-2.5">
