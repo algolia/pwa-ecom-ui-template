@@ -6,7 +6,7 @@ import Nav from '@/components/nav/nav'
 import Search from '@/components/search/search'
 import { isDev } from '@/utils/env'
 import { getResultsState } from '@/utils/page'
-import { pathToSearchState } from '@/utils/url'
+import { urlToSearchState } from '@/utils/url'
 
 interface PageLayoutProps {
   children?: React.ReactNode
@@ -36,7 +36,7 @@ export default function PageLayout({
 export const getServerSidePropsPage =
   (component: React.ComponentType) =>
   async (context: GetServerSidePropsContext) => {
-    const searchState = pathToSearchState(context.resolvedUrl)
+    const searchState = urlToSearchState(context.resolvedUrl)
     const resultsState = await getResultsState({
       component,
       searchState,

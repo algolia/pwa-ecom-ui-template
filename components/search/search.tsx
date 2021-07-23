@@ -7,7 +7,7 @@ import { InstantSearch } from 'react-instantsearch-dom'
 import SearchContext from '@/contexts/SearchContext'
 import { useSearchClient } from '@/hooks/useSearchClient'
 import debounce from '@/utils/debounce'
-import { createURL, searchStateToURL } from '@/utils/url'
+import { createURL, searchStateToUrl, urlToSearchState } from '@/utils/url'
 
 interface SearchProps {
   children: React.ReactNode
@@ -16,9 +16,13 @@ interface SearchProps {
   indexName: string
   searchClient?: SearchClient
   resultsState: InstantSearchProps['resultsState']
-  searchState?: InstantSearchProps['searchState']
+  searchState?: SearchState
   onSearchStateChange?: InstantSearchProps['onSearchStateChange']
   createURL?: InstantSearchProps['createURL']
+}
+
+interface SearchState {
+  [key: string]: any
 }
 
 export default function Search({
@@ -33,7 +37,11 @@ export default function Search({
   createURL: customCreateURL,
   ...props
 }: SearchProps): JSX.Element {
-  const [searchState, setSearchState] = useState(initialSearchState ?? {})
+  const router = useRouter()
+
+  const [searchState, setSearchState] = useState<SearchState>(
+    initialSearchState ?? urlToSearchState(router?.asPath.slice(1))
+  )
 
   const searchClient = useSearchClient({
     appId,
@@ -41,33 +49,41 @@ export default function Search({
   })
 
   // Update router url
-  const router = useRouter()
   const updateRouterUrl = useCallback(
-    (nextSearchState: InstantSearchProps['searchState']) => {
-      router.push(searchStateToURL(nextSearchState), undefined, {
+    (nextSearchState: SearchState) => {
+      router.push(searchStateToUrl(nextSearchState), undefined, {
         shallow: true,
       })
     },
     [] // eslint-disable-line react-hooks/exhaustive-deps
   )
 
-  // Listen for InstantSearch state changes
-  const onSearchStateChange = useCallback(
-    (nextSearchState: InstantSearchProps['searchState']): void => {
-      setSearchState(nextSearchState)
-    },
-    []
-  )
-
-  // Listen for search state changes
   const debouncedUpdateRouterUrl = useMemo(
     () => debounce(updateRouterUrl, 700),
     [updateRouterUrl]
   )
 
+  // Listen for route changes
   useEffect(() => {
-    debouncedUpdateRouterUrl(searchState)
-  }, [debouncedUpdateRouterUrl, searchState])
+    const handleRouteChange = (url: string) => {
+      setSearchState(urlToSearchState(url))
+    }
+
+    router.events.on('routeChangeStart', handleRouteChange)
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange)
+    }
+  }, [router])
+
+  // Listen for InstantSearch state changes
+  const onSearchStateChange = useCallback(
+    (nextSearchState: SearchState): void => {
+      setSearchState(nextSearchState)
+      debouncedUpdateRouterUrl(nextSearchState)
+    },
+    [debouncedUpdateRouterUrl]
+  )
 
   // Search context
   const contextValue = useMemo(
@@ -76,7 +92,7 @@ export default function Search({
       setSearchState,
       searchClient,
     }),
-    [initialSearchState?.query, setSearchState, searchClient]
+    [initialSearchState?.query, searchClient]
   )
 
   return (
