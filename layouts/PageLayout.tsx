@@ -6,7 +6,7 @@ import Dev from '@/components/dev/dev'
 /// #endif
 import Nav from '@/components/nav/nav'
 import Search from '@/components/search/search'
-import { isDev } from '@/utils/env'
+import { appId, indexName, isDev, searchApiKey } from '@/utils/env'
 import { getResultsState } from '@/utils/page'
 import { urlToSearchState } from '@/utils/url'
 
@@ -21,9 +21,9 @@ export default function PageLayout({
 }: PageLayoutProps): JSX.Element {
   return (
     <Search
-      appId={process.env.NEXT_PUBLIC_INSTANTSEARCH_APP_ID!}
-      searchApiKey={process.env.NEXT_PUBLIC_INSTANTSEARCH_SEARCH_API_KEY!}
-      indexName={process.env.NEXT_PUBLIC_INSTANTSEARCH_INDEX_NAME!}
+      appId={appId}
+      searchApiKey={searchApiKey}
+      indexName={indexName}
       {...props}
     >
       <Nav />
@@ -42,9 +42,9 @@ export const getServerSidePropsPage =
     const resultsState = await getResultsState({
       component,
       searchState,
-      appId: process.env.NEXT_PUBLIC_INSTANTSEARCH_APP_ID!,
-      searchApiKey: process.env.NEXT_PUBLIC_INSTANTSEARCH_SEARCH_API_KEY!,
-      indexName: process.env.NEXT_PUBLIC_INSTANTSEARCH_INDEX_NAME!,
+      appId,
+      searchApiKey,
+      indexName,
     })
 
     return {
