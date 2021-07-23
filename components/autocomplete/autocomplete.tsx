@@ -17,7 +17,7 @@ import VirtualSearchBox from '@/components/virtual-search-box/virtual-search-box
 import { useSearchContext } from '@/hooks/useSearchContext'
 // import debounce from '@/utils/debounce'
 
-// import Placeholder from './placeholder'
+import Placeholder from './placeholder'
 
 export interface AutocompleteProps {
   container?: string | HTMLElement
@@ -122,14 +122,12 @@ export default function Autocomplete({
   return (
     <>
       <VirtualSearchBox />
-      {/* {containerRef.current && (
-        <Placeholder
-          placeholders={placeholders}
-          autocompleteContainer={containerRef.current}
-          wordDelay={placeholderWordDelay}
-          letterDelay={placeholderLetterDelay}
-        />
-      )} */}
+      <Placeholder
+        placeholders={placeholders}
+        autocompleteRef={containerRef}
+        wordDelay={placeholderWordDelay}
+        letterDelay={placeholderLetterDelay}
+      />
       <div className="w-full h-full" ref={containerRef} />
     </>
   )
