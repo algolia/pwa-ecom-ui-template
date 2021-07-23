@@ -1,7 +1,9 @@
 import type { GetServerSidePropsContext } from 'next'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
+/// #if DEV
 import Dev from '@/components/dev/dev'
+/// #endif
 import Nav from '@/components/nav/nav'
 import Search from '@/components/search/search'
 import { isDev } from '@/utils/env'
