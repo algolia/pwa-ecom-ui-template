@@ -5,17 +5,17 @@ import type { ReactElement } from 'react'
 import {
   createElement,
   Fragment,
-  useCallback,
+  // useCallback,
   useEffect,
   useMemo,
   useRef,
 } from 'react'
 import { render } from 'react-dom'
-import type { InstantSearchProps } from 'react-instantsearch-dom'
+// import type { InstantSearchProps } from 'react-instantsearch-dom'
 
 import VirtualSearchBox from '@/components/virtual-search-box/virtual-search-box'
 import { useSearchContext } from '@/hooks/useSearchContext'
-import debounce from '@/utils/debounce'
+// import debounce from '@/utils/debounce'
 
 // import Placeholder from './placeholder'
 
@@ -39,37 +39,37 @@ export default function Autocomplete({
 
   const {
     query,
-    setSearchState,
+    // setSearchState,
     searchClient: searchClientContext,
   } = useSearchContext()
 
-  const debouncedSetSearchState = useMemo(
-    () => debounce(setSearchState, 300),
-    [setSearchState]
-  )
+  // const debouncedSetSearchState = useMemo(
+  //   () => debounce(setSearchState, 300),
+  //   [setSearchState]
+  // )
 
   const searchClient = customSearchClient ?? searchClientContext
 
-  const onSubmit = useCallback(
-    ({ state }) => {
-      debouncedSetSearchState(
-        (currentSearchState: InstantSearchProps['searchState']) => ({
-          ...currentSearchState,
-          query: state.query,
-        })
-      )
-    },
-    [debouncedSetSearchState]
-  )
+  // const onSubmit = useCallback(
+  //   ({ state }) => {
+  //     debouncedSetSearchState(
+  //       (currentSearchState: InstantSearchProps['searchState']) => ({
+  //         ...currentSearchState,
+  //         query: state.query,
+  //       })
+  //     )
+  //   },
+  //   [debouncedSetSearchState]
+  // )
 
-  const onReset = useCallback(() => {
-    debouncedSetSearchState(
-      (currentSearchState: InstantSearchProps['searchState']) => ({
-        ...currentSearchState,
-        query: '',
-      })
-    )
-  }, [debouncedSetSearchState])
+  // const onReset = useCallback(() => {
+  //   debouncedSetSearchState(
+  //     (currentSearchState: InstantSearchProps['searchState']) => ({
+  //       ...currentSearchState,
+  //       query: '',
+  //     })
+  //   )
+  // }, [debouncedSetSearchState])
 
   const plugins = useMemo(
     () => [
@@ -102,13 +102,13 @@ export default function Autocomplete({
       initialState: {
         query,
       },
-      onStateChange({ prevState, state }) {
-        if (prevState.query !== state.query) {
-          onSubmit({ state })
-        }
-      },
-      onSubmit,
-      onReset,
+      // onStateChange({ prevState, state }) {
+      //   if (prevState.query !== state.query) {
+      //     onSubmit({ state })
+      //   }
+      // },
+      // onSubmit,
+      // onReset,
       plugins,
       ...props,
     })
