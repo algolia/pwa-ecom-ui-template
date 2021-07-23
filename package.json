@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.2.1",
@@ -22,6 +23,7 @@
     "react-instantsearch-dom": "^6.12.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^11.0.1",
     "@tweakpane/core": "^1.0.4",
     "@types/node": "^16.0.1",
     "@types/qs": "^6.9.7",
@@ -44,6 +46,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "ifdef-loader": "^2.3.0",
     "postcss": "^8.3.5",
     "postcss-easy-import": "^3.0.0",
     "prettier": "^2.3.2",
