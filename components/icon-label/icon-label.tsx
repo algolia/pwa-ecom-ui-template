@@ -1,9 +1,7 @@
-import type { SvgIconComponent } from '@material-ui/icons'
-
 type LabelPosition = 'top' | 'bottom' | 'left' | 'right'
 
 interface IconLabelProps {
-  icon: SvgIconComponent
+  icon: any
   label: string
   labelPosition?: LabelPosition
 }
@@ -32,7 +30,7 @@ export default function Iconlabel({
 
   return (
     <div className={`flex ${posStyle} gap-0.5 items-center`}>
-      <Icon />
+      <Icon className="fill-current text-brand-black w-6 h-6" />
       <div className="tag-regular">{label}</div>
     </div>
   )

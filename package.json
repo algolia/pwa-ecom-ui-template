@@ -13,8 +13,7 @@
     "@algolia/autocomplete-js": "^1.2.1",
     "@algolia/autocomplete-plugin-query-suggestions": "^1.2.1",
     "@algolia/autocomplete-preset-algolia": "^1.2.1",
-    "@material-ui/core": "^4.12.2",
-    "@material-ui/icons": "^4.11.2",
+    "@material-design-icons/svg": "^0.2.6",
     "algoliasearch": "^4.10.3",
     "next": "11.0.1",
     "qs": "^6.10.1",
@@ -24,6 +23,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^11.0.1",
+    "@svgr/webpack": "^5.5.0",
     "@tweakpane/core": "^1.0.4",
     "@types/node": "^16.0.1",
     "@types/qs": "^6.9.7",
