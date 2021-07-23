@@ -40,7 +40,7 @@
 
   /* ---------- Tag */
   .tag-regular {
-    @apply text-[0.5625rem] leading-[1.4] uppercase;
+    @apply text-xs uppercase;
   }
 
   .tag-bold {
