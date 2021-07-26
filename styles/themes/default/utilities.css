@@ -47,6 +47,15 @@
     @apply tag-regular font-bold;
   }
 
+  /* ---------- Label */
+  .label {
+    @apply text-xs;
+  }
+
+  .label-uppercase {
+    @apply label uppercase;
+  }
+
   /* ========== Layout utilities */
   .full-size {
     @apply w-full h-full;
