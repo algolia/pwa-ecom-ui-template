@@ -1,5 +1,4 @@
 import type { GetServerSideProps } from 'next'
-import React from 'react'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
 import PageLayout, { getServerSidePropsPage } from '@/layouts/PageLayout'
