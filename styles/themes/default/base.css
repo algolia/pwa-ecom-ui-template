@@ -11,8 +11,12 @@
     --color-neutral-dark: #91929d;
   }
 
+  ::selection {
+    @apply bg-brand-black text-white;
+  }
+
   body {
-    @apply body-regular;
+    @apply body-regular text-brand-black;
   }
 
   h1 {
