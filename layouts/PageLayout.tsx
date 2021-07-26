@@ -1,6 +1,7 @@
 import type { GetServerSidePropsContext } from 'next'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
+import BannerXS from '@/components/banner/banner-xs'
 /// #if DEV
 import Dev from '@/components/dev/dev'
 /// #endif
@@ -26,6 +27,7 @@ export default function PageLayout({
       indexName={indexName}
       {...props}
     >
+      <BannerXS>20% Off! Code: SPRING21 - Terms apply*</BannerXS>
       <Nav />
 
       <main>{children}</main>
