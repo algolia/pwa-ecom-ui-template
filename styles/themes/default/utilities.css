@@ -31,7 +31,7 @@
 
   /* ---------- Body */
   .body-regular {
-    @apply font-sans text-[0.875rem] leading-[1.3];
+    @apply font-sans text-sm;
   }
 
   .body-bold {
