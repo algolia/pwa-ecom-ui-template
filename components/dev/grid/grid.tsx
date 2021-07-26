@@ -26,7 +26,10 @@ export default function Grid(): JSX.Element {
   const columnsDivs = useMemo(
     () =>
       [...Array(config.columns)].map((e, i: number) => (
-        <div key={i} className="w-full h-full bg-red-200 bg-opacity-20"></div> // eslint-disable-line react/no-array-index-key
+        <div
+          key={i} // eslint-disable-line react/no-array-index-key
+          className="w-full h-full bg-[#F82CAA] bg-opacity-[0.04]"
+        ></div>
       )),
     [config.columns]
   )
