@@ -1,7 +1,4 @@
 import { useEffect, useMemo, useRef } from 'react'
-import resolveConfig from 'tailwindcss/resolveConfig'
-
-import tailwindConfig from '../tailwind.config.js' // eslint-disable-line import/extensions
 
 import { useMedia } from './useMedia'
 
@@ -10,11 +7,7 @@ interface Screens {
 }
 
 export function useTailwindScreens() {
-  const screens = useMemo(() => {
-    const fullConfig = resolveConfig(tailwindConfig)
-    return fullConfig.theme.screens!
-  }, [])
-
+  const screens = useMemo(() => require('@/utils/tailwindScreens'), [])
   const screenQueries = useRef<string[]>([])
   const screenNames = useRef<string[]>([])
 
