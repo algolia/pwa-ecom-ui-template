@@ -1,11 +1,11 @@
 import type { GetServerSidePropsContext } from 'next'
+import dynamic from 'next/dynamic'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
 import BannerXS from '@/components/banner/banner-xs'
 /// #if DEV
 import Dev from '@/components/dev/dev'
 /// #endif
-import Nav from '@/components/nav/nav'
 import Search from '@/components/search/search'
 import { appId, indexName, isDev, searchApiKey } from '@/utils/env'
 import { getResultsState } from '@/utils/page'
@@ -15,6 +15,10 @@ interface PageLayoutProps {
   children?: React.ReactNode
   resultsState: InstantSearchProps['resultsState']
 }
+
+const Nav = dynamic(
+  () => import(/* webpackChunkName: 'svg' */ '@/components/nav/nav')
+)
 
 export default function PageLayout({
   children,
