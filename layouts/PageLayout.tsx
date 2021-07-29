@@ -3,11 +3,8 @@ import dynamic from 'next/dynamic'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
 import BannerXS from '@/components/banner/banner-xs'
-/// #if DEV
-import Dev from '@/components/dev/dev'
-/// #endif
 import Search from '@/components/search/search'
-import { appId, indexName, isDev, searchApiKey } from '@/utils/env'
+import { appId, indexName, searchApiKey } from '@/utils/env'
 import { getResultsState } from '@/utils/page'
 import { urlToSearchState } from '@/utils/url'
 
@@ -35,8 +32,6 @@ export default function PageLayout({
       <Nav />
 
       <main>{children}</main>
-
-      {isDev && <Dev />}
     </Search>
   )
 }
