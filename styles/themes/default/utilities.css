@@ -31,7 +31,7 @@
 
   /* ---------- Body */
   .body-regular {
-    @apply font-sans text-[0.875rem] leading-[1.3];
+    @apply font-sans text-sm;
   }
 
   .body-bold {
@@ -40,11 +40,30 @@
 
   /* ---------- Tag */
   .tag-regular {
-    @apply text-[0.5625rem] leading-[1.4] uppercase;
+    @apply text-xs uppercase;
   }
 
   .tag-bold {
     @apply tag-regular font-bold;
+  }
+
+  /* ---------- Label */
+  .label-regular {
+    @apply text-xs;
+  }
+
+  .label-uppercase {
+    @apply label-regular uppercase;
+  }
+
+  /* ---------- Small */
+  .small-uppercase {
+    @apply text-xs uppercase;
+  }
+
+  /* ---------- Button */
+  .btn-bold {
+    @apply text-sm leading-[1.4] tracking-wider font-semibold;
   }
 
   /* ========== Layout utilities */

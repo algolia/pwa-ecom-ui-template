@@ -1,3 +1,4 @@
+import { useRouter } from 'next/dist/client/router'
 import { useEffect, useRef } from 'react'
 import { Pane as Tweakpane } from 'tweakpane'
 
@@ -6,19 +7,26 @@ import { ActionType } from '@/state/actions'
 
 export default function Pane(): JSX.Element {
   const paneContainer = useRef(null)
+  const router = useRouter()
 
   const { state, dispatch } = useAppContext()
 
   useEffect(() => {
     const pane = new Tweakpane({
-      title: 'UI Template',
+      title: 'Dev',
       expanded: false,
       container: paneContainer.current!,
     })
 
-    const devFolder = pane.addFolder({ title: 'Dev' })
+    const routesFolder = pane.addFolder({ title: 'Routes' })
+    routesFolder.addButton({ title: '/' }).on('click', () => {
+      router.push('/')
+    })
+    routesFolder.addButton({ title: '/kit/buttons' }).on('click', () => {
+      router.push('/kit/buttons')
+    })
 
-    const gridFolder = devFolder.addFolder({ title: 'Grid' })
+    const gridFolder = pane.addFolder({ title: 'Grid' })
     gridFolder.addInput(state.dev.grid, 'hidden').on('change', (ev) => {
       dispatch({
         type: ActionType.SetGridVisibility,

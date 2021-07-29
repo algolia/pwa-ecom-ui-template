@@ -7,12 +7,30 @@
     --color-brand-black: #23263b;
 
     /* ---------- Neutral */
+    --color-neutral-lightest: #f4f4f5;
     --color-neutral-light: #d3d4d8;
     --color-neutral-dark: #91929d;
+    --color-neutral-darkest: #4f5162;
+
+    /* ---------- Uranus */
+    --color-uranus-base: #89d9d3;
+
+    /* ---------- Nebula */
+    --color-nebula-lightest: #e8eaff;
+    --color-nebula-dark: #3f52e8;
+    --color-nebula-darkest: #1e2b8e;
+
+    /* ========== Autocomplete */
+    --aa-detached-media-query: (max-width:1439px);
+    --aa-detached-modal-media-query: ();
+  }
+
+  ::selection {
+    @apply bg-brand-black text-white;
   }
 
   body {
-    @apply body-regular;
+    @apply body-regular text-brand-black;
   }
 
   h1 {

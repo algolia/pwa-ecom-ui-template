@@ -1,15 +1,22 @@
+import Icon from '@/components/icon/icon'
+import Label from '@/components/label/label'
+
 type LabelPosition = 'top' | 'bottom' | 'left' | 'right'
 
 interface IconLabelProps {
-  icon: any
-  label: string
+  icon?: any
+  label?: string
   labelPosition?: LabelPosition
+  className?: string
+  labelTheme?: string
 }
 
-export default function Iconlabel({
-  icon: Icon,
-  label = '',
+export default function IconLabel({
+  icon,
+  label,
   labelPosition = 'bottom',
+  className = '',
+  labelTheme,
 }: IconLabelProps): JSX.Element {
   let posStyle: string
   switch (labelPosition) {
@@ -29,9 +36,9 @@ export default function Iconlabel({
   }
 
   return (
-    <div className={`flex ${posStyle} gap-0.5 items-center`}>
-      <Icon className="fill-current text-brand-black w-6 h-6" />
-      <div className="tag-regular">{label}</div>
+    <div className={`flex ${posStyle} gap-0.5 items-center ${className}`}>
+      {icon && <Icon icon={icon} />}
+      {label && <Label label={label} theme={labelTheme} />}
     </div>
   )
 }
