@@ -1,0 +1,77 @@
+/* ---------- Common */
+.btn {
+  @apply btn-bold px-8 rounded-sm flex items-center gap-3;
+}
+
+.btn:focus-visible {
+  @apply outline-none ring-2 ring-uranus-base;
+}
+
+.btn:disabled {
+  @apply cursor-not-allowed;
+}
+
+/* ---------- Types */
+
+/* Primary */
+.btn-primary {
+  @apply bg-brand-black text-white;
+}
+
+.btn-primary:hover {
+  @apply bg-neutral-darkest;
+}
+
+.btn-primary:active {
+  @apply bg-brand-black;
+}
+
+.btn-primary:disabled {
+  @apply bg-neutral-light text-brand-black;
+}
+
+/* Secondary */
+.btn-secondary {
+  @apply bg-white ring-2 ring-brand-black text-brand-black;
+}
+
+.btn-secondary:hover {
+  @apply ring-neutral-darkest text-neutral-darkest;
+}
+
+.btn-secondary:active {
+  @apply bg-neutral-lightest ring-brand-black text-brand-black;
+}
+
+.btn-secondary:disabled {
+  @apply bg-neutral-lightest ring-neutral-light text-brand-black;
+}
+
+/* Tertiary */
+.btn-tertiary {
+  @apply bg-brand-nebula text-white;
+}
+
+.btn-tertiary:hover {
+  @apply bg-nebula-dark text-nebula-lightest;
+}
+
+.btn-tertiary:active {
+  @apply bg-nebula-darkest text-nebula-lightest;
+}
+
+.btn-tertiary:disabled {
+  @apply bg-neutral-light text-brand-black;
+}
+
+/* ---------- Sizes */
+
+/* Small */
+.btn-small {
+  @apply py-2;
+}
+
+/* Large */
+.btn-large {
+  @apply py-3;
+}
