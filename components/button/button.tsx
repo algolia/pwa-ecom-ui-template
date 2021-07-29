@@ -4,8 +4,6 @@ import { useClassNames } from '@/hooks/useClassNames'
 
 import Icon from '../icon/icon'
 
-import styles from './button.module.css'
-
 interface ButtonProps {
   children?: React.ReactNode
   className?: string
@@ -29,10 +27,10 @@ export default function Button({
 }: ButtonProps): JSX.Element {
   const cn = useClassNames(
     className,
-    styles.btn,
+    'btn',
     {
-      [styles[`btn-${type}`]]: type,
-      [styles[`btn-${size}`]]: size,
+      [`btn-${type}`]: type,
+      [`btn-${size}`]: size,
     },
     [className, type, size]
   )

@@ -15,7 +15,6 @@ import { useSearchContext } from '@/hooks/useSearchContext'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 
 import AutocompleteIcons from './autocomplete-icons'
-import styles from './autocomplete.module.css'
 import createAnimatedPlaceholderPlugin from './plugins/createAnimatedPlaceholderPlugin'
 import createCloseLeftPlugin from './plugins/createCloseLeftPlugin'
 
@@ -129,16 +128,16 @@ export default function Autocomplete({
         query,
       },
       classNames: {
-        root: styles.Root,
-        form: styles.Form,
-        input: styles.Input,
-        submitButton: styles.SubmitButton,
-        loadingIndicator: styles.LoadingIndicator,
-        label: styles.Label,
-        panel: styles.Panel,
-        detachedSearchButton: styles.DetachedSearchButton,
-        detachedSearchButtonIcon: styles.DetachedSearchButtonIcon,
-        detachedSearchButtonPlaceholder: styles.DetachedSearchButtonPlaceholder,
+        root: 'Root',
+        form: 'Form',
+        input: 'Input',
+        submitButton: 'SubmitButton',
+        loadingIndicator: 'LoadingIndicator',
+        label: 'Label',
+        panel: 'Panel',
+        detachedSearchButton: 'DetachedSearchButton',
+        detachedSearchButtonIcon: 'DetachedSearchButtonIcon',
+        detachedSearchButtonPlaceholder: 'DetachedSearchButtonPlaceholder',
       },
       onStateChange({ state }) {
         setQueryEmpty(!state.query)
