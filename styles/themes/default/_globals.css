@@ -7,7 +7,6 @@
 
 /* Components */
 @import "tailwindcss/components";
-@import "../../../components/**/*.css";
 
 /* Utilities */
 @import "tailwindcss/utilities";
