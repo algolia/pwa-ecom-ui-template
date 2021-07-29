@@ -3,5 +3,5 @@ interface IconProps {
 }
 
 export default function Icon({ icon: IconCmp = null }: IconProps): JSX.Element {
-  return <IconCmp className="fill-current text-brand-black w-7 h-7" />
+  return <IconCmp className="fill-current w-7 h-7" />
 }
