@@ -1,0 +1,44 @@
+.Root {
+  @apply full-size flex items-center justify-center;
+}
+
+.Form {
+  /* Overrides */
+  @apply border-none laptop:border laptop:border-solid laptop:border-neutral-dark laptop:rounded-none laptop:focus-within:border-transparent laptop:focus-within:shadow-none laptop:focus-within:ring-2 laptop:focus-within:ring-brand-nebula;
+}
+
+.Input {
+  @apply body-regular;
+}
+
+.SubmitButton,
+.LoadingIndicator {
+  @apply w-auto;
+}
+
+.Label svg,
+.LoadingIndicator svg {
+  @apply text-brand-black;
+}
+
+.Panel {
+  @apply !top-0 !left-0;
+}
+
+.DetachedSearchButton {
+  @apply full-size flex flex-row-reverse items-center justify-between;
+
+  /* Overrides */
+  @apply p-0 border-none;
+}
+
+.DetachedSearchButtonIcon {
+  @apply text-brand-black w-auto;
+}
+
+.DetachedSearchButtonPlaceholder {
+  @apply text-neutral-dark;
+
+  /* Overrides */
+  @apply body-regular;
+}
