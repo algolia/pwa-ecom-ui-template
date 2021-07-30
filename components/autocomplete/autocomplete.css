@@ -8,7 +8,11 @@
 }
 
 .Input {
-  @apply body-regular;
+  @apply body-regular text-brand-black;
+}
+
+.Input::placeholder {
+  @apply text-neutral-darkest;
 }
 
 .SubmitButton,
@@ -37,7 +41,7 @@
 }
 
 .DetachedSearchButtonPlaceholder {
-  @apply text-neutral-dark;
+  @apply text-neutral-darkest;
 
   /* Overrides */
   @apply body-regular;

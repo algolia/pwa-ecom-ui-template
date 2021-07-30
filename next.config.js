@@ -1,6 +1,8 @@
+const withPlugins = require('next-compose-plugins')
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
+const withPWA = require('next-pwa')
 
 const ifdefOpts = {
   DEV: process.env.NODE_ENV === 'development',
@@ -9,7 +11,7 @@ const ifdefOpts = {
 }
 
 /** @type {import('next/dist/next-server/server/config').NextConfig} */
-module.exports = withBundleAnalyzer({
+module.exports = withPlugins([withBundleAnalyzer, withPWA], {
   reactStrictMode: true,
   eslint: {
     dirs: [
@@ -21,6 +23,10 @@ module.exports = withBundleAnalyzer({
       'contexts',
       'state',
     ],
+  },
+  pwa: {
+    dest: 'public',
+    disable: ifdefOpts.DEV,
   },
   webpack: (config) => {
     const rules = config.module.rules
