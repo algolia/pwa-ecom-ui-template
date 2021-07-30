@@ -51,6 +51,8 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "ifdef-loader": "^2.3.0",
+    "next-compose-plugins": "^2.2.1",
+    "next-pwa": "^5.2.24",
     "postcss": "^8.3.5",
     "postcss-easy-import": "^3.0.0",
     "prettier": "^2.3.2",

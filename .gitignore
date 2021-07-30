@@ -11,6 +11,9 @@
 # next.js
 /.next/
 /out/
+**/public/workbox-*.js
+**/public/sw.js
+**/public/fallback-*.js
 
 # production
 /build
