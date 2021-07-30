@@ -15,7 +15,9 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
       <Head>
         <title>Spencer and Williams</title>
       </Head>
+
       <Component {...pageProps} />
+
       {isDev && <Dev />}
     </AppLayout>
   )
