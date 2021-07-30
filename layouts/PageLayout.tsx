@@ -1,4 +1,4 @@
-import type { GetServerSidePropsContext } from 'next'
+import type { GetStaticPropsContext, GetServerSidePropsContext } from 'next'
 import dynamic from 'next/dynamic'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
@@ -36,22 +36,28 @@ export default function PageLayout({
   )
 }
 
-export const getServerSidePropsPage =
-  (component: React.ComponentType) =>
-  async (context: GetServerSidePropsContext) => {
-    const searchState = urlToSearchState(context.resolvedUrl)
-    const resultsState = await getResultsState({
-      component,
-      searchState,
-      appId,
-      searchApiKey,
-      indexName,
-    })
+const getPropsPage = async (component: React.ComponentType, url: string) => {
+  const searchState = urlToSearchState(url)
+  const resultsState = await getResultsState({
+    component,
+    searchState,
+    appId,
+    searchApiKey,
+    indexName,
+  })
 
-    return {
-      props: {
-        searchState,
-        resultsState,
-      },
-    }
+  return {
+    props: {
+      searchState,
+      resultsState,
+    },
   }
+}
+
+export const getServerSidePropsPage =
+  (component: React.ComponentType) => (context: GetServerSidePropsContext) =>
+    getPropsPage(component, context.resolvedUrl)
+
+export const getStaticPropsPage =
+  (component: React.ComponentType) => (context: GetStaticPropsContext) =>
+    getPropsPage(component, (context?.params?.id as string) || '')
