@@ -61,7 +61,7 @@ export default function Autocomplete({
       search.destroy()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [customContainer])
+  }, [customContainer, customPanelContainer])
 
   return (
     <>

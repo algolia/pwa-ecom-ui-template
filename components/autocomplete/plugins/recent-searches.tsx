@@ -1,13 +1,23 @@
 import { createLocalStorageRecentSearchesPlugin } from '@algolia/autocomplete-plugin-recent-searches'
 import CloseIcon from '@material-design-icons/svg/outlined/close.svg'
+import type { Dispatch } from 'react'
+import type { InstantSearchProps } from 'react-instantsearch-dom'
 
-export default function recentSearchesPlugin() {
+export default function recentSearchesPlugin(setSearchState: Dispatch<any>) {
   return createLocalStorageRecentSearchesPlugin({
     key: 'search',
     limit: 3,
     transformSource({ source, onRemove, onTapAhead }) {
       return {
         ...source,
+        onSelect({ item }) {
+          setSearchState(
+            (currentSearchState: InstantSearchProps['searchState']) => ({
+              ...currentSearchState,
+              query: item.label,
+            })
+          )
+        },
         templates: {
           ...source.templates,
           header() {

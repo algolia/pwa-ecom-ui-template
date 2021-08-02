@@ -2,12 +2,15 @@ import { createQuerySuggestionsPlugin } from '@algolia/autocomplete-plugin-query
 import type { createLocalStorageRecentSearchesPlugin } from '@algolia/autocomplete-plugin-recent-searches'
 import type { SearchOptions } from '@algolia/client-search'
 import type { SearchClient } from 'algoliasearch/lite'
+import type { Dispatch } from 'react'
+import type { InstantSearchProps } from 'react-instantsearch-dom'
 
 export default function popularSearchesPlugin(
   searchClient: SearchClient,
   recentSearchesPlugin: ReturnType<
     typeof createLocalStorageRecentSearchesPlugin
-  >
+  >,
+  setSearchState: Dispatch<any>
 ) {
   return createQuerySuggestionsPlugin({
     searchClient,
@@ -23,10 +26,17 @@ export default function popularSearchesPlugin(
         hitsPerPage: 8,
       }) as SearchOptions
     },
-
     transformSource({ source, onTapAhead }) {
       return {
         ...source,
+        onSelect({ item }) {
+          setSearchState(
+            (currentSearchState: InstantSearchProps['searchState']) => ({
+              ...currentSearchState,
+              query: item.query,
+            })
+          )
+        },
         templates: {
           ...source.templates,
           header() {

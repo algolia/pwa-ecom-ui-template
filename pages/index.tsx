@@ -1,5 +1,6 @@
 import type { GetStaticProps } from 'next'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
+import { Hits } from 'react-instantsearch-dom'
 
 import PageLayout, { getStaticPropsPage } from '@/layouts/PageLayout'
 
@@ -11,7 +12,7 @@ interface IndexProps {
 export default function Index(props: IndexProps): JSX.Element {
   return (
     <PageLayout {...props}>
-      <div></div>
+      <Hits />
     </PageLayout>
   )
 }
