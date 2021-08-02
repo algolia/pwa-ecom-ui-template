@@ -6,12 +6,14 @@ import { render } from 'react-dom'
 
 export interface AutocompleteProps extends Partial<AutocompleteOptions<any>> {
   container?: string | HTMLElement
+  panelContainer?: string | HTMLElement
   initialQuery?: string
   children?: React.ReactNode
 }
 
 export default function Autocomplete({
   container: customContainer,
+  panelContainer: customPanelContainer,
   plugins = [],
   initialQuery = '',
   children,
@@ -27,11 +29,11 @@ export default function Autocomplete({
 
     const search = autocomplete({
       container: customContainer ?? containerRef.current,
-      panelContainer: panelContainerRef.current,
+      panelContainer: customPanelContainer ?? panelContainerRef.current,
       panelPlacement: 'full-width',
       detachedMediaQuery: '(max-width: 1439px)',
       openOnFocus: true,
-      debug: true,
+      // debug: true,
       initialState: {
         query: initialQuery,
       },
