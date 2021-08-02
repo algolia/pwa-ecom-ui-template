@@ -14,7 +14,7 @@ interface PageLayoutProps {
 }
 
 const Nav = dynamic(
-  () => import(/* webpackChunkName: 'svg' */ '@/components/nav/nav')
+  () => import(/* webpackChunkName: 'nav' */ '@/components/nav/nav')
 )
 
 export default function PageLayout({
