@@ -1,7 +1,7 @@
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
 import { useMemo } from 'react'
 
-import Autocomplete from '@/components/autocomplete/autocomplete'
+import AutocompleteAdvanced from '@/components/autocomplete/autocomplete-advanced'
 import Button from '@/components/button/button'
 import IconLabel from '@/components/icon-label/icon-label'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
@@ -35,7 +35,7 @@ export default function NavBottom(): JSX.Element {
 
       <div className="w-full pl-2.5 laptop:w-80 laptop:p-0 laptop:transition-width laptop:duration-300 laptop:ease-out laptop:absolute laptop:right-0 laptop:focus-within:w-11/12">
         <div className="hidden absolute w-24 h-full -translate-x-full bg-gradient-to-r from-transparent to-white laptop:block"></div>
-        <Autocomplete placeholders={placeholders} />
+        <AutocompleteAdvanced placeholders={placeholders} />
       </div>
     </div>
   )

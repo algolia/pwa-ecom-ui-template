@@ -12,7 +12,7 @@ import NavItem from '@/components/nav/nav-item'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 
 const Logo = dynamic(
-  () => import(/* webpackChunkName: 'svg' */ '@/components/logo/logo')
+  () => import(/* webpackChunkName: 'nav' */ '@/components/logo/logo')
 )
 
 export default function NavTop(): JSX.Element {

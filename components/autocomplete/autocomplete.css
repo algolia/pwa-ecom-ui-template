@@ -4,7 +4,7 @@
 
 .Form {
   /* Overrides */
-  @apply border-none laptop:border laptop:border-solid laptop:border-neutral-dark laptop:rounded-none laptop:focus-within:border-transparent laptop:focus-within:shadow-none laptop:focus-within:ring-2 laptop:focus-within:ring-brand-nebula;
+  @apply border-none !shadow-none bg-neutral-lightest laptop:bg-white laptop:border laptop:border-solid laptop:border-neutral-dark laptop:rounded-none laptop:focus-within:border-transparent laptop:focus-within:ring-2 laptop:focus-within:ring-brand-nebula;
 }
 
 .Input {
@@ -26,7 +26,11 @@
 }
 
 .Panel {
-  @apply !top-0 !left-0;
+  @apply !top-0 !left-0 rounded-none shadow-medium mt-4;
+}
+
+.aa-PanelLayout {
+  @apply px-4 py-6 flex flex-col gap-4;
 }
 
 .DetachedSearchButton {
@@ -45,4 +49,36 @@
 
   /* Overrides */
   @apply body-regular;
+}
+
+.aa-DetachedFormContainer {
+  @apply bg-neutral-lightest border-none;
+}
+
+.aa-SourceHeader {
+  @apply mt-0;
+}
+
+.aa-SourceHeaderTitle {
+  @apply body-regular text-neutral-dark font-normal;
+}
+
+.aa-Item[aria-selected=true] {
+  @apply bg-neutral-lightest;
+}
+
+.aa-ItemContent {
+  @apply gap-2;
+}
+
+.aa-ItemIcon {
+  @apply w-auto;
+}
+
+.aa-ItemIcon svg {
+  @apply w-6 h-6 text-brand-black;
+}
+
+.aa-ItemActionButton svg {
+  @apply w-5 h-5;
 }
