@@ -29,6 +29,11 @@ module.exports = {
         'nebula-dark': 'var(--color-nebula-dark)',
         'nebula-darkest': 'var(--color-nebula-darkest)',
       },
+      boxShadow: {
+        'small': '0px 4px 8px rgba(35, 38, 59, 0.25)',
+        'medium': '0px 8px 16px rgba(35, 38, 59, 0.25)',
+        'large': '0px 12px 32px rgba(35, 38, 59, 0.25)',
+      },
       transitionProperty: {
         width: 'width',
       },
