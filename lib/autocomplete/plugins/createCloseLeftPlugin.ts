@@ -1,6 +1,6 @@
 import type {
-  AutocompletePlugin,
   OnStateChangeProps,
+  AutocompletePlugin,
 } from '@algolia/autocomplete-js'
 
 export default function createCloseLeftPlugin<

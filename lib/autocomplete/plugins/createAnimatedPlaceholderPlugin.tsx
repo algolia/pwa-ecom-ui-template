@@ -18,6 +18,7 @@ export default function createAnimatedPlaceholderPlugin<
 }: CreateAnimatedPlaceholderPluginProps): AutocompletePlugin<TItem, TData> {
   let currentPlaceholderWordIdx = 0
   let placeholderInterval: ReturnType<typeof setInterval>
+  let subscribed = false
 
   const updatePlaceholder = (cb: (placeholderWord: string) => void) => {
     cb('')
@@ -51,38 +52,35 @@ export default function createAnimatedPlaceholderPlugin<
 
   return {
     subscribe() {
-      // Wait for the autocomplete to be mounted
-      window.requestAnimationFrame(() => {
-        // Get placeholder div/input element
-        const placeholderEl =
-          document.querySelector('.aa-DetachedSearchButtonPlaceholder') ||
-          document.querySelector('.aa-Input')
+      if (subscribed) return
+      subscribed = true
 
-        if (!placeholderEl) return
+      updatePlaceholder((placeholderWord) => {
+        // Get placeholder input elements
+        const placeholderEl = document.querySelector('.aa-Input')
+        const placeholderDetachedEl = document.querySelector(
+          '.aa-DetachedSearchButtonPlaceholder'
+        )
 
-        // Get placeholder type
-        const isInputPlaceholder = placeholderEl.hasAttribute('placeholder')
+        // Get final placeholder
+        const placeholder =
+          typeof placeholderTemplate === 'function'
+            ? placeholderTemplate(placeholderWord)
+            : placeholderWord
 
-        updatePlaceholder((placeholderWord) => {
-          // Get final placeholder
-          const placeholder =
-            typeof placeholderTemplate === 'function'
-              ? placeholderTemplate(placeholderWord)
-              : placeholderWord
+        // Don't update placeholder if input is focused or has value
+        if (
+          placeholderEl &&
+          document.activeElement !== placeholderEl &&
+          !(placeholderEl as HTMLInputElement).value
+        ) {
+          placeholderEl.setAttribute('placeholder', placeholder)
+        }
 
-          // Update placeholder element attribute/innerHTML
-          if (isInputPlaceholder) {
-            // Don't update placeholder if input is focused or has value
-            if (
-              document.activeElement !== placeholderEl &&
-              !(placeholderEl as HTMLInputElement).value
-            ) {
-              placeholderEl.setAttribute('placeholder', placeholder)
-            }
-          } else {
-            placeholderEl.innerHTML = placeholder
-          }
-        })
+        // Update detached mode placeholder if exists
+        if (placeholderDetachedEl) {
+          placeholderDetachedEl.innerHTML = placeholder
+        }
       })
     },
   }
