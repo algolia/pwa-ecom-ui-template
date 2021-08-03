@@ -46,7 +46,7 @@ export default function AutocompleteBasic({
         wordDelay: placeholderWordDelay,
         letterDelay: placeholderLetterDelay,
       }),
-      createCloseLeftPlugin(),
+      createCloseLeftPlugin({ initialQuery }),
       voiceCameraIconsPluginCreator(),
       searchButtonPluginCreator(),
     ],
@@ -57,6 +57,7 @@ export default function AutocompleteBasic({
       placeholders,
       placeholderWordDelay,
       placeholderLetterDelay,
+      initialQuery,
     ]
   )
 

@@ -40,11 +40,17 @@ export default function AutocompleteInstantSearch({
         wordDelay: placeholderWordDelay,
         letterDelay: placeholderLetterDelay,
       }),
-      createCloseLeftPlugin(),
+      createCloseLeftPlugin({ initialQuery }),
       voiceCameraIconsPluginCreator(),
       searchButtonPluginCreator(),
     ],
-    [customPlugins, placeholders, placeholderWordDelay, placeholderLetterDelay]
+    [
+      customPlugins,
+      placeholders,
+      placeholderWordDelay,
+      placeholderLetterDelay,
+      initialQuery,
+    ]
   )
 
   const onSubmit = useCallback(
