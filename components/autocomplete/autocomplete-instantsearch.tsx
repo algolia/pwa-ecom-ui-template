@@ -1,3 +1,4 @@
+import type { OnStateChangeProps } from '@algolia/autocomplete-js'
 import type { SearchClient } from 'algoliasearch/lite'
 import { useCallback, useMemo } from 'react'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
@@ -9,6 +10,8 @@ import createCloseLeftPlugin from '@/lib/autocomplete/plugins/createCloseLeftPlu
 
 import type { AutocompleteProps } from './autocomplete'
 import Autocomplete from './autocomplete'
+import searchButtonPluginCreator from './plugins/search-button'
+import voiceCameraIconsPluginCreator from './plugins/voice-camera-icons'
 
 export interface AutocompleteInstantSearchProps extends AutocompleteProps {
   searchClient?: SearchClient
@@ -38,6 +41,8 @@ export default function AutocompleteInstantSearch({
         letterDelay: placeholderLetterDelay,
       }),
       createCloseLeftPlugin(),
+      voiceCameraIconsPluginCreator(),
+      searchButtonPluginCreator(),
     ],
     [customPlugins, placeholders, placeholderWordDelay, placeholderLetterDelay]
   )
@@ -61,6 +66,20 @@ export default function AutocompleteInstantSearch({
     }))
   }, [setSearchState])
 
+  const onStateChange = useCallback(
+    ({ prevState, state }: OnStateChangeProps<any>) => {
+      if (prevState.query !== state.query) {
+        setSearchState(
+          (currentSearchState: InstantSearchProps['searchState']) => ({
+            ...currentSearchState,
+            query: state.query,
+          })
+        )
+      }
+    },
+    [setSearchState]
+  )
+
   return (
     <Autocomplete
       plugins={plugins}
@@ -68,6 +87,7 @@ export default function AutocompleteInstantSearch({
       hidePanel={true}
       onSubmit={onSubmit}
       onReset={onReset}
+      onStateChange={onStateChange}
       {...props}
     >
       <VirtualSearchBox />
