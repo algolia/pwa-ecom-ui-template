@@ -13,12 +13,14 @@ export default function recentSearchesPluginCreator(
       return {
         ...source,
         onSelect({ item }) {
-          setSearchState(
-            (currentSearchState: InstantSearchProps['searchState']) => ({
-              ...currentSearchState,
-              query: item.label,
-            })
-          )
+          if (typeof setSearchState === 'function') {
+            setSearchState(
+              (currentSearchState: InstantSearchProps['searchState']) => ({
+                ...currentSearchState,
+                query: item.label,
+              })
+            )
+          }
         },
         templates: {
           ...source.templates,

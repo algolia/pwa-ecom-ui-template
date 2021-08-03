@@ -10,7 +10,7 @@ export default function popularSearchesPluginCreator(
   recentSearchesPlugin: ReturnType<
     typeof createLocalStorageRecentSearchesPlugin
   >,
-  setSearchState: Dispatch<any>
+  setSearchState?: Dispatch<any>
 ) {
   return createQuerySuggestionsPlugin({
     searchClient,
@@ -30,12 +30,14 @@ export default function popularSearchesPluginCreator(
       return {
         ...source,
         onSelect({ item }) {
-          setSearchState(
-            (currentSearchState: InstantSearchProps['searchState']) => ({
-              ...currentSearchState,
-              query: item.query,
-            })
-          )
+          if (typeof setSearchState === 'function') {
+            setSearchState(
+              (currentSearchState: InstantSearchProps['searchState']) => ({
+                ...currentSearchState,
+                query: item.query,
+              })
+            )
+          }
         },
         templates: {
           ...source.templates,
