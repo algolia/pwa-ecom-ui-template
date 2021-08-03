@@ -7,6 +7,7 @@ import { InstantSearch } from 'react-instantsearch-dom'
 import SearchContext from '@/contexts/SearchContext'
 import { useSearchClient } from '@/hooks/useSearchClient'
 import debounce from '@/utils/debounce'
+import { isObjectEmpty } from '@/utils/misc'
 import { createURL, searchStateToUrl, urlToSearchState } from '@/utils/url'
 
 interface SearchProps {
@@ -39,8 +40,10 @@ export default function Search({
 }: SearchProps): JSX.Element {
   const router = useRouter()
 
-  const initialSearchState =
-    customInitialSearchState ?? urlToSearchState(router?.asPath.slice(1))
+  const initialSearchState = isObjectEmpty(customInitialSearchState)
+    ? urlToSearchState(router?.asPath.slice(1))
+    : customInitialSearchState
+
   const [searchState, setSearchState] =
     useState<SearchState>(initialSearchState)
 
@@ -98,11 +101,11 @@ export default function Search({
   // Search context
   const contextValue = useMemo(
     () => ({
-      query: initialSearchState.query,
+      query: initialSearchState?.query,
       setSearchState,
       searchClient,
     }),
-    [initialSearchState.query, searchClient]
+    [initialSearchState?.query, searchClient]
   )
 
   return (

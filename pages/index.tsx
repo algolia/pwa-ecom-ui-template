@@ -1,8 +1,8 @@
-import type { GetServerSideProps } from 'next'
+import type { GetStaticProps } from 'next'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 import { Hits } from 'react-instantsearch-dom'
 
-import PageLayout, { getServerSidePropsPage } from '@/layouts/PageLayout'
+import PageLayout, { getStaticPropsPage } from '@/layouts/PageLayout'
 
 interface IndexProps {
   searchState: InstantSearchProps['searchState']
@@ -17,6 +17,6 @@ export default function Index(props: IndexProps): JSX.Element {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = getServerSidePropsPage(
+export const getStaticProps: GetStaticProps = getStaticPropsPage(
   Index as React.ComponentType
 )
