@@ -3,15 +3,15 @@ import type { SearchClient } from 'algoliasearch/lite'
 import { useCallback, useMemo } from 'react'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
-import VirtualSearchBox from '@/components/virtual-search-box/virtual-search-box'
+import VirtualSearchBox from '@/components/@instantsearch/virtual-search-box/virtual-search-box'
 import { useSearchContext } from '@/hooks/useSearchContext'
 import createAnimatedPlaceholderPlugin from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
 import createClearLeftPlugin from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 
-import type { AutocompleteProps } from './autocomplete'
-import Autocomplete from './autocomplete'
-import searchButtonPluginCreator from './plugins/search-button'
-import voiceCameraIconsPluginCreator from './plugins/voice-camera-icons'
+import type { AutocompleteProps } from '../_default/autocomplete'
+import Autocomplete from '../_default/autocomplete'
+import searchButtonPluginCreator from '../plugins/search-button'
+import voiceCameraIconsPluginCreator from '../plugins/voice-camera-icons'
 
 export interface AutocompleteInstantSearchProps extends AutocompleteProps {
   searchClient?: SearchClient

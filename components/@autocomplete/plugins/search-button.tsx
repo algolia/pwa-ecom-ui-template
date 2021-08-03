@@ -1,7 +1,7 @@
 import { render } from 'react-dom'
 
-import Button from '@/components/button/button'
 import createTemplatePlugin from '@/lib/autocomplete/plugins/createTemplatePlugin'
+import Button from '@ui/button/button'
 
 export default function searchButtonPluginCreator() {
   return createTemplatePlugin({

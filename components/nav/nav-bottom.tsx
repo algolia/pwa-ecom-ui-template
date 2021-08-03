@@ -1,10 +1,10 @@
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
 import { useMemo } from 'react'
 
-import AutocompleteInstantSearch from '@/components/autocomplete/autocomplete-instantsearch'
-import Button from '@/components/button/button'
-import IconLabel from '@/components/icon-label/icon-label'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
+import AutocompleteInstantSearch from '@autocomplete/instantsearch/autocomplete-instantsearch'
+import Button from '@ui/button/button'
+import IconLabel from '@ui/icon-label/icon-label'
 
 import NavItem from './nav-item'
 

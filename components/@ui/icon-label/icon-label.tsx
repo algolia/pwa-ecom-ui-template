@@ -1,5 +1,5 @@
-import Icon from '@/components/icon/icon'
-import Label from '@/components/label/label'
+import Icon from '@ui/icon/icon'
+import Label from '@ui/label/label'
 
 type LabelPosition = 'top' | 'bottom' | 'left' | 'right'
 

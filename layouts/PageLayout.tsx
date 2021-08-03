@@ -3,10 +3,10 @@ import dynamic from 'next/dynamic'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
 import BannerXS from '@/components/banner/banner-xs'
-import Search from '@/components/search/search'
 import { appId, indexName, searchApiKey } from '@/utils/env'
 import { getResultsState } from '@/utils/page'
 import { urlToSearchState } from '@/utils/url'
+import Search from '@instantsearch/search/search'
 
 interface PageLayoutProps {
   children?: React.ReactNode

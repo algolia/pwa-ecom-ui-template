@@ -1,4 +1,4 @@
-import Link from '@/components/link/link'
+import Link from '@ui/link/link'
 
 export default function Logo(): JSX.Element {
   return (

@@ -1,6 +1,6 @@
 import CheckIcon from '@material-design-icons/svg/outlined/check.svg'
 
-import Button from '@/components/button/button'
+import Button from '@ui/button/button'
 
 export default function Buttons(): JSX.Element {
   return (
