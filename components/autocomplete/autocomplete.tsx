@@ -37,7 +37,6 @@ export default function Autocomplete({
       panelPlacement: 'full-width',
       detachedMediaQuery: '(max-width: 1439px)',
       openOnFocus: true,
-      // debug: true,
       initialState: {
         query: initialQuery,
       },
