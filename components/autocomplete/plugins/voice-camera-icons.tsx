@@ -39,7 +39,7 @@ function AutocompleteIcons({
   )
 }
 
-export default function voiceCameraIconsPlugin() {
+export default function voiceCameraIconsPluginCreator() {
   return createTemplatePlugin({
     container: '.aa-InputWrapperSuffix',
     render(root) {

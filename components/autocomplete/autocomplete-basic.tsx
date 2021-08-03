@@ -9,8 +9,10 @@ import createCloseLeftPlugin from '@/lib/autocomplete/plugins/createCloseLeftPlu
 
 import type { AutocompleteProps } from './autocomplete'
 import Autocomplete from './autocomplete'
-import popularSearchesPlugin from './plugins/popular-searches'
-import recentSearchesPlugin from './plugins/recent-searches'
+import popularSearchesPluginCreator from './plugins/popular-searches'
+import recentSearchesPluginCreator from './plugins/recent-searches'
+import searchButtonPluginCreator from './plugins/search-button'
+import voiceCameraIconsPluginCreator from './plugins/voice-camera-icons'
 
 export interface AutocompleteBasicProps extends AutocompleteProps {
   searchClient?: SearchClient
@@ -35,16 +37,13 @@ export default function AutocompleteBasic({
 
   const searchClient = customSearchClient ?? searchClientContext
 
-  const recentSearches = useMemo(
-    () => recentSearchesPlugin(setSearchState),
-    [setSearchState]
-  )
+  const recentSearches = useMemo(() => recentSearchesPluginCreator(), [])
 
   const plugins = useMemo(
     () => [
       ...customPlugins,
       recentSearches,
-      popularSearchesPlugin(searchClient, recentSearches, setSearchState),
+      popularSearchesPluginCreator(searchClient, recentSearches),
       createAnimatedPlaceholderPlugin({
         placeholders,
         placeholderTemplate: (currentPlaceholder: string) =>
@@ -53,6 +52,8 @@ export default function AutocompleteBasic({
         letterDelay: placeholderLetterDelay,
       }),
       createCloseLeftPlugin(),
+      voiceCameraIconsPluginCreator(),
+      searchButtonPluginCreator(),
     ],
     [
       customPlugins,

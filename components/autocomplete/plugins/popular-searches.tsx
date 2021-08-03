@@ -5,7 +5,7 @@ import type { SearchClient } from 'algoliasearch/lite'
 import type { Dispatch } from 'react'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
-export default function popularSearchesPlugin(
+export default function popularSearchesPluginCreator(
   searchClient: SearchClient,
   recentSearchesPlugin: ReturnType<
     typeof createLocalStorageRecentSearchesPlugin
