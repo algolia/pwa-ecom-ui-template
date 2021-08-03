@@ -1,8 +1,6 @@
 import type { SearchClient } from 'algoliasearch/lite'
-import { useCallback, useMemo } from 'react'
-import type { InstantSearchProps } from 'react-instantsearch-dom'
+import { useMemo } from 'react'
 
-import VirtualSearchBox from '@/components/virtual-search-box/virtual-search-box'
 import { useSearchContext } from '@/hooks/useSearchContext'
 import createAnimatedPlaceholderPlugin from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
 import createCloseLeftPlugin from '@/lib/autocomplete/plugins/createCloseLeftPlugin'
@@ -29,11 +27,8 @@ export default function AutocompleteBasic({
   plugins: customPlugins = [],
   ...props
 }: AutocompleteBasicProps): JSX.Element {
-  const {
-    searchClient: searchClientContext,
-    query: initialQuery,
-    setSearchState,
-  } = useSearchContext()
+  const { searchClient: searchClientContext, query: initialQuery } =
+    useSearchContext()
 
   const searchClient = customSearchClient ?? searchClientContext
 
@@ -59,41 +54,13 @@ export default function AutocompleteBasic({
       customPlugins,
       searchClient,
       recentSearches,
-      setSearchState,
       placeholders,
       placeholderWordDelay,
       placeholderLetterDelay,
     ]
   )
 
-  const onSubmit = useCallback(
-    ({ state }) => {
-      setSearchState(
-        (currentSearchState: InstantSearchProps['searchState']) => ({
-          ...currentSearchState,
-          query: state.query,
-        })
-      )
-    },
-    [setSearchState]
-  )
-
-  const onReset = useCallback(() => {
-    setSearchState((currentSearchState: InstantSearchProps['searchState']) => ({
-      ...currentSearchState,
-      query: '',
-    }))
-  }, [setSearchState])
-
   return (
-    <Autocomplete
-      plugins={plugins}
-      initialQuery={initialQuery}
-      onSubmit={onSubmit}
-      onReset={onReset}
-      {...props}
-    >
-      <VirtualSearchBox />
-    </Autocomplete>
+    <Autocomplete plugins={plugins} initialQuery={initialQuery} {...props} />
   )
 }
