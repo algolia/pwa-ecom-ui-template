@@ -61,6 +61,13 @@ export default function Autocomplete({
     })
 
     return () => {
+      // Waiting for an 'unsubscribe' method on Autocomplete plugin API
+      plugins.forEach((plugin: any) => {
+        if (typeof plugin.unsubscribe === 'function') {
+          plugin.unsubscribe()
+        }
+      })
+
       search.destroy()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

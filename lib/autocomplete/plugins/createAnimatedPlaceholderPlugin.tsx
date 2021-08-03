@@ -1,3 +1,4 @@
+import type { BaseItem } from '@algolia/autocomplete-core'
 import type { AutocompletePlugin } from '@algolia/autocomplete-js'
 
 type CreateAnimatedPlaceholderPluginProps = {
@@ -5,6 +6,13 @@ type CreateAnimatedPlaceholderPluginProps = {
   placeholderTemplate: (currentPlaceholder: string) => string
   wordDelay?: number
   letterDelay?: number
+}
+
+type CustomAutocompletePlugin<
+  TItem extends BaseItem,
+  TData
+> = AutocompletePlugin<TItem, TData> & {
+  unsubscribe?: () => void
 }
 
 export default function createAnimatedPlaceholderPlugin<
@@ -15,9 +23,13 @@ export default function createAnimatedPlaceholderPlugin<
   placeholderTemplate,
   wordDelay = 1000,
   letterDelay = 150,
-}: CreateAnimatedPlaceholderPluginProps): AutocompletePlugin<TItem, TData> {
+}: CreateAnimatedPlaceholderPluginProps): CustomAutocompletePlugin<
+  TItem,
+  TData
+> {
   let currentPlaceholderWordIdx = 0
   let placeholderInterval: ReturnType<typeof setInterval>
+  let placeholderTimeout: ReturnType<typeof setTimeout>
   let subscribed = false
 
   const updatePlaceholder = (cb: (placeholderWord: string) => void) => {
@@ -34,7 +46,7 @@ export default function createAnimatedPlaceholderPlugin<
         currentPlaceholderWordIdx =
           (currentPlaceholderWordIdx + 1) % placeholders.length
 
-        setTimeout(() => {
+        placeholderTimeout = setTimeout(() => {
           updatePlaceholder(cb)
         }, wordDelay)
 
@@ -82,6 +94,11 @@ export default function createAnimatedPlaceholderPlugin<
           placeholderDetachedEl.innerHTML = placeholder
         }
       })
+    },
+
+    unsubscribe() {
+      clearInterval(placeholderInterval)
+      clearTimeout(placeholderTimeout)
     },
   }
 }
