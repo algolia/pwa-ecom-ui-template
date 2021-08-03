@@ -3,14 +3,14 @@ import type {
   AutocompletePlugin,
 } from '@algolia/autocomplete-js'
 
-type CreateCloseLeftPluginProps = {
+type CreateClearLeftPluginProps = {
   initialQuery?: string
 }
 
-export default function createCloseLeftPlugin<
+export default function createClearLeftPlugin<
   TItem extends Record<string, unknown>,
   TData
->({ initialQuery = '' }: CreateCloseLeftPluginProps = {}): AutocompletePlugin<
+>({ initialQuery = '' }: CreateClearLeftPluginProps = {}): AutocompletePlugin<
   TItem,
   TData
 > {

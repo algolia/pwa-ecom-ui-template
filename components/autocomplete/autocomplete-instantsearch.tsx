@@ -6,7 +6,7 @@ import type { InstantSearchProps } from 'react-instantsearch-dom'
 import VirtualSearchBox from '@/components/virtual-search-box/virtual-search-box'
 import { useSearchContext } from '@/hooks/useSearchContext'
 import createAnimatedPlaceholderPlugin from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
-import createCloseLeftPlugin from '@/lib/autocomplete/plugins/createCloseLeftPlugin'
+import createClearLeftPlugin from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 
 import type { AutocompleteProps } from './autocomplete'
 import Autocomplete from './autocomplete'
@@ -40,7 +40,7 @@ export default function AutocompleteInstantSearch({
         wordDelay: placeholderWordDelay,
         letterDelay: placeholderLetterDelay,
       }),
-      createCloseLeftPlugin({ initialQuery }),
+      createClearLeftPlugin({ initialQuery }),
       voiceCameraIconsPluginCreator(),
       searchButtonPluginCreator(),
     ],

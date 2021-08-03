@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 
 import { useSearchContext } from '@/hooks/useSearchContext'
 import createAnimatedPlaceholderPlugin from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
-import createCloseLeftPlugin from '@/lib/autocomplete/plugins/createCloseLeftPlugin'
+import createClearLeftPlugin from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 
 import type { AutocompleteProps } from './autocomplete'
 import Autocomplete from './autocomplete'
@@ -46,7 +46,7 @@ export default function AutocompleteBasic({
         wordDelay: placeholderWordDelay,
         letterDelay: placeholderLetterDelay,
       }),
-      createCloseLeftPlugin({ initialQuery }),
+      createClearLeftPlugin({ initialQuery }),
       voiceCameraIconsPluginCreator(),
       searchButtonPluginCreator(),
     ],
