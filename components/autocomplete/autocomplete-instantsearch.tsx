@@ -44,13 +44,8 @@ export default function AutocompleteInstantSearch({
       voiceCameraIconsPluginCreator(),
       searchButtonPluginCreator(),
     ],
-    [
-      customPlugins,
-      placeholders,
-      placeholderWordDelay,
-      placeholderLetterDelay,
-      initialQuery,
-    ]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [placeholders, placeholderWordDelay, placeholderLetterDelay]
   )
 
   const onSubmit = useCallback(

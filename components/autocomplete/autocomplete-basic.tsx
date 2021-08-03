@@ -50,14 +50,13 @@ export default function AutocompleteBasic({
       voiceCameraIconsPluginCreator(),
       searchButtonPluginCreator(),
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
-      customPlugins,
       searchClient,
       recentSearches,
       placeholders,
       placeholderWordDelay,
       placeholderLetterDelay,
-      initialQuery,
     ]
   )
 
