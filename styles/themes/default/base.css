@@ -59,4 +59,8 @@
   h5 {
     @apply heading-5;
   }
+
+  mark {
+    @apply font-bold text-brand-nebula bg-transparent border-b border-brand-nebula;
+  }
 }
