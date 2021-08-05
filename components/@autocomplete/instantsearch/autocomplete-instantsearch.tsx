@@ -54,6 +54,7 @@ export default function AutocompleteInstantSearch({
         (currentSearchState: InstantSearchProps['searchState']) => ({
           ...currentSearchState,
           query: state.query,
+          page: 1,
         })
       )
     },
@@ -64,6 +65,7 @@ export default function AutocompleteInstantSearch({
     setSearchState((currentSearchState: InstantSearchProps['searchState']) => ({
       ...currentSearchState,
       query: '',
+      page: 1,
     }))
   }, [setSearchState])
 
@@ -74,6 +76,7 @@ export default function AutocompleteInstantSearch({
           (currentSearchState: InstantSearchProps['searchState']) => ({
             ...currentSearchState,
             query: state.query,
+            page: 1,
           })
         )
       }
