@@ -45,5 +45,7 @@ module.exports = {
       laptop: '1440px',
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+  ],
 }
