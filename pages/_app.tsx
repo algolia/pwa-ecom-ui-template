@@ -4,7 +4,7 @@ import Head from 'next/head'
 import AppLayout from '@/layouts/AppLayout'
 import { isDev } from '@/utils/env'
 /// #if DEV
-import Dev from '@ui/button/button'
+import Dev from '@dev/dev'
 /// #endif
 
 import '@/styles/_index.css'
