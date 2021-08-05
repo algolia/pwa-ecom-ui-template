@@ -31,17 +31,17 @@ export default function Footer(): JSX.Element {
 
         <ul className="text-white text-center laptop:hidden">
           <li>
-            <Link href="/" title="Home">
+            <Link href="/" title="Home" className="block p-4">
               Home
             </Link>
           </li>
           <li>
-            <Link href="/about-us" title="About Us">
+            <Link href="/about-us" title="About Us" className="block p-4">
               About Us
             </Link>
           </li>
           <li>
-            <Link href="/contact" title="Contact">
+            <Link href="/contact" title="Contact" className="block p-4">
               Contact
             </Link>
           </li>
