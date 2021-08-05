@@ -1,0 +1,19 @@
+.tag-theme-default {
+  @apply bg-gray-400 text-white uppercase;
+}
+
+.tag-theme-eco {
+  @apply bg-uranus-base text-white uppercase;
+}
+
+.tag-theme-price {
+  @apply bg-venus-base text-white uppercase;
+}
+
+.tag-theme-popular {
+  @apply bg-nebula-dark text-white uppercase;
+}
+
+.tag-theme-out-of-stock {
+  @apply bg-gray-500 text-white uppercase;
+}
