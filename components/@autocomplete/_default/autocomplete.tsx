@@ -74,7 +74,7 @@ export default function Autocomplete({
   }, [customContainer, customPanelContainer])
 
   const panelClassName = useClassNames(
-    'absolute w-full',
+    'absolute w-full z-10',
     { hidden: hidePanel },
     [hidePanel]
   )
