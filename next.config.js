@@ -24,6 +24,9 @@ module.exports = withPlugins([withBundleAnalyzer, withPWA], {
       'state',
     ],
   },
+  images: {
+    domains: ['img1.g-star.com']
+  },
   pwa: {
     dest: 'public',
     disable: ifdefOpts.DEV,

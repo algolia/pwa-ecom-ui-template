@@ -7,6 +7,7 @@ import { InstantSearch } from 'react-instantsearch-dom'
 import SearchContext from '@/contexts/SearchContext'
 import { useSearchClient } from '@/hooks/useSearchClient'
 import debounce from '@/utils/debounce'
+import { isObjectEmpty } from '@/utils/misc'
 import { createURL, searchStateToUrl, urlToSearchState } from '@/utils/url'
 
 interface SearchProps {
@@ -32,16 +33,19 @@ export default function Search({
   indexName,
   searchClient: customSearchClient,
   resultsState,
-  searchState: initialSearchState,
+  searchState: customInitialSearchState,
   onSearchStateChange: customOnSearchStateChange,
   createURL: customCreateURL,
   ...props
 }: SearchProps): JSX.Element {
   const router = useRouter()
 
-  const [searchState, setSearchState] = useState<SearchState>(
-    initialSearchState ?? urlToSearchState(router?.asPath.slice(1))
-  )
+  const initialSearchState = isObjectEmpty(customInitialSearchState)
+    ? urlToSearchState(router?.asPath.slice(1))
+    : customInitialSearchState
+
+  const [searchState, setSearchState] =
+    useState<SearchState>(initialSearchState)
 
   const searchClient = useSearchClient({
     appId,
@@ -65,8 +69,13 @@ export default function Search({
 
   // Listen for route changes
   useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      setSearchState(urlToSearchState(url))
+    const handleRouteChange = (
+      url: string,
+      { shallow }: { shallow: boolean }
+    ) => {
+      if (!shallow) {
+        setSearchState(urlToSearchState(url))
+      }
     }
 
     router.events.on('routeChangeStart', handleRouteChange)
@@ -84,6 +93,10 @@ export default function Search({
     },
     [debouncedUpdateRouterUrl]
   )
+
+  useEffect(() => {
+    debouncedUpdateRouterUrl(searchState)
+  }, [debouncedUpdateRouterUrl, searchState])
 
   // Search context
   const contextValue = useMemo(

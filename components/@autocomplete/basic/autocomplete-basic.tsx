@@ -3,12 +3,14 @@ import { useMemo } from 'react'
 
 import { useSearchContext } from '@/hooks/useSearchContext'
 import createAnimatedPlaceholderPlugin from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
-import createCloseLeftPlugin from '@/lib/autocomplete/plugins/createCloseLeftPlugin'
+import createClearLeftPlugin from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 
-import type { AutocompleteProps } from './autocomplete'
-import Autocomplete from './autocomplete'
-import popularSearchesPlugin from './plugins/popular-searches'
-import recentSearchesPlugin from './plugins/recent-searches'
+import type { AutocompleteProps } from '../_default/autocomplete'
+import Autocomplete from '../_default/autocomplete'
+import popularSearchesPluginCreator from '../plugins/popular-searches'
+import recentSearchesPluginCreator from '../plugins/recent-searches'
+import searchButtonPluginCreator from '../plugins/search-button'
+import voiceCameraIconsPluginCreator from '../plugins/voice-camera-icons'
 
 export interface AutocompleteBasicProps extends AutocompleteProps {
   searchClient?: SearchClient
@@ -30,13 +32,13 @@ export default function AutocompleteBasic({
 
   const searchClient = customSearchClient ?? searchClientContext
 
-  const recentSearches = useMemo(() => recentSearchesPlugin(), [])
+  const recentSearches = useMemo(() => recentSearchesPluginCreator(), [])
 
   const plugins = useMemo(
     () => [
       ...customPlugins,
       recentSearches,
-      popularSearchesPlugin(searchClient, recentSearches),
+      popularSearchesPluginCreator(searchClient, recentSearches),
       createAnimatedPlaceholderPlugin({
         placeholders,
         placeholderTemplate: (currentPlaceholder: string) =>
@@ -44,10 +46,12 @@ export default function AutocompleteBasic({
         wordDelay: placeholderWordDelay,
         letterDelay: placeholderLetterDelay,
       }),
-      createCloseLeftPlugin(),
+      createClearLeftPlugin({ initialQuery }),
+      voiceCameraIconsPluginCreator(),
+      searchButtonPluginCreator(),
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
-      customPlugins,
       searchClient,
       recentSearches,
       placeholders,

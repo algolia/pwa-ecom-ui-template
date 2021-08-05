@@ -4,10 +4,13 @@ import type { ReactElement } from 'react'
 import { createElement, Fragment, useEffect, useRef } from 'react'
 import { render } from 'react-dom'
 
+import { useClassNames } from '@/hooks/useClassNames'
+
 export interface AutocompleteProps extends Partial<AutocompleteOptions<any>> {
   container?: string | HTMLElement
   panelContainer?: string | HTMLElement
   initialQuery?: string
+  hidePanel?: boolean
   children?: React.ReactNode
 }
 
@@ -16,6 +19,7 @@ export default function Autocomplete({
   panelContainer: customPanelContainer,
   plugins = [],
   initialQuery = '',
+  hidePanel = false,
   children,
   ...props
 }: AutocompleteProps): JSX.Element {
@@ -33,7 +37,6 @@ export default function Autocomplete({
       panelPlacement: 'full-width',
       detachedMediaQuery: '(max-width: 1439px)',
       openOnFocus: true,
-      // debug: true,
       initialState: {
         query: initialQuery,
       },
@@ -58,15 +61,28 @@ export default function Autocomplete({
     })
 
     return () => {
+      // Waiting for an 'unsubscribe' method on Autocomplete plugin API
+      plugins.forEach((plugin: any) => {
+        if (typeof plugin.unsubscribe === 'function') {
+          plugin.unsubscribe()
+        }
+      })
+
       search.destroy()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [customContainer])
+  }, [customContainer, customPanelContainer])
+
+  const panelClassName = useClassNames(
+    'absolute w-full z-10',
+    { hidden: hidePanel },
+    [hidePanel]
+  )
 
   return (
     <>
       <div className="w-full h-full flex items-center" ref={containerRef} />
-      <div className="absolute w-full" ref={panelContainerRef} />
+      <div className={panelClassName} ref={panelContainerRef} />
 
       {children}
     </>

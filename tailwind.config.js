@@ -25,6 +25,8 @@ module.exports = {
 
         'uranus-base': 'var(--color-uranus-base)',
 
+        'venus-base': 'var(--color-venus-base)',
+
         'nebula-lightest': 'var(--color-nebula-lightest)',
         'nebula-dark': 'var(--color-nebula-dark)',
         'nebula-darkest': 'var(--color-nebula-darkest)',
@@ -43,5 +45,7 @@ module.exports = {
       laptop: '1440px',
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+  ],
 }

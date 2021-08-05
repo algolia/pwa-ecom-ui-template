@@ -1,7 +1,7 @@
 import { useRouter } from 'next/dist/client/router'
 import { useCallback, useMemo } from 'react'
 
-import Link from '../link/link'
+import Link from '@ui/link/link'
 
 interface NavItemProps {
   label: string

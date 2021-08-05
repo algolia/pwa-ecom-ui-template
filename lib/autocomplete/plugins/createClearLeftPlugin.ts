@@ -3,12 +3,24 @@ import type {
   AutocompletePlugin,
 } from '@algolia/autocomplete-js'
 
-export default function createCloseLeftPlugin<
+type CreateClearLeftPluginProps = {
+  initialQuery?: string
+}
+
+export default function createClearLeftPlugin<
   TItem extends Record<string, unknown>,
   TData
->(): AutocompletePlugin<TItem, TData> {
+>({ initialQuery = '' }: CreateClearLeftPluginProps = {}): AutocompletePlugin<
+  TItem,
+  TData
+> {
   let clearBtnEl: HTMLElement | null
   let submitBtnEl: HTMLElement | null
+
+  const toggleBtns = (queryEmpty: boolean) => {
+    if (clearBtnEl) clearBtnEl.style.display = queryEmpty ? 'none' : 'block'
+    if (submitBtnEl) submitBtnEl.style.display = queryEmpty ? 'block' : 'none'
+  }
 
   return {
     subscribe() {
@@ -21,17 +33,17 @@ export default function createCloseLeftPlugin<
         const prefixLabelEl = document.querySelector(
           '.aa-InputWrapperPrefix .aa-Label'
         )
-        if (clearBtnEl) prefixLabelEl?.prepend(clearBtnEl)
+        if (clearBtnEl) {
+          prefixLabelEl?.prepend(clearBtnEl)
+        }
+
+        toggleBtns(!initialQuery)
       })
     },
 
     onStateChange({ state }: OnStateChangeProps<TItem>) {
-      const isQueryEmpty = !state.query
-
       // Show/hide clear/submit button elements based on the current query
-      if (clearBtnEl) clearBtnEl.style.display = isQueryEmpty ? 'none' : 'block'
-      if (submitBtnEl)
-        submitBtnEl.style.display = isQueryEmpty ? 'block' : 'none'
+      toggleBtns(!state.query)
     },
   }
 }

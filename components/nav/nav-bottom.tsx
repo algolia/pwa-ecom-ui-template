@@ -1,10 +1,10 @@
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
 import { useMemo } from 'react'
 
-import AutocompleteAdvanced from '@/components/autocomplete/autocomplete-advanced'
-import Button from '@/components/button/button'
-import IconLabel from '@/components/icon-label/icon-label'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
+import AutocompleteInstantSearch from '@autocomplete/instantsearch/autocomplete-instantsearch'
+import Button from '@ui/button/button'
+import IconLabel from '@ui/icon-label/icon-label'
 
 import NavItem from './nav-item'
 
@@ -34,8 +34,8 @@ export default function NavBottom(): JSX.Element {
       )}
 
       <div className="w-full pl-2.5 laptop:w-80 laptop:p-0 laptop:transition-width laptop:duration-300 laptop:ease-out laptop:absolute laptop:right-0 laptop:focus-within:w-11/12">
-        <div className="hidden absolute w-24 h-full -translate-x-full bg-gradient-to-r to-white laptop:block"></div>
-        <AutocompleteAdvanced placeholders={placeholders} />
+        <div className="hidden absolute w-24 h-full -translate-x-full bg-gradient-to-l from-white laptop:block"></div>
+        <AutocompleteInstantSearch placeholders={placeholders} />
       </div>
     </div>
   )
