@@ -24,7 +24,6 @@
     --color-nebula-darkest: #1e2b8e;
 
     /* ========== Autocomplete */
-    --aa-detached-media-query: (max-width:1439px);
     --aa-detached-modal-media-query: ();
 
     /* ========== React InstantSearch widgets */
@@ -34,6 +33,16 @@
 
   ::selection {
     @apply bg-brand-black text-white;
+  }
+
+  #__next {
+    @apply flex flex-col;
+  }
+
+  html,
+  body,
+  #__next {
+    @apply h-full;
   }
 
   body {

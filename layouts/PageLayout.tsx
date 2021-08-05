@@ -32,7 +32,7 @@ export default function PageLayout({
       <BannerXS>20% Off! Code: SPRING21 - Terms apply*</BannerXS>
       <Nav />
 
-      <main>{children}</main>
+      <main className="flex-grow">{children}</main>
 
       <Footer />
     </Search>
