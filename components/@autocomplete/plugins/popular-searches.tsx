@@ -5,6 +5,8 @@ import type { SearchClient } from 'algoliasearch/lite'
 import type { Dispatch } from 'react'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
+import { querySuggestionsIndexName } from '@/utils/env'
+
 export default function popularSearchesPluginCreator(
   searchClient: SearchClient,
   recentSearchesPlugin: ReturnType<
@@ -14,7 +16,7 @@ export default function popularSearchesPluginCreator(
 ) {
   return createQuerySuggestionsPlugin({
     searchClient,
-    indexName: 'instant_search_demo_query_suggestions',
+    indexName: querySuggestionsIndexName,
     categoryAttribute: [
       'instant_search',
       'facets',
