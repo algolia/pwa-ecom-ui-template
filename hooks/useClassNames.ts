@@ -13,3 +13,5 @@ export function useClassNames(...args: Argument[]) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps as DependencyList)
 }
+
+export type ClassNamesArgument = Argument
