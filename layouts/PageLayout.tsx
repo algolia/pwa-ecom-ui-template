@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
 import BannerXS from '@/components/banner/banner-xs'
+import Footer from '@/components/footer/footer'
 import { appId, indexName, searchApiKey } from '@/utils/env'
 import { getResultsState } from '@/utils/page'
 import { urlToSearchState } from '@/utils/url'
@@ -32,6 +33,8 @@ export default function PageLayout({
       <Nav />
 
       <main>{children}</main>
+
+      <Footer />
     </Search>
   )
 }
