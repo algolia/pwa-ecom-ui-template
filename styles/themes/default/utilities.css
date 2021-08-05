@@ -52,13 +52,25 @@
     @apply text-xs;
   }
 
+  .label-semibold {
+    @apply text-sm font-semibold uppercase;
+  }
+
   .label-uppercase {
     @apply label-regular uppercase;
   }
 
   /* ---------- Small */
+  .small-regular {
+    @apply text-xs;
+  }
+
+  .small-bold {
+    @apply small-regular font-bold;
+  }
+
   .small-uppercase {
-    @apply text-xs uppercase;
+    @apply small-regular uppercase;
   }
 
   /* ---------- Button */
