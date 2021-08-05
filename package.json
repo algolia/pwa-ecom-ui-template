@@ -15,6 +15,7 @@
     "@algolia/autocomplete-plugin-recent-searches": "^1.2.2",
     "@algolia/autocomplete-preset-algolia": "^1.2.2",
     "@algolia/autocomplete-theme-classic": "^1.2.2",
+    "@algolia/react-instantsearch-widget-loadmore-with-progressbar": "^1.2.1",
     "@material-design-icons/svg": "^0.2.7",
     "algoliasearch": "^4.10.3",
     "classnames": "^2.3.1",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^11.0.1",
     "@svgr/webpack": "^5.5.0",
+    "@tailwindcss/aspect-ratio": "^0.2.1",
     "@tweakpane/core": "^1.0.5",
     "@types/node": "^16.4.10",
     "@types/qs": "^6.9.7",
