@@ -1,0 +1,4 @@
+.ais-LoadMoreWithProgressBar-progressBar-bar,
+.ais-LoadMoreWithProgressBar-progressBar-fallback {
+  @apply w-52 rounded-2xl;
+}
