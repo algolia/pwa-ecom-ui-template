@@ -3,7 +3,14 @@ import type { InstantSearchProps } from 'react-instantsearch-dom'
 
 export const createURL = (
   searchState: InstantSearchProps['searchState']
-): string => qs.stringify(searchState, { addQueryPrefix: true })
+): string =>
+  qs.stringify(searchState, {
+    addQueryPrefix: true,
+    filter(prefix, value) {
+      if (prefix === 'page') return undefined
+      return value
+    },
+  })
 
 export const urlToSearchState = (
   path: string = ''
