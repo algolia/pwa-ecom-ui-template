@@ -1,5 +1,5 @@
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
-import { useMemo } from 'react'
+import { useRef } from 'react'
 
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 import AutocompleteInstantSearch from '@autocomplete/instantsearch/autocomplete-instantsearch'
@@ -10,7 +10,7 @@ import NavItem from './nav-item'
 
 export default function NavBottom(): JSX.Element {
   const { laptop } = useTailwindScreens()
-  const placeholders = useMemo(() => ['products', 'articles', 'faq'], [])
+  const { current: placeholders } = useRef(['products', 'articles', 'faq'])
 
   return (
     <div className="flex items-center px-4 relative divide-x border-b border-neutral-light laptop:h-12 laptop:mx-20 laptop:px-0 laptop:justify-between laptop:border-none laptop:divide-none">
