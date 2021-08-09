@@ -1,0 +1,69 @@
+/* .ais-RefinementList {
+  @apply flex flex-col gap-2;
+} */
+
+.ais-RefinementList-showMore--disabled {
+  @apply hidden;
+}
+
+.ais-RefinementList-searchBox {
+  .ais-SearchBox-form {
+    @apply bg-neutral-lightest relative mb-2;
+  }
+
+  .ais-SearchBox-input {
+    @apply bg-neutral-lightest h-12 w-full outline-none appearance-none px-10;
+  }
+
+  .ais-SearchBox-submit,
+  .ais-SearchBox-reset {
+    @apply absolute top-1/2 -translate-y-1/2 px-4;
+  }
+
+  .ais-SearchBox-submit {
+    @apply left-0;
+  }
+
+  .ais-SearchBox-reset {
+    @apply right-0;
+  }
+
+  .ais-SearchBox-submitIcon {
+    @apply w-4 h-4;
+  }
+
+  .ais-SearchBox-resetIcon {
+    @apply w-3 h-3;
+  }
+}
+
+.ais-RefinementList-item,
+.ais-RefinementList-label {
+  @apply cursor-pointer;
+}
+
+.ais-RefinementList-label {
+  @apply flex py-2;
+}
+
+.ais-RefinementList-item--selected {
+  @apply font-bold;
+
+  .ais-RefinementList-checkbox {
+    @apply !bg-brand-black;
+
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3E%3Cpath d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="%23fff" stroke-width="1" stroke="%23fff" /%3E%3C/svg%3E');
+  }
+}
+
+.ais-RefinementList-checkbox {
+  @apply appearance-none w-5 h-5 border-2 border-brand-black rounded-sm cursor-pointer transition-colors hover:bg-nebula-lightest;
+}
+
+.ais-RefinementList-labelText {
+  @apply ml-3;
+}
+
+.ais-RefinementList-count {
+  @apply ml-auto small-bold text-neutral-dark;
+}
