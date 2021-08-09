@@ -17,7 +17,7 @@ export default function Index(props: IndexProps): JSX.Element {
       <Configure hitsPerPage={10} />
 
       <div className="flex laptop:mx-20 laptop:gap-16 laptop:mt-10">
-        <RefinementsPanel />
+        <RefinementsPanel dynamicWidgets={true} />
         <Hits />
       </div>
     </PageLayout>

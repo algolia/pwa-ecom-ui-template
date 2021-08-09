@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { Fragment, useRef, useState } from 'react'
 import {
   HierarchicalMenu,
   RefinementList,
@@ -12,7 +12,13 @@ export interface Panels {
   [key: string]: boolean
 }
 
-export function RefinementsPanel(): JSX.Element {
+export interface RefinementPanelProps {
+  dynamicWidgets?: boolean
+}
+
+export function RefinementsPanel({
+  dynamicWidgets = false,
+}: RefinementPanelProps): JSX.Element {
   const [panels, setPanels] = useState<Panels>({
     categories: true,
     priceFilter: false,
@@ -34,9 +40,11 @@ export function RefinementsPanel(): JSX.Element {
     'hierarchical_categories.lvl2',
   ])
 
+  const DynamicWidgets = dynamicWidgets ? ExperimentalDynamicWidgets : Fragment
+
   return (
     <div className="w-60 flex-shrink-0">
-      <ExperimentalDynamicWidgets>
+      <DynamicWidgets>
         <ExpandablePanel
           attribute="hierarchical_categories.lvl0"
           header="Categories"
@@ -63,7 +71,7 @@ export function RefinementsPanel(): JSX.Element {
         >
           <RefinementList attribute="sizeFilter" searchable={true} limit={7} />
         </ExpandablePanel>
-      </ExperimentalDynamicWidgets>
+      </DynamicWidgets>
     </div>
   )
 }
