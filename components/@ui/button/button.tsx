@@ -9,8 +9,9 @@ interface ButtonProps {
   className?: string
   onClick?: MouseEventHandler
   title?: string
-  type?: 'native' | 'primary' | 'secondary' | 'tertiary'
+  type?: 'native' | 'primary' | 'secondary' | 'tertiary' | 'item'
   size?: 'small' | 'large'
+  selected?: boolean
   disabled?: boolean
   icon?: any
 }
@@ -22,6 +23,7 @@ export default function Button({
   title,
   type = 'native',
   size = 'small',
+  selected = false,
   disabled = false,
   icon,
   ...props
@@ -32,8 +34,9 @@ export default function Button({
     {
       [`btn-${type}`]: type,
       [`btn-${size}`]: size,
+      'btn-selected': selected,
     },
-    [className, type, size]
+    [className, type, size, selected]
   )
 
   return (

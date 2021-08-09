@@ -1,6 +1,6 @@
 /* ---------- Common */
 .btn {
-  @apply btn-bold px-8 rounded-sm flex items-center gap-3;
+  @apply btn-bold px-8 rounded-sm flex items-center gap-3 transition-colors;
 }
 
 .btn:focus-visible {
@@ -16,52 +16,62 @@
 /* Primary */
 .btn-primary {
   @apply bg-brand-black text-white;
+
+  &:hover {
+    @apply bg-neutral-darkest;
+  }
+
+  &:active {
+    @apply bg-brand-black;
+  }
+
+  &:disabled {
+    @apply bg-neutral-light text-brand-black;
+  }
 }
 
-.btn-primary:hover {
-  @apply bg-neutral-darkest;
-}
-
-.btn-primary:active {
-  @apply bg-brand-black;
-}
-
-.btn-primary:disabled {
-  @apply bg-neutral-light text-brand-black;
-}
-
-/* Secondary */
-.btn-secondary {
+/* Secondary/item */
+.btn-secondary,
+.btn-item {
   @apply bg-white ring-2 ring-brand-black text-brand-black;
-}
 
-.btn-secondary:hover {
-  @apply ring-neutral-darkest text-neutral-darkest;
-}
+  &:hover {
+    @apply ring-neutral-darkest text-neutral-darkest;
+  }
 
-.btn-secondary:active {
-  @apply bg-neutral-lightest ring-brand-black text-brand-black;
-}
+  &:active {
+    @apply bg-neutral-lightest ring-brand-black text-brand-black;
+  }
 
-.btn-secondary:disabled {
-  @apply bg-neutral-lightest ring-neutral-light text-brand-black;
+  &:disabled {
+    @apply bg-neutral-lightest ring-neutral-light text-brand-black;
+  }
 }
 
 /* Tertiary */
 .btn-tertiary {
   @apply bg-brand-nebula text-white;
+
+  &:hover {
+    @apply bg-nebula-dark text-nebula-lightest;
+  }
+
+  &:active {
+    @apply bg-nebula-darkest text-nebula-lightest;
+  }
+
+  &:disabled {
+    @apply bg-neutral-light text-brand-black;
+  }
 }
 
-.btn-tertiary:hover {
-  @apply bg-nebula-dark text-nebula-lightest;
-}
+/* Item */
+.btn-item {
+  @apply px-3.5 ring-1;
 
-.btn-tertiary:active {
-  @apply bg-nebula-darkest text-nebula-lightest;
-}
-
-.btn-tertiary:disabled {
-  @apply bg-neutral-light text-brand-black;
+  &.btn-selected {
+    @apply bg-brand-black text-white;
+  }
 }
 
 /* ---------- Sizes */
