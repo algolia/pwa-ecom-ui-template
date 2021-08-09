@@ -1,6 +1,6 @@
 /* ---------- Common */
 .btn {
-  @apply btn-bold px-8 rounded-sm flex items-center gap-3 transition-colors;
+  @apply btn-bold px-8 rounded-sm flex items-center justify-center gap-3 transition-colors;
 }
 
 .btn:focus-visible {

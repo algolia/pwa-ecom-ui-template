@@ -1,10 +1,10 @@
-import type { MouseEventHandler } from 'react'
+import type { HTMLProps, MouseEventHandler } from 'react'
 
 import { useClassNames } from '@/hooks/useClassNames'
 
 import Icon from '../icon/icon'
 
-interface ButtonProps {
+interface ButtonProps extends Omit<HTMLProps<HTMLButtonElement>, 'size'> {
   children?: React.ReactNode
   className?: string
   onClick?: MouseEventHandler
