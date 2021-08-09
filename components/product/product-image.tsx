@@ -24,7 +24,7 @@ export function ProductImage({
         height="27"
         loading="lazy"
         className={useClassNames(
-          'transition-opacity duration-300',
+          'transition-opacity',
           {
             '!opacity-0': !loaded,
           },

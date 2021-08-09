@@ -38,6 +38,10 @@ module.exports = {
       },
       transitionProperty: {
         width: 'width',
+        height: 'height',
+      },
+      transitionDuration: {
+        DEFAULT: '300ms',
       },
     },
     screens: {
