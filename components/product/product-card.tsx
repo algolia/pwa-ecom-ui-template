@@ -45,25 +45,22 @@ export function ProductCard({
   available,
 }: ProductCardProps): JSX.Element {
   return (
-    <article className="w-full">
+    <article
+      className={useClassNames(
+        'w-full relative border border-transparent transition-all laptop:p-4 laptop:hover:shadow-sm laptop:hover:border-neutral-light',
+        { 'opacity-50': !available },
+        [available]
+      )}
+    >
       <Link
         href={url}
         title="See product details"
-        className={useClassNames(
-          'flex flex-col gap-1 border border-transparent transition-all laptop:p-4 laptop:hover:shadow-sm laptop:hover:border-neutral-light',
-          { 'opacity-50': !available },
-          [available]
-        )}
+        className="flex flex-col gap-1"
       >
         <div className="relative">
           {image && <ProductImage src={image} alt={title} />}
 
-          <ProductFavorite
-            className="absolute top-1 right-1"
-            onClick={() => {}}
-          />
-
-          {tags && (
+          {tags && tags.length > 0 && (
             <div className="absolute bottom-1 left-1 flex flex-col items-start gap-1">
               {tags.map((tag) => (
                 <ProductTag key={label} label={tag.label} theme={tag.theme} />
@@ -101,6 +98,11 @@ export function ProductCard({
           </footer>
         </div>
       </Link>
+
+      <ProductFavorite
+        className="absolute top-5 right-5 z-10"
+        onClick={() => {}}
+      />
     </article>
   )
 }
