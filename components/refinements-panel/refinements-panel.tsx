@@ -7,6 +7,7 @@ import {
 } from 'react-instantsearch-dom'
 
 import { ExpandablePanel } from '../@instantsearch/_widgets/expandable-panel/expandable-panel'
+import { SizeRefinementList } from '../@instantsearch/_widgets/size-refinement-list/size-refinement-list'
 
 export interface Panels {
   [key: string]: boolean
@@ -69,7 +70,7 @@ export function RefinementsPanel({
           isOpened={panels.sizeFilter}
           onToggle={() => onToggle('sizeFilter')}
         >
-          <RefinementList attribute="sizeFilter" searchable={true} limit={7} />
+          <SizeRefinementList attribute="sizeFilter" />
         </ExpandablePanel>
       </DynamicWidgets>
     </div>
