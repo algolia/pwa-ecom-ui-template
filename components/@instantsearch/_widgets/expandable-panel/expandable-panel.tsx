@@ -9,7 +9,7 @@ import { useClassNames } from '@/hooks/useClassNames'
 import Button from '@ui/button/button'
 import Icon from '@ui/icon/icon'
 
-interface PanelProps extends CurrentRefinementsProvided {
+export interface ExpandablePanelProps extends CurrentRefinementsProvided {
   attribute: string
   isOpened: boolean
   onToggle: MouseEventHandler
@@ -18,7 +18,7 @@ interface PanelProps extends CurrentRefinementsProvided {
   footer?: string
 }
 
-export default connectCurrentRefinements(
+export const ExpandablePanel = connectCurrentRefinements(
   ({
     items,
     attribute,
@@ -27,7 +27,7 @@ export default connectCurrentRefinements(
     header,
     children,
     footer,
-  }: PanelProps): JSX.Element => {
+  }: ExpandablePanelProps): JSX.Element => {
     const collapseRef = useRef<HTMLDivElement>(null)
     const firstToggle = useRef(true)
     const cn = useClassNames(

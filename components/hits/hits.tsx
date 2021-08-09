@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import type { InfiniteHitsProvided } from 'react-instantsearch-core'
 import { connectInfiniteHits, Highlight } from 'react-instantsearch-dom'
 
-import LoadMore from '@instantsearch/load-more/load-more'
+import LoadMore from '@instantsearch/_widgets/load-more/load-more'
 
 import type { ProductGridCardProps } from '../product/product-grid'
 import { ProductGrid } from '../product/product-grid'

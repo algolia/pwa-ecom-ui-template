@@ -3,7 +3,7 @@ import type { InstantSearchProps } from 'react-instantsearch-dom'
 import { Configure } from 'react-instantsearch-dom'
 
 import { Hits } from '@/components/hits/hits'
-import Refinements from '@/components/refinements/refinements'
+import { RefinementsPanel } from '@/components/refinements-panel/refinements-panel'
 import PageLayout, { getStaticPropsPage } from '@/layouts/PageLayout'
 
 interface IndexProps {
@@ -17,7 +17,7 @@ export default function Index(props: IndexProps): JSX.Element {
       <Configure hitsPerPage={10} />
 
       <div className="flex laptop:mx-20 laptop:gap-16 laptop:mt-10">
-        <Refinements />
+        <RefinementsPanel />
         <Hits />
       </div>
     </PageLayout>

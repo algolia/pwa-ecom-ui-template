@@ -3,7 +3,7 @@ import type { SearchClient } from 'algoliasearch/lite'
 import { useCallback, useMemo } from 'react'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
-import VirtualSearchBox from '@/components/@instantsearch/virtual-search-box/virtual-search-box'
+import VirtualSearchBox from '@/components/@instantsearch/_widgets/virtual-search-box/virtual-search-box'
 import { useSearchContext } from '@/hooks/useSearchContext'
 import createAnimatedPlaceholderPlugin from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
 import createClearLeftPlugin from '@/lib/autocomplete/plugins/createClearLeftPlugin'
