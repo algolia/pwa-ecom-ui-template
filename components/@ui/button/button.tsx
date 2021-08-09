@@ -24,6 +24,7 @@ export default function Button({
   size = 'small',
   disabled = false,
   icon,
+  ...props
 }: ButtonProps): JSX.Element {
   const cn = useClassNames(
     className,
@@ -42,6 +43,7 @@ export default function Button({
       className={type === 'native' ? className : cn}
       disabled={disabled}
       onClick={onClick}
+      {...props}
     >
       {icon && <Icon icon={icon} />}
       {children}
