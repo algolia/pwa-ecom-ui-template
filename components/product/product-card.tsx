@@ -50,7 +50,7 @@ export function ProductCard({
         href={url}
         title="See product details"
         className={useClassNames(
-          'flex flex-col gap-1 border border-transparent laptop:p-4 laptop:hover:shadow-sm laptop:hover:border-neutral-light',
+          'flex flex-col gap-1 border border-transparent transition-all laptop:p-4 laptop:hover:shadow-sm laptop:hover:border-neutral-light',
           { 'opacity-50': !available },
           [available]
         )}
