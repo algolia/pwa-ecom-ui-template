@@ -73,5 +73,8 @@
   em {
     @apply highlighting;
   }
+
+  input[type="search"]::-webkit-search-cancel-button {
+    @apply hidden;
   }
 }
