@@ -8,8 +8,6 @@ import { connectCurrentRefinements } from 'react-instantsearch-dom'
 import Button from '@ui/button/button'
 import Icon from '@ui/icon/icon'
 
-import { useClassNames } from '@/hooks/useClassNames'
-
 export interface ExpandablePanelProps extends CurrentRefinementsProvided {
   attribute: string
   isOpened: boolean
@@ -31,10 +29,6 @@ export const ExpandablePanel = connectCurrentRefinements(
   }: ExpandablePanelProps): JSX.Element => {
     const collapseRef = useRef<HTMLDivElement>(null)
     const firstToggle = useRef(true)
-    const cn = useClassNames(
-      'transition-height ease-out overflow-hidden h-0',
-      []
-    )
 
     const currentRefinementCount = useMemo(() => {
       const arr: string[] = []
@@ -95,7 +89,10 @@ export const ExpandablePanel = connectCurrentRefinements(
           </Button>
         </div>
 
-        <div className={cn} ref={collapseRef}>
+        <div
+          className="transition-height ease-out overflow-hidden h-0"
+          ref={collapseRef}
+        >
           <div className="mt-4">{children}</div>
           {footer && <div>{footer}</div>}
         </div>
