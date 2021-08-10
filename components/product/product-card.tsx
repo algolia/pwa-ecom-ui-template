@@ -1,4 +1,3 @@
-import { useClassNames } from '@/hooks/useClassNames'
 import Link from '@ui/link/link'
 
 import { ProductColorVariationList } from './product-color-variation-list'
@@ -10,6 +9,8 @@ import { ProductRating } from './product-rating'
 import type { ProductTagType } from './product-tag'
 import { ProductTag } from './product-tag'
 import { ProductTitle } from './product-title'
+
+import { useClassNames } from '@/hooks/useClassNames'
 
 export interface ProductCardProps {
   url?: string
@@ -47,7 +48,7 @@ export function ProductCard({
   return (
     <article
       className={useClassNames(
-        'w-full relative border border-transparent transition-all laptop:p-4 laptop:hover:shadow-sm laptop:hover:border-neutral-light',
+        'w-full relative border border-transparent transition-all laptop:p-3 laptop:hover:shadow-sm laptop:hover:border-neutral-light',
         { 'opacity-50': !available },
         [available]
       )}
