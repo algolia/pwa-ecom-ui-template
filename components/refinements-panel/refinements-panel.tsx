@@ -54,7 +54,7 @@ export function RefinementsPanel({
 
   const cn = useClassNames(
     'overflow-hidden laptop:transition-width',
-    isExpanded ? 'w-80' : 'w-0',
+    isExpanded ? 'w-72' : 'w-0',
     [isExpanded]
   )
 
@@ -74,7 +74,7 @@ export function RefinementsPanel({
       <div className={cn}>
         <div className="absolute right-0 w-16 h-full bg-gradient-to-l from-white pointer-events-none" />
 
-        <div className="w-80 laptop:pr-16">
+        <div className="w-72 laptop:pr-16">
           <DynamicWidgets>
             <ExpandablePanel
               attribute="hierarchical_categories.lvl0"
