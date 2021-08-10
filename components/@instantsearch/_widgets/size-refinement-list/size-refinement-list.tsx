@@ -13,15 +13,14 @@ type RefinementListItem = RefinementListProvided['items'][0] & {
 }
 
 export const SizeRefinementList = connectRefinementList(
-  ({ items, refine, canRefine }: SizeRefinementListProps) => {
+  ({ items, refine }: SizeRefinementListProps) => {
     return (
-      <ul className="flex flex-wrap gap-3 p-px" role="group">
+      <ul className="grid grid-cols-4 gap-3 p-px" role="group">
         {items.map(({ label, value, isRefined }: RefinementListItem) => (
-          <li key={label} className="flex flex-grow justify-center">
+          <li key={label} className="flex justify-center">
             <Button
               type="item"
               size="small"
-              disabled={!canRefine}
               selected={isRefined}
               role="menuitemcheckbox"
               aria-label={`Refine on ${label}`}
