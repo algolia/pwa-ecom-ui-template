@@ -28,6 +28,7 @@ export const ExpandablePanel = connectCurrentRefinements(
     footer,
   }: ExpandablePanelProps): JSX.Element => {
     const collapseRef = useRef<HTMLDivElement>(null)
+    const gradientRef = useRef<HTMLDivElement>(null)
     const firstToggle = useRef(true)
 
     const currentRefinementCount = useMemo(() => {
@@ -45,13 +46,18 @@ export const ExpandablePanel = connectCurrentRefinements(
 
     useEffect(() => {
       const collapseEl = collapseRef.current
-      if (!collapseEl) return undefined
+      const gradientEl = gradientRef.current
+
+      if (!collapseEl || !gradientEl) return undefined
 
       const onTransitionEnd = (ev: TransitionEvent) => {
         if (ev.target === collapseEl) {
           collapseEl.style.setProperty('height', 'auto')
+          gradientEl.style.setProperty('opacity', '0')
         }
       }
+
+      gradientEl.style.setProperty('opacity', '1')
 
       if (isOpened) {
         collapseEl.style.setProperty('height', `${collapseEl.scrollHeight}px`)
@@ -90,11 +96,16 @@ export const ExpandablePanel = connectCurrentRefinements(
         </div>
 
         <div
-          className="transition-height ease-out overflow-hidden h-0"
+          className="relative transition-height ease-out overflow-hidden h-0"
           ref={collapseRef}
         >
           <div className="mt-4">{children}</div>
           {footer && <div>{footer}</div>}
+
+          <div
+            ref={gradientRef}
+            className="absolute bottom-0 w-full h-8 bg-gradient-to-t from-white pointer-events-none transition-opacity ease-out"
+          />
         </div>
       </div>
     )
