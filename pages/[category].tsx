@@ -2,7 +2,7 @@ import type { GetServerSideProps } from 'next'
 import { useRouter } from 'next/dist/client/router'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
-import PageLayout, { getServerSidePropsPage } from '@/layouts/PageLayout'
+import { PageLayout, getServerSidePropsPage } from '@/layouts/page-layout'
 
 interface CategoryProps {
   searchState: InstantSearchProps['searchState']

@@ -29,7 +29,7 @@ export default function Pane(): JSX.Element {
     const gridFolder = pane.addFolder({ title: 'Grid' })
     gridFolder.addInput(state.dev.grid, 'hidden').on('change', (ev) => {
       dispatch({
-        type: ActionType.SetGridVisibility,
+        type: ActionType.SetDevGridVisibility,
         payload: ev.value as boolean,
       })
     })

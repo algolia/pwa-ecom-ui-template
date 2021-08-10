@@ -5,9 +5,10 @@ import { useMemo, useEffect, useRef } from 'react'
 import type { CurrentRefinementsProvided } from 'react-instantsearch-core'
 import { connectCurrentRefinements } from 'react-instantsearch-dom'
 
-import { useClassNames } from '@/hooks/useClassNames'
 import Button from '@ui/button/button'
 import Icon from '@ui/icon/icon'
+
+import { useClassNames } from '@/hooks/useClassNames'
 
 export interface ExpandablePanelProps extends CurrentRefinementsProvided {
   attribute: string

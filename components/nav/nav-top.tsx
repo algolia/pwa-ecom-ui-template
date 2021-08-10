@@ -5,11 +5,12 @@ import PinDropIcon from '@material-design-icons/svg/outlined/pin_drop.svg'
 import ShoppingBagIcon from '@material-design-icons/svg/outlined/shopping_bag.svg'
 import dynamic from 'next/dynamic'
 
-import NavItem from '@/components/nav/nav-item'
-import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 import Button from '@ui/button/button'
 import IconLabel from '@ui/icon-label/icon-label'
 import Link from '@ui/link/link'
+
+import NavItem from '@/components/nav/nav-item'
+import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 
 const Logo = dynamic(
   () => import(/* webpackChunkName: 'nav' */ '@/components/logo/logo')

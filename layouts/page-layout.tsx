@@ -2,12 +2,13 @@ import type { GetStaticPropsContext, GetServerSidePropsContext } from 'next'
 import dynamic from 'next/dynamic'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
+import Search from '@instantsearch/search/search'
+
 import BannerXS from '@/components/banner/banner-xs'
 import Footer from '@/components/footer/footer'
 import { appId, indexName, searchApiKey } from '@/utils/env'
 import { getResultsState } from '@/utils/page'
 import { urlToSearchState } from '@/utils/url'
-import Search from '@instantsearch/search/search'
 
 interface PageLayoutProps {
   children?: React.ReactNode
@@ -18,7 +19,7 @@ const Nav = dynamic(
   () => import(/* webpackChunkName: 'nav' */ '@/components/nav/nav')
 )
 
-export default function PageLayout({
+export function PageLayout({
   children,
   ...props
 }: PageLayoutProps): JSX.Element {
@@ -29,8 +30,10 @@ export default function PageLayout({
       indexName={indexName}
       {...props}
     >
-      <BannerXS>20% Off! Code: SPRING21 - Terms apply*</BannerXS>
-      <Nav />
+      <header>
+        <BannerXS>20% Off! Code: SPRING21 - Terms apply*</BannerXS>
+        <Nav />
+      </header>
 
       <main className="flex-grow">{children}</main>
 

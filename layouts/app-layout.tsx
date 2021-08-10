@@ -8,7 +8,7 @@ interface AppLayoutProps {
   children: React.ReactNode
 }
 
-export default function AppLayout({ children }: AppLayoutProps): JSX.Element {
+export function AppLayout({ children }: AppLayoutProps): JSX.Element {
   const [state, dispatch] = useReducer(appReducer, initialAppState)
 
   const value = useMemo(

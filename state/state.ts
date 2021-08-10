@@ -1,15 +1,17 @@
 export interface AppState {
-  dev: Dev
+  refinements: {
+    expanded: boolean
+  }
+  dev: { grid: { hidden: boolean } }
 }
 
 export const initialAppState: AppState = {
+  refinements: {
+    expanded: true,
+  },
   dev: {
     grid: {
       hidden: true,
     },
   },
-}
-
-export interface Dev {
-  grid: { hidden: boolean }
 }

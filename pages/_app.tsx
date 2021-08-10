@@ -1,11 +1,12 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 
-import AppLayout from '@/layouts/AppLayout'
-import { isDev } from '@/utils/env'
 /// #if DEV
 import Dev from '@dev/dev'
 /// #endif
+
+import { AppLayout } from '@/layouts/app-layout'
+import { isDev } from '@/utils/env'
 
 import '@/styles/_index.css'
 
