@@ -15,7 +15,7 @@ type RefinementListItem = RefinementListProvided['items'][0] & {
 export const SizeRefinementList = connectRefinementList(
   ({ items, refine }: SizeRefinementListProps) => {
     return (
-      <ul className="grid grid-cols-4 gap-3 p-px" role="group">
+      <ul className="grid grid-cols-2 gap-3 p-px" role="group">
         {items.map(({ label, value, isRefined }: RefinementListItem) => (
           <li key={label} className="flex justify-center">
             <Button
