@@ -1,16 +1,16 @@
 import type { SearchClient } from 'algoliasearch/lite'
 import { useMemo } from 'react'
 
-import { useSearchContext } from '@/hooks/useSearchContext'
-import createAnimatedPlaceholderPlugin from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
-import createClearLeftPlugin from '@/lib/autocomplete/plugins/createClearLeftPlugin'
-
 import type { AutocompleteProps } from '../_default/autocomplete'
 import Autocomplete from '../_default/autocomplete'
 import popularSearchesPluginCreator from '../plugins/popular-searches'
 import recentSearchesPluginCreator from '../plugins/recent-searches'
 import searchButtonPluginCreator from '../plugins/search-button'
 import voiceCameraIconsPluginCreator from '../plugins/voice-camera-icons'
+
+import { useSearchContext } from '@/hooks/useSearchContext'
+import createAnimatedPlaceholderPlugin from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
+import createClearLeftPlugin from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 
 export interface AutocompleteBasicProps extends AutocompleteProps {
   searchClient?: SearchClient

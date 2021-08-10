@@ -5,7 +5,7 @@ import type { SearchClient } from 'algoliasearch/lite'
 import type { Dispatch } from 'react'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
-import { querySuggestionsIndexName } from '@/utils/env'
+import { indexName, querySuggestionsIndexName } from '@/utils/env'
 
 export default function popularSearchesPluginCreator(
   searchClient: SearchClient,
@@ -17,12 +17,7 @@ export default function popularSearchesPluginCreator(
   return createQuerySuggestionsPlugin({
     searchClient,
     indexName: querySuggestionsIndexName,
-    categoryAttribute: [
-      'instant_search',
-      'facets',
-      'exact_matches',
-      'categories',
-    ],
+    categoryAttribute: [indexName, 'facets', 'exact_matches', 'keywords'],
     getSearchParams() {
       return recentSearchesPlugin.data?.getAlgoliaSearchParams({
         hitsPerPage: 8,
