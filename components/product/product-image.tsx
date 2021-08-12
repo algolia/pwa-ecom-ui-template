@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 import { useClassNames } from '@/hooks/useClassNames'
+import { useIsMounted } from '@/hooks/useIsMounted'
 
 export interface ProductImageProps {
   src: string
@@ -13,6 +14,7 @@ export function ProductImage({
   alt = '',
 }: ProductImageProps): JSX.Element {
   const [loaded, setLoaded] = useState(false)
+  const isMounted = useIsMounted()
 
   return (
     <div className="bg-neutral-lightest">
@@ -30,7 +32,7 @@ export function ProductImage({
           },
           [loaded]
         )}
-        onLoadingComplete={() => setLoaded(true)}
+        onLoadingComplete={() => (isMounted() ? setLoaded(true) : null)}
       />
     </div>
   )
