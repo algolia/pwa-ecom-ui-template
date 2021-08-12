@@ -1,3 +1,4 @@
+import { ColorRefinementList } from '@algolia/react-instantsearch-widget-color-refinement-list'
 import ArrowIcon from '@material-design-icons/svg/outlined/keyboard_arrow_left.svg'
 import type { MouseEventHandler } from 'react'
 import { Fragment, useRef, useState } from 'react'
@@ -34,6 +35,7 @@ export function RefinementsPanel({
     categories: true,
     priceFilter: false,
     sizeFilter: false,
+    hexColorCode: false,
   })
   function onToggle(panelId: string) {
     setPanels((prevPanels) => {
@@ -101,6 +103,20 @@ export function RefinementsPanel({
               onToggle={() => onToggle('sizeFilter')}
             >
               <SizeRefinementList attribute="sizeFilter" />
+            </ExpandablePanel>
+
+            <ExpandablePanel
+              attribute="hexColorCode"
+              header="Colors"
+              isOpened={panels.hexColorCode}
+              onToggle={() => onToggle('hexColorCode')}
+            >
+              <ColorRefinementList
+                attribute="hexColorCode"
+                separator="//"
+                limit={9}
+                showMore={true}
+              />
             </ExpandablePanel>
           </DynamicWidgets>
         </div>
