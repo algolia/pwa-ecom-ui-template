@@ -3,10 +3,14 @@ import { LoadMoreWithProgressBar } from '@algolia/react-instantsearch-widget-loa
 
 import Button from '@ui/button/button'
 
-function LoadMoreButton({ refineNext }: ButtonComponentProps): JSX.Element {
+function LoadMoreButton({
+  translations,
+  isSearchStalled,
+  refineNext,
+}: ButtonComponentProps): JSX.Element {
   return (
-    <Button type="primary" onClick={refineNext}>
-      Load More
+    <Button type="primary" disabled={isSearchStalled} onClick={refineNext}>
+      {isSearchStalled ? translations.searchStalled : translations.loadMore}
     </Button>
   )
 }

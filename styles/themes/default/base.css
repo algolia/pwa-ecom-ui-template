@@ -25,10 +25,6 @@
 
     /* ========== Autocomplete */
     --aa-detached-modal-media-query: ();
-
-    /* ========== React InstantSearch widgets */
-    --ais-loadmore-with-progressbar-background-color: var(--color-neutral-light);
-    --ais-loadmore-with-progressbar-value-color: var(--color-brand-black);
   }
 
   ::selection {
