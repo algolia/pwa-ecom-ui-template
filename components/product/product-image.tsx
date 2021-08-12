@@ -30,7 +30,7 @@ export function ProductImage({
           },
           [loaded]
         )}
-        onLoad={() => setLoaded(true)}
+        onLoadingComplete={() => setLoaded(true)}
       />
     </div>
   )

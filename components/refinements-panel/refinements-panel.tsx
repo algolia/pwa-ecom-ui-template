@@ -115,7 +115,6 @@ export function RefinementsPanel({
                 attribute="hexColorCode"
                 separator="//"
                 limit={9}
-                showMore={true}
               />
             </ExpandablePanel>
           </DynamicWidgets>
