@@ -1,7 +1,3 @@
-/* .ais-RefinementList {
-  @apply flex flex-col gap-2;
-} */
-
 .ais-RefinementList-showMore--disabled {
   @apply hidden;
 }
