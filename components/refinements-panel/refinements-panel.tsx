@@ -1,4 +1,5 @@
 import { ColorRefinementList } from '@algolia/react-instantsearch-widget-color-refinement-list'
+import FilterIcon from '@material-design-icons/svg/outlined/filter_list.svg'
 import ArrowIcon from '@material-design-icons/svg/outlined/keyboard_arrow_left.svg'
 import type { MouseEventHandler } from 'react'
 import { Fragment, useRef, useState } from 'react'
@@ -7,6 +8,7 @@ import {
   RefinementList,
   // @ts-expect-error
   ExperimentalDynamicWidgets,
+  ClearRefinements,
 } from 'react-instantsearch-dom'
 
 import { ExpandablePanel } from '@instantsearch/_widgets/expandable-panel/expandable-panel'
@@ -37,6 +39,7 @@ export function RefinementsPanel({
     sizeFilter: false,
     hexColorCode: false,
   })
+
   function onToggle(panelId: string) {
     setPanels((prevPanels) => {
       return {
@@ -74,49 +77,57 @@ export function RefinementsPanel({
       </Button>
 
       <div className={cn}>
-        <div className="absolute right-0 w-16 h-full bg-gradient-to-l from-white pointer-events-none" />
+        <div className="absolute right-0 w-16 h-full bg-gradient-to-l from-white via-white pointer-events-none" />
 
         <div className="w-72 laptop:pr-16">
+          <div className="flex items-center gap-3 mb-5">
+            <Icon icon={FilterIcon} />
+            Filters
+            <ClearRefinements
+              className="ml-auto"
+              translations={{
+                reset: 'Clear All',
+              }}
+            />
+          </div>
+
           <DynamicWidgets>
             <ExpandablePanel
-              attribute="hierarchical_categories.lvl0"
+              attributes={hierarchicalMenuAttributes}
+              widget={HierarchicalMenu}
               header="Categories"
               isOpened={panels.categories}
               onToggle={() => onToggle('categories')}
-            >
-              <HierarchicalMenu attributes={hierarchicalMenuAttributes} />
-            </ExpandablePanel>
+            />
 
             <ExpandablePanel
               attribute="priceFilter"
+              widget={RefinementList}
               header="Price"
               isOpened={panels.priceFilter}
               onToggle={() => onToggle('priceFilter')}
-            >
-              <RefinementList attribute="priceFilter" />
-            </ExpandablePanel>
+            />
 
             <ExpandablePanel
               attribute="sizeFilter"
+              widget={SizeRefinementList}
               header="Sizes"
               isOpened={panels.sizeFilter}
               onToggle={() => onToggle('sizeFilter')}
-            >
-              <SizeRefinementList attribute="sizeFilter" />
-            </ExpandablePanel>
+            />
 
             <ExpandablePanel
               attribute="hexColorCode"
+              widget={ColorRefinementList}
+              widgetProps={{
+                separator: '//',
+                limit: 9,
+                showMore: true,
+              }}
               header="Colors"
               isOpened={panels.hexColorCode}
               onToggle={() => onToggle('hexColorCode')}
-            >
-              <ColorRefinementList
-                attribute="hexColorCode"
-                separator="//"
-                limit={9}
-              />
-            </ExpandablePanel>
+            />
           </DynamicWidgets>
         </div>
       </div>

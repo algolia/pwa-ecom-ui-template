@@ -1,0 +1,3 @@
+.ais-ClearRefinements-button--disabled {
+  @apply text-neutral-dark transition-colors cursor-not-allowed;
+}
