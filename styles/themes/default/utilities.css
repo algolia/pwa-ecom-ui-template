@@ -87,4 +87,8 @@
   .full-size {
     @apply w-full h-full;
   }
+
+  .grid-auto-fill {
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr))
+  }
 }
