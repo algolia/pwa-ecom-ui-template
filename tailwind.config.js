@@ -43,6 +43,9 @@ module.exports = {
       transitionDuration: {
         DEFAULT: '300ms',
       },
+      spacing: {
+        'header': '235px'
+      }
     },
     screens: {
       tablet: '768px',

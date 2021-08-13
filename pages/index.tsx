@@ -19,9 +19,9 @@ export default function Index(props: IndexProps): JSX.Element {
 
   return (
     <PageLayout {...props}>
-      <Configure hitsPerPage={10} maxValuesPerFacet={50} />
+      <Configure hitsPerPage={20} maxValuesPerFacet={50} />
 
-      <div className="flex laptop:mx-20 laptop:mt-10">
+      <div className="flex laptop:mx-20 laptop:mt-5 laptop:gap-5">
         <RefinementsPanel
           dynamicWidgets={true}
           isExpanded={isExpanded}

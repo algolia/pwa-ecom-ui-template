@@ -30,12 +30,10 @@ export function PageLayout({
       indexName={indexName}
       {...props}
     >
-      <header>
-        <BannerXS>20% Off! Code: SPRING21 - Terms apply*</BannerXS>
-        <Nav />
-      </header>
+      <BannerXS>20% Off! Code: SPRING21 - Terms apply*</BannerXS>
+      <Nav />
 
-      <main className="flex-grow">{children}</main>
+      <main>{children}</main>
 
       <Footer />
     </Search>

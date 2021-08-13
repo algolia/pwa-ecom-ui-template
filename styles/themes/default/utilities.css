@@ -87,4 +87,8 @@
   .full-size {
     @apply w-full h-full;
   }
+
+  .content-container {
+    height: calc(100vh - theme('spacing.header'));
+  }
 }

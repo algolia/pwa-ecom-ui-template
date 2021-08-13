@@ -32,13 +32,7 @@
   }
 
   #__next {
-    @apply flex flex-col;
-  }
-
-  html,
-  body,
-  #__next {
-    @apply h-full;
+    @apply flex flex-col min-h-screen;
   }
 
   body {

@@ -59,12 +59,12 @@ export function RefinementsPanel({
 
   const cn = useClassNames(
     'overflow-hidden laptop:transition-width',
-    isExpanded ? 'w-72' : 'w-0',
+    isExpanded ? 'w-64' : 'w-0',
     [isExpanded]
   )
   return (
-    <div className="relative flex-shrink-0">
-      <Button className="absolute right-6 -top-1 z-10" onClick={onExpand}>
+    <section className="flex-shrink-0 overflow-y-auto sticky top-header content-container">
+      {/* <Button className="absolute right-6 -top-1 z-10" onClick={onExpand}>
         <Icon
           icon={ArrowIcon}
           className={useClassNames(
@@ -73,13 +73,13 @@ export function RefinementsPanel({
             [isExpanded]
           )}
         />
-      </Button>
+      </Button> */}
 
       <div className={cn}>
-        <div className="absolute right-0 w-16 h-full bg-gradient-to-l from-white via-white pointer-events-none" />
+        <div className="absolute right-0 w-5 h-full bg-gradient-to-l from-white via-white pointer-events-none" />
 
-        <div className="w-72 laptop:pr-16">
-          <div className="flex items-center gap-3 mb-5">
+        <div className="w-64 laptop:pr-5">
+          <div className="flex items-center gap-3 my-5">
             <Icon icon={FilterIcon} />
             Filters
             <ClearRefinements
@@ -120,16 +120,16 @@ export function RefinementsPanel({
               widget={ColorRefinementList}
               widgetProps={{
                 separator: '//',
-                limit: 20,
+                limit: 9,
               }}
               header="Colors"
               isOpened={panels.hexColorCode}
-              maxHeight="215px"
+              // maxHeight="215px"
               onToggle={() => onToggle('hexColorCode')}
             />
           </DynamicWidgets>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

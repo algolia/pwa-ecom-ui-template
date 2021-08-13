@@ -1,9 +1,10 @@
-import { LogoSymbol } from '@/components/logo/logo'
 import Link from '@ui/link/link'
+
+import { LogoSymbol } from '@/components/logo/logo'
 
 export default function Footer(): JSX.Element {
   return (
-    <footer className="">
+    <footer className="mt-auto">
       <div className="hidden bg-neutral-lightest justify-between px-20 py-24 laptop:flex">
         {Array.from(Array(6), (ei, i) => (
           <div key={i} className="flex flex-col gap-2">
