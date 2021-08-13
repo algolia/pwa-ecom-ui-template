@@ -1,6 +1,6 @@
 import AddIcon from '@material-design-icons/svg/outlined/add.svg'
 import RemoveIcon from '@material-design-icons/svg/outlined/remove.svg'
-import type { ComponentType, MouseEventHandler } from 'react'
+import type { ComponentType, CSSProperties, MouseEventHandler } from 'react'
 import { useMemo, useEffect, useRef } from 'react'
 import type {
   CurrentRefinementsProvided,
@@ -22,9 +22,10 @@ export interface ExpandablePanelProps extends CurrentRefinementsProvided {
   widget: ComponentType<any>
   widgetProps?: Record<string, any>
   isOpened: boolean
-  onToggle: MouseEventHandler
+  maxHeight?: string
   header?: string
   footer?: string
+  onToggle: MouseEventHandler
 }
 
 interface NoRefinementsHandlerProps extends StateResultsProvided {
@@ -66,9 +67,10 @@ export const ExpandablePanel = connectCurrentRefinements(
     widget: WidgetComponent,
     widgetProps = {},
     isOpened,
-    onToggle,
+    maxHeight,
     header,
     footer,
+    onToggle,
   }: ExpandablePanelProps): JSX.Element => {
     const collapseRef = useRef<HTMLDivElement>(null)
     const gradientRef = useRef<HTMLDivElement>(null)
@@ -76,6 +78,12 @@ export const ExpandablePanel = connectCurrentRefinements(
     const hasRefinements = useRef(false)
 
     const isOpenByDefault = useRef(isOpened)
+
+    const collapseElStyles: CSSProperties = {}
+    if (typeof maxHeight !== 'undefined') {
+      collapseElStyles.maxHeight = maxHeight
+      collapseElStyles.overflowY = 'auto'
+    }
 
     let attr = attribute
     if (attributes?.length) {
@@ -149,24 +157,22 @@ export const ExpandablePanel = connectCurrentRefinements(
           }}
         />
 
-        <div>
-          <Button
-            className="w-full flex items-center justify-between"
-            aria-expanded={isOpened}
-            onClick={(e) => {
-              firstToggle.current = false
-              onToggle(e)
-            }}
-          >
-            <div className="small-bold uppercase">
-              {header ?? attribute}
-              {currentRefinementCount > 0 && ` (${currentRefinementCount})`}
-            </div>
-            <div className="text-neutral-dark">
-              {isOpened ? <Icon icon={RemoveIcon} /> : <Icon icon={AddIcon} />}
-            </div>
-          </Button>
-        </div>
+        <Button
+          className="w-full flex items-center justify-between transition-colors hover:text-neutral-dark"
+          aria-expanded={isOpened}
+          onClick={(e) => {
+            firstToggle.current = false
+            onToggle(e)
+          }}
+        >
+          <div className="small-bold uppercase">
+            {header ?? attribute}
+            {currentRefinementCount > 0 && ` (${currentRefinementCount})`}
+          </div>
+          <div className="text-neutral-dark">
+            {isOpened ? <Icon icon={RemoveIcon} /> : <Icon icon={AddIcon} />}
+          </div>
+        </Button>
 
         <div
           className={useClassNames(
@@ -176,7 +182,7 @@ export const ExpandablePanel = connectCurrentRefinements(
           )}
           ref={collapseRef}
         >
-          <div className="mt-4">
+          <div className="mt-4" style={collapseElStyles}>
             <WidgetComponent
               attribute={attribute}
               attributes={attributes}

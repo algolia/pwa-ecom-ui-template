@@ -1,4 +1,5 @@
 import { ColorRefinementList } from '@algolia/react-instantsearch-widget-color-refinement-list'
+import { SizeRefinementList } from '@algolia/react-instantsearch-widget-size-refinement-list'
 import FilterIcon from '@material-design-icons/svg/outlined/filter_list.svg'
 import ArrowIcon from '@material-design-icons/svg/outlined/keyboard_arrow_left.svg'
 import type { MouseEventHandler } from 'react'
@@ -12,7 +13,6 @@ import {
 } from 'react-instantsearch-dom'
 
 import { ExpandablePanel } from '@instantsearch/_widgets/expandable-panel/expandable-panel'
-import { SizeRefinementList } from '@instantsearch/_widgets/size-refinement-list/size-refinement-list'
 import Button from '@ui/button/button'
 import Icon from '@ui/icon/icon'
 
@@ -62,7 +62,6 @@ export function RefinementsPanel({
     isExpanded ? 'w-72' : 'w-0',
     [isExpanded]
   )
-
   return (
     <div className="relative flex-shrink-0">
       <Button className="absolute right-6 -top-1 z-10" onClick={onExpand}>
@@ -121,11 +120,11 @@ export function RefinementsPanel({
               widget={ColorRefinementList}
               widgetProps={{
                 separator: '//',
-                limit: 9,
-                showMore: true,
+                limit: 20,
               }}
               header="Colors"
               isOpened={panels.hexColorCode}
+              maxHeight="215px"
               onToggle={() => onToggle('hexColorCode')}
             />
           </DynamicWidgets>

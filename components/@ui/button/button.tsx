@@ -1,8 +1,8 @@
 import type { HTMLProps, MouseEventHandler } from 'react'
 
-import { useClassNames } from '@/hooks/useClassNames'
+import Icon from '@ui/icon/icon'
 
-import Icon from '../icon/icon'
+import { useClassNames } from '@/hooks/useClassNames'
 
 interface ButtonProps extends Omit<HTMLProps<HTMLButtonElement>, 'size'> {
   children?: React.ReactNode
@@ -32,9 +32,13 @@ export default function Button({
     className,
     'btn',
     {
-      [`btn-${type}`]: type,
-      [`btn-${size}`]: size,
-      'btn-selected': selected,
+      'btn-primary': type === 'primary',
+      'btn-secondary': type === 'secondary',
+      'btn-tertiary': type === 'tertiary',
+      'btn-item': type === 'item',
+      'btn-small': size === 'small',
+      'btn-large': size === 'large',
+      'btn--selected': selected,
     },
     [className, type, size, selected]
   )

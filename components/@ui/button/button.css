@@ -1,87 +1,101 @@
-/* ---------- Common */
-.btn {
-  @apply btn-bold px-8 rounded-sm flex items-center justify-center gap-3 transition-colors;
-}
-
-.btn:focus-visible {
-  @apply outline-none ring-2 ring-uranus-base;
-}
-
-.btn:disabled {
-  @apply cursor-not-allowed;
-}
-
-/* ---------- Types */
-
-/* Primary */
-.btn-primary {
-  @apply bg-brand-black text-white;
-
-  &:hover {
-    @apply bg-neutral-darkest;
+@layer utilities {
+  /* ---------- Common */
+  .btn {
+    @apply btn-bold px-8 rounded-sm flex items-center justify-center gap-3 transition-colors;
   }
 
-  &:active {
-    @apply bg-brand-black;
+  .btn:focus-visible {
+    @apply outline-none ring-2 ring-uranus-base;
   }
 
-  &:disabled {
-    @apply bg-neutral-light text-brand-black;
-  }
-}
-
-/* Secondary/item */
-.btn-secondary,
-.btn-item {
-  @apply bg-white ring-2 ring-brand-black text-brand-black;
-
-  &:hover {
-    @apply ring-neutral-darkest text-neutral-darkest;
+  .btn:disabled {
+    @apply cursor-not-allowed;
   }
 
-  &:active {
-    @apply bg-neutral-lightest ring-brand-black text-brand-black;
-  }
-
-  &:disabled {
-    @apply bg-neutral-lightest ring-neutral-light text-brand-black;
-  }
-}
-
-/* Tertiary */
-.btn-tertiary {
-  @apply bg-brand-nebula text-white;
-
-  &:hover {
-    @apply bg-nebula-dark text-nebula-lightest;
-  }
-
-  &:active {
-    @apply bg-nebula-darkest text-nebula-lightest;
-  }
-
-  &:disabled {
-    @apply bg-neutral-light text-brand-black;
-  }
-}
-
-/* Item */
-.btn-item {
-  @apply px-3.5 ring-1;
-
-  &.btn-selected {
+  .btn-selected {
     @apply bg-brand-black text-white;
   }
-}
 
-/* ---------- Sizes */
+  /* ---------- Types */
 
-/* Small */
-.btn-small {
-  @apply py-2;
-}
+  /* Primary */
+  .btn-primary,
+  .btn-item {
+    @apply bg-brand-black text-white;
 
-/* Large */
-.btn-large {
-  @apply py-3;
+    &:hover {
+      @apply bg-neutral-darkest;
+    }
+
+    &:active {
+      @apply bg-brand-black;
+    }
+
+    &:disabled {
+      @apply bg-neutral-light text-brand-black;
+    }
+  }
+
+  /* Secondary/item */
+  .btn-secondary {
+    @apply bg-white ring-2 ring-brand-black text-brand-black;
+
+    &:hover {
+      @apply ring-neutral-darkest text-neutral-darkest;
+    }
+
+    &:active {
+      @apply bg-neutral-lightest ring-brand-black text-brand-black;
+    }
+
+    &:disabled {
+      @apply bg-neutral-lightest ring-neutral-light text-brand-black;
+    }
+  }
+
+  /* Tertiary */
+  .btn-tertiary {
+    @apply bg-brand-nebula text-white;
+
+    &:hover {
+      @apply bg-nebula-dark text-nebula-lightest;
+    }
+
+    &:active {
+      @apply bg-nebula-darkest text-nebula-lightest;
+    }
+
+    &:disabled {
+      @apply bg-neutral-light text-brand-black;
+    }
+  }
+
+  /* Item */
+  .btn-item {
+    @apply px-3.5 ring-1 bg-white ring-brand-black text-brand-black;
+
+    &:hover {
+      @apply text-white;
+    }
+
+    &:disabled {
+      @apply bg-neutral-lightest ring-neutral-light text-brand-black;
+    }
+
+    &.btn--selected {
+      @apply btn-selected;
+    }
+  }
+
+  /* ---------- Sizes */
+
+  /* Small */
+  .btn-small {
+    @apply py-2;
+  }
+
+  /* Large */
+  .btn-large {
+    @apply py-3;
+  }
 }

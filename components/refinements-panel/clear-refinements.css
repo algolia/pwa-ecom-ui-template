@@ -1,3 +1,7 @@
+.ais-ClearRefinements-button {
+  @apply transition-colors hover:text-neutral-dark;
+}
+
 .ais-ClearRefinements-button--disabled {
-  @apply text-neutral-dark transition-colors cursor-not-allowed;
+  @apply text-neutral-dark cursor-not-allowed;
 }
