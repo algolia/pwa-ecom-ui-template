@@ -2,31 +2,31 @@ import type { SearchClient } from 'algoliasearch/lite'
 import { useMemo } from 'react'
 
 import type { AutocompleteProps } from '../_default/autocomplete'
-import Autocomplete from '../_default/autocomplete'
-import popularSearchesPluginCreator from '../plugins/popular-searches'
-import recentSearchesPluginCreator from '../plugins/recent-searches'
-import searchButtonPluginCreator from '../plugins/search-button'
-import voiceCameraIconsPluginCreator from '../plugins/voice-camera-icons'
+import { Autocomplete } from '../_default/autocomplete'
+import { popularSearchesPluginCreator } from '../plugins/popular-searches'
+import { recentSearchesPluginCreator } from '../plugins/recent-searches'
+import { searchButtonPluginCreator } from '../plugins/search-button'
+import { voiceCameraIconsPluginCreator } from '../plugins/voice-camera-icons'
 
 import { useSearchContext } from '@/hooks/useSearchContext'
-import createAnimatedPlaceholderPlugin from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
-import createClearLeftPlugin from '@/lib/autocomplete/plugins/createClearLeftPlugin'
+import { createAnimatedPlaceholderPlugin } from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
+import { createClearLeftPlugin } from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 
-export interface AutocompleteBasicProps extends AutocompleteProps {
+export type AutocompleteBasicProps = AutocompleteProps & {
   searchClient?: SearchClient
   placeholders?: string[]
   placeholderWordDelay?: number
   placeholderLetterDelay?: number
 }
 
-export default function AutocompleteBasic({
+export function AutocompleteBasic({
   searchClient: customSearchClient,
   placeholders = [],
   placeholderWordDelay,
   placeholderLetterDelay,
   plugins: customPlugins = [],
   ...props
-}: AutocompleteBasicProps): JSX.Element {
+}: AutocompleteBasicProps) {
   const { searchClient: searchClientContext, query: initialQuery } =
     useSearchContext()
 

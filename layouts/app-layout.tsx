@@ -1,14 +1,14 @@
 import { useMemo, useReducer } from 'react'
 
-import AppContext from '@/contexts/AppContext'
+import { AppContext } from '@/contexts/AppContext'
 import { appReducer } from '@/state/reducer'
 import { initialAppState } from '@/state/state'
 
-interface AppLayoutProps {
+export type AppLayoutProps = {
   children: React.ReactNode
 }
 
-export function AppLayout({ children }: AppLayoutProps): JSX.Element {
+export function AppLayout({ children }: AppLayoutProps) {
   const [state, dispatch] = useReducer(appReducer, initialAppState)
 
   const value = useMemo(

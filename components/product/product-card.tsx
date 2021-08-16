@@ -1,4 +1,6 @@
-import Link from '@ui/link/link'
+import { memo } from 'react'
+
+import { Link } from '@ui/link/link'
 
 import { ProductColorVariationList } from './product-color-variation-list'
 import { ProductFavorite } from './product-favorite'
@@ -12,7 +14,7 @@ import { ProductTitle } from './product-title'
 
 import { useClassNames } from '@/hooks/useClassNames'
 
-export interface ProductCardProps {
+export type ProductCardProps = {
   url?: string
   image?: string
   tags?: ProductTagType[]
@@ -29,7 +31,7 @@ export interface ProductCardProps {
   available?: boolean
 }
 
-export function ProductCard({
+export const ProductCard = memo(function ProductCard({
   url = '',
   image,
   tags,
@@ -44,7 +46,7 @@ export function ProductCard({
   rating,
   reviews,
   available,
-}: ProductCardProps): JSX.Element {
+}: ProductCardProps) {
   return (
     <article
       className={useClassNames(
@@ -100,10 +102,7 @@ export function ProductCard({
         </div>
       </Link>
 
-      <ProductFavorite
-        className="absolute top-5 right-5 z-10"
-        onClick={() => {}}
-      />
+      <ProductFavorite className="absolute top-5 right-5" onClick={() => {}} />
     </article>
   )
-}
+})

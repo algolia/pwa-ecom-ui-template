@@ -3,9 +3,7 @@ import CloseIcon from '@material-design-icons/svg/outlined/close.svg'
 import type { Dispatch } from 'react'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
-export default function recentSearchesPluginCreator(
-  setSearchState?: Dispatch<any>
-) {
+export function recentSearchesPluginCreator(setSearchState?: Dispatch<any>) {
   return createLocalStorageRecentSearchesPlugin({
     key: 'search',
     limit: 3,

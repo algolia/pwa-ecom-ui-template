@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-interface IntersectionObserverHook {
+type IntersectionObserverHook = {
   callback: (entry: IntersectionObserverEntry) => void
   root?: Element | Document | null
   rootMargin?: string

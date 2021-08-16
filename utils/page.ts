@@ -5,7 +5,7 @@ import { renderToString } from 'react-dom/server'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 import { findResultsState } from 'react-instantsearch-dom/server'
 
-interface GetResultsStateParams {
+export type GetResultsStateParams = {
   component: React.ComponentType
   searchState: InstantSearchProps['searchState']
   appId: string

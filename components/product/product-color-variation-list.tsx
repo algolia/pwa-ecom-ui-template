@@ -1,10 +1,10 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 
-import Button from '@ui/button/button'
+import { Button } from '@ui/button/button'
 
 import { ProductColorVariationItem } from './product-color-variation-item'
 
-export interface ProductColorVariationListProps {
+export type ProductColorVariationListProps = {
   colors: string[]
   limit?: number
 }
@@ -12,7 +12,7 @@ export interface ProductColorVariationListProps {
 export function ProductColorVariationList({
   colors,
   limit = 5,
-}: ProductColorVariationListProps): JSX.Element {
+}: ProductColorVariationListProps) {
   const colorsSliced = useMemo(() => colors.slice(0, limit), [colors, limit])
   const colorsRemaining = useMemo(() => colors.slice(limit), [colors, limit])
   const colorsRemainingLength = useMemo(

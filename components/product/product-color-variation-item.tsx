@@ -1,12 +1,12 @@
-import Button from '@ui/button/button'
+import { Button } from '@ui/button/button'
 
-export interface ProductColorVariationItemProps {
+export type ProductColorVariationItemProps = {
   color: string
 }
 
 export function ProductColorVariationItem({
   color,
-}: ProductColorVariationItemProps): JSX.Element {
+}: ProductColorVariationItemProps) {
   return (
     <li>
       <Button title="Show color variation">

@@ -25,6 +25,7 @@
     "qs": "^6.10.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-fast-compare": "^3.2.0",
     "react-flip-toolkit": "^7.0.13",
     "react-instantsearch-dom": "^6.12.1"
   },
@@ -41,6 +42,7 @@
     "@types/tailwindcss": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
+    "@welldone-software/why-did-you-render": "^6.2.0",
     "autoprefixer": "^10.3.1",
     "babel-eslint": "^10.1.0",
     "babel-plugin-preval": "^5.0.0",

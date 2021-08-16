@@ -1,15 +1,15 @@
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
-import { useRef } from 'react'
+import { memo, useRef } from 'react'
 
-import AutocompleteInstantSearch from '@autocomplete/instantsearch/autocomplete-instantsearch'
-import Button from '@ui/button/button'
-import IconLabel from '@ui/icon-label/icon-label'
+import { AutocompleteInstantSearch } from '@autocomplete/instantsearch/autocomplete-instantsearch'
+import { Button } from '@ui/button/button'
+import { IconLabel } from '@ui/icon-label/icon-label'
 
-import NavItem from './nav-item'
+import { NavItem } from './nav-item'
 
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 
-export default function NavBottom(): JSX.Element {
+export const NavBottom = memo(function NavBottom() {
   const { laptop } = useTailwindScreens()
   const { current: placeholders } = useRef(['products', 'articles', 'faq'])
 
@@ -40,4 +40,4 @@ export default function NavBottom(): JSX.Element {
       </div>
     </div>
   )
-}
+})

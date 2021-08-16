@@ -8,7 +8,7 @@ type CreateTemplatePluginProps = {
   render?: (root: HTMLElement, props: OnStateChangeProps<any>) => void
 }
 
-export default function createTemplatePlugin<
+export function createTemplatePlugin<
   TItem extends Record<string, unknown>,
   TData
 >({

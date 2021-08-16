@@ -1,9 +1,10 @@
 import { render } from 'react-dom'
 
-import createTemplatePlugin from '@/lib/autocomplete/plugins/createTemplatePlugin'
-import Button from '@ui/button/button'
+import { Button } from '@ui/button/button'
 
-export default function searchButtonPluginCreator() {
+import { createTemplatePlugin } from '@/lib/autocomplete/plugins/createTemplatePlugin'
+
+export function searchButtonPluginCreator() {
   return createTemplatePlugin({
     container: '.aa-InputWrapperSuffix',
     render(root, { state }) {

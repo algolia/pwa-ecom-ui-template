@@ -1,9 +1,9 @@
 import { ColorRefinementList } from '@algolia/react-instantsearch-widget-color-refinement-list'
 import { SizeRefinementList } from '@algolia/react-instantsearch-widget-size-refinement-list'
 import FilterIcon from '@material-design-icons/svg/outlined/filter_list.svg'
-import ArrowIcon from '@material-design-icons/svg/outlined/keyboard_arrow_left.svg'
+// import ArrowIcon from '@material-design-icons/svg/outlined/keyboard_arrow_left.svg'
 import type { MouseEventHandler } from 'react'
-import { Fragment, useRef, useState } from 'react'
+import { memo, Fragment, useRef, useState } from 'react'
 import {
   HierarchicalMenu,
   RefinementList,
@@ -13,26 +13,25 @@ import {
 } from 'react-instantsearch-dom'
 
 import { ExpandablePanel } from '@instantsearch/_widgets/expandable-panel/expandable-panel'
-import Button from '@ui/button/button'
-import Icon from '@ui/icon/icon'
+// import { Button } from '@ui/button/button'
+import { Icon } from '@ui/icon/icon'
 
 import { useClassNames } from '@/hooks/useClassNames'
 
-export interface Panels {
+export type Panels = {
   [key: string]: boolean
 }
 
-export interface RefinementPanelProps {
+export type RefinementsPanelProps = {
   dynamicWidgets?: boolean
   isExpanded: boolean
   onExpand: MouseEventHandler
 }
 
-export function RefinementsPanel({
+export const RefinementsPanel = memo(function RefinementsPanel({
   dynamicWidgets = false,
   isExpanded,
-  onExpand,
-}: RefinementPanelProps): JSX.Element {
+}: RefinementsPanelProps) {
   const [panels, setPanels] = useState<Panels>({
     categories: true,
     priceFilter: false,
@@ -64,7 +63,7 @@ export function RefinementsPanel({
   )
   return (
     <section className="flex-shrink-0 overflow-y-auto sticky top-header content-container">
-      {/* <Button className="absolute right-6 -top-1 z-10" onClick={onExpand}>
+      {/* <Button className="absolute right-6 -top-1" onClick={onExpand}>
         <Icon
           icon={ArrowIcon}
           className={useClassNames(
@@ -132,4 +131,4 @@ export function RefinementsPanel({
       </div>
     </section>
   )
-}
+})

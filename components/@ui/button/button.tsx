@@ -1,10 +1,10 @@
 import type { HTMLProps, MouseEventHandler } from 'react'
 
-import Icon from '@ui/icon/icon'
+import { Icon } from '@ui/icon/icon'
 
 import { useClassNames } from '@/hooks/useClassNames'
 
-interface ButtonProps extends Omit<HTMLProps<HTMLButtonElement>, 'size'> {
+export type ButtonProps = Omit<HTMLProps<HTMLButtonElement>, 'size'> & {
   children?: React.ReactNode
   className?: string
   onClick?: MouseEventHandler
@@ -16,7 +16,7 @@ interface ButtonProps extends Omit<HTMLProps<HTMLButtonElement>, 'size'> {
   icon?: any
 }
 
-export default function Button({
+export function Button({
   children,
   className,
   onClick,
@@ -27,7 +27,7 @@ export default function Button({
   disabled = false,
   icon,
   ...props
-}: ButtonProps): JSX.Element {
+}: ButtonProps) {
   const cn = useClassNames(
     className,
     'btn',

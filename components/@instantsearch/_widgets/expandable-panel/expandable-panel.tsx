@@ -11,12 +11,12 @@ import {
   connectStateResults,
 } from 'react-instantsearch-dom'
 
-import Button from '@ui/button/button'
-import Icon from '@ui/icon/icon'
+import { Button } from '@ui/button/button'
+import { Icon } from '@ui/icon/icon'
 
 import { useClassNames } from '@/hooks/useClassNames'
 
-export interface ExpandablePanelProps extends CurrentRefinementsProvided {
+export type ExpandablePanelProps = CurrentRefinementsProvided & {
   attribute?: string
   attributes?: string[]
   widget: ComponentType<any>
@@ -28,7 +28,7 @@ export interface ExpandablePanelProps extends CurrentRefinementsProvided {
   onToggle: MouseEventHandler
 }
 
-interface NoRefinementsHandlerProps extends StateResultsProvided {
+export type NoRefinementsHandlerProps = StateResultsProvided & {
   attribute?: string
   onUpdate: (hasRefinements: boolean) => void
 }
@@ -71,7 +71,7 @@ export const ExpandablePanel = connectCurrentRefinements(
     header,
     footer,
     onToggle,
-  }: ExpandablePanelProps): JSX.Element => {
+  }: ExpandablePanelProps) => {
     const collapseRef = useRef<HTMLDivElement>(null)
     const gradientRef = useRef<HTMLDivElement>(null)
     const firstToggle = useRef(true)

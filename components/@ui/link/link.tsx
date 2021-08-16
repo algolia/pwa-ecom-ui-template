@@ -1,11 +1,14 @@
-import type { LinkProps } from 'next/link'
+import { useRouter } from 'next/dist/client/router'
+import type { LinkProps as NextLinkProps } from 'next/link'
 import NextLink from 'next/link'
 import type { AnchorHTMLAttributes, PropsWithChildren } from 'react'
+import { useCallback } from 'react'
 
-type PropTypes = LinkProps &
-  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
+export type LinkProps = PropsWithChildren<
+  NextLinkProps & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
+>
 
-export default function Link({
+export function Link({
   children,
   href,
   as,
@@ -15,10 +18,23 @@ export default function Link({
   prefetch,
   locale,
   ...anchorProps
-}: PropsWithChildren<PropTypes>) {
+}: LinkProps) {
+  const router = useRouter()
+
+  const onClick = useCallback(
+    (e) => {
+      if (router.asPath === href) {
+        e.preventDefault()
+      }
+    },
+    [router, href]
+  )
+
   return (
     <NextLink {...{ href, as, replace, scroll, shallow, prefetch, locale }}>
-      <a {...anchorProps}>{children}</a>
+      <a role="link" tabIndex={0} onClick={onClick} {...anchorProps}>
+        {children}
+      </a>
     </NextLink>
   )
 }

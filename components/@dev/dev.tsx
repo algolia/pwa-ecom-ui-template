@@ -1,9 +1,11 @@
+import { memo } from 'react'
+
+import { Grid } from './grid/grid'
+import { Pane } from './pane/pane'
+
 import { useAppContext } from '@/hooks/useAppContext'
 
-import Grid from './grid/grid'
-import Pane from './pane/pane'
-
-export default function Dev(): JSX.Element {
+export const Dev = memo(function Dev() {
   const { state } = useAppContext()
 
   return (
@@ -12,4 +14,4 @@ export default function Dev(): JSX.Element {
       <Pane />
     </>
   )
-}
+})

@@ -1,9 +1,9 @@
 import CheckIcon from '@material-design-icons/svg/outlined/check.svg'
 import { useState } from 'react'
 
-import Button from '@ui/button/button'
+import { Button } from '@ui/button/button'
 
-export default function Buttons(): JSX.Element {
+export default function Buttons() {
   const [selected, setSelected] = useState(true)
 
   return (

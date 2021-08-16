@@ -1,12 +1,14 @@
 import { useState } from 'react'
 
-import NavBottom from './nav-bottom'
-import NavTop from './nav-top'
+import { NavBottom } from './nav-bottom'
+import { NavTop } from './nav-top'
 
 import { useClassNames } from '@/hooks/useClassNames'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 
-export default function Nav(): JSX.Element {
+export type NavProps = Record<string, unknown>
+
+export function Nav() {
   const [isSticky, setIsSticky] = useState(false)
 
   const { setObservedNode } = useIntersectionObserver({

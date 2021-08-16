@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 
-export default function Grid(): JSX.Element {
+export function Grid() {
   const { laptop } = useTailwindScreens()
 
   const config = useMemo(

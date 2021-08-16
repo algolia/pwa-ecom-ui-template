@@ -3,12 +3,12 @@ export enum ActionType {
   SetRefinementExpanded = 'SetRefinementExpanded',
 }
 
-export interface SetDevGridVisibility {
+export type SetDevGridVisibility = {
   type: ActionType.SetDevGridVisibility
   payload: boolean
 }
 
-export interface SetRefinementExpanded {
+export type SetRefinementExpanded = {
   type: ActionType.SetRefinementExpanded
   payload: boolean
 }

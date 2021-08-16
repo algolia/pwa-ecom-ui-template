@@ -4,19 +4,23 @@ import PersonIcon from '@material-design-icons/svg/outlined/person.svg'
 import PinDropIcon from '@material-design-icons/svg/outlined/pin_drop.svg'
 import ShoppingBagIcon from '@material-design-icons/svg/outlined/shopping_bag.svg'
 import dynamic from 'next/dynamic'
+import { memo } from 'react'
 
-import Button from '@ui/button/button'
-import IconLabel from '@ui/icon-label/icon-label'
-import Link from '@ui/link/link'
+import { Button } from '@ui/button/button'
+import { IconLabel } from '@ui/icon-label/icon-label'
+import { Link } from '@ui/link/link'
 
-import NavItem from '@/components/nav/nav-item'
+import type { LogoProps } from '@/components/logo/logo'
+import { NavItem } from '@/components/nav/nav-item'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 
-const Logo = dynamic(
-  () => import(/* webpackChunkName: 'nav' */ '@/components/logo/logo')
+const Logo = dynamic<LogoProps>(() =>
+  import(/* webpackChunkName: 'nav' */ '@/components/logo/logo').then(
+    (mod) => mod.Logo
+  )
 )
 
-export default function NavTop(): JSX.Element {
+export const NavTop = memo(function NavTop() {
   const { laptop } = useTailwindScreens()
 
   return (
@@ -72,4 +76,4 @@ export default function NavTop(): JSX.Element {
       </nav>
     </div>
   )
-}
+})

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from 'react'
 
 import { useMedia } from './useMedia'
 
-interface Screens {
+type Screens = {
   [key: string]: boolean
 }
 

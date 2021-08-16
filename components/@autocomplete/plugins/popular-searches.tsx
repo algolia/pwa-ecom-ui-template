@@ -7,7 +7,7 @@ import type { InstantSearchProps } from 'react-instantsearch-dom'
 
 import { indexName, querySuggestionsIndexName } from '@/utils/env'
 
-export default function popularSearchesPluginCreator(
+export function popularSearchesPluginCreator(
   searchClient: SearchClient,
   recentSearchesPlugin: ReturnType<
     typeof createLocalStorageRecentSearchesPlugin

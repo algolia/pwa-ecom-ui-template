@@ -1,8 +1,10 @@
-import Link from '@ui/link/link'
+import { memo } from 'react'
+
+import { Link } from '@ui/link/link'
 
 import { LogoSymbol } from '@/components/logo/logo'
 
-export default function Footer(): JSX.Element {
+export const Footer = memo(function Footer() {
   return (
     <footer className="mt-auto">
       <div className="hidden bg-neutral-lightest justify-between px-20 py-24 laptop:flex">
@@ -50,4 +52,4 @@ export default function Footer(): JSX.Element {
       </div>
     </footer>
   )
-}
+})

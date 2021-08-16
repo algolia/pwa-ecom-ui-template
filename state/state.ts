@@ -1,4 +1,4 @@
-export interface AppState {
+export type AppState = {
   refinements: {
     expanded: boolean
   }

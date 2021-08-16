@@ -1,6 +1,6 @@
-import Link from '@ui/link/link'
+import { Link } from '@ui/link/link'
 
-export function LogoSymbol(): JSX.Element {
+export function LogoSymbol() {
   return (
     <svg
       viewBox="0 0 33 31"
@@ -16,7 +16,9 @@ export function LogoSymbol(): JSX.Element {
   )
 }
 
-export default function Logo(): JSX.Element {
+export type LogoProps = Record<string, unknown>
+
+export function Logo() {
   return (
     <Link href="/" tabIndex={0} title="Spencer and Williams">
       <svg

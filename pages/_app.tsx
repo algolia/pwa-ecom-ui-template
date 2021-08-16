@@ -2,7 +2,8 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 
 /// #if DEV
-import Dev from '@dev/dev'
+import { Dev } from '@dev/dev'
+import '@/lib/wdyr'
 /// #endif
 
 import { AppLayout } from '@/layouts/app-layout'
@@ -10,7 +11,7 @@ import { isDev } from '@/utils/env'
 
 import '@/styles/_index.css'
 
-export default function App({ Component, pageProps }: AppProps): JSX.Element {
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <AppLayout>
       <Head>

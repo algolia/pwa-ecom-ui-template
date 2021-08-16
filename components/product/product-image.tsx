@@ -4,15 +4,12 @@ import { useState } from 'react'
 import { useClassNames } from '@/hooks/useClassNames'
 import { useIsMounted } from '@/hooks/useIsMounted'
 
-export interface ProductImageProps {
+export type ProductImageProps = {
   src: string
   alt?: string
 }
 
-export function ProductImage({
-  src,
-  alt = '',
-}: ProductImageProps): JSX.Element {
+export function ProductImage({ src, alt = '' }: ProductImageProps) {
   const [loaded, setLoaded] = useState(false)
   const isMounted = useIsMounted()
 

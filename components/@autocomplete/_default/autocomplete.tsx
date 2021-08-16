@@ -6,7 +6,7 @@ import { render } from 'react-dom'
 
 import { useClassNames } from '@/hooks/useClassNames'
 
-export interface AutocompleteProps extends Partial<AutocompleteOptions<any>> {
+export type AutocompleteProps = Partial<AutocompleteOptions<any>> & {
   container?: string | HTMLElement
   panelContainer?: string | HTMLElement
   initialQuery?: string
@@ -14,7 +14,7 @@ export interface AutocompleteProps extends Partial<AutocompleteOptions<any>> {
   children?: React.ReactNode
 }
 
-export default function Autocomplete({
+export function Autocomplete({
   container: customContainer,
   panelContainer: customPanelContainer,
   plugins = [],
@@ -22,7 +22,7 @@ export default function Autocomplete({
   hidePanel = false,
   children,
   ...props
-}: AutocompleteProps): JSX.Element {
+}: AutocompleteProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const panelContainerRef = useRef<HTMLDivElement>(null)
 

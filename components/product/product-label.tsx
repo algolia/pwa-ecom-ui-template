@@ -1,4 +1,4 @@
-export interface ProductLabelProps {
+export type ProductLabelProps = {
   children: React.ReactNode
   highlighting?: React.ComponentType
 }
@@ -6,7 +6,7 @@ export interface ProductLabelProps {
 export function ProductLabel({
   children,
   highlighting: Highlighting,
-}: ProductLabelProps): JSX.Element {
+}: ProductLabelProps) {
   return (
     <h2 className="tag-bold tracking-normal text-neutral-dark">
       {' '}

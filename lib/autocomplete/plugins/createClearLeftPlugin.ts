@@ -7,7 +7,7 @@ type CreateClearLeftPluginProps = {
   initialQuery?: string
 }
 
-export default function createClearLeftPlugin<
+export function createClearLeftPlugin<
   TItem extends Record<string, unknown>,
   TData
 >({ initialQuery = '' }: CreateClearLeftPluginProps = {}): AutocompletePlugin<

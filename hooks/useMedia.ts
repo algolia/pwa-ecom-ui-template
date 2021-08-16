@@ -16,7 +16,7 @@ export function useMedia(queries: string[]) {
       setState((prevState) => {
         const newState = prevState
         newState[i] = matches
-        return [...newState]
+        return newState
       })
     }
 

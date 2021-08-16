@@ -5,7 +5,7 @@ import { Pane as Tweakpane } from 'tweakpane'
 import { useAppContext } from '@/hooks/useAppContext'
 import { ActionType } from '@/state/actions'
 
-export default function Pane(): JSX.Element {
+export function Pane() {
   const paneContainer = useRef(null)
   const router = useRouter()
 

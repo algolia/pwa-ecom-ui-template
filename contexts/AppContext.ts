@@ -5,14 +5,13 @@ import type { AppActions } from '@/state/actions'
 import type { AppState } from '@/state/state'
 import { initialAppState } from '@/state/state'
 
-export interface AppContextValue {
+export type AppContextValue = {
   state: AppState
   dispatch: Dispatch<AppActions>
 }
 
-const AppContext = createContext<AppContextValue>({
+export const AppContext = createContext<AppContextValue>({
   state: initialAppState,
   dispatch: () => undefined,
 })
-
-export default AppContext
+AppContext.displayName = 'AppContext'

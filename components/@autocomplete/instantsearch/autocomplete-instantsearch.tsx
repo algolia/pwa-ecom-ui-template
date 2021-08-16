@@ -3,31 +3,31 @@ import type { SearchClient } from 'algoliasearch/lite'
 import { useCallback, useMemo } from 'react'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
-import VirtualSearchBox from '@/components/@instantsearch/_widgets/virtual-search-box/virtual-search-box'
-import { useSearchContext } from '@/hooks/useSearchContext'
-import createAnimatedPlaceholderPlugin from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
-import createClearLeftPlugin from '@/lib/autocomplete/plugins/createClearLeftPlugin'
-
 import type { AutocompleteProps } from '../_default/autocomplete'
-import Autocomplete from '../_default/autocomplete'
-import searchButtonPluginCreator from '../plugins/search-button'
-import voiceCameraIconsPluginCreator from '../plugins/voice-camera-icons'
+import { Autocomplete } from '../_default/autocomplete'
+import { searchButtonPluginCreator } from '../plugins/search-button'
+import { voiceCameraIconsPluginCreator } from '../plugins/voice-camera-icons'
 
-export interface AutocompleteInstantSearchProps extends AutocompleteProps {
+import { VirtualSearchBox } from '@/components/@instantsearch/_widgets/virtual-search-box/virtual-search-box'
+import { useSearchContext } from '@/hooks/useSearchContext'
+import { createAnimatedPlaceholderPlugin } from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
+import { createClearLeftPlugin } from '@/lib/autocomplete/plugins/createClearLeftPlugin'
+
+export type AutocompleteInstantSearchProps = AutocompleteProps & {
   searchClient?: SearchClient
   placeholders?: string[]
   placeholderWordDelay?: number
   placeholderLetterDelay?: number
 }
 
-export default function AutocompleteInstantSearch({
+export function AutocompleteInstantSearch({
   searchClient: customSearchClient,
   placeholders = [],
   placeholderWordDelay,
   placeholderLetterDelay,
   plugins: customPlugins = [],
   ...props
-}: AutocompleteInstantSearchProps): JSX.Element {
+}: AutocompleteInstantSearchProps) {
   const { query: initialQuery, setSearchState } = useSearchContext()
 
   const plugins = useMemo(
