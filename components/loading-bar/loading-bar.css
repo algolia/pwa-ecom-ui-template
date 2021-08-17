@@ -1,0 +1,15 @@
+.loadingBar {
+  @apply fixed bottom-0 left-0 w-full h-1 z-50 shadow-md bg-white opacity-0 transition-opacity motion-reduce:hidden;
+
+  &::after {
+    @apply content-[''] absolute w-full h-full origin-left bg-brand-nebula motion-reduce:animate-none;
+  }
+
+  &--loading {
+    @apply opacity-100;
+
+    &::after {
+      @apply animate-loading;
+    }
+  }
+}

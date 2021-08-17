@@ -5,6 +5,7 @@ import { Search } from '@instantsearch/search/search'
 
 import { BannerXS } from '@/components/banner/banner-xs'
 import { Footer } from '@/components/footer/footer'
+import { LoadingBar } from '@/components/loading-bar/loading-bar'
 import type { NavProps } from '@/components/nav/nav'
 import { appId, indexName, searchApiKey } from '@/utils/env'
 import { getResultsState } from '@/utils/page'
@@ -35,6 +36,8 @@ export function PageLayout({ children, ...props }: PageLayoutProps) {
       <main>{children}</main>
 
       <Footer />
+
+      <LoadingBar />
     </Search>
   )
 }
