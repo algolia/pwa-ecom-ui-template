@@ -58,7 +58,7 @@ export const ProductCard = memo(function ProductCard({
       <Link
         href={url}
         title="See product details"
-        className="flex flex-col gap-1"
+        className="flex flex-col gap-1 pointer-events-none"
       >
         <div className="relative">
           {image && <ProductImage src={image} alt={title} />}
