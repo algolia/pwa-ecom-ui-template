@@ -18,7 +18,10 @@ export function NavItem({ label, href }: NavItemProps) {
     [router?.query]
   )
 
-  const labelLowercase = useMemo(() => label.toLowerCase(), [label])
+  const labelLowercase = useMemo(
+    () => encodeURIComponent(label.toLowerCase()),
+    [label]
+  )
 
   return (
     <li
@@ -28,12 +31,7 @@ export function NavItem({ label, href }: NavItemProps) {
           : ''
       }
     >
-      <Link
-        href="/[category]"
-        as={href ?? `/${labelLowercase}`}
-        title={label}
-        tabIndex={0}
-      >
+      <Link href={href ?? `/${labelLowercase}`} title={label} tabIndex={0}>
         {label}
       </Link>
     </li>

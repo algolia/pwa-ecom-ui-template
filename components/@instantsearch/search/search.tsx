@@ -17,7 +17,7 @@ export type SearchProps = {
   searchApiKey: string
   indexName: string
   searchClient?: SearchClient
-  resultsState: InstantSearchProps['resultsState']
+  resultsState?: InstantSearchProps['resultsState']
   searchState?: SearchState
   onSearchStateChange?: InstantSearchProps['onSearchStateChange']
   createURL?: InstantSearchProps['createURL']

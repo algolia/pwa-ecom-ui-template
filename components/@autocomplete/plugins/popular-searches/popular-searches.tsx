@@ -1,39 +1,38 @@
+import type { OnSelectParams } from '@algolia/autocomplete-core'
 import { createQuerySuggestionsPlugin } from '@algolia/autocomplete-plugin-query-suggestions'
+import type { AutocompleteQuerySuggestionsHit } from '@algolia/autocomplete-plugin-query-suggestions/dist/esm/types'
 import type { createLocalStorageRecentSearchesPlugin } from '@algolia/autocomplete-plugin-recent-searches'
 import type { SearchOptions } from '@algolia/client-search'
 import type { SearchClient } from 'algoliasearch/lite'
-import type { Dispatch } from 'react'
-import type { InstantSearchProps } from 'react-instantsearch-dom'
 
 import { indexName, querySuggestionsIndexName } from '@/utils/env'
 
-export function popularSearchesPluginCreator(
-  searchClient: SearchClient,
-  recentSearchesPlugin: ReturnType<
-    typeof createLocalStorageRecentSearchesPlugin
-  >,
-  setSearchState?: Dispatch<any>
-) {
+type PopularSearchesPluginCreatorParams = {
+  searchClient: SearchClient
+  recentSearches: ReturnType<typeof createLocalStorageRecentSearchesPlugin>
+  onSelect?: (params: OnSelectParams<AutocompleteQuerySuggestionsHit>) => void
+}
+
+export function popularSearchesPluginCreator({
+  searchClient,
+  recentSearches,
+  onSelect: customOnSelect,
+}: PopularSearchesPluginCreatorParams) {
   return createQuerySuggestionsPlugin({
     searchClient,
     indexName: querySuggestionsIndexName,
     categoryAttribute: [indexName, 'facets', 'exact_matches', 'keywords'],
     getSearchParams() {
-      return recentSearchesPlugin.data?.getAlgoliaSearchParams({
+      return recentSearches.data?.getAlgoliaSearchParams({
         hitsPerPage: 8,
       }) as SearchOptions
     },
     transformSource({ source, onTapAhead }) {
       return {
         ...source,
-        onSelect({ item }) {
-          if (typeof setSearchState === 'function') {
-            setSearchState(
-              (currentSearchState: InstantSearchProps['searchState']) => ({
-                ...currentSearchState,
-                query: item.query,
-              })
-            )
+        onSelect(params) {
+          if (typeof customOnSelect === 'function') {
+            customOnSelect(params)
           }
         },
         templates: {
@@ -72,10 +71,7 @@ export function popularSearchesPluginCreator(
                   </div>
                   <div className="aa-ItemContentBody">
                     <div className="aa-ItemContentTitle">
-                      <components.ReverseHighlight
-                        hit={item}
-                        attribute="query"
-                      />
+                      <components.Highlight hit={item} attribute="query" />
                     </div>
                   </div>
                 </div>

@@ -1,9 +1,10 @@
 import type { SearchClient } from 'algoliasearch/lite'
-import { useMemo } from 'react'
+import { useRouter } from 'next/dist/client/router'
+import { useCallback, useMemo } from 'react'
 
 import type { AutocompleteProps } from '../_default/autocomplete'
 import { Autocomplete } from '../_default/autocomplete'
-import { popularSearchesPluginCreator } from '../plugins/popular-searches'
+import { popularSearchesPluginCreator } from '../plugins/popular-searches/popular-searches'
 import { recentSearchesPluginCreator } from '../plugins/recent-searches'
 import { searchButtonPluginCreator } from '../plugins/search-button'
 import { voiceCameraIconsPluginCreator } from '../plugins/voice-camera-icons'
@@ -27,18 +28,39 @@ export function AutocompleteBasic({
   plugins: customPlugins = [],
   ...props
 }: AutocompleteBasicProps) {
+  const router = useRouter()
   const { searchClient: searchClientContext, query: initialQuery } =
     useSearchContext()
 
   const searchClient = customSearchClient ?? searchClientContext
 
-  const recentSearches = useMemo(() => recentSearchesPluginCreator(), [])
+  const goToSearchPage = useCallback(
+    (query: string) => router.push(`/search?query=${query}`),
+    [router]
+  )
+
+  const recentSearches = useMemo(
+    () =>
+      recentSearchesPluginCreator({
+        onSelect({ item }) {
+          goToSearchPage(item.label)
+        },
+      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  )
 
   const plugins = useMemo(
     () => [
       ...customPlugins,
       recentSearches,
-      popularSearchesPluginCreator(searchClient, recentSearches),
+      popularSearchesPluginCreator({
+        searchClient,
+        recentSearches,
+        onSelect({ item }) {
+          goToSearchPage(item.query)
+        },
+      }),
       createAnimatedPlaceholderPlugin({
         placeholders,
         placeholderTemplate: (currentPlaceholder: string) =>
@@ -48,7 +70,12 @@ export function AutocompleteBasic({
       }),
       createClearLeftPlugin({ initialQuery }),
       voiceCameraIconsPluginCreator(),
-      searchButtonPluginCreator(),
+      searchButtonPluginCreator({
+        initialQuery,
+        onClick({ state }) {
+          goToSearchPage(state.query)
+        },
+      }),
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
@@ -60,7 +87,19 @@ export function AutocompleteBasic({
     ]
   )
 
+  const onSubmit = useCallback(
+    ({ state }) => {
+      goToSearchPage(state.query)
+    },
+    [goToSearchPage]
+  )
+
   return (
-    <Autocomplete plugins={plugins} initialQuery={initialQuery} {...props} />
+    <Autocomplete
+      plugins={plugins}
+      initialQuery={initialQuery}
+      onSubmit={onSubmit}
+      {...props}
+    />
   )
 }

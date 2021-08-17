@@ -66,7 +66,11 @@ export const ProductCard = memo(function ProductCard({
           {tags && tags.length > 0 && (
             <div className="absolute bottom-1 left-1 flex flex-col items-start gap-1">
               {tags.map((tag) => (
-                <ProductTag key={label} label={tag.label} theme={tag.theme} />
+                <ProductTag
+                  key={tag.label}
+                  label={tag.label}
+                  theme={tag.theme}
+                />
               ))}
             </div>
           )}

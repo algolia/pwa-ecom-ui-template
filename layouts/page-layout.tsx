@@ -1,6 +1,5 @@
 import type { GetStaticPropsContext, GetServerSidePropsContext } from 'next'
 import dynamic from 'next/dynamic'
-import type { InstantSearchProps } from 'react-instantsearch-dom'
 
 import { Search } from '@instantsearch/search/search'
 
@@ -13,7 +12,7 @@ import { urlToSearchState } from '@/utils/url'
 
 export type PageLayoutProps = {
   children?: React.ReactNode
-  resultsState: InstantSearchProps['resultsState']
+  resultsState?: any
 }
 
 const Nav = dynamic<NavProps>(() =>
@@ -60,7 +59,7 @@ const getPropsPage = async (component: React.ComponentType, url: string) => {
 
 export const getServerSidePropsPage =
   (component: React.ComponentType) => (context: GetServerSidePropsContext) =>
-    getPropsPage(component, (context?.params?.id as string) || '')
+    getPropsPage(component, context?.resolvedUrl || '')
 
 export const getStaticPropsPage =
   (component: React.ComponentType) => (context: GetStaticPropsContext) =>

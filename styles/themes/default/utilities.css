@@ -80,7 +80,7 @@
 
   /* ---------- Highlighting */
   .highlighting {
-    @apply font-bold text-brand-nebula bg-transparent border-b border-brand-nebula not-italic;
+    @apply font-bold !text-brand-nebula bg-transparent border-b border-brand-nebula not-italic;
   }
 
   /* ========== Layout utilities */

@@ -1,6 +1,8 @@
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
-import { memo, useRef, useState } from 'react'
+import { useRouter } from 'next/dist/client/router'
+import { memo, useMemo, useRef, useState } from 'react'
 
+import { AutocompleteBasic } from '@autocomplete/basic/autocomplete-basic'
 import { AutocompleteInstantSearch } from '@autocomplete/instantsearch/autocomplete-instantsearch'
 import { Button } from '@ui/button/button'
 import { IconLabel } from '@ui/icon-label/icon-label'
@@ -12,8 +14,10 @@ import { useSearchContext } from '@/hooks/useSearchContext'
 import { Laptop, Tablet } from '@/lib/media'
 
 export const NavBottom = memo(function NavBottom() {
+  // Autocomplete placeholders
   const { current: placeholders } = useRef(['products', 'articles', 'faq'])
 
+  // Autocomplete expand on focus
   const { query: initialQuery } = useSearchContext()
   const [isFocused, setIsFocused] = useState(Boolean(initialQuery))
 
@@ -27,6 +31,14 @@ export const NavBottom = memo(function NavBottom() {
     [isFocused]
   )
 
+  // Autocomplete implementation
+  const router = useRouter()
+  const Autocomplete = useMemo(() => {
+    const isHomePage = router?.pathname === '/'
+    return isHomePage ? AutocompleteBasic : AutocompleteInstantSearch
+  }, [router?.pathname])
+
+  // Render
   return (
     <div className="flex items-center px-4 relative divide-x border-b border-neutral-light laptop:h-12 laptop:mx-20 laptop:px-0 laptop:justify-between laptop:border-none laptop:divide-none">
       <Tablet>
@@ -50,10 +62,7 @@ export const NavBottom = memo(function NavBottom() {
 
       <div className={autocompleteCn}>
         <div className="hidden absolute w-24 h-full -translate-x-full bg-gradient-to-l from-white laptop:block" />
-        <AutocompleteInstantSearch
-          placeholders={placeholders}
-          onFocusBlur={onFocusBlur}
-        />
+        <Autocomplete placeholders={placeholders} onFocusBlur={onFocusBlur} />
       </div>
     </div>
   )
