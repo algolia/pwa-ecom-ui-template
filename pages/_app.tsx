@@ -3,7 +3,7 @@ import Head from 'next/head'
 
 /// #if DEV
 import { Dev } from '@dev/dev'
-import '@/lib/wdyr'
+import '@/lib/dev/wdyr'
 /// #endif
 
 import { AppLayout } from '@/layouts/app-layout'

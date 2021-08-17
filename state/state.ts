@@ -2,7 +2,7 @@ export type AppState = {
   refinements: {
     expanded: boolean
   }
-  dev: { grid: { hidden: boolean } }
+  dev: { grids: { hidden: boolean } }
 }
 
 export const initialAppState: AppState = {
@@ -10,7 +10,7 @@ export const initialAppState: AppState = {
     expanded: true,
   },
   dev: {
-    grid: {
+    grids: {
       hidden: true,
     },
   },

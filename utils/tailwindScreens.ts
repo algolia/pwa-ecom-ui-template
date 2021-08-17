@@ -6,5 +6,14 @@ const resolveConfig = require('tailwindcss/resolveConfig')
 const tailwindConfig = require('../tailwind.config.js')
 
 const config = resolveConfig(tailwindConfig)
+const screens = config.theme.screens
+const screensParsed = {}
 
-module.exports = config.theme.screens
+for (const screenName in screens) {
+  if (Object.prototype.hasOwnProperty.call(screens, screenName)) {
+    const screenBreakpoint = screens[screenName]
+    screensParsed[screenName] = parseInt(screenBreakpoint, 10)
+  }
+}
+
+module.exports = screensParsed

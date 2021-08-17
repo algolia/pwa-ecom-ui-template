@@ -9,6 +9,7 @@
   ],
   "globals": { "React": true, "JSX": true },
   "rules": {
+    "no-undef": "off",
     "react/function-component-definition": [
       2,
       {

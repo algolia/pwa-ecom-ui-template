@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-import { Grid } from './grid/grid'
+import { Grids } from './grids/grids'
 import { Pane } from './pane/pane'
 
 import { useAppContext } from '@/hooks/useAppContext'
@@ -10,7 +10,7 @@ export const Dev = memo(function Dev() {
 
   return (
     <>
-      {!state.dev.grid.hidden && <Grid />}
+      {!state.dev.grids.hidden && <Grids />}
       <Pane />
     </>
   )

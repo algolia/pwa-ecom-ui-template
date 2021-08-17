@@ -1,6 +1,7 @@
 import { useMemo, useReducer } from 'react'
 
 import { AppContext } from '@/contexts/AppContext'
+import { MediaContextProvider } from '@/lib/media'
 import { appReducer } from '@/state/reducer'
 import { initialAppState } from '@/state/state'
 
@@ -19,5 +20,9 @@ export function AppLayout({ children }: AppLayoutProps) {
     [state]
   )
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>
+  return (
+    <AppContext.Provider value={value}>
+      <MediaContextProvider>{children}</MediaContextProvider>
+    </AppContext.Provider>
+  )
 }

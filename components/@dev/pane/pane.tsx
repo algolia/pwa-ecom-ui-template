@@ -27,7 +27,7 @@ export function Pane() {
     })
 
     const gridFolder = pane.addFolder({ title: 'Grid' })
-    gridFolder.addInput(state.dev.grid, 'hidden').on('change', (ev) => {
+    gridFolder.addInput(state.dev.grids, 'hidden').on('change', (ev) => {
       dispatch({
         type: ActionType.SetDevGridVisibility,
         payload: ev.value as boolean,

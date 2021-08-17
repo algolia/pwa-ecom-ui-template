@@ -7,7 +7,7 @@ export function appReducer(state: AppState, action: AppActions): AppState {
     case ActionType.SetDevGridVisibility:
       return {
         ...state,
-        dev: { grid: { hidden: action.payload } },
+        dev: { grids: { hidden: action.payload } },
       }
 
     case ActionType.SetRefinementExpanded:
