@@ -5,6 +5,8 @@ import isEqual from 'react-fast-compare'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 import { InstantSearch } from 'react-instantsearch-dom'
 
+import { VirtualSearchBox } from '../_widgets/virtual-search-box/virtual-search-box'
+
 import { SearchContext } from '@/contexts/SearchContext'
 import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 import { useSearchClient } from '@/hooks/useSearchClient'
@@ -51,16 +53,8 @@ export const Search = memo(
       ? urlToSearchState(router?.asPath.slice(1))
       : customInitialSearchState
 
-    const [searchState, _setSearchState] =
+    const [searchState, setSearchState] =
       useState<SearchState>(initialSearchState)
-
-    const setSearchState = useCallback(
-      (state: SearchState) => {
-        if (isEqual(state, searchState)) return
-        _setSearchState(state)
-      },
-      [searchState]
-    )
 
     // Update router url
     const updateRouterUrl = useCallback(
@@ -130,6 +124,7 @@ export const Search = memo(
       >
         <SearchContext.Provider value={contextValue}>
           {children}
+          <VirtualSearchBox />
         </SearchContext.Provider>
       </InstantSearch>
     )

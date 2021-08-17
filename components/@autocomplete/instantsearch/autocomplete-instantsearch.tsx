@@ -8,7 +8,6 @@ import { Autocomplete } from '../_default/autocomplete'
 import { searchButtonPluginCreator } from '../plugins/search-button'
 import { voiceCameraIconsPluginCreator } from '../plugins/voice-camera-icons'
 
-import { VirtualSearchBox } from '@/components/@instantsearch/_widgets/virtual-search-box/virtual-search-box'
 import { useSearchContext } from '@/hooks/useSearchContext'
 import { createAnimatedPlaceholderPlugin } from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
 import { createClearLeftPlugin } from '@/lib/autocomplete/plugins/createClearLeftPlugin'
@@ -61,14 +60,6 @@ export function AutocompleteInstantSearch({
     [setSearchState]
   )
 
-  const onReset = useCallback(() => {
-    setSearchState((currentSearchState: InstantSearchProps['searchState']) => ({
-      ...currentSearchState,
-      query: '',
-      page: 1,
-    }))
-  }, [setSearchState])
-
   const onStateChange = useCallback(
     (stateChangeProps: OnStateChangeProps<any>) => {
       const prevState = stateChangeProps.prevState
@@ -92,11 +83,8 @@ export function AutocompleteInstantSearch({
       initialQuery={initialQuery}
       hidePanel={true}
       onSubmit={onSubmit}
-      onReset={onReset}
       onStateChange={onStateChange}
       {...props}
-    >
-      <VirtualSearchBox />
-    </Autocomplete>
+    />
   )
 }
