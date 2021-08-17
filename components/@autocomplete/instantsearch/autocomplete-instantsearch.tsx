@@ -42,7 +42,7 @@ export function AutocompleteInstantSearch({
       }),
       createClearLeftPlugin({ initialQuery }),
       voiceCameraIconsPluginCreator(),
-      searchButtonPluginCreator(),
+      searchButtonPluginCreator({ initialQuery }),
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [placeholders, placeholderWordDelay, placeholderLetterDelay]
@@ -70,7 +70,9 @@ export function AutocompleteInstantSearch({
   }, [setSearchState])
 
   const onStateChange = useCallback(
-    ({ prevState, state }: OnStateChangeProps<any>) => {
+    (stateChangeProps: OnStateChangeProps<any>) => {
+      const prevState = stateChangeProps.prevState
+      const state = stateChangeProps.state
       if (prevState.query !== state.query) {
         setSearchState(
           (currentSearchState: InstantSearchProps['searchState']) => ({

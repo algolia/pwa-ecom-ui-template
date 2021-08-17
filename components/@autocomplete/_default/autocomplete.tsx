@@ -5,6 +5,7 @@ import { createElement, Fragment, useEffect, useRef } from 'react'
 import { render } from 'react-dom'
 
 import { useClassNames } from '@/hooks/useClassNames'
+import { createFocusBlurPlugin } from '@/lib/autocomplete/plugins/createFocusBlurPlugin'
 
 export type AutocompleteProps = Partial<AutocompleteOptions<any>> & {
   container?: string | HTMLElement
@@ -12,6 +13,9 @@ export type AutocompleteProps = Partial<AutocompleteOptions<any>> & {
   initialQuery?: string
   hidePanel?: boolean
   children?: React.ReactNode
+  onFocus?: () => void
+  onBlur?: () => void
+  onFocusBlur?: (isFocused: boolean, hasQuery: boolean) => void
 }
 
 export function Autocomplete({
@@ -21,6 +25,7 @@ export function Autocomplete({
   initialQuery = '',
   hidePanel = false,
   children,
+  onFocusBlur,
   ...props
 }: AutocompleteProps) {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -31,6 +36,12 @@ export function Autocomplete({
       return undefined
     }
 
+    plugins.push(
+      createFocusBlurPlugin({
+        onFocusBlur,
+      })
+    )
+
     const search = autocomplete({
       container: customContainer ?? containerRef.current,
       panelContainer: customPanelContainer ?? panelContainerRef.current,
@@ -39,18 +50,6 @@ export function Autocomplete({
       openOnFocus: true,
       initialState: {
         query: initialQuery,
-      },
-      classNames: {
-        root: 'Root',
-        form: 'Form',
-        input: 'Input',
-        submitButton: 'SubmitButton',
-        loadingIndicator: 'LoadingIndicator',
-        label: 'Label',
-        panel: 'Panel',
-        detachedSearchButton: 'DetachedSearchButton',
-        detachedSearchButtonIcon: 'DetachedSearchButtonIcon',
-        detachedSearchButtonPlaceholder: 'DetachedSearchButtonPlaceholder',
       },
       renderer: { createElement, Fragment },
       render({ children: acChildren }, root) {

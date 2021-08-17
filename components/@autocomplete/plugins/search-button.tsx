@@ -4,8 +4,15 @@ import { Button } from '@ui/button/button'
 
 import { createTemplatePlugin } from '@/lib/autocomplete/plugins/createTemplatePlugin'
 
-export function searchButtonPluginCreator() {
+type SearchButtonPluginCreatorProps = {
+  initialQuery?: string
+}
+
+export function searchButtonPluginCreator({
+  initialQuery,
+}: SearchButtonPluginCreatorProps) {
   return createTemplatePlugin({
+    initialQuery,
     container: '.aa-InputWrapperSuffix',
     render(root, { state }) {
       render(

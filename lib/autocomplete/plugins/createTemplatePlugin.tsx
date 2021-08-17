@@ -6,6 +6,7 @@ import type {
 type CreateTemplatePluginProps = {
   container: string | HTMLElement
   render?: (root: HTMLElement, props: OnStateChangeProps<any>) => void
+  initialQuery?: string
 }
 
 export function createTemplatePlugin<
@@ -14,6 +15,7 @@ export function createTemplatePlugin<
 >({
   container,
   render,
+  initialQuery = '',
 }: CreateTemplatePluginProps): AutocompletePlugin<TItem, TData> {
   const rootEl =
     typeof document !== 'undefined' ? document.createElement('div') : null
@@ -39,7 +41,9 @@ export function createTemplatePlugin<
           )
           containerEl?.appendChild(rootEl)
 
-          renderFn({} as OnStateChangeProps<any>)
+          renderFn({
+            state: { query: initialQuery },
+          } as OnStateChangeProps<any>)
         }
       })
     },
