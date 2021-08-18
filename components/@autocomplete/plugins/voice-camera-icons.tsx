@@ -3,10 +3,11 @@ import VoiceIcon from '@material-design-icons/svg/outlined/keyboard_voice.svg'
 import CameraIcon from '@material-design-icons/svg/outlined/photo_camera.svg'
 import { render } from 'react-dom'
 
-import createTemplatePlugin from '@/lib/autocomplete/plugins/createTemplatePlugin'
-import Button from '@ui/button/button'
+import { Button } from '@ui/button/button'
 
-interface AutocompleteIconsProps {
+import { createTemplatePlugin } from '@/lib/autocomplete/plugins/createTemplatePlugin'
+
+type AutocompleteIconsProps = {
   voice?: boolean
   camera?: boolean
 }
@@ -14,7 +15,7 @@ interface AutocompleteIconsProps {
 function AutocompleteIcons({
   voice = true,
   camera = true,
-}: AutocompleteIconsProps): JSX.Element {
+}: AutocompleteIconsProps) {
   return (
     <div className="h-full flex gap-1 items-center absolute right-0">
       {voice && (
@@ -39,7 +40,7 @@ function AutocompleteIcons({
   )
 }
 
-export default function voiceCameraIconsPluginCreator() {
+export function voiceCameraIconsPluginCreator() {
   return createTemplatePlugin({
     container: '.aa-InputWrapperSuffix',
     render(root) {

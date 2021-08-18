@@ -24,16 +24,15 @@
     --color-nebula-darkest: #1e2b8e;
 
     /* ========== Autocomplete */
-    --aa-detached-media-query: (max-width:1439px);
     --aa-detached-modal-media-query: ();
-
-    /* ========== React InstantSearch widgets */
-    --ais-loadmore-with-progressbar-background-color: var(--color-neutral-light);
-    --ais-loadmore-with-progressbar-value-color: var(--color-brand-black);
   }
 
   ::selection {
     @apply bg-brand-black text-white;
+  }
+
+  #__next {
+    @apply flex flex-col min-h-screen;
   }
 
   body {
@@ -60,7 +59,12 @@
     @apply heading-5;
   }
 
-  mark {
-    @apply font-bold text-brand-nebula bg-transparent border-b border-brand-nebula;
+  mark,
+  em {
+    @apply highlighting;
+  }
+
+  input[type="search"]::-webkit-search-cancel-button {
+    @apply hidden;
   }
 }

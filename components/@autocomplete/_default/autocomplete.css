@@ -1,31 +1,42 @@
-.Root {
+.aa-Autocomplete {
   @apply full-size flex items-center justify-center;
 }
 
-.Form {
+.aa-Form {
   /* Overrides */
-  @apply border-none !shadow-none bg-neutral-lightest laptop:bg-white laptop:border laptop:border-solid laptop:border-neutral-dark laptop:rounded-none laptop:focus-within:border-transparent laptop:focus-within:ring-2 laptop:focus-within:ring-brand-nebula;
+  @apply !shadow-none bg-neutral-lightest laptop:bg-white laptop:border laptop:border-solid laptop:border-neutral-dark laptop:rounded-none laptop:transition-shadow;
 }
 
-.Input {
+.focused {
+  .aa-Form {
+    @apply border-transparent ring-2 ring-brand-nebula;
+  }
+
+  .aa-Label svg,
+  .aa-LoadingIndicator svg {
+    @apply text-brand-nebula;
+  }
+}
+
+.aa-Input {
   @apply body-regular text-brand-black;
 }
 
-.Input::placeholder {
+.aa-Input::placeholder {
   @apply text-neutral-darkest;
 }
 
-.SubmitButton,
-.LoadingIndicator {
+.aa-SubmitButton,
+.aa-LoadingIndicator {
   @apply w-auto;
 }
 
-.Label svg,
-.LoadingIndicator svg {
-  @apply text-brand-black;
+.aa-Label svg,
+.aa-LoadingIndicator svg {
+  @apply text-brand-black transition-colors;
 }
 
-.Panel {
+.aa-Panel {
   @apply !top-0 !left-0 rounded-none shadow-medium mt-4;
 }
 
@@ -33,18 +44,18 @@
   @apply px-4 py-6 flex flex-col gap-4;
 }
 
-.DetachedSearchButton {
+.aa-DetachedSearchButton {
   @apply full-size flex flex-row-reverse items-center justify-between;
 
   /* Overrides */
   @apply p-0 border-none;
 }
 
-.DetachedSearchButtonIcon {
+.aa-DetachedSearchButtonIcon {
   @apply text-brand-black w-auto;
 }
 
-.DetachedSearchButtonPlaceholder {
+.aa-DetachedSearchButtonPlaceholder {
   @apply text-neutral-darkest;
 
   /* Overrides */

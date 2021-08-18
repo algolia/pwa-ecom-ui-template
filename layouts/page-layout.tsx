@@ -1,27 +1,28 @@
 import type { GetStaticPropsContext, GetServerSidePropsContext } from 'next'
 import dynamic from 'next/dynamic'
-import type { InstantSearchProps } from 'react-instantsearch-dom'
 
-import BannerXS from '@/components/banner/banner-xs'
-import Footer from '@/components/footer/footer'
+import { Search } from '@instantsearch/search/search'
+
+import { BannerXS } from '@/components/banner/banner-xs'
+import { Footer } from '@/components/footer/footer'
+import { LoadingBar } from '@/components/loading-bar/loading-bar'
+import type { NavProps } from '@/components/nav/nav'
 import { appId, indexName, searchApiKey } from '@/utils/env'
 import { getResultsState } from '@/utils/page'
 import { urlToSearchState } from '@/utils/url'
-import Search from '@instantsearch/search/search'
 
-interface PageLayoutProps {
+export type PageLayoutProps = {
   children?: React.ReactNode
-  resultsState: InstantSearchProps['resultsState']
+  resultsState?: any
 }
 
-const Nav = dynamic(
-  () => import(/* webpackChunkName: 'nav' */ '@/components/nav/nav')
+const Nav = dynamic<NavProps>(() =>
+  import(/* webpackChunkName: 'nav' */ '@/components/nav/nav').then(
+    (mod) => mod.Nav
+  )
 )
 
-export default function PageLayout({
-  children,
-  ...props
-}: PageLayoutProps): JSX.Element {
+export function PageLayout({ children, ...props }: PageLayoutProps) {
   return (
     <Search
       appId={appId}
@@ -35,6 +36,8 @@ export default function PageLayout({
       <main>{children}</main>
 
       <Footer />
+
+      <LoadingBar />
     </Search>
   )
 }
@@ -59,7 +62,7 @@ const getPropsPage = async (component: React.ComponentType, url: string) => {
 
 export const getServerSidePropsPage =
   (component: React.ComponentType) => (context: GetServerSidePropsContext) =>
-    getPropsPage(component, context.resolvedUrl)
+    getPropsPage(component, context?.resolvedUrl || '')
 
 export const getStaticPropsPage =
   (component: React.ComponentType) => (context: GetStaticPropsContext) =>

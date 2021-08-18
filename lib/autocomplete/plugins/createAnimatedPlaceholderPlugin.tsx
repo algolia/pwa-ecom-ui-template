@@ -15,7 +15,7 @@ type CustomAutocompletePlugin<
   unsubscribe?: () => void
 }
 
-export default function createAnimatedPlaceholderPlugin<
+export function createAnimatedPlaceholderPlugin<
   TItem extends Record<string, unknown>,
   TData
 >({

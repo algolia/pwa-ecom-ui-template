@@ -1,8 +1,9 @@
-import { useMemo } from 'react'
+import { memo, useMemo, useRef } from 'react'
+import isEqual from 'react-fast-compare'
 import type { InfiniteHitsProvided } from 'react-instantsearch-core'
 import { connectInfiniteHits, Highlight } from 'react-instantsearch-dom'
 
-import LoadMore from '@instantsearch/load-more/load-more'
+import { LoadMore } from '@instantsearch/_widgets/load-more/load-more'
 
 import type { ProductGridCardProps } from '../product/product-grid'
 import { ProductGrid } from '../product/product-grid'
@@ -24,46 +25,56 @@ export type Hit = {
 
 export type HitsProps = InfiniteHitsProvided<Hit>
 
-export const Hits = connectInfiniteHits(({ hits }: HitsProps) => {
+function HitsComponent({ hits }: HitsProps) {
+  const productsCache = useRef<Record<string, ProductGridCardProps>>({})
+
   const products = useMemo(
     () =>
       hits.map((hit) => {
-        const parsedHit: ProductGridCardProps = {
-          objectID: hit.objectID,
-          url: `/${hit.url}`,
-          image: hit.image_link,
-          tags: [],
-          label: hit.category,
-          labelHighlighting() {
-            return <Highlight attribute="category" tagName="mark" hit={hit} />
-          },
-          title: hit.name,
-          titleHighlighting() {
-            return <Highlight attribute="name" tagName="mark" hit={hit} />
-          },
-          colors: [],
-          price: hit.newPrice ?? hit.price,
-          originalPrice: hit.newPrice ? hit.price : undefined,
-          rating: hit.reviewScore,
-          reviews: hit.reviewCount,
-          available: hit.fullStock,
-        }
+        let parsedHit: ProductGridCardProps
 
-        if (hit.reviewCount >= 50) {
-          parsedHit.tags?.push({
-            label: 'popular',
-            theme: 'popular',
-          } as ProductTagType)
-        }
-        if (!hit.fullStock) {
-          parsedHit.tags?.push({
-            label: 'out of stock',
-            theme: 'out-of-stock',
-          } as ProductTagType)
-        }
+        if (!productsCache.current[hit.objectID]) {
+          parsedHit = {
+            objectID: hit.objectID,
+            url: `/${hit.url}`,
+            image: hit.image_link,
+            tags: [],
+            label: hit.category,
+            labelHighlighting() {
+              return <Highlight attribute="category" tagName="mark" hit={hit} />
+            },
+            title: hit.name,
+            titleHighlighting() {
+              return <Highlight attribute="name" tagName="mark" hit={hit} />
+            },
+            colors: [],
+            price: hit.newPrice ?? hit.price,
+            originalPrice: hit.newPrice ? hit.price : undefined,
+            rating: hit.reviewScore,
+            reviews: hit.reviewCount,
+            available: hit.fullStock,
+          }
 
-        if (hit.hexColorCode) {
-          parsedHit.colors?.push(hit.hexColorCode.split('//')[1])
+          if (hit.reviewCount >= 50) {
+            parsedHit.tags?.push({
+              label: 'popular',
+              theme: 'popular',
+            } as ProductTagType)
+          }
+          if (!hit.fullStock) {
+            parsedHit.tags?.push({
+              label: 'out of stock',
+              theme: 'out-of-stock',
+            } as ProductTagType)
+          }
+
+          if (hit.hexColorCode) {
+            parsedHit.colors?.push(hit.hexColorCode.split('//')[1])
+          }
+
+          productsCache.current[parsedHit.objectID] = parsedHit
+        } else {
+          parsedHit = productsCache.current[hit.objectID]
         }
 
         return parsedHit
@@ -77,4 +88,10 @@ export const Hits = connectInfiniteHits(({ hits }: HitsProps) => {
       <LoadMore />
     </div>
   )
-})
+}
+
+export const Hits = connectInfiniteHits(
+  memo(HitsComponent, (prevProps, nextProps) =>
+    isEqual(prevProps.hits, nextProps.hits)
+  )
+)

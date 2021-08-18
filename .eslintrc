@@ -9,9 +9,12 @@
   ],
   "globals": { "React": true, "JSX": true },
   "rules": {
+    "no-undef": "off",
     "react/function-component-definition": [
       2,
-      { "namedComponents": "function-declaration" }
+      {
+        "namedComponents": "function-declaration"
+      }
     ],
     "@typescript-eslint/explicit-function-return-type": "off",
     "spaced-comment": ["error", "always", { "markers": ["/"] }],

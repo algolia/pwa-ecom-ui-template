@@ -1,38 +1,46 @@
-import type { MouseEventHandler } from 'react'
+import type { HTMLProps, MouseEventHandler } from 'react'
+
+import { Icon } from '@ui/icon/icon'
 
 import { useClassNames } from '@/hooks/useClassNames'
 
-import Icon from '../icon/icon'
-
-interface ButtonProps {
+export type ButtonProps = Omit<HTMLProps<HTMLButtonElement>, 'size'> & {
   children?: React.ReactNode
   className?: string
   onClick?: MouseEventHandler
   title?: string
-  type?: 'native' | 'primary' | 'secondary' | 'tertiary'
+  type?: 'native' | 'primary' | 'secondary' | 'tertiary' | 'item'
   size?: 'small' | 'large'
+  selected?: boolean
   disabled?: boolean
   icon?: any
 }
 
-export default function Button({
+export function Button({
   children,
   className,
   onClick,
   title,
   type = 'native',
   size = 'small',
+  selected = false,
   disabled = false,
   icon,
-}: ButtonProps): JSX.Element {
+  ...props
+}: ButtonProps) {
   const cn = useClassNames(
     className,
     'btn',
     {
-      [`btn-${type}`]: type,
-      [`btn-${size}`]: size,
+      'btn-primary': type === 'primary',
+      'btn-secondary': type === 'secondary',
+      'btn-tertiary': type === 'tertiary',
+      'btn-item': type === 'item',
+      'btn-small': size === 'small',
+      'btn-large': size === 'large',
+      'btn--selected': selected,
     },
-    [className, type, size]
+    [className, type, size, selected]
   )
 
   return (
@@ -42,6 +50,7 @@ export default function Button({
       className={type === 'native' ? className : cn}
       disabled={disabled}
       onClick={onClick}
+      {...props}
     >
       {icon && <Icon icon={icon} />}
       {children}

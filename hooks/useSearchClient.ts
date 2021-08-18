@@ -2,7 +2,7 @@ import type { SearchClient } from 'algoliasearch/lite'
 import algoliasearch from 'algoliasearch/lite'
 import { useMemo } from 'react'
 
-interface SearchClientHookOptions {
+export type SearchClientHookOptions = {
   appId: string | undefined
   searchApiKey: string | undefined
 }

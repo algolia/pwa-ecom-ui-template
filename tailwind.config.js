@@ -38,7 +38,23 @@ module.exports = {
       },
       transitionProperty: {
         width: 'width',
+        height: 'height',
       },
+      transitionDuration: {
+        DEFAULT: '300ms',
+      },
+      spacing: {
+        'header': '235px'
+      },
+      animation: {
+        'loading': 'loading 6s cubic-bezier(0.2, 0.7, 0.4, 1) forwards'
+      },
+      keyframes: {
+        loading: {
+          '0%': { transform: 'scaleX(0)' },
+          '100%': { transform: 'scaleX(95%)' }
+        }
+      }
     },
     screens: {
       tablet: '768px',

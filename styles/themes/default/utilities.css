@@ -78,8 +78,17 @@
     @apply text-sm leading-[1.4] tracking-wider font-semibold;
   }
 
+  /* ---------- Highlighting */
+  .highlighting {
+    @apply font-bold !text-brand-nebula bg-transparent border-b border-brand-nebula not-italic;
+  }
+
   /* ========== Layout utilities */
   .full-size {
     @apply w-full h-full;
+  }
+
+  .content-container {
+    height: calc(100vh - theme('spacing.header'));
   }
 }

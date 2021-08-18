@@ -5,24 +5,29 @@ import { createElement, Fragment, useEffect, useRef } from 'react'
 import { render } from 'react-dom'
 
 import { useClassNames } from '@/hooks/useClassNames'
+import { createFocusBlurPlugin } from '@/lib/autocomplete/plugins/createFocusBlurPlugin'
 
-export interface AutocompleteProps extends Partial<AutocompleteOptions<any>> {
+export type AutocompleteProps = Partial<AutocompleteOptions<any>> & {
   container?: string | HTMLElement
   panelContainer?: string | HTMLElement
   initialQuery?: string
   hidePanel?: boolean
   children?: React.ReactNode
+  onFocus?: () => void
+  onBlur?: () => void
+  onFocusBlur?: (isFocused: boolean, hasQuery: boolean) => void
 }
 
-export default function Autocomplete({
+export function Autocomplete({
   container: customContainer,
   panelContainer: customPanelContainer,
   plugins = [],
   initialQuery = '',
   hidePanel = false,
   children,
+  onFocusBlur,
   ...props
-}: AutocompleteProps): JSX.Element {
+}: AutocompleteProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const panelContainerRef = useRef<HTMLDivElement>(null)
 
@@ -30,6 +35,12 @@ export default function Autocomplete({
     if (!containerRef.current || !panelContainerRef.current) {
       return undefined
     }
+
+    plugins.push(
+      createFocusBlurPlugin({
+        onFocusBlur,
+      })
+    )
 
     const search = autocomplete({
       container: customContainer ?? containerRef.current,
@@ -39,18 +50,6 @@ export default function Autocomplete({
       openOnFocus: true,
       initialState: {
         query: initialQuery,
-      },
-      classNames: {
-        root: 'Root',
-        form: 'Form',
-        input: 'Input',
-        submitButton: 'SubmitButton',
-        loadingIndicator: 'LoadingIndicator',
-        label: 'Label',
-        panel: 'Panel',
-        detachedSearchButton: 'DetachedSearchButton',
-        detachedSearchButtonIcon: 'DetachedSearchButtonIcon',
-        detachedSearchButtonPlaceholder: 'DetachedSearchButtonPlaceholder',
       },
       renderer: { createElement, Fragment },
       render({ children: acChildren }, root) {
@@ -74,7 +73,7 @@ export default function Autocomplete({
   }, [customContainer, customPanelContainer])
 
   const panelClassName = useClassNames(
-    'absolute w-full z-10',
+    'absolute w-full z-50',
     { hidden: hidePanel },
     [hidePanel]
   )

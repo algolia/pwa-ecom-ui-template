@@ -5,7 +5,7 @@ import { Pane as Tweakpane } from 'tweakpane'
 import { useAppContext } from '@/hooks/useAppContext'
 import { ActionType } from '@/state/actions'
 
-export default function Pane(): JSX.Element {
+export function Pane() {
   const paneContainer = useRef(null)
   const router = useRouter()
 
@@ -27,9 +27,9 @@ export default function Pane(): JSX.Element {
     })
 
     const gridFolder = pane.addFolder({ title: 'Grid' })
-    gridFolder.addInput(state.dev.grid, 'hidden').on('change', (ev) => {
+    gridFolder.addInput(state.dev.grids, 'hidden').on('change', (ev) => {
       dispatch({
-        type: ActionType.SetGridVisibility,
+        type: ActionType.SetDevGridVisibility,
         payload: ev.value as boolean,
       })
     })

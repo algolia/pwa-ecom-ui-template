@@ -1,9 +1,9 @@
-import Icon from '@ui/icon/icon'
-import Label from '@ui/label/label'
+import { Icon } from '@ui/icon/icon'
+import { Label } from '@ui/label/label'
 
-type LabelPosition = 'top' | 'bottom' | 'left' | 'right'
+export type LabelPosition = 'top' | 'bottom' | 'left' | 'right'
 
-interface IconLabelProps {
+export type IconLabelProps = {
   icon?: any
   label?: string
   labelPosition?: LabelPosition
@@ -11,13 +11,13 @@ interface IconLabelProps {
   labelTheme?: string
 }
 
-export default function IconLabel({
+export function IconLabel({
   icon,
   label,
   labelPosition = 'bottom',
   className = '',
   labelTheme,
-}: IconLabelProps): JSX.Element {
+}: IconLabelProps) {
   let posStyle: string
   switch (labelPosition) {
     case 'top':

@@ -5,12 +5,9 @@ export type ProductTagType = {
   theme?: 'default' | 'eco' | 'price' | 'popular' | 'out-of-stock'
 }
 
-type ProductTagProps = ProductTagType
+export type ProductTagProps = ProductTagType
 
-export function ProductTag({
-  label,
-  theme = 'default',
-}: ProductTagProps): JSX.Element {
+export function ProductTag({ label, theme = 'default' }: ProductTagProps) {
   const cn = useClassNames(`tag-theme-${theme}`, 'rounded-sm px-2 py-0.5', [
     theme,
   ])

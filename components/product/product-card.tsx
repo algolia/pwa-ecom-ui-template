@@ -1,5 +1,6 @@
-import { useClassNames } from '@/hooks/useClassNames'
-import Link from '@ui/link/link'
+import { memo } from 'react'
+
+import { Link } from '@ui/link/link'
 
 import { ProductColorVariationList } from './product-color-variation-list'
 import { ProductFavorite } from './product-favorite'
@@ -11,7 +12,9 @@ import type { ProductTagType } from './product-tag'
 import { ProductTag } from './product-tag'
 import { ProductTitle } from './product-title'
 
-export interface ProductCardProps {
+import { useClassNames } from '@/hooks/useClassNames'
+
+export type ProductCardProps = {
   url?: string
   image?: string
   tags?: ProductTagType[]
@@ -28,7 +31,7 @@ export interface ProductCardProps {
   available?: boolean
 }
 
-export function ProductCard({
+export const ProductCard = memo(function ProductCard({
   url = '',
   image,
   tags,
@@ -43,30 +46,31 @@ export function ProductCard({
   rating,
   reviews,
   available,
-}: ProductCardProps): JSX.Element {
+}: ProductCardProps) {
   return (
-    <article className="w-full">
+    <article
+      className={useClassNames(
+        'w-full relative border border-transparent transition-all laptop:p-3 laptop:hover:shadow-sm laptop:hover:border-neutral-light',
+        { 'opacity-50': !available },
+        [available]
+      )}
+    >
       <Link
         href={url}
         title="See product details"
-        className={useClassNames(
-          'flex flex-col gap-1 border border-transparent laptop:p-4 laptop:hover:shadow-sm laptop:hover:border-neutral-light',
-          { 'opacity-50': !available },
-          [available]
-        )}
+        className="flex flex-col gap-1 pointer-events-none"
       >
         <div className="relative">
           {image && <ProductImage src={image} alt={title} />}
 
-          <ProductFavorite
-            className="absolute top-1 right-1"
-            onClick={() => {}}
-          />
-
-          {tags && (
+          {tags && tags.length > 0 && (
             <div className="absolute bottom-1 left-1 flex flex-col items-start gap-1">
               {tags.map((tag) => (
-                <ProductTag key={label} label={tag.label} theme={tag.theme} />
+                <ProductTag
+                  key={tag.label}
+                  label={tag.label}
+                  theme={tag.theme}
+                />
               ))}
             </div>
           )}
@@ -101,6 +105,8 @@ export function ProductCard({
           </footer>
         </div>
       </Link>
+
+      <ProductFavorite className="absolute top-5 right-5" onClick={() => {}} />
     </article>
   )
-}
+})

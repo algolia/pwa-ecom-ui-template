@@ -4,15 +4,12 @@ import { useMemo } from 'react'
 
 import { clamp } from '@/utils/math'
 
-export interface ProductRatingProps {
+export type ProductRatingProps = {
   rating: number
   review?: number
 }
 
-export function ProductRating({
-  rating,
-  review,
-}: ProductRatingProps): JSX.Element {
+export function ProductRating({ rating, review }: ProductRatingProps) {
   const ratingParsed = useMemo(() => clamp(Math.round(rating), 0, 5), [rating])
 
   const stars = []

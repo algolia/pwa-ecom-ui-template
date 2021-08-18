@@ -1,4 +1,4 @@
-export interface ProductTitleProps {
+export type ProductTitleProps = {
   children: React.ReactNode
   highlighting?: React.ComponentType
 }
@@ -6,7 +6,7 @@ export interface ProductTitleProps {
 export function ProductTitle({
   children,
   highlighting: Highlighting,
-}: ProductTitleProps): JSX.Element {
+}: ProductTitleProps) {
   return (
     <h1 className="small-bold tracking-normal text-brand-black">
       {Highlighting ? <Highlighting /> : children}

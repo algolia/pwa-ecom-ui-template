@@ -1,25 +1,24 @@
+import type { OnSelectParams } from '@algolia/autocomplete-core'
 import { createLocalStorageRecentSearchesPlugin } from '@algolia/autocomplete-plugin-recent-searches'
+import type { RecentSearchesItem } from '@algolia/autocomplete-plugin-recent-searches/dist/esm/types'
 import CloseIcon from '@material-design-icons/svg/outlined/close.svg'
-import type { Dispatch } from 'react'
-import type { InstantSearchProps } from 'react-instantsearch-dom'
 
-export default function recentSearchesPluginCreator(
-  setSearchState?: Dispatch<any>
-) {
+type RecentSearchesPluginCreatorParams = {
+  onSelect?: (params: OnSelectParams<RecentSearchesItem>) => void
+}
+
+export function recentSearchesPluginCreator({
+  onSelect: customOnSelect,
+}: RecentSearchesPluginCreatorParams) {
   return createLocalStorageRecentSearchesPlugin({
     key: 'search',
     limit: 3,
     transformSource({ source, onRemove, onTapAhead }) {
       return {
         ...source,
-        onSelect({ item }) {
-          if (typeof setSearchState === 'function') {
-            setSearchState(
-              (currentSearchState: InstantSearchProps['searchState']) => ({
-                ...currentSearchState,
-                query: item.label,
-              })
-            )
+        onSelect(params) {
+          if (typeof customOnSelect === 'function') {
+            customOnSelect(params)
           }
         },
         templates: {
@@ -38,10 +37,7 @@ export default function recentSearchesPluginCreator(
                   </div>
                   <div className="aa-ItemContentBody">
                     <div className="aa-ItemContentTitle">
-                      <components.ReverseHighlight
-                        hit={item}
-                        attribute="label"
-                      />
+                      <components.Highlight hit={item} attribute="label" />
                       {item.category && (
                         <span className="aa-ItemContentSubtitle aa-ItemContentSubtitle--inline">
                           <span className="aa-ItemContentSubtitleIcon" /> in{' '}

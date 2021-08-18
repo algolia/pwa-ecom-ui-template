@@ -1,14 +1,16 @@
-type BannerXSSize = 'small' | 'large'
+import { memo } from 'react'
 
-interface BannerXSProps {
+export type BannerXSSize = 'small' | 'large'
+
+export type BannerXSProps = {
   size?: BannerXSSize
   children: React.ReactNode
 }
 
-export default function BannerXS({
+export const BannerXS = memo(function BannerXS({
   size = 'large',
   children,
-}: BannerXSProps): JSX.Element {
+}: BannerXSProps) {
   const isLarge = size === 'large'
   return (
     <div
@@ -19,4 +21,4 @@ export default function BannerXS({
       {children}
     </div>
   )
-}
+})

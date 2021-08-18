@@ -1,10 +1,16 @@
 export enum ActionType {
-  SetGridVisibility = 'SetGridVisibility',
+  SetDevGridVisibility = 'SetDevGridVisibility',
+  SetRefinementExpanded = 'SetRefinementExpanded',
 }
 
-export interface SetGridVisibility {
-  type: ActionType.SetGridVisibility
+export type SetDevGridVisibility = {
+  type: ActionType.SetDevGridVisibility
   payload: boolean
 }
 
-export type AppActions = SetGridVisibility
+export type SetRefinementExpanded = {
+  type: ActionType.SetRefinementExpanded
+  payload: boolean
+}
+
+export type AppActions = SetDevGridVisibility | SetRefinementExpanded

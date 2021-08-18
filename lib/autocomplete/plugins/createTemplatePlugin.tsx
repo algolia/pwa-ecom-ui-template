@@ -1,22 +1,33 @@
+import type { BaseItem } from '@algolia/autocomplete-core'
 import type {
   AutocompletePlugin,
   OnStateChangeProps,
 } from '@algolia/autocomplete-js'
+import { unmountComponentAtNode } from 'react-dom'
 
 type CreateTemplatePluginProps = {
   container: string | HTMLElement
   render?: (root: HTMLElement, props: OnStateChangeProps<any>) => void
+  initialQuery?: string
 }
 
-export default function createTemplatePlugin<
+type CustomAutocompletePlugin<
+  TItem extends BaseItem,
+  TData
+> = AutocompletePlugin<TItem, TData> & {
+  unsubscribe?: () => void
+}
+
+export function createTemplatePlugin<
   TItem extends Record<string, unknown>,
   TData
 >({
   container,
   render,
-}: CreateTemplatePluginProps): AutocompletePlugin<TItem, TData> {
+  initialQuery = '',
+}: CreateTemplatePluginProps): CustomAutocompletePlugin<TItem, TData> {
   const rootEl =
-    typeof document !== 'undefined' ? document.createElement('div') : null
+    typeof document !== 'undefined' ? document.createElement('div') : undefined
 
   const renderFn = (props: OnStateChangeProps<any>) => {
     if (render && rootEl) {
@@ -39,9 +50,17 @@ export default function createTemplatePlugin<
           )
           containerEl?.appendChild(rootEl)
 
-          renderFn({} as OnStateChangeProps<any>)
+          renderFn({
+            state: { query: initialQuery },
+          } as OnStateChangeProps<any>)
         }
       })
+    },
+
+    unsubscribe() {
+      if (rootEl) {
+        unmountComponentAtNode(rootEl)
+      }
     },
 
     onStateChange(props) {

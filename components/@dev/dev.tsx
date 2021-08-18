@@ -1,15 +1,17 @@
+import { memo } from 'react'
+
+import { Grids } from './grids/grids'
+import { Pane } from './pane/pane'
+
 import { useAppContext } from '@/hooks/useAppContext'
 
-import Grid from './grid/grid'
-import Pane from './pane/pane'
-
-export default function Dev(): JSX.Element {
+export const Dev = memo(function Dev() {
   const { state } = useAppContext()
 
   return (
     <>
-      {!state.dev.grid.hidden && <Grid />}
+      {!state.dev.grids.hidden && <Grids />}
       <Pane />
     </>
   )
-}
+})
