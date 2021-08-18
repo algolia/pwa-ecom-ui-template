@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import isEqual from 'react-fast-compare'
 import type { StateResultsProvided } from 'react-instantsearch-core'
 import { connectStateResults } from 'react-instantsearch-dom'
 
@@ -18,4 +19,8 @@ function LoadingBarComponent({ isSearchStalled }: StateResultsProvided) {
   return <div className={cn} />
 }
 
-export const LoadingBar = connectStateResults(memo(LoadingBarComponent))
+export const LoadingBar = connectStateResults(
+  memo(LoadingBarComponent, (prevProps, nextProps) =>
+    isEqual(prevProps, nextProps)
+  )
+)
