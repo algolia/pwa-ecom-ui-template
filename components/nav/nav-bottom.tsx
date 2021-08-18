@@ -1,26 +1,53 @@
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
-import { useMemo } from 'react'
+import { useRouter } from 'next/dist/client/router'
+import { memo, useMemo, useRef, useState } from 'react'
 
-import Autocomplete from '@/components/autocomplete/autocomplete'
-import Button from '@/components/button/button'
-import IconLabel from '@/components/icon-label/icon-label'
-import { useTailwindScreens } from '@/hooks/useTailwindScreens'
+import { AutocompleteBasic } from '@autocomplete/basic/autocomplete-basic'
+import { AutocompleteInstantSearch } from '@autocomplete/instantsearch/autocomplete-instantsearch'
+import { Button } from '@ui/button/button'
+import { IconLabel } from '@ui/icon-label/icon-label'
 
-import NavItem from './nav-item'
+import { NavItem } from './nav-item'
 
-export default function NavBottom(): JSX.Element {
-  const { laptop } = useTailwindScreens()
-  const placeholders = useMemo(() => ['products', 'articles', 'faq'], [])
+import { useClassNames } from '@/hooks/useClassNames'
+import { useSearchContext } from '@/hooks/useSearchContext'
+import { Laptop, Tablet } from '@/lib/media'
 
+export const NavBottom = memo(function NavBottom() {
+  // Autocomplete placeholders
+  const { current: placeholders } = useRef(['products', 'articles', 'faq'])
+
+  // Autocomplete expand on focus
+  const { query: initialQuery } = useSearchContext()
+  const [isFocused, setIsFocused] = useState(Boolean(initialQuery))
+
+  const onFocusBlur = (focused: boolean, hasQuery: boolean) => {
+    setIsFocused(hasQuery ? true : focused)
+  }
+
+  const autocompleteCn = useClassNames(
+    'w-full pl-2.5 laptop:w-80 laptop:p-0 laptop:transition-width laptop:ease-out laptop:absolute laptop:right-0',
+    { 'focused laptop:w-11/12': isFocused },
+    [isFocused]
+  )
+
+  // Autocomplete implementation
+  const router = useRouter()
+  const Autocomplete = useMemo(() => {
+    const isHomePage = router?.pathname === '/'
+    return isHomePage ? AutocompleteBasic : AutocompleteInstantSearch
+  }, [router?.pathname])
+
+  // Render
   return (
     <div className="flex items-center px-4 relative divide-x border-b border-neutral-light laptop:h-12 laptop:mx-20 laptop:px-0 laptop:justify-between laptop:border-none laptop:divide-none">
-      {!laptop && (
+      <Tablet>
         <Button className="p-3 pl-0">
           <IconLabel icon={MenuIcon} label="Menu" labelPosition="right" />
         </Button>
-      )}
+      </Tablet>
 
-      {laptop && (
+      <Laptop>
         <nav>
           <ul className="flex gap-6 small-uppercase">
             <NavItem label="Sale" />
@@ -31,12 +58,12 @@ export default function NavBottom(): JSX.Element {
             <NavItem label="Brands" />
           </ul>
         </nav>
-      )}
+      </Laptop>
 
-      <div className="w-full pl-2.5 laptop:w-80 laptop:p-0 laptop:transition-width laptop:duration-300 laptop:ease-out laptop:absolute laptop:right-0 laptop:focus-within:w-11/12">
-        <div className="hidden absolute w-24 h-full -translate-x-full bg-gradient-to-r to-white laptop:block"></div>
-        <Autocomplete placeholders={placeholders} />
+      <div className={autocompleteCn}>
+        <div className="hidden absolute w-24 h-full -translate-x-full bg-gradient-to-l from-white laptop:block" />
+        <Autocomplete placeholders={placeholders} onFocusBlur={onFocusBlur} />
       </div>
     </div>
   )
-}
+})

@@ -1,0 +1,9 @@
+.ais-LoadMoreWithProgressBar {
+  --bar-color: var(--color-neutral-light);
+  --value-color: var(--color-brand-black);
+}
+
+.ais-LoadMoreWithProgressBar-progressBar-bar,
+.ais-LoadMoreWithProgressBar-progressBar-fallback {
+  @apply w-52 rounded-2xl;
+}

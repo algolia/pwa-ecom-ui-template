@@ -13,6 +13,7 @@ const ifdefOpts = {
 /** @type {import('next/dist/next-server/server/config').NextConfig} */
 module.exports = withPlugins([withBundleAnalyzer, withPWA], {
   reactStrictMode: true,
+  experimental: { esmExternals: true },
   eslint: {
     dirs: [
       'pages',
@@ -23,6 +24,9 @@ module.exports = withPlugins([withBundleAnalyzer, withPWA], {
       'contexts',
       'state',
     ],
+  },
+  images: {
+    domains: ['img1.g-star.com']
   },
   pwa: {
     dest: 'public',

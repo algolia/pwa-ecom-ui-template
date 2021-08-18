@@ -15,18 +15,24 @@
     /* ---------- Uranus */
     --color-uranus-base: #89d9d3;
 
+    /* ---------- Venus */
+    --color-venus-base: #f82caa;
+
     /* ---------- Nebula */
     --color-nebula-lightest: #e8eaff;
     --color-nebula-dark: #3f52e8;
     --color-nebula-darkest: #1e2b8e;
 
     /* ========== Autocomplete */
-    --aa-detached-media-query: (max-width:1439px);
     --aa-detached-modal-media-query: ();
   }
 
   ::selection {
     @apply bg-brand-black text-white;
+  }
+
+  #__next {
+    @apply flex flex-col min-h-screen;
   }
 
   body {
@@ -51,5 +57,14 @@
 
   h5 {
     @apply heading-5;
+  }
+
+  mark,
+  em {
+    @apply highlighting;
+  }
+
+  input[type="search"]::-webkit-search-cancel-button {
+    @apply hidden;
   }
 }

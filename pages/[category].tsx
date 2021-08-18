@@ -2,14 +2,14 @@ import type { GetServerSideProps } from 'next'
 import { useRouter } from 'next/dist/client/router'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
-import PageLayout, { getServerSidePropsPage } from '@/layouts/PageLayout'
+import { PageLayout, getServerSidePropsPage } from '@/layouts/page-layout'
 
-interface CategoryProps {
+type CategoryProps = {
   searchState: InstantSearchProps['searchState']
   resultsState: InstantSearchProps['resultsState']
 }
 
-export default function Category(props: CategoryProps): JSX.Element {
+export default function Category(props: CategoryProps) {
   const router = useRouter()
   const query = router?.query
 

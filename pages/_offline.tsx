@@ -1,3 +1,3 @@
-export default function Offline(): JSX.Element {
+export default function Offline() {
   return <h1>This is offline fallback page</h1>
 }

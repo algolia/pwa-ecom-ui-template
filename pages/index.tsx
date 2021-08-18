@@ -1,21 +1,9 @@
-import type { GetStaticProps } from 'next'
-import type { InstantSearchProps } from 'react-instantsearch-dom'
+import { PageLayout } from '@/layouts/page-layout'
 
-import PageLayout, { getStaticPropsPage } from '@/layouts/PageLayout'
-
-interface IndexProps {
-  searchState: InstantSearchProps['searchState']
-  resultsState: InstantSearchProps['resultsState']
-}
-
-export default function Index(props: IndexProps): JSX.Element {
+export default function Index() {
   return (
-    <PageLayout {...props}>
-      <div></div>
+    <PageLayout>
+      <div className="h-36"></div>
     </PageLayout>
   )
 }
-
-export const getStaticProps: GetStaticProps = getStaticPropsPage(
-  Index as React.ComponentType
-)

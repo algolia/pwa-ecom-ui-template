@@ -1,0 +1,95 @@
+.aa-Autocomplete {
+  @apply full-size flex items-center justify-center;
+}
+
+.aa-Form {
+  /* Overrides */
+  @apply !shadow-none bg-neutral-lightest laptop:bg-white laptop:border laptop:border-solid laptop:border-neutral-dark laptop:rounded-none laptop:transition-shadow;
+}
+
+.focused {
+  .aa-Form {
+    @apply border-transparent ring-2 ring-brand-nebula;
+  }
+
+  .aa-Label svg,
+  .aa-LoadingIndicator svg {
+    @apply text-brand-nebula;
+  }
+}
+
+.aa-Input {
+  @apply body-regular text-brand-black;
+}
+
+.aa-Input::placeholder {
+  @apply text-neutral-darkest;
+}
+
+.aa-SubmitButton,
+.aa-LoadingIndicator {
+  @apply w-auto;
+}
+
+.aa-Label svg,
+.aa-LoadingIndicator svg {
+  @apply text-brand-black transition-colors;
+}
+
+.aa-Panel {
+  @apply !top-0 !left-0 rounded-none shadow-medium mt-4;
+}
+
+.aa-PanelLayout {
+  @apply px-4 py-6 flex flex-col gap-4;
+}
+
+.aa-DetachedSearchButton {
+  @apply full-size flex flex-row-reverse items-center justify-between;
+
+  /* Overrides */
+  @apply p-0 border-none;
+}
+
+.aa-DetachedSearchButtonIcon {
+  @apply text-brand-black w-auto;
+}
+
+.aa-DetachedSearchButtonPlaceholder {
+  @apply text-neutral-darkest;
+
+  /* Overrides */
+  @apply body-regular;
+}
+
+.aa-DetachedFormContainer {
+  @apply bg-neutral-lightest border-none;
+}
+
+.aa-SourceHeader {
+  @apply mt-0;
+}
+
+.aa-SourceHeaderTitle {
+  @apply body-regular text-neutral-dark font-normal;
+}
+
+.aa-Item[aria-selected=true] {
+  @apply bg-neutral-lightest;
+}
+
+.aa-ItemContent {
+  @apply gap-2;
+}
+
+.aa-ItemIcon {
+  @apply w-auto;
+}
+
+.aa-ItemIcon svg {
+  @apply w-6 h-6 text-brand-black;
+}
+
+.aa-ItemActionButton svg {
+  @apply w-5 h-5;
+}

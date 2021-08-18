@@ -8,3 +8,5 @@ export const appId = process.env.NEXT_PUBLIC_INSTANTSEARCH_APP_ID!
 export const searchApiKey =
   process.env.NEXT_PUBLIC_INSTANTSEARCH_SEARCH_API_KEY!
 export const indexName = process.env.NEXT_PUBLIC_INSTANTSEARCH_INDEX_NAME!
+export const querySuggestionsIndexName =
+  process.env.NEXT_PUBLIC_INSTANTSEARCH_QUERY_SUGGESTIONS_INDEX_NAME!

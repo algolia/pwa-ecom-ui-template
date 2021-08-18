@@ -25,18 +25,43 @@ module.exports = {
 
         'uranus-base': 'var(--color-uranus-base)',
 
+        'venus-base': 'var(--color-venus-base)',
+
         'nebula-lightest': 'var(--color-nebula-lightest)',
         'nebula-dark': 'var(--color-nebula-dark)',
         'nebula-darkest': 'var(--color-nebula-darkest)',
       },
+      boxShadow: {
+        'small': '0px 4px 8px rgba(35, 38, 59, 0.25)',
+        'medium': '0px 8px 16px rgba(35, 38, 59, 0.25)',
+        'large': '0px 12px 32px rgba(35, 38, 59, 0.25)',
+      },
       transitionProperty: {
         width: 'width',
+        height: 'height',
       },
+      transitionDuration: {
+        DEFAULT: '300ms',
+      },
+      spacing: {
+        'header': '235px'
+      },
+      animation: {
+        'loading': 'loading 6s cubic-bezier(0.2, 0.7, 0.4, 1) forwards'
+      },
+      keyframes: {
+        loading: {
+          '0%': { transform: 'scaleX(0)' },
+          '100%': { transform: 'scaleX(95%)' }
+        }
+      }
     },
     screens: {
       tablet: '768px',
       laptop: '1440px',
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+  ],
 }

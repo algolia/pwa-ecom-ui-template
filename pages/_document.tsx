@@ -1,7 +1,9 @@
 import type { DocumentContext } from 'next/document'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
-class MyDocument extends Document {
+import { mediaStyles } from '@/lib/media'
+
+export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx)
     return { ...initialProps }
@@ -99,6 +101,12 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
             rel="stylesheet"
           />
+
+          {/* Media styles */}
+          <style
+            type="text/css"
+            dangerouslySetInnerHTML={{ __html: mediaStyles }}
+          />
         </Head>
         <body>
           <Main />
@@ -108,5 +116,3 @@ class MyDocument extends Document {
     )
   }
 }
-
-export default MyDocument
