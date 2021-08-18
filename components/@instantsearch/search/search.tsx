@@ -8,7 +8,6 @@ import { InstantSearch } from 'react-instantsearch-dom'
 import { VirtualSearchBox } from '../_widgets/virtual-search-box/virtual-search-box'
 
 import { SearchContext } from '@/contexts/SearchContext'
-import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 import { useSearchClient } from '@/hooks/useSearchClient'
 import { isObjectEmpty } from '@/utils/misc'
 import { createURL, searchStateToUrl, urlToSearchState } from '@/utils/url'
@@ -60,6 +59,7 @@ export const Search = memo(
     const updateRouterUrl = useCallback(
       (nextSearchState: SearchState) => {
         const newRoute = searchStateToUrl(nextSearchState)
+
         if (newRoute !== router.asPath) {
           router.push(newRoute, undefined, {
             shallow: true,
@@ -68,8 +68,6 @@ export const Search = memo(
       },
       [] // eslint-disable-line react-hooks/exhaustive-deps
     )
-
-    const debouncedUpdateRouterUrl = useDebouncedCallback(updateRouterUrl, 700)
 
     // Listen for route changes
     useEffect(() => {
@@ -82,10 +80,10 @@ export const Search = memo(
         }
       }
 
-      router.events.on('routeChangeStart', handleRouteChange)
+      router.events.on('routeChangeComplete', handleRouteChange)
 
       return () => {
-        router.events.off('routeChangeStart', handleRouteChange)
+        router.events.off('routeChangeComplete', handleRouteChange)
       }
     }, [router, setSearchState])
 
@@ -93,14 +91,14 @@ export const Search = memo(
     const onSearchStateChange = useCallback(
       (nextSearchState: SearchState): void => {
         setSearchState(nextSearchState)
-        debouncedUpdateRouterUrl(nextSearchState)
+        updateRouterUrl(nextSearchState)
       },
-      [setSearchState, debouncedUpdateRouterUrl]
+      [setSearchState, updateRouterUrl]
     )
 
     useEffect(() => {
-      debouncedUpdateRouterUrl(searchState)
-    }, [debouncedUpdateRouterUrl, searchState])
+      updateRouterUrl(searchState)
+    }, [updateRouterUrl, searchState])
 
     // Search context
     const contextValue = useMemo(

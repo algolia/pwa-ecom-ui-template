@@ -1,11 +1,10 @@
 import type { GetServerSideProps } from 'next'
-import dynamic from 'next/dynamic'
 import { useCallback } from 'react'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 import { Configure } from 'react-instantsearch-dom'
 
 import { Hits } from '@/components/hits/hits'
-import type { RefinementsPanelProps } from '@/components/refinements-panel/refinements-panel'
+import { RefinementsPanel } from '@/components/refinements-panel/refinements-panel'
 import { useAppContext } from '@/hooks/useAppContext'
 import { PageLayout, getServerSidePropsPage } from '@/layouts/page-layout'
 import { ActionType } from '@/state/actions'
@@ -14,12 +13,6 @@ type SearchProps = {
   searchState: InstantSearchProps['searchState']
   resultsState: InstantSearchProps['resultsState']
 }
-
-const RefinementsPanel = dynamic<RefinementsPanelProps>(() =>
-  import(
-    /* webpackChunkName: 'refinements' */ '@/components/refinements-panel/refinements-panel'
-  ).then((mod) => mod.RefinementsPanel)
-)
 
 export default function Search(props: SearchProps) {
   const { state, dispatch } = useAppContext()

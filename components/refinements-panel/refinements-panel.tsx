@@ -109,6 +109,9 @@ export const RefinementsPanel = memo(function RefinementsPanel({
             <ExpandablePanel
               attribute="sizeFilter"
               widget={SizeRefinementList}
+              widgetProps={{
+                limit: 8,
+              }}
               header="Sizes"
               isOpened={panels.sizeFilter}
               onToggle={() => onToggle('sizeFilter')}

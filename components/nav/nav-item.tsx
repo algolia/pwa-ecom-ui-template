@@ -3,6 +3,9 @@ import { useCallback, useMemo } from 'react'
 
 import { Link } from '@ui/link/link'
 
+import { isObjectEmpty } from '@/utils/misc'
+import { urlToSearchState } from '@/utils/url'
+
 export type NavItemProps = {
   label: string
   href?: string
@@ -13,7 +16,15 @@ export function NavItem({ label, href }: NavItemProps) {
 
   const isSelected = useCallback(
     (val: string) => {
-      return router?.query?.category === val.replace('/', '')
+      const routerQuery = router?.query
+      const searchState = urlToSearchState(val)
+
+      if (isObjectEmpty(searchState)) return false
+
+      return (
+        routerQuery?.['hierarchicalMenu[hierarchical_categories.lvl0]'] ===
+        searchState.hierarchicalMenu?.['hierarchical_categories.lvl0']
+      )
     },
     [router?.query]
   )
