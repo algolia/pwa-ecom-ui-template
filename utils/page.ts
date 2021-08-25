@@ -1,11 +1,6 @@
 import algoliasearch from 'algoliasearch/lite'
-import type { ComponentType } from 'react'
-import { createElement } from 'react'
-import { renderToString } from 'react-dom/server'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 import { findResultsState } from 'react-instantsearch-dom/server'
-
-import { isObjectEmpty } from './isObjectEmpty'
 
 export type GetResultsStateParams = {
   component: React.ComponentType
@@ -13,16 +8,6 @@ export type GetResultsStateParams = {
   appId: string
   searchApiKey: string
   indexName: string
-}
-
-export function getWidgetsCount(component: ComponentType) {
-  const widgets = []
-  renderToString(
-    createElement<any>(component, {
-      widgetsCollector: (widget: any) => widgets.push(widget),
-    })
-  )
-  return widgets.length
 }
 
 export async function getResultsState({
@@ -34,19 +19,15 @@ export async function getResultsState({
 }: GetResultsStateParams): Promise<InstantSearchProps['resultsState']> {
   // 'useSearchClient' hook is not used here as this function runs on server-side only
   const searchClient = algoliasearch(appId, searchApiKey)
-  let resultsState = { state: {}, results: [], rawResults: [], metadata: [] }
 
-  // Get results state if there is at least a widget and search state is not empty
-  if (getWidgetsCount(component) > 0 && !isObjectEmpty(searchState)) {
-    resultsState = await findResultsState(component, {
-      searchClient,
-      indexName,
-      searchState,
-    })
+  let resultsState = await findResultsState(component, {
+    searchClient,
+    indexName,
+    searchState,
+  })
 
-    // Strips down unserializable values so Next.js doesn't show an error
-    resultsState = JSON.parse(JSON.stringify(resultsState))
-  }
+  // Strips down unserializable values so Next.js doesn't show an error
+  resultsState = JSON.parse(JSON.stringify(resultsState))
 
   return resultsState
 }

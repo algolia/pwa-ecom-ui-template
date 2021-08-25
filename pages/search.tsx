@@ -11,7 +11,7 @@ import {
   RefinementsPanel,
   refinementsPanelMobileExpandedAtom,
 } from '@/components/refinements-panel/refinements-panel'
-import { PageLayout } from '@/layouts/page-layout'
+import { PageLayout, getServerSidePropsPage } from '@/layouts/page-layout'
 
 const Hits = dynamic<any>(() =>
   import(/* webpackChunkName: 'search' */ '@/components/hits/hits').then(
@@ -51,9 +51,6 @@ export default function Search(props: SearchProps) {
   )
 }
 
-// export const getStaticProps = getStaticPropsPage(
-//   Search as React.ComponentType,
-//   {
-//     revalidate: 60 * 60 * 24, // each day
-//   }
-// )
+export const getServerSideProps = getServerSidePropsPage(
+  Search as React.ComponentType
+)
