@@ -4,17 +4,30 @@ import type {
   GetServerSidePropsResult,
   GetStaticPropsResult,
 } from 'next'
+import dynamic from 'next/dynamic'
 
 import { Search } from '@instantsearch/search/search'
 
 import { BannerXS } from '@/components/banner/banner-xs'
-import { FooterDynamic as Footer } from '@/components/footer/footer'
-import { HeaderDynamic as Header } from '@/components/header/header'
+import type { FooterProps } from '@/components/footer/footer'
+import type { HeaderProps } from '@/components/header/header'
 import { LoadingBar } from '@/components/loading-bar/loading-bar'
 import { Overlay } from '@/components/overlay/overlay'
 import { appId, indexName, searchApiKey } from '@/utils/env'
 import { getResultsState } from '@/utils/page'
 import { urlToSearchState } from '@/utils/url'
+
+export const Header = dynamic<HeaderProps>(() =>
+  import(/* webpackChunkName: 'common' */ '@/components/header/header').then(
+    (mod) => mod.Header
+  )
+)
+
+export const Footer = dynamic<FooterProps>(() =>
+  import(/* webpackChunkName: 'common' */ '@/components/footer/footer').then(
+    (mod) => mod.Footer
+  )
+)
 
 export type PageLayoutProps = {
   children?: React.ReactNode

@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import { useState } from 'react'
 
 import { Nav } from '@/components/nav/nav'
@@ -30,9 +29,3 @@ export function Header() {
     </header>
   )
 }
-
-export const HeaderDynamic = dynamic<HeaderProps>(() =>
-  import(/* webpackChunkName: 'common' */ '@/components/header/header').then(
-    (mod) => mod.Header
-  )
-)

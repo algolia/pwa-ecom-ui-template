@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import { memo } from 'react'
 
 import { Link } from '@ui/link/link'
@@ -56,9 +55,3 @@ export const Footer = memo(function Footer() {
     </footer>
   )
 })
-
-export const FooterDynamic = dynamic<FooterProps>(() =>
-  import(/* webpackChunkName: 'common' */ '@/components/footer/footer').then(
-    (mod) => mod.Footer
-  )
-)
