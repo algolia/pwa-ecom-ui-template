@@ -65,13 +65,6 @@ export function RefinementsPanel({
 
   const DynamicWidgets = dynamicWidgets ? ExperimentalDynamicWidgets : Fragment
 
-  const isExpanded = true
-  const cn = useClassNames(
-    'w-full laptop:overflow-hidden laptop:transition-width',
-    isExpanded ? 'laptop:w-64' : 'laptop:w-0',
-    [isExpanded]
-  )
-
   const [mobileExpanded, setMobileExpanded] = useAtom(
     refinementsPanelMobileExpandedAtom
   )
@@ -93,10 +86,10 @@ export function RefinementsPanel({
         [mobileExpanded]
       )}
     >
-      <div className={cn}>
+      <div className="w-full laptop:overflow-hidden laptop:transition-width">
         <div className="RefinementsPanel-gradient" />
 
-        <div className="w-full laptop:w-64 laptop:pr-5">
+        <div className="w-full laptop:pr-5">
           <header className="flex items-center gap-3 my-6 laptop:my-5">
             <Icon
               icon={FilterIcon}
