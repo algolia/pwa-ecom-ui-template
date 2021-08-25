@@ -52,8 +52,8 @@ export default function Search(props: SearchProps) {
 }
 
 export const getStaticProps = getStaticPropsPage(
-  Search as React.ComponentType,
-  {
-    revalidate: 60 * 60 * 24, // each day
-  }
+  Search as React.ComponentType
+  // {
+  //   revalidate: 60 * 60 * 24, // each day
+  // }
 )
