@@ -1,17 +1,16 @@
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
 import { useUpdateAtom } from 'jotai/utils'
 import { useRouter } from 'next/dist/client/router'
-import { memo, useMemo, useRef, useState } from 'react'
+import { memo, useEffect, useMemo, useRef, useState } from 'react'
 
 import { AutocompleteBasic } from '@autocomplete/basic/autocomplete-basic'
 import { AutocompleteInstantSearch } from '@autocomplete/instantsearch/autocomplete-instantsearch'
 import { Button } from '@ui/button/button'
 import { IconLabel } from '@ui/icon-label/icon-label'
 
-import { overlayAtom } from '../overlay/overlay'
-
 import { NavItem } from './nav-item'
 
+import { overlayAtom } from '@/components/overlay/overlay'
 import { useClassNames } from '@/hooks/useClassNames'
 import { useSearchContext } from '@/hooks/useSearchContext'
 import { Laptop, Tablet } from '@/lib/media'
@@ -25,8 +24,12 @@ export const NavBottom = memo(function NavBottom() {
 
   // Autocomplete expand on focus
   const { query: initialQuery } = useSearchContext()
-  const [isFocused, setIsFocused] = useState(Boolean(initialQuery))
+  const [isFocused, setIsFocused] = useState(false)
   const setOverlay = useUpdateAtom(overlayAtom)
+
+  useEffect(() => {
+    setIsFocused(Boolean(initialQuery))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const onFocusBlur = (focused: boolean, hasQuery: boolean) => {
     setIsFocused(hasQuery ? true : focused)
@@ -39,8 +42,7 @@ export const NavBottom = memo(function NavBottom() {
     [isFocused]
   )
 
-  // Autocomplete implementation
-
+  // Autocomplete implementation\
   const Autocomplete = useMemo(
     () => (isHomePage ? AutocompleteBasic : AutocompleteInstantSearch),
     [isHomePage]
