@@ -50,7 +50,7 @@ export const ProductCard = memo(function ProductCard({
   return (
     <article
       className={useClassNames(
-        'w-full relative border border-transparent transition-all laptop:p-3 can-hover:hover:shadow-sm can-hover:hover:border-neutral-light',
+        'w-full relative border border-transparent transition-all laptop:p-3 can-hover:laptop:hover:shadow-sm can-hover:laptop:hover:border-neutral-light',
         { 'opacity-50': !available },
         [available]
       )}
