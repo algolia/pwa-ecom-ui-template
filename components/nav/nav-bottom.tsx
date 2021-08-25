@@ -1,7 +1,7 @@
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
 import { useUpdateAtom } from 'jotai/utils'
 import { useRouter } from 'next/dist/client/router'
-import { memo, useEffect, useMemo, useRef, useState } from 'react'
+import { memo, useMemo, useRef, useState } from 'react'
 
 import { AutocompleteBasic } from '@autocomplete/basic/autocomplete-basic'
 import { AutocompleteInstantSearch } from '@autocomplete/instantsearch/autocomplete-instantsearch'
