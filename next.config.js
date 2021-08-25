@@ -10,6 +10,29 @@ const ifdefOpts = {
   TEST: process.env.NODE_ENV === 'test',
 }
 
+const securityHeaders = [
+  {
+    key: 'X-DNS-Prefetch-Control',
+    value: 'on',
+  },
+  {
+    key: 'Strict-Transport-Security',
+    value: 'max-age=63072000; includeSubDomains; preload',
+  },
+  {
+    key: 'X-XSS-Protection',
+    value: '1; mode=block',
+  },
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff',
+  },
+  {
+    key: 'X-Frame-Options',
+    value: 'SAMEORIGIN',
+  }
+]
+
 /** @type {import('next/dist/next-server/server/config').NextConfig} */
 module.exports = withPlugins([withBundleAnalyzer, withPWA], {
   reactStrictMode: true,
@@ -26,11 +49,19 @@ module.exports = withPlugins([withBundleAnalyzer, withPWA], {
     ],
   },
   images: {
-    domains: ['img1.g-star.com']
+    domains: ['img1.g-star.com'],
   },
   pwa: {
     dest: 'public',
     disable: ifdefOpts.DEV,
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: securityHeaders,
+      },
+    ]
   },
   webpack: (config) => {
     const rules = config.module.rules
