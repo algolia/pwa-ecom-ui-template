@@ -24,12 +24,8 @@ export const NavBottom = memo(function NavBottom() {
 
   // Autocomplete expand on focus
   const { query: initialQuery } = useSearchContext()
-  const [isFocused, setIsFocused] = useState(false)
+  const [isFocused, setIsFocused] = useState(Boolean(initialQuery))
   const setOverlay = useUpdateAtom(overlayAtom)
-
-  useEffect(() => {
-    setIsFocused(Boolean(initialQuery))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const onFocusBlur = (focused: boolean, hasQuery: boolean) => {
     setIsFocused(hasQuery ? true : focused)
