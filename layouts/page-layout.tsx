@@ -1,12 +1,17 @@
-import type { GetStaticPropsContext, GetServerSidePropsContext } from 'next'
-import dynamic from 'next/dynamic'
+import type {
+  GetStaticPropsContext,
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  GetStaticPropsResult,
+} from 'next'
 
 import { Search } from '@instantsearch/search/search'
 
 import { BannerXS } from '@/components/banner/banner-xs'
-import { Footer } from '@/components/footer/footer'
+import { FooterDynamic as Footer } from '@/components/footer/footer'
+import { HeaderDynamic as Header } from '@/components/header/header'
 import { LoadingBar } from '@/components/loading-bar/loading-bar'
-import type { NavProps } from '@/components/nav/nav'
+import { Overlay } from '@/components/overlay/overlay'
 import { appId, indexName, searchApiKey } from '@/utils/env'
 import { getResultsState } from '@/utils/page'
 import { urlToSearchState } from '@/utils/url'
@@ -15,12 +20,6 @@ export type PageLayoutProps = {
   children?: React.ReactNode
   resultsState?: any
 }
-
-const Nav = dynamic<NavProps>(() =>
-  import(/* webpackChunkName: 'nav' */ '@/components/nav/nav').then(
-    (mod) => mod.Nav
-  )
-)
 
 export function PageLayout({ children, ...props }: PageLayoutProps) {
   return (
@@ -31,18 +30,27 @@ export function PageLayout({ children, ...props }: PageLayoutProps) {
       {...props}
     >
       <BannerXS>20% Off! Code: SPRING21 - Terms apply*</BannerXS>
-      <Nav />
+      <Header />
 
       <main>{children}</main>
 
       <Footer />
 
       <LoadingBar />
+      <Overlay />
     </Search>
   )
 }
 
-const getPropsPage = async (component: React.ComponentType, url: string) => {
+export type GetServerSidePropsOptions = Partial<GetServerSidePropsResult<any>>
+
+export type GetStaticPropsOptions = Partial<GetStaticPropsResult<any>>
+
+const getPropsPage = async (
+  component: React.ComponentType,
+  url: string,
+  options: GetServerSidePropsOptions | GetStaticPropsOptions | undefined
+) => {
   const searchState = urlToSearchState(url)
   const resultsState = await getResultsState({
     component,
@@ -57,13 +65,16 @@ const getPropsPage = async (component: React.ComponentType, url: string) => {
       searchState,
       resultsState,
     },
+    ...options,
   }
 }
 
 export const getServerSidePropsPage =
-  (component: React.ComponentType) => (context: GetServerSidePropsContext) =>
-    getPropsPage(component, context?.resolvedUrl || '')
+  (component: React.ComponentType, options?: GetServerSidePropsOptions) =>
+  (context: GetServerSidePropsContext) =>
+    getPropsPage(component, context?.resolvedUrl || '', options)
 
 export const getStaticPropsPage =
-  (component: React.ComponentType) => (context: GetStaticPropsContext) =>
-    getPropsPage(component, (context?.params?.id as string) || '')
+  (component: React.ComponentType, options?: GetStaticPropsOptions) =>
+  (context: GetStaticPropsContext) =>
+    getPropsPage(component, (context?.params?.id as string) || '', options)

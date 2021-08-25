@@ -9,9 +9,9 @@ export const Dev = memo(function Dev() {
   const { state } = useAppContext()
 
   return (
-    <>
+    <div className="z-dev">
       {!state.dev.grids.hidden && <Grids />}
       <Pane />
-    </>
+    </div>
   )
 })

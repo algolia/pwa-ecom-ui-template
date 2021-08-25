@@ -1,0 +1,7 @@
+.ais-ClearRefinements-button {
+  @apply to-visible can-hover:hover:text-neutral-dark;
+}
+
+.ais-ClearRefinements-button--disabled {
+  @apply pointer-events-none to-invisible;
+}

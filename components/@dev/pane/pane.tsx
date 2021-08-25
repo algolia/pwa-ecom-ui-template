@@ -40,5 +40,5 @@ export function Pane() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paneContainer])
 
-  return <div className="z-50 fixed bottom-3 left-3" ref={paneContainer} />
+  return <div className="fixed bottom-3 left-3" ref={paneContainer} />
 }

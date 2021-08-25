@@ -5,6 +5,8 @@ import { renderToString } from 'react-dom/server'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 import { findResultsState } from 'react-instantsearch-dom/server'
 
+import { isObjectEmpty } from './isObjectEmpty'
+
 export type GetResultsStateParams = {
   component: React.ComponentType
   searchState: InstantSearchProps['searchState']
@@ -34,8 +36,8 @@ export async function getResultsState({
   const searchClient = algoliasearch(appId, searchApiKey)
   let resultsState = { state: {}, results: [], rawResults: [], metadata: [] }
 
-  // Get results state if there is at least a widget
-  if (getWidgetsCount(component) > 0) {
+  // Get results state if there is at least a widget and search state is not empty
+  if (getWidgetsCount(component) > 0 && !isObjectEmpty(searchState)) {
     resultsState = await findResultsState(component, {
       searchClient,
       indexName,

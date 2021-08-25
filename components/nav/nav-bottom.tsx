@@ -1,4 +1,5 @@
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
+import { useUpdateAtom } from 'jotai/utils'
 import { useRouter } from 'next/dist/client/router'
 import { memo, useMemo, useRef, useState } from 'react'
 
@@ -7,6 +8,8 @@ import { AutocompleteInstantSearch } from '@autocomplete/instantsearch/autocompl
 import { Button } from '@ui/button/button'
 import { IconLabel } from '@ui/icon-label/icon-label'
 
+import { overlayAtom } from '../overlay/overlay'
+
 import { NavItem } from './nav-item'
 
 import { useClassNames } from '@/hooks/useClassNames'
@@ -14,15 +17,20 @@ import { useSearchContext } from '@/hooks/useSearchContext'
 import { Laptop, Tablet } from '@/lib/media'
 
 export const NavBottom = memo(function NavBottom() {
+  const router = useRouter()
+  const isHomePage = useMemo(() => router?.pathname === '/', [router])
+
   // Autocomplete placeholders
   const { current: placeholders } = useRef(['products', 'articles', 'faq'])
 
   // Autocomplete expand on focus
   const { query: initialQuery } = useSearchContext()
   const [isFocused, setIsFocused] = useState(Boolean(initialQuery))
+  const setOverlay = useUpdateAtom(overlayAtom)
 
   const onFocusBlur = (focused: boolean, hasQuery: boolean) => {
     setIsFocused(hasQuery ? true : focused)
+    if (isHomePage) setOverlay({ visible: focused, zIndex: 'z-overlay-header' })
   }
 
   const autocompleteCn = useClassNames(
@@ -32,15 +40,15 @@ export const NavBottom = memo(function NavBottom() {
   )
 
   // Autocomplete implementation
-  const router = useRouter()
-  const Autocomplete = useMemo(() => {
-    const isHomePage = router?.pathname === '/'
-    return isHomePage ? AutocompleteBasic : AutocompleteInstantSearch
-  }, [router?.pathname])
+
+  const Autocomplete = useMemo(
+    () => (isHomePage ? AutocompleteBasic : AutocompleteInstantSearch),
+    [isHomePage]
+  )
 
   // Render
   return (
-    <div className="flex items-center px-4 relative divide-x border-b border-neutral-light laptop:h-12 laptop:mx-20 laptop:px-0 laptop:justify-between laptop:border-none laptop:divide-none">
+    <div className="flex items-center px-4 relative divide-x border-b border-neutral-light laptop:h-12 laptop:mx-20 laptop:mb-5 laptop:px-0 laptop:justify-between laptop:border-none laptop:divide-none">
       <Tablet>
         <Button className="p-3 pl-0">
           <IconLabel icon={MenuIcon} label="Menu" labelPosition="right" />

@@ -35,6 +35,8 @@ export type NoRefinementsHandlerProps = StateResultsProvided & {
 
 const NoRefinementsHandler = connectStateResults(
   ({ searchResults, attribute, onUpdate }: NoRefinementsHandlerProps) => {
+    if (!searchResults) return null
+
     const disjunctiveFacets = searchResults.disjunctiveFacets
     const hierarchicalFacets = searchResults.hierarchicalFacets
 
@@ -143,7 +145,7 @@ export const ExpandablePanel = connectCurrentRefinements(
     return (
       <div
         className={useClassNames(
-          'py-5 border-t border-neutral-light',
+          'py-3.5 laptop:py-5 laptop:border-t laptop:border-neutral-light',
           {
             hidden: !hasRefinements.current,
           },
@@ -158,14 +160,14 @@ export const ExpandablePanel = connectCurrentRefinements(
         />
 
         <Button
-          className="w-full flex items-center justify-between transition-colors hover:text-neutral-dark"
+          className="w-full flex items-center justify-between laptop:transition-colors can-hover:hover:text-neutral-dark"
           aria-expanded={isOpened}
           onClick={(e) => {
             firstToggle.current = false
             onToggle(e)
           }}
         >
-          <div className="small-bold uppercase">
+          <div className="subhead laptop:small-bold laptop:uppercase">
             {header ?? attribute}
             {currentRefinementCount > 0 && ` (${currentRefinementCount})`}
           </div>

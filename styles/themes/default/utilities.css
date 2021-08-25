@@ -29,6 +29,10 @@
     @apply text-[1.25rem] leading-[1.4];
   }
 
+  .subhead {
+    @apply text-xl leading-[1.4] font-bold;
+  }
+
   /* ---------- Body */
   .body-regular {
     @apply font-sans text-sm;
@@ -88,7 +92,24 @@
     @apply w-full h-full;
   }
 
-  .content-container {
+  .h-container {
     height: calc(100vh - theme('spacing.header'));
+  }
+
+  /* ========== Transition utilities */
+  .to-visible {
+    @apply opacity-100 visible;
+
+    transition:
+      opacity theme('transitionDuration.DEFAULT') linear 0s,
+      visibility 0s linear 0s;
+  }
+
+  .to-invisible {
+    @apply opacity-0 invisible;
+
+    transition:
+      opacity theme('transitionDuration.DEFAULT') linear 0s,
+      visibility 0s linear theme('transitionDuration.DEFAULT');
   }
 }

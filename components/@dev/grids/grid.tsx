@@ -30,7 +30,7 @@ export function Grid({ columns, margin, gutter }: GridProps) {
   return (
     <div
       style={style as CSSProperties}
-      className="z-50 select-none pointer-events-none absolute top-0 left-0 w-full h-full grid grid-flow-col gap-[var(--gutter)] px-[var(--margin)]"
+      className="select-none pointer-events-none fixed top-0 left-0 w-full h-full grid grid-flow-col gap-[var(--gutter)] px-[var(--margin)]"
     >
       {columnsDivs}
     </div>

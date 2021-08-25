@@ -1,4 +1,3 @@
-import type { GetServerSideProps } from 'next'
 import { useRouter } from 'next/dist/client/router'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
@@ -20,6 +19,6 @@ export default function Category(props: CategoryProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = getServerSidePropsPage(
+export const getServerSideProps = getServerSidePropsPage(
   Category as React.ComponentType
 )

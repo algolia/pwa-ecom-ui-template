@@ -73,7 +73,7 @@ export function Autocomplete({
   }, [customContainer, customPanelContainer])
 
   const panelClassName = useClassNames(
-    'absolute w-full z-50',
+    'absolute w-full z-autocomplete-panel',
     { hidden: hidePanel },
     [hidePanel]
   )

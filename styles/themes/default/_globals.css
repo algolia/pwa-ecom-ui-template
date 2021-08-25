@@ -4,6 +4,7 @@
 /* InstantSearch widgets */
 @import "@algolia/react-instantsearch-widget-loadmore-with-progressbar/dist/style.css";
 @import "@algolia/react-instantsearch-widget-color-refinement-list/dist/style.css";
+@import "./widgets/*.css";
 
 /* Base */
 @import "tailwindcss/base";

@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react'
 
 import { Link } from '@ui/link/link'
 
-import { isObjectEmpty } from '@/utils/misc'
+import { isObjectEmpty } from '@/utils/isObjectEmpty'
 import { urlToSearchState } from '@/utils/url'
 
 export type NavItemProps = {

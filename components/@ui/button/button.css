@@ -24,7 +24,7 @@
     @apply bg-brand-black text-white;
 
     &:hover {
-      @apply bg-neutral-darkest;
+      @apply can-hover:bg-neutral-darkest;
     }
 
     &:active {
@@ -41,7 +41,7 @@
     @apply bg-white ring-2 ring-brand-black text-brand-black;
 
     &:hover {
-      @apply ring-neutral-darkest text-neutral-darkest;
+      @apply can-hover:ring-neutral-darkest can-hover:text-neutral-darkest;
     }
 
     &:active {
@@ -58,7 +58,7 @@
     @apply bg-brand-nebula text-white;
 
     &:hover {
-      @apply bg-nebula-dark text-nebula-lightest;
+      @apply can-hover:bg-nebula-dark can-hover:text-nebula-lightest;
     }
 
     &:active {
@@ -75,7 +75,7 @@
     @apply px-3.5 ring-1 bg-white ring-brand-black text-brand-black;
 
     &:hover {
-      @apply text-white;
+      @apply can-hover:text-white;
     }
 
     &:disabled {
