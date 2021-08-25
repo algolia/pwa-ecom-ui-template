@@ -11,7 +11,7 @@ import {
   RefinementsPanel,
   refinementsPanelMobileExpandedAtom,
 } from '@/components/refinements-panel/refinements-panel'
-import { PageLayout } from '@/layouts/page-layout'
+import { getServerSidePropsPage, PageLayout } from '@/layouts/page-layout'
 
 const Hits = dynamic<any>(() =>
   import(/* webpackChunkName: 'search' */ '@/components/hits/hits').then(
@@ -50,3 +50,7 @@ export default function Search(props: SearchProps) {
     </PageLayout>
   )
 }
+
+export const getServerSideProps = getServerSidePropsPage(
+  Search as React.ComponentType
+)
