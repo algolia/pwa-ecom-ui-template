@@ -1,6 +1,7 @@
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
+import { useUpdateAtom } from 'jotai/utils'
 import { useRouter } from 'next/dist/client/router'
-import { memo, useMemo, useRef, useState } from 'react'
+import { memo, useEffect, useMemo, useRef, useState } from 'react'
 
 import { AutocompleteBasic } from '@autocomplete/basic/autocomplete-basic'
 import { AutocompleteInstantSearch } from '@autocomplete/instantsearch/autocomplete-instantsearch'
@@ -9,20 +10,30 @@ import { IconLabel } from '@ui/icon-label/icon-label'
 
 import { NavItem } from './nav-item'
 
+import { overlayAtom } from '@/components/overlay/overlay'
 import { useClassNames } from '@/hooks/useClassNames'
 import { useSearchContext } from '@/hooks/useSearchContext'
 import { Laptop, Tablet } from '@/lib/media'
 
 export const NavBottom = memo(function NavBottom() {
+  const router = useRouter()
+  const isHomePage = useMemo(() => router?.pathname === '/', [router])
+
   // Autocomplete placeholders
   const { current: placeholders } = useRef(['products', 'articles', 'faq'])
 
   // Autocomplete expand on focus
   const { query: initialQuery } = useSearchContext()
-  const [isFocused, setIsFocused] = useState(Boolean(initialQuery))
+  const [isFocused, setIsFocused] = useState(false)
+  const setOverlay = useUpdateAtom(overlayAtom)
+
+  useEffect(() => {
+    setIsFocused(Boolean(initialQuery))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const onFocusBlur = (focused: boolean, hasQuery: boolean) => {
     setIsFocused(hasQuery ? true : focused)
+    if (isHomePage) setOverlay({ visible: focused, zIndex: 'z-overlay-header' })
   }
 
   const autocompleteCn = useClassNames(
@@ -31,16 +42,15 @@ export const NavBottom = memo(function NavBottom() {
     [isFocused]
   )
 
-  // Autocomplete implementation
-  const router = useRouter()
-  const Autocomplete = useMemo(() => {
-    const isHomePage = router?.pathname === '/'
-    return isHomePage ? AutocompleteBasic : AutocompleteInstantSearch
-  }, [router?.pathname])
+  // Autocomplete implementation\
+  const Autocomplete = useMemo(
+    () => (isHomePage ? AutocompleteBasic : AutocompleteInstantSearch),
+    [isHomePage]
+  )
 
   // Render
   return (
-    <div className="flex items-center px-4 relative divide-x border-b border-neutral-light laptop:h-12 laptop:mx-20 laptop:px-0 laptop:justify-between laptop:border-none laptop:divide-none">
+    <div className="flex items-center px-4 relative divide-x border-b border-neutral-light laptop:h-12 laptop:mx-20 laptop:mb-5 laptop:px-0 laptop:justify-between laptop:border-none laptop:divide-none">
       <Tablet>
         <Button className="p-3 pl-0">
           <IconLabel icon={MenuIcon} label="Menu" labelPosition="right" />

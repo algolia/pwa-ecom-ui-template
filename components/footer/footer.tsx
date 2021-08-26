@@ -4,6 +4,8 @@ import { Link } from '@ui/link/link'
 
 import { LogoSymbol } from '@/components/logo/logo'
 
+export type FooterProps = Record<string, unknown>
+
 export const Footer = memo(function Footer() {
   return (
     <footer className="mt-auto">

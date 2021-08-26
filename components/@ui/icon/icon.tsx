@@ -5,10 +5,13 @@ export type IconProps = {
   className?: string
 }
 
-export function Icon({ icon: IconCmp = null, className }: IconProps) {
+export function Icon({
+  icon: IconCmp = null,
+  className = 'w-6 h-6',
+}: IconProps) {
   return (
     <IconCmp
-      className={useClassNames('fill-current w-6 h-6', className, [className])}
+      className={useClassNames('fill-current', className, [className])}
     />
   )
 }

@@ -1,0 +1,11 @@
+.ais-ClearRefinements {
+  @apply flex-grow;
+}
+
+.ais-ClearRefinements-button {
+  @apply btn btn-secondary btn-large w-full !px-2 laptop:to-visible can-hover:laptop:hover:text-neutral-dark;
+}
+
+.ais-ClearRefinements-button--disabled {
+  @apply laptop:pointer-events-none laptop:to-invisible;
+}
