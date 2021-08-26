@@ -83,10 +83,10 @@ function HitsComponent({ hits }: HitsProps) {
   )
 
   return (
-    <div className="w-full">
+    <section className="w-full">
       <ProductGrid products={products} />
       <LoadMore />
-    </div>
+    </section>
   )
 }
 

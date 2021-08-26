@@ -30,7 +30,8 @@ export const Footer = dynamic<FooterProps>(() =>
 )
 
 export type PageLayoutProps = {
-  children?: React.ReactNode
+  children: React.ReactNode
+  searchState?: any
   resultsState?: any
 }
 
@@ -56,7 +57,6 @@ export function PageLayout({ children, ...props }: PageLayoutProps) {
 }
 
 export type GetServerSidePropsOptions = Partial<GetServerSidePropsResult<any>>
-
 export type GetStaticPropsOptions = Partial<GetStaticPropsResult<any>>
 
 const getPropsPage = async (

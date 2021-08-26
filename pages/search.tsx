@@ -2,7 +2,6 @@ import FilterIcon from '@material-design-icons/svg/outlined/filter_list.svg'
 import { useUpdateAtom } from 'jotai/utils'
 import dynamic from 'next/dynamic'
 import React from 'react'
-import type { InstantSearchProps } from 'react-instantsearch-dom'
 import { Configure } from 'react-instantsearch-dom'
 
 import { Button } from '@/components/@ui/button/button'
@@ -11,6 +10,7 @@ import {
   RefinementsPanel,
   refinementsPanelMobileExpandedAtom,
 } from '@/components/refinements-panel/refinements-panel'
+import type { PageLayoutProps } from '@/layouts/page-layout'
 import { PageLayout } from '@/layouts/page-layout'
 
 const Hits = dynamic<any>(() =>
@@ -19,12 +19,7 @@ const Hits = dynamic<any>(() =>
   )
 )
 
-type SearchProps = {
-  searchState: InstantSearchProps['searchState']
-  resultsState: InstantSearchProps['resultsState']
-}
-
-export default function Search(props: SearchProps) {
+export default function Search(props: PageLayoutProps) {
   const setMobileExpanded = useUpdateAtom(refinementsPanelMobileExpandedAtom)
 
   return (
@@ -34,7 +29,7 @@ export default function Search(props: SearchProps) {
       <div className="flex flex-col p-2.5 laptop:flex-row laptop:p-0 laptop:mx-20 laptop:mt-5 laptop:gap-5">
         <RefinementsPanel />
 
-        <div className="flex ml-auto laptop:hidden">
+        <div className="flex ml-auto mb-2.5 laptop:hidden">
           <Button onClick={() => setMobileExpanded(true)}>
             <IconLabel
               icon={FilterIcon}
