@@ -12,7 +12,10 @@ const screensParsed = {}
 for (const screenName in screens) {
   if (Object.prototype.hasOwnProperty.call(screens, screenName)) {
     const screenBreakpoint = screens[screenName]
-    screensParsed[screenName] = parseInt(screenBreakpoint, 10)
+    const screenValue = parseInt(screenBreakpoint, 10)
+    if (!isNaN(screenValue)) {
+      screensParsed[screenName] = screenValue
+    }
   }
 }
 

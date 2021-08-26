@@ -15,7 +15,7 @@ import { NavItem } from '@/components/nav/nav-item'
 import { Tablet, Laptop } from '@/lib/media'
 
 const Logo = dynamic<LogoProps>(() =>
-  import(/* webpackChunkName: 'nav' */ '@/components/logo/logo').then(
+  import(/* webpackChunkName: 'common' */ '@/components/logo/logo').then(
     (mod) => mod.Logo
   )
 )

@@ -32,36 +32,47 @@ module.exports = {
         'nebula-darkest': 'var(--color-nebula-darkest)',
       },
       boxShadow: {
-        'small': '0px 4px 8px rgba(35, 38, 59, 0.25)',
-        'medium': '0px 8px 16px rgba(35, 38, 59, 0.25)',
-        'large': '0px 12px 32px rgba(35, 38, 59, 0.25)',
+        small: '0px 4px 8px rgba(35, 38, 59, 0.25)',
+        medium: '0px 8px 16px rgba(35, 38, 59, 0.25)',
+        large: '0px 12px 32px rgba(35, 38, 59, 0.25)',
       },
       transitionProperty: {
         width: 'width',
         height: 'height',
+        'backdrop-filter': 'backdrop-filter',
       },
       transitionDuration: {
         DEFAULT: '300ms',
       },
       spacing: {
-        'header': '235px'
+        header: '230px',
       },
       animation: {
-        'loading': 'loading 6s cubic-bezier(0.2, 0.7, 0.4, 1) forwards'
+        loading: 'loading 6s cubic-bezier(0.2, 0.7, 0.4, 1) forwards',
       },
       keyframes: {
         loading: {
           '0%': { transform: 'scaleX(0)' },
-          '100%': { transform: 'scaleX(95%)' }
-        }
-      }
+          '100%': { transform: 'scaleX(95%)' },
+        },
+      },
     },
     screens: {
       tablet: '768px',
       laptop: '1440px',
+      'can-hover': { raw: '(any-hover: hover)' },
+      'cannot-hover': { raw: '(any-hover: none)' },
     },
+    zIndex: {
+      'loading-bar': 10,
+      'overlay-header': 20,
+      'header': 30,
+      'autocomplete-panel': 40,
+      'overlay-full': 50,
+      'refinements': 60,
+      'dev': 100,
+      'auto': 'auto',
+    }
   },
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-  ],
+  plugins: [require('@tailwindcss/aspect-ratio')],
 }

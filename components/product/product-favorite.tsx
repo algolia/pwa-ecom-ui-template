@@ -21,7 +21,7 @@ export function ProductFavorite({ className, onClick }: ProductFavoriteProps) {
 
   return (
     <Button className={cn} title="Add to favorite" onClick={onClick}>
-      <Icon icon={FavoriteIcon} className="!w-4 !h-4 m-auto" />
+      <Icon icon={FavoriteIcon} className="w-4 h-4 m-auto" />
     </Button>
   )
 }

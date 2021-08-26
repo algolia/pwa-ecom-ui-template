@@ -8,8 +8,9 @@ import { InstantSearch } from 'react-instantsearch-dom'
 import { VirtualSearchBox } from '../_widgets/virtual-search-box/virtual-search-box'
 
 import { SearchContext } from '@/contexts/SearchContext'
+import { useScrollToTop } from '@/hooks/useScrollToTop'
 import { useSearchClient } from '@/hooks/useSearchClient'
-import { isObjectEmpty } from '@/utils/misc'
+import { isObjectEmpty } from '@/utils/isObjectEmpty'
 import { createURL, searchStateToUrl, urlToSearchState } from '@/utils/url'
 
 export type SearchProps = {
@@ -100,6 +101,8 @@ export const Search = memo(
       updateRouterUrl(searchState)
     }, [updateRouterUrl, searchState])
 
+    useScrollToTop([searchState.query])
+
     // Search context
     const contextValue = useMemo(
       () => ({
@@ -129,5 +132,3 @@ export const Search = memo(
   },
   (prevProps, nextProps) => isEqual(prevProps, nextProps)
 )
-
-Search.whyDidYouRender = true

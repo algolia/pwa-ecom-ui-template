@@ -35,6 +35,10 @@
     @apply flex flex-col min-h-screen;
   }
 
+  html {
+    @apply scroll-smooth;
+  }
+
   body {
     @apply body-regular text-brand-black;
   }

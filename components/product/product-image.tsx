@@ -21,7 +21,7 @@ export function ProductImage({ src, alt = '' }: ProductImageProps) {
         layout="responsive"
         width="20"
         height="27"
-        loading="lazy"
+        priority={true}
         className={useClassNames(
           'transition-opacity',
           {

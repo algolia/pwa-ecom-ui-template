@@ -1,3 +1,4 @@
+import { Provider } from 'jotai'
 import { useMemo, useReducer } from 'react'
 
 import { AppContext } from '@/contexts/AppContext'
@@ -21,8 +22,10 @@ export function AppLayout({ children }: AppLayoutProps) {
   )
 
   return (
-    <AppContext.Provider value={value}>
-      <MediaContextProvider>{children}</MediaContextProvider>
-    </AppContext.Provider>
+    <Provider>
+      <AppContext.Provider value={value}>
+        <MediaContextProvider>{children}</MediaContextProvider>
+      </AppContext.Provider>
+    </Provider>
   )
 }
