@@ -32,7 +32,7 @@ export default function Search(props: SearchProps) {
       <Configure hitsPerPage={10} maxValuesPerFacet={50} />
 
       <div className="flex flex-col p-2.5 laptop:flex-row laptop:p-0 laptop:mx-20 laptop:mt-5 laptop:gap-5">
-        <RefinementsPanel dynamicWidgets={true} />
+        <RefinementsPanel />
 
         <div className="flex ml-auto laptop:hidden">
           <Button onClick={() => setMobileExpanded(true)}>

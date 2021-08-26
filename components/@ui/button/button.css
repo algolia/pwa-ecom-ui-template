@@ -38,18 +38,18 @@
 
   /* Secondary/item */
   .btn-secondary {
-    @apply bg-white ring-2 ring-brand-black text-brand-black;
+    @apply bg-white border border-brand-black text-brand-black;
 
     &:hover {
-      @apply can-hover:ring-neutral-darkest can-hover:text-neutral-darkest;
+      @apply can-hover:border-neutral-darkest can-hover:text-neutral-darkest;
     }
 
     &:active {
-      @apply bg-neutral-lightest ring-brand-black text-brand-black;
+      @apply bg-neutral-lightest border-brand-black text-brand-black;
     }
 
     &:disabled {
-      @apply bg-neutral-lightest ring-neutral-light text-brand-black;
+      @apply bg-neutral-lightest border-neutral-light text-brand-black;
     }
   }
 
@@ -72,14 +72,14 @@
 
   /* Item */
   .btn-item {
-    @apply px-3.5 ring-1 bg-white ring-brand-black text-brand-black;
+    @apply px-3.5 border bg-white border-brand-black text-brand-black;
 
     &:hover {
       @apply can-hover:text-white;
     }
 
     &:disabled {
-      @apply bg-neutral-lightest ring-neutral-light text-brand-black;
+      @apply bg-neutral-lightest border-neutral-light text-brand-black;
     }
 
     &.btn--selected {

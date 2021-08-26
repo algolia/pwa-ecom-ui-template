@@ -1,9 +1,9 @@
 .RefinementsPanel {
   /* Mobile */
-  @apply flex justify-center bg-white shadow-medium px-4 z-refinements fixed w-10/12 h-full top-0 right-0 overflow-y-auto transition-transform;
+  @apply flex justify-center bg-white shadow-medium z-refinements fixed w-[85%] h-full top-0 right-0 overflow-y-auto transition-transform;
 
   /* Laptop */
-  @apply laptop:block laptop:bg-none laptop:shadow-none laptop:px-0 laptop:z-auto laptop:flex-shrink-0 laptop:sticky laptop:w-64 laptop:h-container laptop:top-header laptop:right-auto;
+  @apply laptop:block laptop:bg-none laptop:shadow-none laptop:z-auto laptop:flex-shrink-0 laptop:sticky laptop:w-64 laptop:h-container laptop:top-header laptop:right-auto;
 }
 
 .RefinementsPanel-gradient {

@@ -160,16 +160,21 @@ export const ExpandablePanel = connectCurrentRefinements(
         />
 
         <Button
-          className="w-full flex items-center justify-between laptop:transition-colors can-hover:hover:text-neutral-dark"
+          className="w-full flex items-center justify-between gap-3 can-hover:transition-colors can-hover:hover:text-neutral-dark"
           aria-expanded={isOpened}
           onClick={(e) => {
             firstToggle.current = false
             onToggle(e)
           }}
         >
-          <div className="subhead laptop:small-bold laptop:uppercase">
+          <div className="flex items-center w-full subhead laptop:small-bold laptop:uppercase">
             {header ?? attribute}
-            {currentRefinementCount > 0 && ` (${currentRefinementCount})`}
+
+            {currentRefinementCount > 0 && (
+              <div className="bg-neutral-lightest w-5 h-5 small-bold rounded-full flex items-center justify-center ml-auto">
+                {currentRefinementCount}
+              </div>
+            )}
           </div>
           <div className="text-neutral-dark">
             {isOpened ? <Icon icon={RemoveIcon} /> : <Icon icon={AddIcon} />}
