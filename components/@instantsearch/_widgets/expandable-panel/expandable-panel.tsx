@@ -1,7 +1,7 @@
 import AddIcon from '@material-design-icons/svg/outlined/add.svg'
 import RemoveIcon from '@material-design-icons/svg/outlined/remove.svg'
 import type { CSSProperties, MouseEventHandler } from 'react'
-import React, { useMemo, useEffect, useRef } from 'react'
+import { useMemo, useEffect, useRef } from 'react'
 import type { CurrentRefinementsProvided } from 'react-instantsearch-core'
 import { connectCurrentRefinements } from 'react-instantsearch-dom'
 
@@ -10,10 +10,12 @@ import { Icon } from '@ui/icon/icon'
 
 import { NoRefinementsHandler } from './no-refinements-handler'
 
+import { Count } from '@/components/@ui/count/count'
 import { useClassNames } from '@/hooks/useClassNames'
 
 export type ExpandablePanelProps = CurrentRefinementsProvided & {
   children: React.ReactNode
+  className?: string
   header?: string
   footer?: string
   attribute?: string
@@ -22,9 +24,10 @@ export type ExpandablePanelProps = CurrentRefinementsProvided & {
   onToggle: MouseEventHandler
 }
 
-export const ExpandablePanel = connectCurrentRefinements(
+export const ExpandablePanel = connectCurrentRefinements<ExpandablePanelProps>(
   ({
     children,
+    className,
     items,
     header,
     footer,
@@ -32,10 +35,9 @@ export const ExpandablePanel = connectCurrentRefinements(
     maxHeight,
     isOpened,
     onToggle,
-  }: ExpandablePanelProps) => {
+  }) => {
     const collapseRef = useRef<HTMLDivElement>(null)
     const gradientRef = useRef<HTMLDivElement>(null)
-    const firstToggle = useRef(true)
     const hasRefinements = useRef(false)
     const isOpenByDefault = useRef(isOpened)
 
@@ -83,7 +85,7 @@ export const ExpandablePanel = connectCurrentRefinements(
       } else if (isOpened) {
         collapseEl.style.setProperty('height', `${collapseEl.scrollHeight}px`)
         collapseEl.addEventListener('transitionend', onTransitionEnd)
-      } else if (!firstToggle.current) {
+      } else {
         collapseEl.style.setProperty('height', `${collapseEl.scrollHeight}px`)
         window.requestAnimationFrame(() =>
           collapseEl.style.setProperty('height', '0px')
@@ -102,7 +104,8 @@ export const ExpandablePanel = connectCurrentRefinements(
           {
             hidden: !hasRefinements.current,
           },
-          [hasRefinements.current]
+          className,
+          [hasRefinements.current, className]
         )}
       >
         <NoRefinementsHandler
@@ -113,20 +116,15 @@ export const ExpandablePanel = connectCurrentRefinements(
         />
 
         <Button
-          className="w-full flex items-center justify-between gap-3 can-hover:transition-colors can-hover:hover:text-neutral-dark"
+          className="w-full flex items-center justify-between gap-3"
           aria-expanded={isOpened}
-          onClick={(e) => {
-            firstToggle.current = false
-            onToggle(e)
-          }}
+          onClick={(e) => onToggle(e)}
         >
           <div className="flex items-center w-full subhead laptop:small-bold laptop:uppercase">
             {header}
 
             {currentRefinementCount > 0 && (
-              <div className="bg-neutral-lightest w-5 h-5 small-bold rounded-full flex items-center justify-center ml-auto">
-                {currentRefinementCount}
-              </div>
+              <Count className="ml-auto">{currentRefinementCount}</Count>
             )}
           </div>
           <div className="text-neutral-dark">

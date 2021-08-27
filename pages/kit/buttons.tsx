@@ -66,7 +66,7 @@ export default function Buttons() {
 
         <div className="flex gap-3 justify-around">
           <Button type="item" size="small">
-            35.5
+            Item
           </Button>
           <Button
             type="item"
@@ -74,10 +74,10 @@ export default function Buttons() {
             selected={selected}
             onClick={() => setSelected((s) => !s)}
           >
-            35.5
+            Item
           </Button>
           <Button type="item" size="small" disabled={true}>
-            35.5
+            Item
           </Button>
         </div>
       </div>

@@ -16,7 +16,9 @@ export function RefinementsPanelFooter() {
 
   return (
     <div className="flex gap-3 p-4 bg-white shadow-large">
-      <ClearRefinements />
+      <ClearRefinements type="secondary" className="!px-2 flex-grow">
+        Clear Filters
+      </ClearRefinements>
       <SeeResultsButton onClick={onSeeResultsClick} />
     </div>
   )

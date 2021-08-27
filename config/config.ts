@@ -6,14 +6,18 @@ export type Refinement = {
   type: RefinementType
   header: string
   label: string
+  isExpanded?: boolean
   options: Record<string, any>
 }
+
+export type Config = typeof config
 
 const refinements: Refinement[] = [
   {
     type: 'hierarchical',
     header: 'Categories',
     label: 'Category',
+    isExpanded: true,
     options: {
       attributes: [
         'hierarchical_categories.lvl0',
@@ -51,6 +55,8 @@ const refinements: Refinement[] = [
   },
 ]
 
-export const configAtom = atom(() => ({
+const config = {
   refinements,
-}))
+}
+
+export const configAtom = atom(() => config)

@@ -50,7 +50,7 @@ export const ProductCard = memo(function ProductCard({
   return (
     <article
       className={useClassNames(
-        'w-full relative border border-transparent transition-all laptop:p-3 can-hover:laptop:hover:shadow-sm can-hover:laptop:hover:border-neutral-light',
+        'w-full h-full relative border border-transparent transition-all laptop:p-3 can-hover:laptop:hover:shadow-sm can-hover:laptop:hover:border-neutral-light',
         { 'opacity-50': !available },
         [available]
       )}
@@ -58,7 +58,7 @@ export const ProductCard = memo(function ProductCard({
       <Link
         href={url}
         title="See product details"
-        className="flex flex-col gap-1 pointer-events-none"
+        className="flex flex-col gap-2 pointer-events-none"
       >
         <div className="relative">
           {image && <ProductImage src={image} alt={title} />}

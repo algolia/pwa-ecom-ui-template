@@ -5,13 +5,22 @@ import { Icon } from '@ui/icon/icon'
 
 import { useClassNames } from '@/hooks/useClassNames'
 
+export type ButtonType =
+  | 'native'
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'item'
+
+export type ButtonSize = 'small' | 'large'
+
 export type ButtonProps = Omit<HTMLProps<HTMLButtonElement>, 'size'> & {
   children?: React.ReactNode
   className?: string
   onClick?: MouseEventHandler
   title?: string
-  type?: 'native' | 'primary' | 'secondary' | 'tertiary' | 'item'
-  size?: 'small' | 'large'
+  type?: ButtonType
+  size?: ButtonSize
   selected?: boolean
   disabled?: boolean
   icon?: any
@@ -43,7 +52,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         'btn-item': type === 'item',
         'btn-small': size === 'small',
         'btn-large': size === 'large',
-        'btn--selected': selected,
+        'btn-selected': selected,
       },
       [className, type, size, selected]
     )
@@ -52,7 +61,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         type="button"
         title={title}
-        className={type === 'native' ? className : cn}
+        className={type === 'native' ? ['btn-native', className].join(' ') : cn}
         disabled={disabled}
         ref={ref}
         onClick={onClick}
