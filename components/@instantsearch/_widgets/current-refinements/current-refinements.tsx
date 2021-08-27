@@ -127,7 +127,7 @@ export const CurrentRefinements =
               )
             })}
             <li className="flex items-center">
-              <ClearRefinements className="body-bold text-brand-nebula transition-colors can-hover:hover:text-nebula-dark">
+              <ClearRefinements className="body-bold text-brand-nebula can-hover:transition-colors can-hover:hover:text-nebula-light">
                 Clear all
               </ClearRefinements>
             </li>

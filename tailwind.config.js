@@ -28,6 +28,7 @@ module.exports = {
         'venus-base': 'var(--color-venus-base)',
 
         'nebula-lightest': 'var(--color-nebula-lightest)',
+        'nebula-light': 'var(--color-nebula-light)',
         'nebula-dark': 'var(--color-nebula-dark)',
         'nebula-darkest': 'var(--color-nebula-darkest)',
       },
