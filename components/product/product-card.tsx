@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 
 import { Link } from '@ui/link/link'
 
@@ -47,6 +47,8 @@ export const ProductCard = memo(function ProductCard({
   reviews,
   available,
 }: ProductCardProps) {
+  const [isFavorite, setIsFavorite] = useState(false)
+
   return (
     <article
       className={useClassNames(
@@ -108,7 +110,8 @@ export const ProductCard = memo(function ProductCard({
 
       <ProductFavorite
         className="absolute top-1 right-1 laptop:top-4 laptop:right-4"
-        onClick={() => {}}
+        isFavorite={isFavorite}
+        onClick={() => setIsFavorite((favorite) => !favorite)}
       />
     </article>
   )
