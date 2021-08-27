@@ -68,9 +68,9 @@ module.exports = {
       'overlay-header': 20,
       'header': 30,
       'autocomplete-panel': 40,
-      'overlay-full': 50,
-      'refinements': 60,
-      'dev': 100,
+      'dev': 50,
+      'overlay-full': 60,
+      'refinements': 70,
       'auto': 'auto',
     }
   },

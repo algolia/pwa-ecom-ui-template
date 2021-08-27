@@ -18,7 +18,7 @@ export function Grid({ columns, margin, gutter }: GridProps) {
 
   const columnsDivs = useMemo(
     () =>
-      [...Array(columns)].map((e, i: number) => (
+      [...Array(columns)].map((_, i) => (
         <div
           key={i} // eslint-disable-line react/no-array-index-key
           className="w-full h-full bg-[#F82CAA] bg-opacity-[0.04]"

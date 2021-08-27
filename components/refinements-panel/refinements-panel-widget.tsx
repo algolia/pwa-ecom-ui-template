@@ -2,6 +2,8 @@ import { ColorRefinementList } from '@algolia/react-instantsearch-widget-color-r
 import { SizeRefinementList } from '@algolia/react-instantsearch-widget-size-refinement-list'
 import { HierarchicalMenu, RefinementList } from 'react-instantsearch-dom'
 
+import { RatingSelector } from '@instantsearch/_widgets/rating-selector/rating-selector'
+
 import type { RefinementType } from '@/config/config'
 
 export type RefinementsPanelWidgetProps = {
@@ -24,6 +26,9 @@ export function RefinementsPanelWidget({
 
     case 'hierarchical':
       return <HierarchicalMenu {...props} />
+
+    case 'rating':
+      return <RatingSelector {...props} />
 
     default:
       return null

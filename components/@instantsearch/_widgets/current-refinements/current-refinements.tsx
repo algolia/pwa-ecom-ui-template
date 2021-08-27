@@ -6,9 +6,10 @@ import type {
   Refinement,
   RefinementValue,
 } from 'react-instantsearch-core'
+import type { RatingMenuCurrentRefinement } from 'react-instantsearch-dom'
 import { connectCurrentRefinements } from 'react-instantsearch-dom'
 
-import { ClearRefinements } from '../clear-refinements/clear-refinements'
+import { ClearRefinements } from '@instantsearch/_widgets/clear-refinements/clear-refinements'
 
 import { Chip } from '@/components/@ui/chip/chip'
 import { configAtom } from '@/config/config'
@@ -64,6 +65,18 @@ function getRefinement(
         {
           category: refinementConfig.label,
           label: refinement.currentRefinement as string,
+          value: refinement.value,
+        },
+      ]
+    }
+
+    case 'rating': {
+      return [
+        {
+          category: refinementConfig.label,
+          label: `≥ ${
+            (refinement.currentRefinement as RatingMenuCurrentRefinement).min
+          }`,
           value: refinement.value,
         },
       ]

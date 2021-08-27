@@ -107,7 +107,7 @@ export const ProductCard = memo(function ProductCard({
       </Link>
 
       <ProductFavorite
-        className="absolute top-1 right-1 laptop:top-5 laptop:right-5"
+        className="absolute top-1 right-1 laptop:top-4 laptop:right-4"
         onClick={() => {}}
       />
     </article>

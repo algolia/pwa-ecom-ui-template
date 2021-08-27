@@ -1,6 +1,11 @@
 import { atom } from 'jotai'
 
-export type RefinementType = 'hierarchical' | 'list' | 'size' | 'color'
+export type RefinementType =
+  | 'hierarchical'
+  | 'list'
+  | 'size'
+  | 'color'
+  | 'rating'
 
 export type Refinement = {
   type: RefinementType
@@ -51,6 +56,14 @@ const refinements: Refinement[] = [
       attribute: 'hexColorCode',
       separator: '//',
       limit: 9,
+    },
+  },
+  {
+    type: 'rating',
+    header: 'Rating',
+    label: 'Rating',
+    options: {
+      attribute: 'reviewScore',
     },
   },
 ]

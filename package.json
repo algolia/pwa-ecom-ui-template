@@ -29,6 +29,7 @@
     "react-dom": "17.0.2",
     "react-fast-compare": "^3.2.0",
     "react-flip-toolkit": "^7.0.13",
+    "react-instantsearch-core": "^6.12.1",
     "react-instantsearch-dom": "^6.12.1"
   },
   "devDependencies": {
