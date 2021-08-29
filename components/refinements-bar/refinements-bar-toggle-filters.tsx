@@ -16,7 +16,7 @@ export function RefinementsBarToggleFilters() {
   return (
     <ClientOnly>
       <Button
-        className="flex items-center gap-2 flex-shrink-0 ml-auto"
+        className="flex items-center gap-2 flex-shrink-0 ml-auto text-neutral-darkest"
         onClick={() => setDesktopExpanded((expanded) => !expanded)}
       >
         <IconLabel

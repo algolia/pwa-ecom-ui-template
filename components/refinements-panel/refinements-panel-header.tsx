@@ -7,9 +7,8 @@ import { useCallback } from 'react'
 
 import { CurrentRefinements } from '@instantsearch/_widgets/current-refinements/current-refinements'
 import { Button } from '@ui/button/button'
+import { IconLabel } from '@ui/icon-label/icon-label'
 import { Icon } from '@ui/icon/icon'
-
-import { IconLabel } from '../@ui/icon-label/icon-label'
 
 import { refinementsPanelMobileExpandedAtom } from './refinements-panel'
 import { refinementsPanelsExpandedAtom } from './refinements-panel-body'
@@ -66,7 +65,7 @@ export function RefinementsPanelHeader() {
           />
 
           <Button
-            className="text-neutral-dark can-hover:hover:text-brand-black"
+            className="text-neutral-darkest"
             onClick={onTogglePanelsClick}
           >
             <IconLabel
