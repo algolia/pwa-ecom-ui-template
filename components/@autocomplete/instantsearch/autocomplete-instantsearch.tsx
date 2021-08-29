@@ -20,7 +20,6 @@ export type AutocompleteInstantSearchProps = AutocompleteProps & {
 }
 
 export function AutocompleteInstantSearch({
-  searchClient: customSearchClient,
   placeholders = [],
   placeholderWordDelay,
   placeholderLetterDelay,
