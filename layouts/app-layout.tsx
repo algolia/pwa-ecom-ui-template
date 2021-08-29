@@ -1,4 +1,5 @@
-import { Provider } from 'jotai'
+import { LazyMotion } from 'framer-motion'
+import { Provider as JotaiProvider } from 'jotai'
 import { useMemo, useReducer } from 'react'
 
 import { AppContext } from '@/contexts/AppContext'
@@ -9,6 +10,11 @@ import { initialAppState } from '@/state/state'
 export type AppLayoutProps = {
   children: React.ReactNode
 }
+
+const loadFramerMotionFeatures = () =>
+  import(/* webpackChunkName: 'lib' */ '@/lib/framer-motion-features').then(
+    (mod) => mod.default
+  )
 
 export function AppLayout({ children }: AppLayoutProps) {
   const [state, dispatch] = useReducer(appReducer, initialAppState)
@@ -22,10 +28,14 @@ export function AppLayout({ children }: AppLayoutProps) {
   )
 
   return (
-    <Provider>
+    <JotaiProvider>
       <AppContext.Provider value={value}>
-        <MediaContextProvider>{children}</MediaContextProvider>
+        <MediaContextProvider>
+          <LazyMotion features={loadFramerMotionFeatures} strict={true}>
+            {children}
+          </LazyMotion>
+        </MediaContextProvider>
       </AppContext.Provider>
-    </Provider>
+    </JotaiProvider>
   )
 }
