@@ -1,15 +1,16 @@
+import { useAtom } from 'jotai'
 import { useRouter } from 'next/dist/client/router'
 import { useEffect, useRef } from 'react'
 import { Pane as Tweakpane } from 'tweakpane'
 
-import { useAppContext } from '@/hooks/useAppContext'
-import { ActionType } from '@/state/actions'
+import { devAtom } from '../dev'
 
 export function Pane() {
   const paneContainer = useRef(null)
   const router = useRouter()
 
-  const { state, dispatch } = useAppContext()
+  const [dev] = useAtom(devAtom)
+  const [grids, setGrids] = useAtom(dev.grids)
 
   useEffect(() => {
     const pane = new Tweakpane({
@@ -27,11 +28,8 @@ export function Pane() {
     })
 
     const gridFolder = pane.addFolder({ title: 'Grid' })
-    gridFolder.addInput(state.dev.grids, 'hidden').on('change', (ev) => {
-      dispatch({
-        type: ActionType.SetDevGridVisibility,
-        payload: ev.value as boolean,
-      })
+    gridFolder.addInput(grids, 'hidden').on('change', (ev) => {
+      setGrids({ hidden: ev.value })
     })
 
     return () => {

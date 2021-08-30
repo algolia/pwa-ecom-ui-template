@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react'
 import { useMemo } from 'react'
 
-type GridProps = {
+export type GridProps = {
   columns: number
   margin: number
   gutter: number

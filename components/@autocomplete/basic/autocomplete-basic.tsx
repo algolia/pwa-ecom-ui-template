@@ -1,4 +1,5 @@
 import type { SearchClient } from 'algoliasearch/lite'
+import { useAtomValue } from 'jotai/utils'
 import { useRouter } from 'next/dist/client/router'
 import { useCallback, useMemo } from 'react'
 
@@ -9,7 +10,7 @@ import { recentSearchesPluginCreator } from '../plugins/recent-searches'
 import { searchButtonPluginCreator } from '../plugins/search-button'
 import { voiceCameraIconsPluginCreator } from '../plugins/voice-camera-icons'
 
-import { useSearchContext } from '@/hooks/useSearchContext'
+import { searchAtom } from '@/components/@instantsearch/search/search'
 import { createAnimatedPlaceholderPlugin } from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
 import { createClearLeftPlugin } from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 
@@ -29,10 +30,10 @@ export function AutocompleteBasic({
   ...props
 }: AutocompleteBasicProps) {
   const router = useRouter()
-  const { searchClient: searchClientContext, query: initialQuery } =
-    useSearchContext()
+  const { searchClient: searchClientContext, initialQuery } =
+    useAtomValue(searchAtom)
 
-  const searchClient = customSearchClient ?? searchClientContext
+  const searchClient = customSearchClient ?? searchClientContext!
 
   const goToSearchPage = useCallback(
     (query: string) => router.push(`/search?query=${query}`),

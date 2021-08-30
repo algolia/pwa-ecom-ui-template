@@ -1,5 +1,6 @@
 import type { OnStateChangeProps } from '@algolia/autocomplete-js'
 import type { SearchClient } from 'algoliasearch/lite'
+import { useAtomValue } from 'jotai/utils'
 import { useCallback, useMemo } from 'react'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
@@ -8,7 +9,7 @@ import { Autocomplete } from '../_default/autocomplete'
 import { searchButtonPluginCreator } from '../plugins/search-button'
 import { voiceCameraIconsPluginCreator } from '../plugins/voice-camera-icons'
 
-import { useSearchContext } from '@/hooks/useSearchContext'
+import { searchAtom } from '@/components/@instantsearch/search/search'
 import { createAnimatedPlaceholderPlugin } from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
 import { createClearLeftPlugin } from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 
@@ -26,7 +27,7 @@ export function AutocompleteInstantSearch({
   plugins: customPlugins = [],
   ...props
 }: AutocompleteInstantSearchProps) {
-  const { query: initialQuery, setSearchState } = useSearchContext()
+  const { setSearchState, initialQuery } = useAtomValue(searchAtom)
 
   const plugins = useMemo(
     () => [
