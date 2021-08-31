@@ -67,13 +67,13 @@ module.exports = {
     zIndex: {
       'loading-bar': 10,
       'overlay-header': 20,
-      'header': 30,
+      header: 30,
       'autocomplete-panel': 40,
-      'dev': 50,
+      dev: 50,
       'overlay-full': 60,
-      'refinements': 70,
-      'auto': 'auto',
-    }
+      refinements: 70,
+      auto: 'auto',
+    },
   },
   plugins: [require('@tailwindcss/aspect-ratio')],
 }

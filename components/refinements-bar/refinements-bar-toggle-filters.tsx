@@ -4,11 +4,11 @@ import { useAtom } from 'jotai'
 import { Button } from '@ui/button/button'
 import { IconLabel } from '@ui/icon-label/icon-label'
 
-import { ClientOnly } from '../client-only/client-only'
-
+import { ClientOnly } from '@/components/client-only/client-only'
 import { refinementsPanelDesktopExpandedAtom } from '@/components/refinements-panel/refinements-panel'
 
 export function RefinementsBarToggleFilters() {
+  // 'desktopExpanded' is only available in localStorage (client-side only)
   const [desktopExpanded, setDesktopExpanded] = useAtom(
     refinementsPanelDesktopExpandedAtom
   )
