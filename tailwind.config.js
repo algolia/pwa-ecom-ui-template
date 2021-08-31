@@ -45,6 +45,10 @@ module.exports = {
       transitionDuration: {
         DEFAULT: '300ms',
       },
+      transitionTimingFunction: {
+        'in-expo': 'cubic-bezier(0.7, 0, 0.84, 0)',
+        'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
+      },
       spacing: {
         header: '15rem',
       },
