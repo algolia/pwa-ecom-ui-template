@@ -20,12 +20,18 @@ export function Pane() {
     })
 
     const routesFolder = pane.addFolder({ title: 'Routes' })
-    routesFolder.addButton({ title: '/' }).on('click', () => {
-      router.push('/')
-    })
-    routesFolder.addButton({ title: '/kit/buttons' }).on('click', () => {
-      router.push('/kit/buttons')
-    })
+    routesFolder
+      .addInput(router, 'route', {
+        options: {
+          index: '/',
+          search: '/search',
+          'kit/buttons': '/kit/buttons',
+          'kit/chips': '/kit/chips',
+        },
+      })
+      .on('change', (ev) => {
+        router.push(ev.value)
+      })
 
     const gridFolder = pane.addFolder({ title: 'Grid' })
     gridFolder.addInput(grids, 'hidden').on('change', (ev) => {

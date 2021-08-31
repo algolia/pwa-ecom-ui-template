@@ -8,6 +8,7 @@ import isEqual from 'react-fast-compare'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 import { InstantSearch } from 'react-instantsearch-dom'
 
+import { StateResults } from '@instantsearch/_widgets/state-results/state-results'
 import { VirtualSearchBox } from '@instantsearch/_widgets/virtual-search-box/virtual-search-box'
 
 import { useScrollToTop } from '@/hooks/useScrollToTop'
@@ -68,11 +69,13 @@ export const Search = memo(
     const updateRouterUrl = useCallback(
       (nextSearchState: InstantSearchProps['searchState']) => {
         const newRoute = searchStateToUrl(nextSearchState)
-        router.push(newRoute, undefined, {
-          shallow: true,
-        })
+        if (router.asPath !== newRoute) {
+          router.push(newRoute, undefined, {
+            shallow: true,
+          })
+        }
       },
-      [] // eslint-disable-line react-hooks/exhaustive-deps
+      [router.asPath] // eslint-disable-line react-hooks/exhaustive-deps
     )
 
     // Listen for route changes
@@ -139,6 +142,7 @@ export const Search = memo(
         <Provider initialValues={get()}>
           {children}
           <VirtualSearchBox />
+          <StateResults />
         </Provider>
       </InstantSearch>
     )

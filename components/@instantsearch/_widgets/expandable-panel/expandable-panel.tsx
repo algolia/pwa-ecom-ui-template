@@ -1,24 +1,29 @@
 import AddIcon from '@material-design-icons/svg/outlined/add.svg'
 import RemoveIcon from '@material-design-icons/svg/outlined/remove.svg'
+import { useAtomValue } from 'jotai/utils'
 import type { CSSProperties, MouseEventHandler } from 'react'
 import { useMemo, useEffect, useRef } from 'react'
-import type { CurrentRefinementsProvided } from 'react-instantsearch-core'
+import type {
+  CurrentRefinementsProvided,
+  SearchResults,
+} from 'react-instantsearch-core'
 import { connectCurrentRefinements } from 'react-instantsearch-dom'
 
 import { Button } from '@ui/button/button'
 import { Icon } from '@ui/icon/icon'
 
-import { NoRefinementsHandler } from './no-refinements-handler'
+import { searchResultsAtom } from '../state-results/state-results'
 
 import { Count } from '@/components/@ui/count/count'
 import { useClassNames } from '@/hooks/useClassNames'
+import { useHasRefinements } from '@/hooks/useHasRefinements'
 
 export type ExpandablePanelProps = CurrentRefinementsProvided & {
   children: React.ReactNode
   className?: string
   header?: string
   footer?: string
-  attribute?: string
+  attributes?: string[]
   maxHeight?: string
   isOpened: boolean
   onToggle: MouseEventHandler
@@ -31,15 +36,17 @@ export const ExpandablePanel = connectCurrentRefinements<ExpandablePanelProps>(
     items,
     header,
     footer,
-    attribute,
+    attributes,
     maxHeight,
     isOpened,
     onToggle,
   }) => {
     const collapseRef = useRef<HTMLDivElement>(null)
     const gradientRef = useRef<HTMLDivElement>(null)
-    const hasRefinements = useRef(false)
     const isOpenByDefault = useRef(isOpened)
+
+    const searchResults = useAtomValue(searchResultsAtom) as SearchResults
+    const hasRefinements = useHasRefinements(searchResults, attributes)
 
     const collapseElStyles: CSSProperties = {}
     if (typeof maxHeight !== 'undefined') {
@@ -48,17 +55,23 @@ export const ExpandablePanel = connectCurrentRefinements<ExpandablePanelProps>(
     }
 
     const currentRefinementCount = useMemo(() => {
-      const arr: string[] = []
+      let count = 0
 
-      let currentRefinement = items.find(
-        (item) => item.attribute === attribute
-      )?.currentRefinement
-      currentRefinement = currentRefinement
-        ? arr.concat(currentRefinement)
-        : arr
+      attributes?.forEach((attribute) => {
+        const tmp: string[] = []
 
-      return currentRefinement.length
-    }, [items, attribute])
+        let currentRefinement = items.find(
+          (item) => item.attribute === attribute
+        )?.currentRefinement
+        currentRefinement = currentRefinement
+          ? tmp.concat(currentRefinement)
+          : tmp
+
+        count += currentRefinement.length
+      })
+
+      return count
+    }, [items, attributes])
 
     useEffect(() => {
       const collapseEl = collapseRef.current
@@ -102,19 +115,12 @@ export const ExpandablePanel = connectCurrentRefinements<ExpandablePanelProps>(
         className={useClassNames(
           'py-3.5 laptop:py-5 laptop:border-t laptop:border-neutral-light',
           {
-            hidden: !hasRefinements.current,
+            hidden: !hasRefinements,
           },
           className,
-          [hasRefinements.current, className]
+          [hasRefinements, className]
         )}
       >
-        <NoRefinementsHandler
-          attribute={attribute}
-          onUpdate={(value: boolean) => {
-            hasRefinements.current = value
-          }}
-        />
-
         <Button
           className="w-full flex items-center justify-between gap-3"
           aria-expanded={isOpened}
@@ -143,6 +149,7 @@ export const ExpandablePanel = connectCurrentRefinements<ExpandablePanelProps>(
           <div className="mt-4" style={collapseElStyles}>
             {children}
           </div>
+
           {footer && <div>{footer}</div>}
 
           <div

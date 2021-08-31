@@ -2,9 +2,10 @@ import { ColorRefinementList } from '@algolia/react-instantsearch-widget-color-r
 import { SizeRefinementList } from '@algolia/react-instantsearch-widget-size-refinement-list'
 import { HierarchicalMenu, RefinementList } from 'react-instantsearch-dom'
 
+import { RangeInput } from '@instantsearch/_widgets/range-input/range-input'
 import { RatingSelector } from '@instantsearch/_widgets/rating-selector/rating-selector'
 
-import type { RefinementType } from '@/config/config'
+import type { RefinementType } from './refinements-panel-body'
 
 export type RefinementsPanelWidgetProps = {
   type: RefinementType
@@ -29,6 +30,9 @@ export function RefinementsPanelWidget({
 
     case 'rating':
       return <RatingSelector {...props} />
+
+    case 'price':
+      return <RangeInput {...props} />
 
     default:
       return null

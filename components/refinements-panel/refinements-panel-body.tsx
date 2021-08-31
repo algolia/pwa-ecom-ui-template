@@ -6,9 +6,13 @@ import { ExperimentalDynamicWidgets } from 'react-instantsearch-dom'
 import { ExpandablePanel } from '@instantsearch/_widgets/expandable-panel/expandable-panel'
 
 import type { RefinementsPanelProps } from './refinements-panel'
+import {
+  getPanelAttributes,
+  getPanelId,
+  togglePanels,
+} from './refinements-panel-utils'
 import { RefinementsPanelWidget } from './refinements-panel-widget'
 
-import type { Refinement } from '@/config/config'
 import { configAtom } from '@/config/config'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 
@@ -19,6 +23,30 @@ export type RefinementsPanelBodyProps = Pick<
 
 export type Panels = {
   [key: string]: boolean
+}
+
+export type RefinementType =
+  | 'hierarchical'
+  | 'list'
+  | 'size'
+  | 'color'
+  | 'rating'
+  | 'price'
+
+export type RefinementOptions = Record<string, any>
+
+export type RefinementWidget = {
+  type: RefinementType
+  options: RefinementOptions
+}
+
+export type Refinement = {
+  type?: RefinementType
+  header: string
+  label: string
+  isExpanded?: boolean
+  options?: RefinementOptions
+  widgets?: RefinementWidget[]
 }
 
 export const refinementsPanelsAtom = atom<Panels>({})
@@ -33,25 +61,6 @@ export const refinementsPanelsExpandedAtom = atom(
     )
   }
 )
-
-function getPanelId(refinement: Refinement) {
-  return refinement.options.attributes
-    ? refinement.options.attributes.join(':')
-    : refinement.options.attribute
-}
-
-function getPanelAttribute(refinement: Refinement) {
-  return refinement.options.attributes
-    ? refinement.options.attributes[0]
-    : refinement.options.attribute
-}
-
-function togglePanels(panels: Panels, val: boolean) {
-  return Object.keys(panels).reduce(
-    (acc, panelKey) => ({ ...acc, [panelKey]: val }),
-    {}
-  )
-}
 
 export function RefinementsPanelBody({
   dynamicWidgets,
@@ -91,30 +100,50 @@ export function RefinementsPanelBody({
     [setPanels, laptop]
   )
 
-  const widgets = useMemo(
+  const expandablePanels = useMemo(
     () =>
       config.refinements.map((refinement, i) => {
         const panelId = getPanelId(refinement)
-        const panelAttribute = getPanelAttribute(refinement)
+        const panelAttributes = getPanelAttributes(refinement)
 
-        return (
-          <ExpandablePanel
-            key={panelId}
-            header={refinement.header}
-            attribute={panelAttribute}
-            isOpened={panels[panelId]}
-            className={i === 0 ? 'pt-0' : ''}
-            onToggle={() => onToggle(panelId)}
-          >
+        let refinementWidgets
+        if (refinement.widgets?.length) {
+          refinementWidgets = (
+            <div className="flex flex-col gap-2">
+              {refinement.widgets.map((refinementWidget, j) => (
+                <RefinementsPanelWidget
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={j}
+                  type={refinementWidget.type}
+                  {...refinementWidget.options}
+                />
+              ))}
+            </div>
+          )
+        } else {
+          refinementWidgets = (
             <RefinementsPanelWidget
               type={refinement.type}
               {...refinement.options}
             />
+          )
+        }
+
+        return (
+          <ExpandablePanel
+            key={panelId}
+            attributes={panelAttributes}
+            header={refinement.header}
+            isOpened={panels[panelId]}
+            className={i === 0 ? 'pt-0' : ''}
+            onToggle={() => onToggle(panelId)}
+          >
+            {refinementWidgets}
           </ExpandablePanel>
         )
       }),
     [config.refinements, onToggle, panels]
   )
 
-  return <DynamicWidgets>{widgets}</DynamicWidgets>
+  return <DynamicWidgets>{expandablePanels}</DynamicWidgets>
 }

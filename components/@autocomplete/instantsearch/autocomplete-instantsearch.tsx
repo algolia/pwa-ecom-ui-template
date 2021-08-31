@@ -47,12 +47,12 @@ export function AutocompleteInstantSearch({
     [placeholders, placeholderWordDelay, placeholderLetterDelay]
   )
 
-  const onSubmit = useCallback(
-    ({ state }) => {
+  const updateSearchState = useCallback(
+    (nextSearchState: InstantSearchProps['searchState']) => {
       setSearchState(
         (currentSearchState: InstantSearchProps['searchState']) => ({
           ...currentSearchState,
-          query: state.query,
+          ...nextSearchState,
           page: 1,
         })
       )
@@ -60,21 +60,20 @@ export function AutocompleteInstantSearch({
     [setSearchState]
   )
 
+  const onSubmit = useCallback(
+    ({ state }) => {
+      updateSearchState({ query: state.query })
+    },
+    [updateSearchState]
+  )
+
   const onStateChange = useCallback(
-    (stateChangeProps: OnStateChangeProps<any>) => {
-      const prevState = stateChangeProps.prevState
-      const state = stateChangeProps.state
+    ({ prevState, state }: OnStateChangeProps<any>) => {
       if (prevState.query !== state.query) {
-        setSearchState(
-          (currentSearchState: InstantSearchProps['searchState']) => ({
-            ...currentSearchState,
-            query: state.query,
-            page: 1,
-          })
-        )
+        updateSearchState({ query: state.query })
       }
     },
-    [setSearchState]
+    [updateSearchState]
   )
 
   return (
