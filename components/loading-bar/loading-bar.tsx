@@ -1,13 +1,11 @@
-import { memo } from 'react'
-import isEqual from 'react-fast-compare'
-import type { StateResultsProvided } from 'react-instantsearch-core'
-import { connectStateResults } from 'react-instantsearch-dom'
+import { useAtomValue } from 'jotai/utils'
+
+import { isSearchStalledAtom } from '@instantsearch/_widgets/state-results/state-results'
 
 import { useClassNames } from '@/hooks/useClassNames'
 
-export type LoadingBarProps = StateResultsProvided
-
-function LoadingBarComponent({ isSearchStalled }: StateResultsProvided) {
+export function LoadingBar() {
+  const isSearchStalled = useAtomValue(isSearchStalledAtom)
   const cn = useClassNames(
     'loadingBar',
     {
@@ -18,9 +16,3 @@ function LoadingBarComponent({ isSearchStalled }: StateResultsProvided) {
 
   return <div className={cn} />
 }
-
-export const LoadingBar = connectStateResults(
-  memo(LoadingBarComponent, (prevProps, nextProps) =>
-    isEqual(prevProps, nextProps)
-  )
-)

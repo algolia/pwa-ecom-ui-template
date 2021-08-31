@@ -1,8 +1,8 @@
 import type { RefObject } from 'react'
 
-export const getRefElement = <T>(
+export function getRefElement<T>(
   element?: RefObject<Element> | T
-): Element | T | undefined | null => {
+): Element | T | undefined | null {
   if (element && 'current' in element) {
     return element.current
   }

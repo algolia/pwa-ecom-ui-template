@@ -1,15 +1,20 @@
 import type { SearchClient } from 'algoliasearch/lite'
+import { atom, Provider } from 'jotai'
+import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { useRouter } from 'next/dist/client/router'
-import { memo, useCallback, useEffect, useMemo, useState } from 'react'
+import type { Dispatch } from 'react'
+import { memo, useCallback, useEffect, useState } from 'react'
 import isEqual from 'react-fast-compare'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
-import { InstantSearch } from 'react-instantsearch-dom'
+import { Configure, InstantSearch } from 'react-instantsearch-dom'
 
-import { VirtualSearchBox } from '../_widgets/virtual-search-box/virtual-search-box'
+import { StateResults } from '@instantsearch/_widgets/state-results/state-results'
+import { VirtualSearchBox } from '@instantsearch/_widgets/virtual-search-box/virtual-search-box'
 
-import { SearchContext } from '@/contexts/SearchContext'
+import { configAtom } from '@/config/config'
 import { useScrollToTop } from '@/hooks/useScrollToTop'
 import { useSearchClient } from '@/hooks/useSearchClient'
+import { createInitialValues } from '@/utils/createInitialValues'
 import { isObjectEmpty } from '@/utils/isObjectEmpty'
 import { createURL, searchStateToUrl, urlToSearchState } from '@/utils/url'
 
@@ -20,14 +25,18 @@ export type SearchProps = {
   indexName: string
   searchClient?: SearchClient
   resultsState?: InstantSearchProps['resultsState']
-  searchState?: SearchState
+  searchState?: InstantSearchProps['searchState']
   onSearchStateChange?: InstantSearchProps['onSearchStateChange']
   createURL?: InstantSearchProps['createURL']
 }
 
-type SearchState = {
-  [key: string]: any
+export type SearchAtomValue = {
+  initialQuery: string
+  setSearchState: Dispatch<InstantSearchProps['searchState']>
+  searchClient: SearchClient
 }
+
+export const searchAtom = atom<SearchAtomValue>({} as SearchAtomValue)
 
 export const Search = memo(
   function Search({
@@ -42,11 +51,13 @@ export const Search = memo(
     createURL: customCreateURL,
     ...props
   }: SearchProps) {
+    const config = useAtomValue(configAtom)
     const router = useRouter()
-    const searchClient = useSearchClient({
+    const defaultSearchClient = useSearchClient({
       appId,
       searchApiKey,
     })
+    const searchClient = customSearchClient ?? defaultSearchClient
 
     // Search state
     const initialSearchState = isObjectEmpty(customInitialSearchState)
@@ -54,20 +65,19 @@ export const Search = memo(
       : customInitialSearchState
 
     const [searchState, setSearchState] =
-      useState<SearchState>(initialSearchState)
+      useState<InstantSearchProps['searchState']>(initialSearchState)
 
     // Update router url
     const updateRouterUrl = useCallback(
-      (nextSearchState: SearchState) => {
+      (nextSearchState: InstantSearchProps['searchState']) => {
         const newRoute = searchStateToUrl(nextSearchState)
-
-        if (newRoute !== router.asPath) {
+        if (router.asPath !== newRoute) {
           router.push(newRoute, undefined, {
             shallow: true,
           })
         }
       },
-      [] // eslint-disable-line react-hooks/exhaustive-deps
+      [router.asPath] // eslint-disable-line react-hooks/exhaustive-deps
     )
 
     // Listen for route changes
@@ -90,7 +100,7 @@ export const Search = memo(
 
     // Listen for InstantSearch state changes
     const onSearchStateChange = useCallback(
-      (nextSearchState: SearchState): void => {
+      (nextSearchState: InstantSearchProps['searchState']): void => {
         setSearchState(nextSearchState)
         updateRouterUrl(nextSearchState)
       },
@@ -103,19 +113,27 @@ export const Search = memo(
 
     useScrollToTop([searchState.query])
 
-    // Search context
-    const contextValue = useMemo(
-      () => ({
-        query: initialSearchState?.query,
+    // Search atom
+    const setSearch = useUpdateAtom(searchAtom)
+
+    useEffect(() => {
+      setSearch({
+        initialQuery: initialSearchState?.query,
         setSearchState,
         searchClient,
-      }),
-      [setSearchState, initialSearchState?.query, searchClient]
-    )
+      })
+    }, [setSearch, initialSearchState?.query, setSearchState, searchClient])
+
+    const { get, set } = createInitialValues()
+    set(searchAtom, {
+      initialQuery: initialSearchState?.query,
+      setSearchState,
+      searchClient,
+    })
 
     return (
       <InstantSearch
-        searchClient={customSearchClient ?? searchClient}
+        searchClient={searchClient}
         indexName={indexName}
         resultsState={resultsState}
         searchState={searchState}
@@ -123,10 +141,13 @@ export const Search = memo(
         onSearchStateChange={customOnSearchStateChange ?? onSearchStateChange}
         {...props}
       >
-        <SearchContext.Provider value={contextValue}>
-          {children}
+        <Provider initialValues={get()}>
+          <Configure {...config.searchParameters} />
           <VirtualSearchBox />
-        </SearchContext.Provider>
+          <StateResults />
+
+          {children}
+        </Provider>
       </InstantSearch>
     )
   },

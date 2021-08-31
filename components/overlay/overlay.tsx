@@ -29,5 +29,13 @@ export function Overlay() {
     [visible, zIndex]
   )
 
-  return <div role="button" tabIndex={0} className={cn} onClick={onClick} />
+  return (
+    <div
+      role="button"
+      aria-label="Overlay"
+      tabIndex={0}
+      className={cn}
+      onClick={onClick}
+    />
+  )
 }

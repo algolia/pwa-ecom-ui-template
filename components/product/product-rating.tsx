@@ -1,5 +1,5 @@
-import StarIcon from '@material-design-icons/svg/outlined/star.svg'
-import StarBorderIcon from '@material-design-icons/svg/outlined/star_border.svg'
+import StarFillIcon from '@material-design-icons/svg/outlined/star.svg'
+import StarOulineIcon from '@material-design-icons/svg/outlined/star_outline.svg'
 import { useMemo } from 'react'
 
 import { clamp } from '@/utils/math'
@@ -14,15 +14,8 @@ export function ProductRating({ rating, review }: ProductRatingProps) {
 
   const stars = []
   for (let i = 0; i < 5; i++) {
-    stars.push(
-      <li key={i}>
-        {i >= ratingParsed ? (
-          <StarBorderIcon className="w-3 h-3" />
-        ) : (
-          <StarIcon className="w-3 h-3" />
-        )}
-      </li>
-    )
+    const Star = i >= ratingParsed ? StarOulineIcon : StarFillIcon
+    stars.push(<li key={i}>{<Star className="w-3 h-3" />}</li>)
   }
 
   return (

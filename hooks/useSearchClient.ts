@@ -3,8 +3,8 @@ import algoliasearch from 'algoliasearch/lite'
 import { useMemo } from 'react'
 
 export type SearchClientHookOptions = {
-  appId: string | undefined
-  searchApiKey: string | undefined
+  appId?: string
+  searchApiKey?: string
 }
 
 export function useSearchClient({

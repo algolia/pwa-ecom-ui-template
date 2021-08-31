@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 
 import { Link } from '@ui/link/link'
 
@@ -47,10 +47,12 @@ export const ProductCard = memo(function ProductCard({
   reviews,
   available,
 }: ProductCardProps) {
+  const [isFavorite, setIsFavorite] = useState(false)
+
   return (
     <article
       className={useClassNames(
-        'w-full relative border border-transparent transition-all laptop:p-3 can-hover:laptop:hover:shadow-sm can-hover:laptop:hover:border-neutral-light',
+        'w-full h-full relative border border-transparent transition-all laptop:p-3 can-hover:laptop:hover:shadow-sm can-hover:laptop:hover:border-neutral-light',
         { 'opacity-50': !available },
         [available]
       )}
@@ -58,7 +60,7 @@ export const ProductCard = memo(function ProductCard({
       <Link
         href={url}
         title="See product details"
-        className="flex flex-col gap-1 pointer-events-none"
+        className="flex flex-col gap-2 pointer-events-none"
       >
         <div className="relative">
           {image && <ProductImage src={image} alt={title} />}
@@ -107,8 +109,9 @@ export const ProductCard = memo(function ProductCard({
       </Link>
 
       <ProductFavorite
-        className="absolute top-1 right-1 laptop:top-5 laptop:right-5"
-        onClick={() => {}}
+        className="absolute top-1 right-1 laptop:top-4 laptop:right-4"
+        isFavorite={isFavorite}
+        onClick={() => setIsFavorite((favorite) => !favorite)}
       />
     </article>
   )

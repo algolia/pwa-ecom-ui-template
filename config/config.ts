@@ -1,19 +1,16 @@
 import { atom } from 'jotai'
+import { freezeAtom } from 'jotai/utils'
 
-export type RefinementType = 'hierarchical' | 'list' | 'size' | 'color'
+import type { Refinement } from '@/components/refinements-panel/refinements-panel-body'
 
-export type Refinement = {
-  type: RefinementType
-  header: string
-  label: string
-  options: Record<string, any>
-}
+export type Config = typeof config
 
 const refinements: Refinement[] = [
   {
     type: 'hierarchical',
     header: 'Categories',
     label: 'Category',
+    isExpanded: true,
     options: {
       attributes: [
         'hierarchical_categories.lvl0',
@@ -23,12 +20,22 @@ const refinements: Refinement[] = [
     },
   },
   {
-    type: 'list',
     header: 'Price',
     label: 'Price',
-    options: {
-      attribute: 'priceFilter',
-    },
+    widgets: [
+      {
+        type: 'price',
+        options: {
+          attribute: 'price',
+        },
+      },
+      {
+        type: 'list',
+        options: {
+          attribute: 'priceFilter',
+        },
+      },
+    ],
   },
   {
     type: 'size',
@@ -49,8 +56,24 @@ const refinements: Refinement[] = [
       limit: 9,
     },
   },
+  {
+    type: 'rating',
+    header: 'Rating',
+    label: 'Rating',
+    options: {
+      attribute: 'reviewScore',
+    },
+  },
 ]
 
-export const configAtom = atom(() => ({
+const searchParameters = {
+  hitsPerPage: 10,
+  maxValuesPerFacet: 50,
+}
+
+const config = {
   refinements,
-}))
+  searchParameters,
+}
+
+export const configAtom = freezeAtom(atom(() => config))

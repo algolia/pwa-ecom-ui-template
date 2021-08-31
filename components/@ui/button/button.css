@@ -2,17 +2,21 @@
   /* ---------- Common */
   .btn {
     @apply btn-bold px-8 rounded-sm flex items-center justify-center gap-3 transition-colors;
+
+    &:focus-visible {
+      @apply outline-none ring-2 ring-uranus-base;
+    }
+
+    &:disabled {
+      @apply cursor-not-allowed;
+    }
   }
 
-  .btn:focus-visible {
-    @apply outline-none ring-2 ring-uranus-base;
+  .btn-native {
+    @apply can-hover:transition-colors can-hover:hover:text-neutral-dark;
   }
 
-  .btn:disabled {
-    @apply cursor-not-allowed;
-  }
-
-  .btn-selected {
+  .btn--selected {
     @apply bg-brand-black text-white;
   }
 
@@ -82,8 +86,8 @@
       @apply bg-neutral-lightest border-neutral-light text-brand-black;
     }
 
-    &.btn--selected {
-      @apply btn-selected;
+    &.btn-selected {
+      @apply btn--selected;
     }
   }
 

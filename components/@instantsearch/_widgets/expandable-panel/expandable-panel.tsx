@@ -1,43 +1,52 @@
 import AddIcon from '@material-design-icons/svg/outlined/add.svg'
 import RemoveIcon from '@material-design-icons/svg/outlined/remove.svg'
+import { useAtomValue } from 'jotai/utils'
 import type { CSSProperties, MouseEventHandler } from 'react'
-import React, { useMemo, useEffect, useRef } from 'react'
-import type { CurrentRefinementsProvided } from 'react-instantsearch-core'
+import { useMemo, useEffect, useRef } from 'react'
+import type {
+  CurrentRefinementsProvided,
+  SearchResults,
+} from 'react-instantsearch-core'
 import { connectCurrentRefinements } from 'react-instantsearch-dom'
 
 import { Button } from '@ui/button/button'
 import { Icon } from '@ui/icon/icon'
 
-import { NoRefinementsHandler } from './no-refinements-handler'
+import { searchResultsAtom } from '../state-results/state-results'
 
+import { Count } from '@/components/@ui/count/count'
 import { useClassNames } from '@/hooks/useClassNames'
+import { useHasRefinements } from '@/hooks/useHasRefinements'
 
 export type ExpandablePanelProps = CurrentRefinementsProvided & {
   children: React.ReactNode
+  className?: string
   header?: string
   footer?: string
-  attribute?: string
+  attributes?: string[]
   maxHeight?: string
   isOpened: boolean
   onToggle: MouseEventHandler
 }
 
-export const ExpandablePanel = connectCurrentRefinements(
+export const ExpandablePanel = connectCurrentRefinements<ExpandablePanelProps>(
   ({
     children,
+    className,
     items,
     header,
     footer,
-    attribute,
+    attributes,
     maxHeight,
     isOpened,
     onToggle,
-  }: ExpandablePanelProps) => {
+  }) => {
     const collapseRef = useRef<HTMLDivElement>(null)
     const gradientRef = useRef<HTMLDivElement>(null)
-    const firstToggle = useRef(true)
-    const hasRefinements = useRef(false)
     const isOpenByDefault = useRef(isOpened)
+
+    const searchResults = useAtomValue(searchResultsAtom) as SearchResults
+    const hasRefinements = useHasRefinements(searchResults, attributes)
 
     const collapseElStyles: CSSProperties = {}
     if (typeof maxHeight !== 'undefined') {
@@ -46,17 +55,23 @@ export const ExpandablePanel = connectCurrentRefinements(
     }
 
     const currentRefinementCount = useMemo(() => {
-      const arr: string[] = []
+      let count = 0
 
-      let currentRefinement = items.find(
-        (item) => item.attribute === attribute
-      )?.currentRefinement
-      currentRefinement = currentRefinement
-        ? arr.concat(currentRefinement)
-        : arr
+      attributes?.forEach((attribute) => {
+        const tmp: string[] = []
 
-      return currentRefinement.length
-    }, [items, attribute])
+        let currentRefinement = items.find(
+          (item) => item.attribute === attribute
+        )?.currentRefinement
+        currentRefinement = currentRefinement
+          ? tmp.concat(currentRefinement)
+          : tmp
+
+        count += currentRefinement.length
+      })
+
+      return count
+    }, [items, attributes])
 
     useEffect(() => {
       const collapseEl = collapseRef.current
@@ -83,7 +98,7 @@ export const ExpandablePanel = connectCurrentRefinements(
       } else if (isOpened) {
         collapseEl.style.setProperty('height', `${collapseEl.scrollHeight}px`)
         collapseEl.addEventListener('transitionend', onTransitionEnd)
-      } else if (!firstToggle.current) {
+      } else {
         collapseEl.style.setProperty('height', `${collapseEl.scrollHeight}px`)
         window.requestAnimationFrame(() =>
           collapseEl.style.setProperty('height', '0px')
@@ -100,33 +115,22 @@ export const ExpandablePanel = connectCurrentRefinements(
         className={useClassNames(
           'py-3.5 laptop:py-5 laptop:border-t laptop:border-neutral-light',
           {
-            hidden: !hasRefinements.current,
+            hidden: !hasRefinements,
           },
-          [hasRefinements.current]
+          className,
+          [hasRefinements, className]
         )}
       >
-        <NoRefinementsHandler
-          attribute={attribute}
-          onUpdate={(value: boolean) => {
-            hasRefinements.current = value
-          }}
-        />
-
         <Button
-          className="w-full flex items-center justify-between gap-3 can-hover:transition-colors can-hover:hover:text-neutral-dark"
+          className="w-full flex items-center justify-between gap-3"
           aria-expanded={isOpened}
-          onClick={(e) => {
-            firstToggle.current = false
-            onToggle(e)
-          }}
+          onClick={(e) => onToggle(e)}
         >
           <div className="flex items-center w-full subhead laptop:small-bold laptop:uppercase">
             {header}
 
             {currentRefinementCount > 0 && (
-              <div className="bg-neutral-lightest w-5 h-5 small-bold rounded-full flex items-center justify-center ml-auto">
-                {currentRefinementCount}
-              </div>
+              <Count className="ml-auto">{currentRefinementCount}</Count>
             )}
           </div>
           <div className="text-neutral-dark">
@@ -145,6 +149,7 @@ export const ExpandablePanel = connectCurrentRefinements(
           <div className="mt-4" style={collapseElStyles}>
             {children}
           </div>
+
           {footer && <div>{footer}</div>}
 
           <div

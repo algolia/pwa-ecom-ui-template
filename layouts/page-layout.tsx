@@ -14,7 +14,7 @@ import type { HeaderProps } from '@/components/header/header'
 import { LoadingBar } from '@/components/loading-bar/loading-bar'
 import { Overlay } from '@/components/overlay/overlay'
 import { appId, indexName, searchApiKey } from '@/utils/env'
-import { getResultsState } from '@/utils/page'
+import { getResultsState } from '@/utils/getResultsState'
 import { urlToSearchState } from '@/utils/url'
 
 export const Header = dynamic<HeaderProps>(() =>

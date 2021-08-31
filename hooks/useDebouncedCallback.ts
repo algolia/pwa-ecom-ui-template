@@ -1,32 +1,35 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 
 export function useDebouncedCallback<T extends any[]>(
   callback: (...args: T) => void,
-  wait: number
+  wait: number = 150
 ) {
   const argsRef = useRef<T>()
   const timeout = useRef<ReturnType<typeof setTimeout>>()
 
-  function cleanup() {
+  const cleanup = useCallback(() => {
     if (timeout.current) {
       clearTimeout(timeout.current)
     }
-  }
+  }, [])
 
-  useEffect(() => cleanup, [])
+  useEffect(() => {
+    return () => cleanup()
+  }, [cleanup])
 
-  return useCallback(
-    function debouncedCallback(...args: T) {
-      argsRef.current = args
+  return useMemo(
+    () =>
+      function debouncedCallback(...args: T) {
+        argsRef.current = args
 
-      cleanup()
+        cleanup()
 
-      timeout.current = setTimeout(() => {
-        if (argsRef.current) {
-          callback(...argsRef.current)
-        }
-      }, wait)
-    },
-    [callback, wait]
+        timeout.current = setTimeout(() => {
+          if (argsRef.current) {
+            callback(...argsRef.current)
+          }
+        }, wait)
+      },
+    [cleanup, callback, wait]
   )
 }

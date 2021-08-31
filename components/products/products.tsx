@@ -9,7 +9,7 @@ import type { ProductGridCardProps } from '../product/product-grid'
 import { ProductGrid } from '../product/product-grid'
 import type { ProductTagType } from '../product/product-tag'
 
-export type Hit = {
+export type ProductHit = {
   objectID: string
   url: string
   image_link: string
@@ -23,9 +23,9 @@ export type Hit = {
   hexColorCode: string
 }
 
-export type HitsProps = InfiniteHitsProvided<Hit>
+export type ProductsProps = InfiniteHitsProvided<ProductHit>
 
-function HitsComponent({ hits }: HitsProps) {
+function ProductsComponent({ hits }: ProductsProps) {
   const productsCache = useRef<Record<string, ProductGridCardProps>>({})
 
   const products = useMemo(
@@ -90,8 +90,8 @@ function HitsComponent({ hits }: HitsProps) {
   )
 }
 
-export const Hits = connectInfiniteHits(
-  memo(HitsComponent, (prevProps, nextProps) =>
+export const Products = connectInfiniteHits(
+  memo(ProductsComponent, (prevProps, nextProps) =>
     isEqual(prevProps.hits, nextProps.hits)
   )
 )

@@ -8,7 +8,7 @@
   }
 
   .ais-SearchBox-input {
-    @apply bg-neutral-lightest h-12 w-full outline-none appearance-none px-10;
+    @apply input;
   }
 
   .ais-SearchBox-submit,
