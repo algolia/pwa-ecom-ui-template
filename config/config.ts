@@ -66,8 +66,14 @@ const refinements: Refinement[] = [
   },
 ]
 
+const searchParameters = {
+  hitsPerPage: 10,
+  maxValuesPerFacet: 50,
+}
+
 const config = {
   refinements,
+  searchParameters,
 }
 
 export const configAtom = freezeAtom(atom(() => config))

@@ -1,16 +1,17 @@
 import type { SearchClient } from 'algoliasearch/lite'
 import { atom, Provider } from 'jotai'
-import { useUpdateAtom } from 'jotai/utils'
+import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { useRouter } from 'next/dist/client/router'
 import type { Dispatch } from 'react'
 import { memo, useCallback, useEffect, useState } from 'react'
 import isEqual from 'react-fast-compare'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
-import { InstantSearch } from 'react-instantsearch-dom'
+import { Configure, InstantSearch } from 'react-instantsearch-dom'
 
 import { StateResults } from '@instantsearch/_widgets/state-results/state-results'
 import { VirtualSearchBox } from '@instantsearch/_widgets/virtual-search-box/virtual-search-box'
 
+import { configAtom } from '@/config/config'
 import { useScrollToTop } from '@/hooks/useScrollToTop'
 import { useSearchClient } from '@/hooks/useSearchClient'
 import { createInitialValues } from '@/utils/createInitialValues'
@@ -50,6 +51,7 @@ export const Search = memo(
     createURL: customCreateURL,
     ...props
   }: SearchProps) {
+    const config = useAtomValue(configAtom)
     const router = useRouter()
     const defaultSearchClient = useSearchClient({
       appId,
@@ -140,9 +142,11 @@ export const Search = memo(
         {...props}
       >
         <Provider initialValues={get()}>
-          {children}
+          <Configure {...config.searchParameters} />
           <VirtualSearchBox />
           <StateResults />
+
+          {children}
         </Provider>
       </InstantSearch>
     )

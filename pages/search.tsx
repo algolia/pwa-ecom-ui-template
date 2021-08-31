@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic'
-import { Configure } from 'react-instantsearch-dom'
 
 import { RefinementsBar } from '@/components/refinements-bar/refinements-bar'
 import { RefinementsPanel } from '@/components/refinements-panel/refinements-panel'
@@ -15,8 +14,6 @@ const Products = dynamic<any>(() =>
 export default function Search(props: PageLayoutProps) {
   return (
     <PageLayout {...props}>
-      <Configure hitsPerPage={10} maxValuesPerFacet={50} />
-
       <div className="flex flex-col p-2.5 laptop:flex-row laptop:p-0 laptop:mx-20 laptop:mt-5">
         <RefinementsPanel />
 
