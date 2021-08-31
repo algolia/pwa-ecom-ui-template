@@ -60,7 +60,8 @@ export const ProductCard = memo(function ProductCard({
       <Link
         href={url}
         title="See product details"
-        className="flex flex-col gap-2 pointer-events-none"
+        className="flex flex-col gap-2"
+        onClick={(e) => e.preventDefault()}
       >
         <div className="relative">
           {image && <ProductImage src={image} alt={title} />}

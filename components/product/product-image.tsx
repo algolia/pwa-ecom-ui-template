@@ -14,7 +14,7 @@ export function ProductImage({ src, alt = '' }: ProductImageProps) {
   const isMounted = useIsMounted()
 
   return (
-    <div className="bg-neutral-lightest">
+    <div className="bg-neutral-lightest group">
       <Image
         src={src}
         alt={alt}
@@ -23,7 +23,7 @@ export function ProductImage({ src, alt = '' }: ProductImageProps) {
         height="27"
         priority={true}
         className={useClassNames(
-          'transition-opacity',
+          'transition-all duration-2000 ease-out-expo group-hover:scale-110',
           {
             '!opacity-0': !loaded,
           },
