@@ -12,6 +12,8 @@ import { Button } from '@ui/button/button'
 import { Count } from '@ui/count/count'
 import { IconLabel } from '@ui/icon-label/icon-label'
 
+import { ViewModes } from '../view-modes/view-modes'
+
 import { refinementsPanelMobileExpandedAtom } from '@/components/refinements-panel/refinements-panel'
 import { ToggleFilters } from '@/components/toggle-filters/toggle-filters'
 import { configAtom } from '@/config/config'
@@ -42,9 +44,11 @@ export function RefinementsBar({
 
   return (
     <section className={classNames('w-full', className)}>
-      <Tablet>
+      <Tablet className="flex justify-between">
+        <ViewModes />
+
         <Button
-          className="flex items-center gap-1 ml-auto"
+          className="flex items-center gap-1"
           onClick={() => setMobileExpanded(true)}
         >
           <IconLabel
@@ -67,6 +71,7 @@ export function RefinementsBar({
 
           <div className="flex gap-6 ml-auto">
             {!showWidgets && <ToggleFilters />}
+            <ViewModes />
             <SortBy
               defaultRefinement={sortDefaultRefinement}
               items={sorts}

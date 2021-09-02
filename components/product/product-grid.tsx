@@ -1,8 +1,11 @@
+import classNames from 'classnames'
 import { AnimatePresence, m } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 import type { ProductCardProps } from './product-card'
 import { ProductCard } from './product-card'
+
+import type { ViewMode } from '@/components/view-modes/view-modes'
 
 export type ProductGridCardProps = ProductCardProps & {
   objectID: string
@@ -10,6 +13,7 @@ export type ProductGridCardProps = ProductCardProps & {
 
 export type ProductGridProps = {
   products: ProductGridCardProps[]
+  view?: ViewMode
 }
 
 const listItemTransition = {
@@ -30,7 +34,7 @@ const listItemVariants = {
   }),
 }
 
-export function ProductGrid({ products }: ProductGridProps) {
+export function ProductGrid({ products, view = 'grid' }: ProductGridProps) {
   const [productsPerPage, setProductsPerPage] = useState(0)
 
   useEffect(() => {
@@ -39,7 +43,11 @@ export function ProductGrid({ products }: ProductGridProps) {
 
   return (
     <m.ol
-      className="grid grid-cols-2 gap-4 overflow-hidden laptop:grid-cols-5 laptop:gap-6"
+      className={classNames('overflow-hidden', {
+        'grid grid-cols-2 gap-4 laptop:grid-cols-5 laptop:gap-6':
+          view === 'grid',
+        'flex flex-col gap-4 laptop:gap-0': view === 'list',
+      })}
       initial="hidden"
       animate="show"
       exit="hidden"
@@ -53,7 +61,7 @@ export function ProductGrid({ products }: ProductGridProps) {
             variants={listItemVariants}
             custom={i % productsPerPage}
           >
-            <ProductCard {...props} />
+            <ProductCard view={view} {...props} />
           </m.li>
         ))}
       </AnimatePresence>

@@ -1,9 +1,12 @@
 import classNames from 'classnames'
-import { memo, useState } from 'react'
+import { useState } from 'react'
 
 import { Link } from '@ui/link/link'
 
+import type { ViewMode } from '../view-modes/view-modes'
+
 import { ProductColorVariationList } from './product-color-variation-list'
+import { ProductDescription } from './product-description'
 import { ProductFavorite } from './product-favorite'
 import { ProductImage } from './product-image'
 import { ProductLabel } from './product-label'
@@ -18,9 +21,11 @@ export type ProductCardProps = {
   image?: string
   tags?: ProductTagType[]
   label?: string
-  title?: string
   labelHighlighting?: React.ComponentType
+  title?: string
   titleHighlighting?: React.ComponentType
+  description?: string
+  descriptionHighlighting?: React.ComponentType
   colors?: string[]
   price?: number
   originalPrice?: number
@@ -28,16 +33,19 @@ export type ProductCardProps = {
   rating?: number
   reviews?: number
   available?: boolean
+  view?: ViewMode
 }
 
-export const ProductCard = memo(function ProductCard({
+export function ProductCard({
   url = '',
   image,
   tags,
   label,
-  title,
   labelHighlighting,
+  title,
   titleHighlighting,
+  description,
+  descriptionHighlighting,
   colors,
   price,
   originalPrice,
@@ -45,6 +53,7 @@ export const ProductCard = memo(function ProductCard({
   rating,
   reviews,
   available,
+  view,
 }: ProductCardProps) {
   const [isFavorite, setIsFavorite] = useState(false)
 
@@ -58,10 +67,17 @@ export const ProductCard = memo(function ProductCard({
       <Link
         href={url}
         title="See product details"
-        className="flex flex-col gap-2"
+        className={classNames('flex gap-2', {
+          'flex-col': view === 'grid',
+          'flex-row items-start': view === 'list',
+        })}
         onClick={(e) => e.preventDefault()}
       >
-        <div className="relative">
+        <div
+          className={classNames('relative', {
+            'w-32 h-auto flex-shrink-0': view === 'list',
+          })}
+        >
           {image && <ProductImage src={image} alt={title} />}
 
           {tags && tags.length > 0 && (
@@ -89,6 +105,11 @@ export const ProductCard = memo(function ProductCard({
                 {title}
               </ProductTitle>
             )}
+            {description && view === 'list' && (
+              <ProductDescription highlighting={descriptionHighlighting}>
+                {description}
+              </ProductDescription>
+            )}
           </header>
 
           <footer className="flex flex-col gap-1">
@@ -108,10 +129,13 @@ export const ProductCard = memo(function ProductCard({
       </Link>
 
       <ProductFavorite
-        className="absolute top-1 right-1 laptop:top-4 laptop:right-4"
+        className={classNames('absolute top-1 laptop:top-4 ', {
+          'left-1 laptop:left-4': view === 'list',
+          'right-1 laptop:right-4': view === 'grid',
+        })}
         isFavorite={isFavorite}
         onClick={() => setIsFavorite((favorite) => !favorite)}
       />
     </article>
   )
-})
+}

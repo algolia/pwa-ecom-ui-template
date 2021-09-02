@@ -35,8 +35,7 @@ function RatingSelectorComponent({
           key={i} // eslint-disable-line react/no-array-index-key
           className={classNames({
             'text-neutral-dark': currentHoverIdx >= i,
-            'cursor-not-allowed hover:text-brand-black':
-              i + 1 === currRefinement,
+            'hover:text-brand-black': i + 1 === currRefinement,
           })}
           disabled={i + 1 === currRefinement}
           onClick={() => {

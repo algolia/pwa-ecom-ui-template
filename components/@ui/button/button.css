@@ -13,7 +13,7 @@
   }
 
   .btn-native {
-    @apply can-hover:transition-colors can-hover:hover:text-neutral-dark;
+    @apply can-hover:transition-colors can-hover:hover:text-neutral-dark disabled:cursor-not-allowed;
   }
 
   .btn--selected {

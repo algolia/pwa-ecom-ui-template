@@ -5,7 +5,7 @@ import type { Refinement, RefinementLayout } from '@/typings/refinements'
 
 export type Config = typeof config
 
-const refinementsLayout = 'bar' as RefinementLayout
+const refinementsLayout = 'panel' as RefinementLayout
 
 const refinements: Refinement[] = [
   {

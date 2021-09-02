@@ -23,7 +23,7 @@ export function ToggleFilters() {
           icon={FilterIcon}
           label={`${desktopExpanded ? 'Hide' : 'Show'} filters`}
           labelPosition="left"
-          labelTheme="body-regular"
+          labelTheme="small-bold"
           classNameIcon="w-4 h-4"
         />
       </Button>

@@ -2,13 +2,13 @@ import FilterIcon from '@material-design-icons/svg/outlined/filter_list.svg'
 import { useAtomValue } from 'jotai/utils'
 import { useMemo, useState } from 'react'
 
-import { DynamicWidgets } from '@instantsearch/widgets/dynamic-widgets/dynamic-widgets'
-import { RefinementsDropdown } from '@instantsearch/widgets/refinements-dropdown/dropdown-refinements'
 import { useGetRefinementWidgets } from '@instantsearch/hooks/useGetRefinementWidgets'
 import {
   getPanelAttributes,
   getPanelId,
 } from '@instantsearch/utils/refinements'
+import { DynamicWidgets } from '@instantsearch/widgets/dynamic-widgets/dynamic-widgets'
+import { RefinementsDropdown } from '@instantsearch/widgets/refinements-dropdown/dropdown-refinements'
 import { Button } from '@ui/button/button'
 import { IconLabel } from '@ui/icon-label/icon-label'
 
@@ -67,7 +67,7 @@ export function RefinementsBarDropdowns({
             icon={FilterIcon}
             label={`${showAll ? 'Less' : 'More'} filters`}
             labelPosition="left"
-            labelTheme="body-regular"
+            labelTheme="small-bold"
             classNameIcon="w-4 h-4"
           />
         </Button>
