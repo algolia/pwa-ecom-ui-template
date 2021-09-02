@@ -30,11 +30,13 @@ function LoadMoreButton({
   )
 }
 
-export const LoadMore = memo(function LoadMore() {
+function LoadMoreComponent() {
   return (
     <LoadMoreWithProgressBar
       buttonComponent={LoadMoreButton}
       className="my-12 gap-4"
     />
   )
-})
+}
+
+export const LoadMore = memo(LoadMoreComponent)

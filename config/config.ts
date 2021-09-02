@@ -1,9 +1,11 @@
 import { atom } from 'jotai'
 import { freezeAtom } from 'jotai/utils'
 
-import type { Refinement } from '@/components/refinements-panel/refinements-panel-body'
+import type { Refinement, RefinementLayout } from '@/typings/refinements'
 
 export type Config = typeof config
+
+const refinementsLayout = 'bar' as RefinementLayout
 
 const refinements: Refinement[] = [
   {
@@ -66,13 +68,21 @@ const refinements: Refinement[] = [
   },
 ]
 
+const sorts = [
+  { value: 'gstar_demo', label: 'Most popular', isDefault: true },
+  { value: 'gstar_demo_price_asc', label: 'Price Low to High' },
+  { value: 'gstar_demo_price_desc', label: 'Price High to Low' },
+]
+
 const searchParameters = {
   hitsPerPage: 10,
   maxValuesPerFacet: 50,
 }
 
 const config = {
+  refinementsLayout,
   refinements,
+  sorts,
   searchParameters,
 }
 

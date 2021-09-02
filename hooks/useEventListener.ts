@@ -1,35 +1,62 @@
-import type { RefObject } from 'react'
-import { useEffect, useCallback, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
-import { isBrowser } from '@/utils/browser'
-import { getRefElement } from '@/utils/getRefElement'
+export function useEventListener<KD extends keyof DocumentEventMap>(
+  element: Document | null | undefined,
+  eventType: KD,
+  listener: (this: Document, evt: DocumentEventMap[KD]) => void,
+  options?: boolean | AddEventListenerOptions
+): void
+export function useEventListener<KH extends keyof HTMLElementEventMap>(
+  element: HTMLElement | null | undefined,
+  eventType: KH,
+  listener: (this: HTMLElement, evt: HTMLElementEventMap[KH]) => void,
+  options?: boolean | AddEventListenerOptions
+): void
+export function useEventListener<KW extends keyof WindowEventMap>(
+  element: Window | null | undefined,
+  eventType: KW,
+  listener: (this: Window, evt: WindowEventMap[KW]) => void,
+  options?: boolean | AddEventListenerOptions
+): void
+export function useEventListener(
+  element: Document | HTMLElement | Window | null | undefined,
+  eventType: string,
+  listener: (evt: Event) => void,
+  options?: boolean | AddEventListenerOptions
+): void
 
-type UseEventListener = {
-  type: keyof WindowEventMap
-  listener: EventListener
-  element?: RefObject<Element> | Document | Window | null
-  options?: AddEventListenerOptions
-}
+export function useEventListener<
+  KD extends keyof DocumentEventMap,
+  KH extends keyof HTMLElementEventMap,
+  KW extends keyof WindowEventMap
+>(
+  element: Document | HTMLElement | Window | null | undefined,
+  eventType: KD | KH | KW | string,
+  listener: (
+    this: typeof element,
+    evt:
+      | DocumentEventMap[KD]
+      | HTMLElementEventMap[KH]
+      | WindowEventMap[KW]
+      | Event
+  ) => void,
+  options?: boolean | AddEventListenerOptions
+): void {
+  const listenerRef = useRef(listener)
+  listenerRef.current = listener
 
-export const useEventListener = ({
-  type,
-  listener,
-  element = isBrowser ? window : undefined,
-  options,
-}: UseEventListener): void => {
-  const savedListener = useRef<EventListener>()
+  const memorizedOptions = useMemo(() => options, [options])
 
   useEffect(() => {
-    savedListener.current = listener
-  }, [listener])
+    if (!element) return undefined
 
-  const handleEventListener = useCallback((event: Event) => {
-    savedListener.current?.(event)
-  }, [])
+    const wrappedListener: typeof listenerRef.current = (evt) =>
+      listenerRef.current.call(element, evt)
 
-  useEffect(() => {
-    const target = getRefElement(element)
-    target?.addEventListener(type, handleEventListener, options)
-    return () => target?.removeEventListener(type, handleEventListener)
-  }, [type, element, options, handleEventListener])
+    element.addEventListener(eventType, wrappedListener, memorizedOptions)
+
+    return () => {
+      element.removeEventListener(eventType, wrappedListener, memorizedOptions)
+    }
+  }, [element, eventType, memorizedOptions])
 }

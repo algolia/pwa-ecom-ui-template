@@ -7,7 +7,7 @@ import { IconLabel } from '@ui/icon-label/icon-label'
 import { ClientOnly } from '@/components/client-only/client-only'
 import { refinementsPanelDesktopExpandedAtom } from '@/components/refinements-panel/refinements-panel'
 
-export function RefinementsBarToggleFilters() {
+export function ToggleFilters() {
   // 'desktopExpanded' is only available in localStorage (client-side only)
   const [desktopExpanded, setDesktopExpanded] = useAtom(
     refinementsPanelDesktopExpandedAtom
@@ -16,7 +16,7 @@ export function RefinementsBarToggleFilters() {
   return (
     <ClientOnly>
       <Button
-        className="flex items-center gap-2 flex-shrink-0 ml-auto text-neutral-darkest"
+        className="flex items-center gap-2 flex-shrink-0 text-neutral-darkest"
         onClick={() => setDesktopExpanded((expanded) => !expanded)}
       >
         <IconLabel

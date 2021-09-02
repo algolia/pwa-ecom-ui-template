@@ -1,8 +1,8 @@
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
 import { m } from 'framer-motion'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
-import { useRouter } from 'next/dist/client/router'
-import { memo, useEffect, useMemo, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { AutocompleteBasic } from '@autocomplete/basic/autocomplete-basic'
 import { AutocompleteInstantSearch } from '@autocomplete/instantsearch/autocomplete-instantsearch'
@@ -21,9 +21,9 @@ const transition = {
   duration: 0.6,
 }
 
-export const NavBottom = memo(function NavBottom() {
+export function NavBottom() {
   const router = useRouter()
-  const isHomePage = useMemo(() => router?.pathname === '/', [router])
+  const isHomePage = useMemo(() => router?.pathname === '/', [router?.pathname])
 
   // Autocomplete placeholders
   const { current: placeholders } = useRef(['products', 'articles', 'faq'])
@@ -49,7 +49,7 @@ export const NavBottom = memo(function NavBottom() {
     [isFocused]
   )
 
-  // Autocomplete implementation\
+  // Autocomplete implementation
   const Autocomplete = useMemo(
     () => (isHomePage ? AutocompleteBasic : AutocompleteInstantSearch),
     [isHomePage]
@@ -87,4 +87,4 @@ export const NavBottom = memo(function NavBottom() {
       </m.div>
     </div>
   )
-})
+}

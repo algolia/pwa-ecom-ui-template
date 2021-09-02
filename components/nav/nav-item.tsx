@@ -1,4 +1,4 @@
-import { useRouter } from 'next/dist/client/router'
+import { useRouter } from 'next/router'
 import { useCallback, useMemo } from 'react'
 
 import { Link } from '@ui/link/link'

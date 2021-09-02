@@ -1,3 +1,5 @@
+import { memo } from 'react'
+import isEqual from 'react-fast-compare'
 import type { CurrentRefinementsProvided } from 'react-instantsearch-core'
 import { connectCurrentRefinements } from 'react-instantsearch-dom'
 
@@ -10,18 +12,26 @@ export type ClearRefinementsProps = CurrentRefinementsProvided & {
   className?: string
 }
 
+function ClearRefinementsComponent({
+  children,
+  type = 'native',
+  className,
+  items,
+  refine,
+}: ClearRefinementsProps) {
+  return (
+    <Button
+      type={type}
+      disabled={!items.length}
+      className={className}
+      onClick={() => refine(items)}
+    >
+      {children}
+    </Button>
+  )
+}
+
 export const ClearRefinements =
   connectCurrentRefinements<ClearRefinementsProps>(
-    ({ children, type = 'native', className, items, refine }) => {
-      return (
-        <Button
-          type={type}
-          disabled={!items.length}
-          className={className}
-          onClick={() => refine(items)}
-        >
-          {children}
-        </Button>
-      )
-    }
+    memo(ClearRefinementsComponent, isEqual)
   )

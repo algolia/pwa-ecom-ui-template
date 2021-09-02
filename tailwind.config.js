@@ -1,6 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
-/** @type {import('@types/tailwindcss/tailwind-config').TailwindConfig } */
+/** @type {import('tailwindcss/tailwind-config').TailwindConfig } */
 module.exports = {
   mode: 'jit',
   purge: [
@@ -71,6 +71,7 @@ module.exports = {
       'cannot-hover': { raw: '(any-hover: none)' },
     },
     zIndex: {
+      dropdown: 5,
       'loading-bar': 10,
       'overlay-header': 20,
       header: 30,

@@ -1,9 +1,9 @@
 import type { SearchClient } from 'algoliasearch/lite'
 import { atom, Provider } from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
-import { useRouter } from 'next/dist/client/router'
+import { useRouter } from 'next/router'
 import type { Dispatch } from 'react'
-import { memo, useCallback, useEffect, useState } from 'react'
+import { memo, useCallback, useEffect } from 'react'
 import isEqual from 'react-fast-compare'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 import { Configure, InstantSearch } from 'react-instantsearch-dom'
@@ -12,6 +12,9 @@ import { StateResults } from '@instantsearch/_widgets/state-results/state-result
 import { VirtualSearchBox } from '@instantsearch/_widgets/virtual-search-box/virtual-search-box'
 
 import { configAtom } from '@/config/config'
+import { useDeepCompareCallback } from '@/hooks/useDeepCompareCallback'
+import { useDeepCompareEffect } from '@/hooks/useDeepCompareEffect'
+import { useDeepCompareState } from '@/hooks/useDeepCompareSetState'
 import { useScrollToTop } from '@/hooks/useScrollToTop'
 import { useSearchClient } from '@/hooks/useSearchClient'
 import { createInitialValues } from '@/utils/createInitialValues'
@@ -38,118 +41,116 @@ export type SearchAtomValue = {
 
 export const searchAtom = atom<SearchAtomValue>({} as SearchAtomValue)
 
-export const Search = memo(
-  function Search({
-    children,
+export const Search = memo(function Search({
+  children,
+  appId,
+  searchApiKey,
+  indexName,
+  searchClient: customSearchClient,
+  resultsState,
+  searchState: customInitialSearchState,
+  onSearchStateChange: customOnSearchStateChange,
+  createURL: customCreateURL,
+  ...props
+}: SearchProps) {
+  const config = useAtomValue(configAtom)
+  const router = useRouter()
+  const defaultSearchClient = useSearchClient({
     appId,
     searchApiKey,
-    indexName,
-    searchClient: customSearchClient,
-    resultsState,
-    searchState: customInitialSearchState,
-    onSearchStateChange: customOnSearchStateChange,
-    createURL: customCreateURL,
-    ...props
-  }: SearchProps) {
-    const config = useAtomValue(configAtom)
-    const router = useRouter()
-    const defaultSearchClient = useSearchClient({
-      appId,
-      searchApiKey,
-    })
-    const searchClient = customSearchClient ?? defaultSearchClient
+  })
+  const searchClient = customSearchClient ?? defaultSearchClient
 
-    // Search state
-    const initialSearchState = isObjectEmpty(customInitialSearchState)
-      ? urlToSearchState(router?.asPath.slice(1))
-      : customInitialSearchState
+  // Search state
+  const initialSearchState = isObjectEmpty(customInitialSearchState)
+    ? urlToSearchState(router?.asPath.slice(1))
+    : customInitialSearchState
 
-    const [searchState, setSearchState] =
-      useState<InstantSearchProps['searchState']>(initialSearchState)
+  const [searchState, setSearchState] =
+    useDeepCompareState<InstantSearchProps['searchState']>(initialSearchState)
 
-    // Update router url
-    const updateRouterUrl = useCallback(
-      (nextSearchState: InstantSearchProps['searchState']) => {
-        const newRoute = searchStateToUrl(nextSearchState)
-        if (router.asPath !== newRoute) {
-          router.push(newRoute, undefined, {
-            shallow: true,
-          })
-        }
-      },
-      [router.asPath] // eslint-disable-line react-hooks/exhaustive-deps
-    )
-
-    // Listen for route changes
-    useEffect(() => {
-      const handleRouteChange = (
-        url: string,
-        { shallow }: { shallow: boolean }
-      ) => {
-        if (!shallow) {
-          setSearchState(urlToSearchState(url))
-        }
+  // Update router url
+  const updateRouterUrl = useCallback(
+    (nextSearchState: InstantSearchProps['searchState']) => {
+      const newRoute = searchStateToUrl(nextSearchState)
+      if (router.asPath !== newRoute) {
+        router.push(newRoute, undefined, {
+          shallow: true,
+        })
       }
+    },
+    [router?.asPath] // eslint-disable-line react-hooks/exhaustive-deps
+  )
 
-      router.events.on('routeChangeComplete', handleRouteChange)
-
-      return () => {
-        router.events.off('routeChangeComplete', handleRouteChange)
+  // Listen for route changes
+  useEffect(() => {
+    const handleRouteChange = (
+      url: string,
+      { shallow }: { shallow: boolean }
+    ) => {
+      if (!shallow) {
+        setSearchState(urlToSearchState(url))
       }
-    }, [router, setSearchState])
+    }
 
-    // Listen for InstantSearch state changes
-    const onSearchStateChange = useCallback(
-      (nextSearchState: InstantSearchProps['searchState']): void => {
-        setSearchState(nextSearchState)
-        updateRouterUrl(nextSearchState)
-      },
-      [setSearchState, updateRouterUrl]
-    )
+    router.events.on('routeChangeComplete', handleRouteChange)
 
-    useEffect(() => {
-      updateRouterUrl(searchState)
-    }, [updateRouterUrl, searchState])
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router?.events, setSearchState])
 
-    useScrollToTop([searchState.query])
+  // Listen for InstantSearch state changes
+  const onSearchStateChange = useDeepCompareCallback(
+    (nextSearchState: InstantSearchProps['searchState']): void => {
+      setSearchState(nextSearchState)
+      updateRouterUrl(nextSearchState)
+    },
+    [setSearchState, updateRouterUrl]
+  )
 
-    // Search atom
-    const setSearch = useUpdateAtom(searchAtom)
+  useDeepCompareEffect(() => {
+    updateRouterUrl(searchState)
+  }, [updateRouterUrl, searchState])
 
-    useEffect(() => {
-      setSearch({
-        initialQuery: initialSearchState?.query,
-        setSearchState,
-        searchClient,
-      })
-    }, [setSearch, initialSearchState?.query, setSearchState, searchClient])
+  useScrollToTop([searchState.query])
 
-    const { get, set } = createInitialValues()
-    set(searchAtom, {
+  // Search atom
+  const setSearch = useUpdateAtom(searchAtom)
+
+  useEffect(() => {
+    setSearch({
       initialQuery: initialSearchState?.query,
       setSearchState,
       searchClient,
     })
+  }, [setSearch, initialSearchState?.query, setSearchState, searchClient])
 
-    return (
-      <InstantSearch
-        searchClient={searchClient}
-        indexName={indexName}
-        resultsState={resultsState}
-        searchState={searchState}
-        createURL={customCreateURL ?? createURL}
-        onSearchStateChange={customOnSearchStateChange ?? onSearchStateChange}
-        {...props}
-      >
-        <Provider initialValues={get()}>
-          <Configure {...config.searchParameters} />
-          <VirtualSearchBox />
-          <StateResults />
+  const { get, set } = createInitialValues()
+  set(searchAtom, {
+    initialQuery: initialSearchState?.query,
+    setSearchState,
+    searchClient,
+  })
 
-          {children}
-        </Provider>
-      </InstantSearch>
-    )
-  },
-  (prevProps, nextProps) => isEqual(prevProps, nextProps)
-)
+  return (
+    <InstantSearch
+      searchClient={searchClient}
+      indexName={indexName}
+      resultsState={resultsState}
+      searchState={searchState}
+      createURL={customCreateURL ?? createURL}
+      onSearchStateChange={customOnSearchStateChange ?? onSearchStateChange}
+      {...props}
+    >
+      <Provider initialValues={get()}>
+        <Configure {...config.searchParameters} />
+        <VirtualSearchBox />
+        <StateResults />
+
+        {children}
+      </Provider>
+    </InstantSearch>
+  )
+},
+isEqual)

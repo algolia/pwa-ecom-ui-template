@@ -1,9 +1,9 @@
 import { useAtom } from 'jotai'
-import { useRouter } from 'next/dist/client/router'
+import { useRouter } from 'next/router'
 import { useEffect, useRef } from 'react'
 import { Pane as Tweakpane } from 'tweakpane'
 
-import { devAtom } from '../dev'
+import { devAtom } from '@dev/dev'
 
 export function Pane() {
   const paneContainer = useRef(null)

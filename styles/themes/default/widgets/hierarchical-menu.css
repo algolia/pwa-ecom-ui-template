@@ -17,7 +17,7 @@
 }
 
 .ais-HierarchicalMenu-count {
-  @apply small-bold text-neutral-dark ml-auto;
+  @apply small-bold text-neutral-dark ml-auto pl-4;
 }
 
 .ais-HierarchicalMenu-list--child {

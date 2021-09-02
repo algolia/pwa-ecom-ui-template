@@ -1,8 +1,4 @@
-import type {
-  Panels,
-  Refinement,
-  RefinementWidget,
-} from './refinements-panel-body'
+import type { Refinement, RefinementWidget } from '@/typings/refinements'
 
 export function getRefinementPanelId(
   refinement: Refinement | RefinementWidget
@@ -48,11 +44,4 @@ export function getPanelAttributes(refinement: Refinement | RefinementWidget) {
   }
 
   return panelAttributes
-}
-
-export function togglePanels(panels: Panels, val: boolean) {
-  return Object.keys(panels).reduce(
-    (acc, panelKey) => ({ ...acc, [panelKey]: val }),
-    {}
-  )
 }

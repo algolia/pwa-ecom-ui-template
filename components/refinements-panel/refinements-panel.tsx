@@ -1,12 +1,11 @@
 import { atom } from 'jotai'
 import { atomWithStorage, useAtomValue } from 'jotai/utils'
 
-import { ClientOnly } from '../client-only/client-only'
-
 import { RefinementsPanelBody } from './refinements-panel-body'
 import { RefinementsPanelFooter } from './refinements-panel-footer'
 import { RefinementsPanelHeader } from './refinements-panel-header'
 
+import { ClientOnly } from '@/components/client-only/client-only'
 import { overlayAtom } from '@/components/overlay/overlay'
 import { useClassNames } from '@/hooks/useClassNames'
 import { Tablet } from '@/lib/media'
@@ -15,14 +14,11 @@ export type RefinementsPanelProps = {
   dynamicWidgets?: boolean
 }
 
-const refinementsPanelAtom = atom({
-  mobileExpanded: false,
-  desktopExpanded: true,
-})
+const mobileExpandedAtom = atom(false)
 export const refinementsPanelMobileExpandedAtom = atom(
-  (get) => get(refinementsPanelAtom).mobileExpanded && get(overlayAtom).visible,
+  (get) => get(mobileExpandedAtom) && get(overlayAtom).visible,
   (get, set, expanded: boolean) => {
-    set(refinementsPanelAtom, (s) => ({ ...s, mobileExpanded: expanded }))
+    set(mobileExpandedAtom, expanded)
     set(overlayAtom, { visible: expanded, zIndex: 'z-overlay-full' })
   }
 )

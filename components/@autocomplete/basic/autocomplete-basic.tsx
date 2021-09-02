@@ -1,6 +1,6 @@
 import type { SearchClient } from 'algoliasearch/lite'
 import { useAtomValue } from 'jotai/utils'
-import { useRouter } from 'next/dist/client/router'
+import { useRouter } from 'next/router'
 import { useCallback, useMemo } from 'react'
 
 import type { AutocompleteProps } from '../_default/autocomplete'

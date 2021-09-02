@@ -1,13 +1,14 @@
 import { atom } from 'jotai'
-import { useUpdateAtom } from 'jotai/utils'
-import { useEffect } from 'react'
+import { selectAtom, useUpdateAtom } from 'jotai/utils'
+import { memo, useEffect } from 'react'
+import isEqual from 'react-fast-compare'
 import type { StateResultsProvided } from 'react-instantsearch-core'
 import { connectStateResults } from 'react-instantsearch-core'
 
 export type StateResultsProps = StateResultsProvided
 
 export type StateResultsAtomValue = Partial<
-  Pick<StateResultsProps, 'searchState' | 'searchResults' | 'isSearchStalled'>
+  Pick<StateResultsProps, 'isSearchStalled' | 'searchResults' | 'searchState'>
 >
 
 export const stateResultsAtom = atom<StateResultsAtomValue>({
@@ -16,22 +17,35 @@ export const stateResultsAtom = atom<StateResultsAtomValue>({
   isSearchStalled: false,
 })
 
-export const searchStateAtom = atom((get) => get(stateResultsAtom).searchState)
-export const searchResultsAtom = atom(
-  (get) => get(stateResultsAtom).searchResults
+export const searchStateAtom = selectAtom(
+  stateResultsAtom,
+  ({ searchState }) => searchState,
+  isEqual
 )
-export const isSearchStalledAtom = atom(
-  (get) => get(stateResultsAtom).isSearchStalled
+export const searchResultsAtom = selectAtom(
+  stateResultsAtom,
+  ({ searchResults }) => searchResults,
+  isEqual
 )
+export const isSearchStalledAtom = selectAtom(
+  stateResultsAtom,
+  ({ isSearchStalled }) => isSearchStalled
+)
+
+function StateResultsComponent({
+  searchState,
+  searchResults,
+  isSearchStalled,
+}: StateResultsProps) {
+  const setStateResults = useUpdateAtom(stateResultsAtom)
+
+  useEffect(() => {
+    setStateResults({ searchState, searchResults, isSearchStalled })
+  }, [setStateResults, searchState, searchResults, isSearchStalled])
+
+  return null
+}
 
 export const StateResults = connectStateResults(
-  ({ searchState, searchResults, isSearchStalled }: StateResultsProps) => {
-    const setStateResults = useUpdateAtom(stateResultsAtom)
-
-    useEffect(() => {
-      setStateResults({ searchState, searchResults, isSearchStalled })
-    }, [setStateResults, searchState, searchResults, isSearchStalled])
-
-    return null
-  }
+  memo(StateResultsComponent, isEqual)
 )
