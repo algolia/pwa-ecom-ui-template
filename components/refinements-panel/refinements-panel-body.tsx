@@ -2,13 +2,13 @@ import { atom, useAtom } from 'jotai'
 import { useAtomValue } from 'jotai/utils'
 import { useCallback, useEffect, useMemo } from 'react'
 
-import { DynamicWidgets } from '@instantsearch/widgets/dynamic-widgets/dynamic-widgets'
-import { ExpandablePanel } from '@instantsearch/widgets/expandable-panel/expandable-panel'
 import { useGetRefinementWidgets } from '@instantsearch/hooks/useGetRefinementWidgets'
 import {
   getPanelAttributes,
   getPanelId,
 } from '@instantsearch/utils/refinements'
+import { DynamicWidgets } from '@instantsearch/widgets/dynamic-widgets/dynamic-widgets'
+import { ExpandablePanel } from '@instantsearch/widgets/expandable-panel/expandable-panel'
 
 import type { RefinementsPanelProps } from './refinements-panel'
 

@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-export type BannerXSSize = 'small' | 'large'
+export type BannerXSSize = 'large' | 'small'
 
 export type BannerXSProps = {
   size?: BannerXSSize

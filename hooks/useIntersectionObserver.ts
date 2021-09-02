@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 
 type IntersectionObserverHook = {
   callback: (entry: IntersectionObserverEntry) => void
-  root?: Element | Document | null
+  root?: Document | Element | null
   rootMargin?: string
-  threshold?: number | number[]
+  threshold?: number[] | number
 }
 
 export function useIntersectionObserver({
