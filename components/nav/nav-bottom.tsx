@@ -1,4 +1,5 @@
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
+import classNames from 'classnames'
 import { m } from 'framer-motion'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { useRouter } from 'next/router'
@@ -13,7 +14,6 @@ import { NavItem } from './nav-item'
 
 import { searchAtom } from '@/components/@instantsearch/search'
 import { overlayAtom } from '@/components/overlay/overlay'
-import { useClassNames } from '@/hooks/useClassNames'
 import { Laptop, Tablet } from '@/lib/media'
 
 const transition = {
@@ -43,10 +43,9 @@ export function NavBottom() {
     if (isHomePage) setOverlay({ visible: focused, zIndex: 'z-overlay-header' })
   }
 
-  const autocompleteCn = useClassNames(
+  const autocompleteCn = classNames(
     'w-full pl-2.5 laptop:w-80 laptop:p-0 laptop:ease-out laptop:absolute laptop:right-0',
-    { focused: isFocused },
-    [isFocused]
+    { focused: isFocused }
   )
 
   // Autocomplete implementation

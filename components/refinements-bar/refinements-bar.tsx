@@ -1,4 +1,5 @@
 import FilterIcon from '@material-design-icons/svg/outlined/filter_list.svg'
+import classNames from 'classnames'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import dynamic from 'next/dynamic'
 
@@ -14,7 +15,6 @@ import { IconLabel } from '@ui/icon-label/icon-label'
 import { refinementsPanelMobileExpandedAtom } from '@/components/refinements-panel/refinements-panel'
 import { ToggleFilters } from '@/components/toggle-filters/toggle-filters'
 import { configAtom } from '@/config/config'
-import { useClassNames } from '@/hooks/useClassNames'
 import { Laptop, Tablet } from '@/lib/media'
 
 const RefinementsBarDropdowns = dynamic<any>(() =>
@@ -41,7 +41,7 @@ export function RefinementsBar({
   const refinementCount = useAtomValue(refinementCountAtom)
 
   return (
-    <section className={useClassNames('w-full', className, [className])}>
+    <section className={classNames('w-full', className)}>
       <Tablet>
         <Button
           className="flex items-center gap-1 ml-auto"

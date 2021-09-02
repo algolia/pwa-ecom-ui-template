@@ -1,7 +1,7 @@
+import classNames from 'classnames'
 import Image from 'next/image'
 import { useState } from 'react'
 
-import { useClassNames } from '@/hooks/useClassNames'
 import { useIsMounted } from '@/hooks/useIsMounted'
 
 export type ProductImageProps = {
@@ -22,12 +22,11 @@ export function ProductImage({ src, alt = '' }: ProductImageProps) {
         width="20"
         height="27"
         priority={true}
-        className={useClassNames(
+        className={classNames(
           'transition-all duration-2000 ease-out-expo can-hover:group-hover:scale-110',
           {
             '!opacity-0': !loaded,
-          },
-          [loaded]
+          }
         )}
         onLoadingComplete={() => (isMounted() ? setLoaded(true) : null)}
       />

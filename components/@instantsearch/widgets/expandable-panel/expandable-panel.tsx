@@ -1,5 +1,6 @@
 import AddIcon from '@material-design-icons/svg/outlined/add.svg'
 import RemoveIcon from '@material-design-icons/svg/outlined/remove.svg'
+import classNames from 'classnames'
 import { useAtomValue } from 'jotai/utils'
 import type { CSSProperties, MouseEventHandler } from 'react'
 import { memo, useEffect, useRef } from 'react'
@@ -18,7 +19,6 @@ import { useHasRefinements } from '../../hooks/useHasRefinements'
 import { searchResultsAtom } from '../state-results/state-results'
 
 import { Count } from '@/components/@ui/count/count'
-import { useClassNames } from '@/hooks/useClassNames'
 
 export type ExpandablePanelProps = CurrentRefinementsProvided & {
   children: React.ReactNode
@@ -96,13 +96,12 @@ function ExpandablePanelComponent({
 
   return (
     <div
-      className={useClassNames(
+      className={classNames(
         'py-3.5 laptop:py-5 laptop:border-t laptop:border-neutral-light',
         {
           hidden: !hasRefinements,
         },
-        className,
-        [hasRefinements, className]
+        className
       )}
     >
       <Button
@@ -123,10 +122,9 @@ function ExpandablePanelComponent({
       </Button>
 
       <div
-        className={useClassNames(
+        className={classNames(
           'relative transition-all ease-out overflow-hidden h-0 opacity-0',
-          { 'opacity-100': isOpened },
-          [isOpened]
+          { 'opacity-100': isOpened }
         )}
         ref={collapseRef}
       >

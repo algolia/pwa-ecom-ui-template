@@ -1,18 +1,13 @@
+import classNames from 'classnames'
 import { useAtomValue } from 'jotai/utils'
 
 import { isSearchStalledAtom } from '@instantsearch/widgets/state-results/state-results'
 
-import { useClassNames } from '@/hooks/useClassNames'
-
 export function LoadingBar() {
   const isSearchStalled = useAtomValue(isSearchStalledAtom)
-  const cn = useClassNames(
-    'loadingBar',
-    {
-      'loadingBar--loading': isSearchStalled,
-    },
-    [isSearchStalled]
-  )
+  const cn = classNames('loadingBar', {
+    'loadingBar--loading': isSearchStalled,
+  })
 
   return <div className={cn} />
 }

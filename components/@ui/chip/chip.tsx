@@ -1,11 +1,10 @@
 import CloseIcon from '@material-design-icons/svg/outlined/close.svg'
+import classNames from 'classnames'
 import type { ForwardedRef } from 'react'
 
 import type { ButtonProps } from '@ui/button/button'
 import { Button } from '@ui/button/button'
 import { Icon } from '@ui/icon/icon'
-
-import { useClassNames } from '@/hooks/useClassNames'
 
 export type ChipProps = ButtonProps & {
   ref?: ForwardedRef<HTMLButtonElement>
@@ -19,10 +18,7 @@ export function Chip({
   closeIcon = false,
   ...props
 }: ChipProps) {
-  const cn = useClassNames(className, { 'chip-selected': selected }, 'chip', [
-    className,
-    selected,
-  ])
+  const cn = classNames(className, { 'chip-selected': selected }, 'chip')
 
   return (
     <Button type="native" className={cn} {...props}>

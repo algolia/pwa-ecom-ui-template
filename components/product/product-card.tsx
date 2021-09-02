@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { memo, useState } from 'react'
 
 import { Link } from '@ui/link/link'
@@ -11,8 +12,6 @@ import { ProductRating } from './product-rating'
 import type { ProductTagType } from './product-tag'
 import { ProductTag } from './product-tag'
 import { ProductTitle } from './product-title'
-
-import { useClassNames } from '@/hooks/useClassNames'
 
 export type ProductCardProps = {
   url?: string
@@ -51,10 +50,9 @@ export const ProductCard = memo(function ProductCard({
 
   return (
     <article
-      className={useClassNames(
+      className={classNames(
         'w-full h-full relative border border-transparent transition-all laptop:p-3 group can-hover:laptop:hover:shadow-sm can-hover:laptop:hover:border-neutral-light',
-        { 'opacity-50': !available },
-        [available]
+        { 'opacity-50': !available }
       )}
     >
       <Link

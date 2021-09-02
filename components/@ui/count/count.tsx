@@ -1,4 +1,4 @@
-import { useClassNames } from '@/hooks/useClassNames'
+import classNames from 'classnames'
 
 export type CountProps = {
   children: React.ReactNode
@@ -6,10 +6,9 @@ export type CountProps = {
 }
 
 export function Count({ children, className }: CountProps) {
-  const cn = useClassNames(
+  const cn = classNames(
     'bg-neutral-lightest w-5 h-5 small-bold rounded-full flex items-center justify-center',
-    className,
-    [className]
+    className
   )
   return <div className={cn}>{children}</div>
 }

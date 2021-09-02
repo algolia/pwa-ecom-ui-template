@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { atom } from 'jotai'
 import { atomWithStorage, useAtomValue } from 'jotai/utils'
 
@@ -7,7 +8,6 @@ import { RefinementsPanelHeader } from './refinements-panel-header'
 
 import { ClientOnly } from '@/components/client-only/client-only'
 import { overlayAtom } from '@/components/overlay/overlay'
-import { useClassNames } from '@/hooks/useClassNames'
 import { Tablet } from '@/lib/media'
 
 export type RefinementsPanelProps = {
@@ -33,14 +33,10 @@ export function RefinementsPanel({
   const mobileExpanded = useAtomValue(refinementsPanelMobileExpandedAtom)
   const desktopExpanded = useAtomValue(refinementsPanelDesktopExpandedAtom)
 
-  const cn = useClassNames(
-    'RefinementsPanel',
-    {
-      'RefinementsPanel-mobileExpanded': mobileExpanded,
-      'RefinementsPanel-desktopExpanded': desktopExpanded,
-    },
-    [mobileExpanded, desktopExpanded]
-  )
+  const cn = classNames('RefinementsPanel', {
+    'RefinementsPanel-mobileExpanded': mobileExpanded,
+    'RefinementsPanel-desktopExpanded': desktopExpanded,
+  })
 
   return (
     <ClientOnly>
