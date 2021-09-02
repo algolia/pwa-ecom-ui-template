@@ -6,8 +6,7 @@ import type {
 } from 'next'
 import dynamic from 'next/dynamic'
 
-import { Search } from '@instantsearch/search/search'
-
+import { Search } from '@/components/@instantsearch/search'
 import { BannerXS } from '@/components/banner/banner-xs'
 import type { FooterProps } from '@/components/footer/footer'
 import type { HeaderProps } from '@/components/header/header'

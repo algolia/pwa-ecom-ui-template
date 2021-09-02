@@ -9,7 +9,7 @@ type BreakpointProps = PropsWithChildren<{
   className?: string
 }>
 
-export type Breakpoints = 'mobile' | 'tablet' | 'laptop'
+export type Breakpoints = 'laptop' | 'mobile' | 'tablet'
 
 export const AppMedia = createMedia({
   breakpoints: {

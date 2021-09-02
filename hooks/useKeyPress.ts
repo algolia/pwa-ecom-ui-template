@@ -1,29 +1,32 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
+
+import { useEventListener } from './useEventListener'
+
+import { isomorphicWindow } from '@/utils/browser'
 
 export function useKeyPress(targetKey: string): boolean {
   const [keyPressed, setKeyPressed] = useState(false)
 
-  useEffect(() => {
-    function downHandler({ key }: KeyboardEvent) {
+  const downHandler = useCallback(
+    ({ key }: KeyboardEvent) => {
       if (key === targetKey) {
         setKeyPressed(true)
       }
-    }
+    },
+    [targetKey]
+  )
 
-    const upHandler = ({ key }: KeyboardEvent) => {
+  const upHandler = useCallback(
+    ({ key }: KeyboardEvent) => {
       if (key === targetKey) {
         setKeyPressed(false)
       }
-    }
+    },
+    [targetKey]
+  )
 
-    window.addEventListener('keydown', downHandler)
-    window.addEventListener('keyup', upHandler)
-
-    return () => {
-      window.removeEventListener('keydown', downHandler)
-      window.removeEventListener('keyup', upHandler)
-    }
-  }, [targetKey])
+  useEventListener(isomorphicWindow, 'keydown', downHandler)
+  useEventListener(isomorphicWindow, 'keyup', upHandler)
 
   return keyPressed
 }

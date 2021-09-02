@@ -1,9 +1,9 @@
+import classNames from 'classnames'
+
 import { Icon } from '@ui/icon/icon'
 import { Label } from '@ui/label/label'
 
-import { useClassNames } from '@/hooks/useClassNames'
-
-export type LabelPosition = 'top' | 'bottom' | 'left' | 'right'
+export type LabelPosition = 'bottom' | 'left' | 'right' | 'top'
 
 export type IconLabelProps = {
   icon?: any
@@ -39,10 +39,7 @@ export function IconLabel({
       break
   }
 
-  const cn = useClassNames(`flex gap-1 items-center`, posStyle, className, [
-    posStyle,
-    className,
-  ])
+  const cn = classNames(`flex gap-1 items-center`, posStyle, className)
 
   return (
     <div className={cn}>

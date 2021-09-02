@@ -1,15 +1,15 @@
 import type { AutocompleteOptions } from '@algolia/autocomplete-js'
 import { autocomplete } from '@algolia/autocomplete-js'
+import classNames from 'classnames'
 import type { ReactElement } from 'react'
 import { createElement, Fragment, useEffect, useRef } from 'react'
 import { render } from 'react-dom'
 
-import { useClassNames } from '@/hooks/useClassNames'
 import { createFocusBlurPlugin } from '@/lib/autocomplete/plugins/createFocusBlurPlugin'
 
 export type AutocompleteProps = Partial<AutocompleteOptions<any>> & {
-  container?: string | HTMLElement
-  panelContainer?: string | HTMLElement
+  container?: HTMLElement | string
+  panelContainer?: HTMLElement | string
   initialQuery?: string
   hidePanel?: boolean
   children?: React.ReactNode
@@ -72,11 +72,9 @@ export function Autocomplete({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customContainer, customPanelContainer])
 
-  const panelClassName = useClassNames(
-    'absolute w-full z-autocomplete-panel',
-    { hidden: hidePanel },
-    [hidePanel]
-  )
+  const panelClassName = classNames('absolute w-full z-autocomplete-panel', {
+    hidden: hidePanel,
+  })
 
   return (
     <>

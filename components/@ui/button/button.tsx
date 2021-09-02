@@ -1,18 +1,17 @@
+import classNames from 'classnames'
 import type { HTMLProps, MouseEventHandler } from 'react'
 import { forwardRef } from 'react'
 
 import { Icon } from '@ui/icon/icon'
 
-import { useClassNames } from '@/hooks/useClassNames'
-
 export type ButtonType =
+  | 'item'
   | 'native'
   | 'primary'
   | 'secondary'
   | 'tertiary'
-  | 'item'
 
-export type ButtonSize = 'small' | 'large'
+export type ButtonSize = 'large' | 'small'
 
 export type ButtonProps = Omit<HTMLProps<HTMLButtonElement>, 'size'> & {
   children?: React.ReactNode
@@ -42,26 +41,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     }: ButtonProps,
     ref
   ) => {
-    const cn = useClassNames(
-      className,
-      'btn',
-      {
-        'btn-primary': type === 'primary',
-        'btn-secondary': type === 'secondary',
-        'btn-tertiary': type === 'tertiary',
-        'btn-item': type === 'item',
-        'btn-small': size === 'small',
-        'btn-large': size === 'large',
-        'btn-selected': selected,
-      },
-      [className, type, size, selected]
-    )
+    const cn = classNames(className, 'btn', {
+      'btn-primary': type === 'primary',
+      'btn-secondary': type === 'secondary',
+      'btn-tertiary': type === 'tertiary',
+      'btn-item': type === 'item',
+      'btn-small': size === 'small',
+      'btn-large': size === 'large',
+      'btn-selected': selected,
+    })
 
     return (
       <button
         type="button"
         title={title}
-        className={type === 'native' ? ['btn-native', className].join(' ') : cn}
+        className={type === 'native' ? classNames('btn-native', className) : cn}
         disabled={disabled}
         ref={ref}
         onClick={onClick}

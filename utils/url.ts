@@ -6,10 +6,7 @@ export const createURL = (
 ): string =>
   qs.stringify(searchState, {
     addQueryPrefix: true,
-    filter(prefix, value) {
-      if (prefix === 'page') return undefined
-      return value
-    },
+    filter: ['query'],
   })
 
 export const urlToSearchState = (

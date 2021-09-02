@@ -2,14 +2,14 @@ import { ColorRefinementList } from '@algolia/react-instantsearch-widget-color-r
 import { SizeRefinementList } from '@algolia/react-instantsearch-widget-size-refinement-list'
 import { HierarchicalMenu, RefinementList } from 'react-instantsearch-dom'
 
-import { RangeInput } from '@instantsearch/_widgets/range-input/range-input'
-import { RatingSelector } from '@instantsearch/_widgets/rating-selector/rating-selector'
+import { RangeInput } from '@instantsearch/widgets/range-input/range-input'
+import { RatingSelector } from '@instantsearch/widgets/rating-selector/rating-selector'
 
-import type { RefinementType } from './refinements-panel-body'
+import type { RefinementType } from '@/typings/refinements'
 
-export type RefinementsPanelWidgetProps = {
+export type RefinementsPanelWidgetProps = any & {
   type: RefinementType
-} & any
+}
 
 export function RefinementsPanelWidget({
   type,
