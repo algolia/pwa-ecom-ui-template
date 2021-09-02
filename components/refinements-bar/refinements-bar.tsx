@@ -12,10 +12,9 @@ import { Button } from '@ui/button/button'
 import { Count } from '@ui/count/count'
 import { IconLabel } from '@ui/icon-label/icon-label'
 
-import { ViewModes } from '../view-modes/view-modes'
-
 import { refinementsPanelMobileExpandedAtom } from '@/components/refinements-panel/refinements-panel'
 import { ToggleFilters } from '@/components/toggle-filters/toggle-filters'
+import { ViewModes } from '@/components/view-modes/view-modes'
 import { configAtom } from '@/config/config'
 import { Laptop, Tablet } from '@/lib/media'
 

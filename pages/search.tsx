@@ -1,7 +1,6 @@
 import { useAtomValue } from 'jotai/utils'
 import dynamic from 'next/dynamic'
 
-import { RefinementsBar } from '@/components/refinements-bar/refinements-bar'
 import { configAtom } from '@/config/config'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 import type { PageLayoutProps } from '@/layouts/page-layout'
@@ -11,6 +10,12 @@ const Products = dynamic<any>(() =>
   import(
     /* webpackChunkName: 'search' */ '@/components/products/products'
   ).then((mod) => mod.Products)
+)
+
+const RefinementsBar = dynamic<any>(() =>
+  import(
+    /* webpackChunkName: 'search' */ '@/components/refinements-bar/refinements-bar'
+  ).then((mod) => mod.RefinementsBar)
 )
 
 const RefinementsPanel = dynamic<any>(() =>
