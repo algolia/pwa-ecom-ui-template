@@ -1,6 +1,6 @@
 import { useAtomValue } from 'jotai/utils'
 
-import { isSearchStalledAtom } from '@instantsearch/_widgets/state-results/state-results'
+import { isSearchStalledAtom } from '@instantsearch/widgets/state-results/state-results'
 
 import { useClassNames } from '@/hooks/useClassNames'
 

@@ -5,7 +5,7 @@ import RemoveIcon from '@material-design-icons/svg/outlined/remove.svg'
 import { useAtom } from 'jotai'
 import { useCallback } from 'react'
 
-import { CurrentRefinements } from '@instantsearch/_widgets/current-refinements/current-refinements'
+import { CurrentRefinements } from '@instantsearch/widgets/current-refinements/current-refinements'
 import { Button } from '@ui/button/button'
 import { IconLabel } from '@ui/icon-label/icon-label'
 import { Icon } from '@ui/icon/icon'
@@ -62,6 +62,7 @@ export function RefinementsPanelHeader() {
             labelPosition="right"
             labelTheme="body-regular"
             className="heading-5"
+            classNameIcon="w-5 h-5"
           />
 
           <Button

@@ -4,12 +4,12 @@ import { useAtomValue } from 'jotai/utils'
 import { useCallback, useMemo } from 'react'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 
-import type { AutocompleteProps } from '../_default/autocomplete'
-import { Autocomplete } from '../_default/autocomplete'
-import { searchButtonPluginCreator } from '../plugins/search-button'
-import { voiceCameraIconsPluginCreator } from '../plugins/voice-camera-icons'
+import type { AutocompleteProps } from '@autocomplete/_default/autocomplete'
+import { Autocomplete } from '@autocomplete/_default/autocomplete'
+import { searchButtonPluginCreator } from '@autocomplete/plugins/search-button'
+import { voiceCameraIconsPluginCreator } from '@autocomplete/plugins/voice-camera-icons'
 
-import { searchAtom } from '@/components/@instantsearch/search/search'
+import { searchAtom } from '@/components/@instantsearch/search'
 import { createAnimatedPlaceholderPlugin } from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
 import { createClearLeftPlugin } from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 

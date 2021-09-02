@@ -20,8 +20,8 @@ const RefinementsPanel = dynamic<any>(() =>
 )
 
 export default function Search(props: PageLayoutProps) {
-  const { laptop } = useTailwindScreens()
   const { refinementsLayout } = useAtomValue(configAtom)
+  const { laptop } = useTailwindScreens()
 
   return (
     <PageLayout {...props}>
@@ -29,7 +29,7 @@ export default function Search(props: PageLayoutProps) {
         {(refinementsLayout === 'panel' || !laptop) && <RefinementsPanel />}
 
         <div className="flex-grow flex flex-col gap-2.5 laptop:gap-5">
-          <RefinementsBar />
+          <RefinementsBar showWidgets={refinementsLayout === 'bar' && laptop} />
           <Products />
         </div>
       </div>

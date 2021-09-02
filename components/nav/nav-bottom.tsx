@@ -6,12 +6,12 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { AutocompleteBasic } from '@autocomplete/basic/autocomplete-basic'
 import { AutocompleteInstantSearch } from '@autocomplete/instantsearch/autocomplete-instantsearch'
-import { searchAtom } from '@instantsearch/search/search'
 import { Button } from '@ui/button/button'
 import { IconLabel } from '@ui/icon-label/icon-label'
 
 import { NavItem } from './nav-item'
 
+import { searchAtom } from '@/components/@instantsearch/search'
 import { overlayAtom } from '@/components/overlay/overlay'
 import { useClassNames } from '@/hooks/useClassNames'
 import { Laptop, Tablet } from '@/lib/media'

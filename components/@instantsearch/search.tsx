@@ -8,8 +8,8 @@ import isEqual from 'react-fast-compare'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 import { Configure, InstantSearch } from 'react-instantsearch-dom'
 
-import { StateResults } from '@instantsearch/_widgets/state-results/state-results'
-import { VirtualSearchBox } from '@instantsearch/_widgets/virtual-search-box/virtual-search-box'
+import { StateResults } from '@instantsearch/widgets/state-results/state-results'
+import { VirtualSearchBox } from '@instantsearch/widgets/virtual-search-box/virtual-search-box'
 
 import { configAtom } from '@/config/config'
 import { useDeepCompareCallback } from '@/hooks/useDeepCompareCallback'

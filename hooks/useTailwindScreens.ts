@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { useMedia } from './useMatchMedia'
 
-type Screens = {
+export type Screens = {
   [key: string]: boolean
 }
 

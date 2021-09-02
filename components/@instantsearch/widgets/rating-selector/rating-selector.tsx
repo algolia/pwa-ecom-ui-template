@@ -13,6 +13,7 @@ export type RatingSelectorProps = RatingMenuProvided
 
 function RatingSelectorComponent({
   currentRefinement,
+  min,
   max,
   count,
   refine,
@@ -23,6 +24,8 @@ function RatingSelectorComponent({
     () => count.find((v) => v.value === currRefinement?.toString())?.count || 0,
     [count, currRefinement]
   )
+
+  if (!min || !max) return null
 
   return (
     <div className="flex items-center">

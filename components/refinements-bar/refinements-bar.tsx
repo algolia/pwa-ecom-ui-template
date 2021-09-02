@@ -5,8 +5,8 @@ import dynamic from 'next/dynamic'
 import {
   CurrentRefinements,
   refinementCountAtom,
-} from '@instantsearch/_widgets/current-refinements/current-refinements'
-import { SortBy } from '@instantsearch/_widgets/sort-by/sort-by'
+} from '@instantsearch/widgets/current-refinements/current-refinements'
+import { SortBy } from '@instantsearch/widgets/sort-by/sort-by'
 import { Button } from '@ui/button/button'
 import { Count } from '@ui/count/count'
 import { IconLabel } from '@ui/icon-label/icon-label'
@@ -25,14 +25,16 @@ const RefinementsBarDropdowns = dynamic<any>(() =>
 
 export type RefinementsBarProps = {
   dynamicWidgets?: boolean
+  showWidgets?: boolean
   className?: string
 }
 
 export function RefinementsBar({
   dynamicWidgets = true,
+  showWidgets = false,
   className,
 }: RefinementsBarProps) {
-  const { refinementsLayout, sorts } = useAtomValue(configAtom)
+  const { sorts } = useAtomValue(configAtom)
   const sortDefaultRefinement = sorts.find((s) => s.isDefault)?.value
 
   const setMobileExpanded = useUpdateAtom(refinementsPanelMobileExpandedAtom)
@@ -57,14 +59,14 @@ export function RefinementsBar({
 
       <Laptop className="flex flex-col gap-4">
         <div className="flex-grow flex">
-          {refinementsLayout === 'bar' && (
+          {showWidgets && (
             <RefinementsBarDropdowns dynamicWidgets={dynamicWidgets} />
           )}
 
-          {refinementsLayout === 'panel' && <CurrentRefinements />}
+          {!showWidgets && <CurrentRefinements />}
 
           <div className="flex gap-6 ml-auto">
-            {refinementsLayout === 'panel' && <ToggleFilters />}
+            {!showWidgets && <ToggleFilters />}
             <SortBy
               defaultRefinement={sortDefaultRefinement}
               items={sorts}
@@ -73,7 +75,7 @@ export function RefinementsBar({
           </div>
         </div>
 
-        {refinementsLayout === 'bar' && <CurrentRefinements />}
+        {showWidgets && <CurrentRefinements />}
       </Laptop>
     </section>
   )

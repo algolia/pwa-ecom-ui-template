@@ -8,7 +8,7 @@ import type {
 } from 'react-instantsearch-core'
 import { connectCurrentRefinements } from 'react-instantsearch-dom'
 
-import { ClearRefinements } from '@instantsearch/_widgets/clear-refinements/clear-refinements'
+import { ClearRefinements } from '@instantsearch/widgets/clear-refinements/clear-refinements'
 
 import { getCurrentRefinement } from './getCurrentRefinement'
 

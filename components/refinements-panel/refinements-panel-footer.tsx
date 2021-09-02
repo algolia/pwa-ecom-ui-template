@@ -1,8 +1,8 @@
 import { useUpdateAtom } from 'jotai/utils'
 import { useCallback } from 'react'
 
-import { ClearRefinements } from '@instantsearch/_widgets/clear-refinements/clear-refinements'
-import { SeeResultsButton } from '@instantsearch/_widgets/see-results-button/see-results-button'
+import { ClearRefinements } from '@instantsearch/widgets/clear-refinements/clear-refinements'
+import { SeeResultsButton } from '@instantsearch/widgets/see-results-button/see-results-button'
 
 import { refinementsPanelMobileExpandedAtom } from './refinements-panel'
 
