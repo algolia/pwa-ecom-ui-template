@@ -6,11 +6,9 @@ import type { MouseEventHandler } from 'react'
 import { Button } from '@ui/button/button'
 import { Icon } from '@ui/icon/icon'
 
-import type { ClassNamesArgument } from '@/hooks/useClassNames'
-
 export type ProductFavoriteProps = {
   isFavorite?: boolean
-  className?: ClassNamesArgument
+  className?: string
   onClick: MouseEventHandler
 }
 
