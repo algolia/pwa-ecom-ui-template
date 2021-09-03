@@ -6,9 +6,9 @@ import { connectInfiniteHits, Highlight } from 'react-instantsearch-dom'
 
 import { LoadMore } from '@instantsearch/widgets/load-more/load-more'
 
-import type { ProductGridCardProps } from '@/components/product/product-grid'
-import { ProductGrid } from '@/components/product/product-grid'
 import type { ProductTagType } from '@/components/product/product-tag'
+import type { ProductViewCardProps } from '@/components/product/product-view'
+import { ProductView } from '@/components/product/product-view'
 import { viewModeAtom } from '@/components/view-modes/view-modes'
 
 export type ProductHit = {
@@ -34,7 +34,7 @@ function ProductsComponent({ hits }: ProductsProps) {
   const products = useMemo(
     () =>
       hits.map((hit) => {
-        const parsedHit: ProductGridCardProps = {
+        const parsedHit: ProductViewCardProps = {
           objectID: hit.objectID,
           url: `/${hit.url}`,
           image: hit.image_link,
@@ -85,7 +85,7 @@ function ProductsComponent({ hits }: ProductsProps) {
 
   return (
     <section className="w-full">
-      <ProductGrid products={products} view={viewMode} />
+      <ProductView products={products} view={viewMode} />
       <LoadMore />
     </section>
   )
