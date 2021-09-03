@@ -17,8 +17,8 @@ export type SelectProps = {
   defaultOption?: SelectOption
   defaultOpen?: boolean
   placeholder?: string
-  prefix?: string
-  suffix?: string
+  prefix?: React.ReactNode | string
+  suffix?: React.ReactNode | string
   className?: string
   onChange?: (selectedOption: SelectOption) => void
 }
@@ -80,9 +80,9 @@ export function Select({
   return (
     <Dropdown
       header={
-        <>
+        <div className="flex items-center gap-1">
           {prefix} {currentOption?.label || placeholder} {suffix}
-        </>
+        </div>
       }
       className={className}
       ref={ref}

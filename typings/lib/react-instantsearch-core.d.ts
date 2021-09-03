@@ -47,4 +47,11 @@ declare module 'react-instantsearch-core' {
     buttonTextComponent: React.Component
     textComponent?: React.Component
   }
+
+  // Breadcrumb
+  export interface BreadcrumbProvided {
+    items: Array<{ label: string; value: string | undefined }>
+    refine: (value?: string) => any
+    createURL: (...args: any[]) => any
+  }
 }

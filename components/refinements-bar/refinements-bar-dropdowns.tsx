@@ -1,6 +1,6 @@
 import FilterIcon from '@material-design-icons/svg/outlined/filter_list.svg'
 import { useAtomValue } from 'jotai/utils'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 import { useGetRefinementWidgets } from '@instantsearch/hooks/useGetRefinementWidgets'
 import {
@@ -27,6 +27,8 @@ export function RefinementsBarDropdowns({
 }: RefinementsBarDropdownsProps) {
   const { refinements } = useAtomValue(configAtom)
   const [showAll, setShowAll] = useState(!showMore)
+
+  const handleShowMoreClick = useCallback(() => setShowAll((v) => !v), [])
 
   const widgets = useGetRefinementWidgets(refinements)
   const widgetsDropdowns = useMemo(
@@ -62,7 +64,7 @@ export function RefinementsBarDropdowns({
       </DynamicWidgets>
 
       {showMore && (
-        <Button onClick={() => setShowAll((v) => !v)}>
+        <Button onClick={handleShowMoreClick}>
           <IconLabel
             icon={FilterIcon}
             label={`${showAll ? 'Less' : 'More'} filters`}

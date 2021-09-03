@@ -61,14 +61,14 @@ export function RefinementsBar({
       </Tablet>
 
       <Laptop className="flex flex-col gap-4">
-        <div className="flex-grow flex">
+        <div className="flex-grow flex gap-6">
           {showWidgets && (
             <RefinementsBarDropdowns dynamicWidgets={dynamicWidgets} />
           )}
 
           {!showWidgets && <CurrentRefinements />}
 
-          <div className="flex gap-6 ml-auto">
+          <div className="flex gap-6 ml-auto flex-shrink-0 items-center">
             {!showWidgets && <ToggleFilters />}
             <ViewModes />
             <SortBy

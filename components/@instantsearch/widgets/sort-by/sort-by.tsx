@@ -1,3 +1,4 @@
+import SortIcon from '@material-design-icons/svg/outlined/sort.svg'
 import classNames from 'classnames'
 import { memo, useRef } from 'react'
 import isEqual from 'react-fast-compare'
@@ -6,6 +7,7 @@ import { connectSortBy } from 'react-instantsearch-core'
 
 import { ExpandablePanel } from '@instantsearch/widgets/expandable-panel/expandable-panel'
 
+import { IconLabel } from '@/components/@ui/icon-label/icon-label'
 import { Link } from '@/components/@ui/link/link'
 import { Select } from '@/components/@ui/select/select'
 
@@ -68,7 +70,17 @@ function SortByComponent({
     <Select
       defaultOption={defaultOption.current}
       options={items}
-      prefix="Sort by:"
+      prefix={
+        <>
+          <IconLabel
+            icon={SortIcon}
+            label="Sort:"
+            labelPosition="right"
+            labelTheme="label-regular"
+            classNameIcon="w-4 h-4"
+          />
+        </>
+      }
       className={className}
       onChange={(selectedOption) => refine(selectedOption.value)}
       {...props}

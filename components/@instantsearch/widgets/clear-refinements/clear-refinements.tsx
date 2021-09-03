@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 import isEqual from 'react-fast-compare'
 import type { CurrentRefinementsProvided } from 'react-instantsearch-core'
 import { connectCurrentRefinements } from 'react-instantsearch-dom'
@@ -19,12 +19,14 @@ function ClearRefinementsComponent({
   items,
   refine,
 }: ClearRefinementsProps) {
+  const handleButtonClick = useCallback(() => refine(items), [refine, items])
+
   return (
     <Button
       type={type}
       disabled={!items.length}
       className={className}
-      onClick={() => refine(items)}
+      onClick={handleButtonClick}
     >
       {children}
     </Button>

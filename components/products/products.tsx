@@ -6,6 +6,7 @@ import { connectInfiniteHits, Highlight } from 'react-instantsearch-dom'
 
 import { LoadMore } from '@instantsearch/widgets/load-more/load-more'
 import { RelevantSort } from '@instantsearch/widgets/relevant-sort/relevant-sort'
+import { Stats } from '@instantsearch/widgets/stats/stats'
 
 import type { ProductTagType } from '@/components/product/product-tag'
 import type { ProductViewCardProps } from '@/components/product/product-view'
@@ -86,7 +87,11 @@ function ProductsComponent({ hits }: ProductsProps) {
 
   return (
     <section className="w-full">
-      <RelevantSort className="mb-2" />
+      <div className="flex flex-col gap-2 items-center justify-between mb-2 laptop:flex-row">
+        <RelevantSort className="w-full justify-between laptop:w-auto laptop:mb-2" />
+        <Stats className="ml-auto" />
+      </div>
+
       <ProductView products={products} view={viewMode} />
       <LoadMore />
     </section>
