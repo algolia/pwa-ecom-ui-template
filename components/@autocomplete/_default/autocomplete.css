@@ -4,7 +4,7 @@
 
 .aa-Form {
   /* Overrides */
-  @apply !shadow-none bg-neutral-lightest laptop:bg-white laptop:border laptop:border-solid laptop:border-neutral-dark laptop:rounded-sm laptop:transition-shadow laptop:focus-within:border-neutral-dark;
+  @apply !shadow-none bg-neutral-lightest can-hover:hover:border-brand-nebula laptop:bg-white laptop:border laptop:border-solid laptop:border-neutral-dark laptop:rounded-sm laptop:transition;
 }
 
 .focused {

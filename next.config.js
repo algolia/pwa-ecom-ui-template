@@ -37,6 +37,7 @@ const securityHeaders = [
 module.exports = withPlugins([withBundleAnalyzer, withPWA], {
   reactStrictMode: true,
   experimental: { esmExternals: true },
+  generateBuildId: () => 'build',
   eslint: {
     dirs: [
       'pages',

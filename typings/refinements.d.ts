@@ -5,6 +5,7 @@ export type RefinementType =
   | 'price'
   | 'rating'
   | 'size'
+  | 'sort'
 
 export type RefinementOptions = Record<string, any>
 

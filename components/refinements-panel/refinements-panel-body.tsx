@@ -9,11 +9,13 @@ import {
 } from '@instantsearch/utils/refinements'
 import { DynamicWidgets } from '@instantsearch/widgets/dynamic-widgets/dynamic-widgets'
 import { ExpandablePanel } from '@instantsearch/widgets/expandable-panel/expandable-panel'
+import { SortBy } from '@instantsearch/widgets/sort-by/sort-by'
 
 import type { RefinementsPanelProps } from './refinements-panel'
 
 import { configAtom } from '@/config/config'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
+import { Tablet } from '@/lib/media'
 
 export type RefinementsPanelBodyProps = Pick<
   RefinementsPanelProps,
@@ -31,7 +33,7 @@ function togglePanels(panels: Panels, val: boolean) {
   )
 }
 
-export const refinementsPanelsAtom = atom<Panels>({})
+export const refinementsPanelsAtom = atom<Panels>({ sort: true })
 export const refinementsPanelsExpandedAtom = atom(
   (get) =>
     Boolean(Object.values(get(refinementsPanelsAtom)).find((v) => v === true)),
@@ -54,15 +56,16 @@ export function RefinementsPanelBody({
 
   // Set initial panels value
   useEffect(() => {
-    setPanels(
-      refinements.reduce(
+    setPanels((prevPanels) => ({
+      ...prevPanels,
+      ...refinements.reduce(
         (acc, current) => ({
           ...acc,
           [getPanelId(current)]: !laptop ? false : Boolean(current.isExpanded),
         }),
         {}
-      )
-    )
+      ),
+    }))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -96,7 +99,6 @@ export function RefinementsPanelBody({
             attributes={panelAttributes}
             header={refinement.header}
             isOpened={panels[panelId]}
-            className={i === 0 ? 'pt-0' : ''}
             onToggle={() => onToggle(panelId)}
           >
             {widget}
@@ -106,7 +108,28 @@ export function RefinementsPanelBody({
     [widgets, refinements, onToggle, panels]
   )
 
+  const { sorts } = useAtomValue(configAtom)
+  const sortDefaultRefinement = sorts.find((s) => s.isDefault)?.value
+
+  const sortWidget = useMemo(
+    () => (
+      <SortBy
+        key="sort"
+        view="dropdown"
+        defaultRefinement={sortDefaultRefinement}
+        items={sorts}
+        isOpened={panels.sort}
+        className="pt-0"
+        onToggle={() => onToggle('sort')}
+      />
+    ),
+    [onToggle, panels.sort, sortDefaultRefinement, sorts]
+  )
+
   return (
-    <DynamicWidgets enabled={dynamicWidgets}>{widgetsPanels}</DynamicWidgets>
+    <div>
+      <Tablet>{sortWidget}</Tablet>
+      <DynamicWidgets enabled={dynamicWidgets}>{widgetsPanels}</DynamicWidgets>
+    </div>
   )
 }

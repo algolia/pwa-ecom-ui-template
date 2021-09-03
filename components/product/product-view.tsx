@@ -7,12 +7,12 @@ import { ProductCard } from './product-card'
 
 import type { ViewMode } from '@/components/view-modes/view-modes'
 
-export type ProductGridCardProps = ProductCardProps & {
+export type ProductViewCardProps = ProductCardProps & {
   objectID: string
 }
 
-export type ProductGridProps = {
-  products: ProductGridCardProps[]
+export type ProductViewProps = {
+  products: ProductViewCardProps[]
   view?: ViewMode
 }
 
@@ -34,7 +34,7 @@ const listItemVariants = {
   }),
 }
 
-export function ProductGrid({ products, view = 'grid' }: ProductGridProps) {
+export function ProductView({ products, view = 'grid' }: ProductViewProps) {
   const [productsPerPage, setProductsPerPage] = useState(0)
 
   useEffect(() => {
@@ -44,8 +44,7 @@ export function ProductGrid({ products, view = 'grid' }: ProductGridProps) {
   return (
     <m.ol
       className={classNames('overflow-hidden', {
-        'grid grid-cols-2 gap-4 laptop:grid-cols-5 laptop:gap-6':
-          view === 'grid',
+        'grid grid-cols-2 gap-4 laptop:grid-cols-5': view === 'grid',
         'flex flex-col gap-4 laptop:gap-0': view === 'list',
       })}
       initial="hidden"
@@ -53,7 +52,7 @@ export function ProductGrid({ products, view = 'grid' }: ProductGridProps) {
       exit="hidden"
     >
       <AnimatePresence>
-        {products.map(({ objectID, ...props }: ProductGridCardProps, i) => (
+        {products.map(({ objectID, ...props }: ProductViewCardProps, i) => (
           <m.li
             key={objectID}
             layout="position"

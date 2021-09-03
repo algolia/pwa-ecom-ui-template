@@ -15,6 +15,7 @@ export type SelectOption = {
 export type SelectProps = {
   options: SelectOption[]
   defaultOption?: SelectOption
+  defaultOpen?: boolean
   placeholder?: string
   prefix?: string
   suffix?: string
@@ -25,6 +26,7 @@ export type SelectProps = {
 export function Select({
   options,
   defaultOption,
+  defaultOpen = false,
   placeholder = 'Select an option',
   prefix,
   suffix,
@@ -35,7 +37,7 @@ export function Select({
     ref,
     isVisible: isOpen,
     setIsVisible: setIsOpen,
-  } = useIsVisible(false)
+  } = useIsVisible(defaultOpen)
 
   const [currentOption, setCurrentOption] = useState(defaultOption)
   const currentOptions = useMemo(
