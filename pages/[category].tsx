@@ -1,4 +1,4 @@
-import { useRouter } from 'next/dist/client/router'
+import { useRouter } from 'next/router'
 
 import type { PageLayoutProps } from '@/layouts/page-layout'
 import { PageLayout, getServerSidePropsPage } from '@/layouts/page-layout'

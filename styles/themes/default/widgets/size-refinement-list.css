@@ -5,7 +5,7 @@
 
   .ais-RefinementList-item--selected {
     .ais-RefinementList-label {
-      @apply btn-selected;
+      @apply btn--selected;
     }
   }
 

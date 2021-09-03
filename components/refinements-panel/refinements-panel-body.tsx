@@ -1,60 +1,103 @@
+import { atom, useAtom } from 'jotai'
 import { useAtomValue } from 'jotai/utils'
-import { Fragment, useCallback, useMemo, useState } from 'react'
-import { ExperimentalDynamicWidgets } from 'react-instantsearch-dom'
+import { useCallback, useEffect, useMemo } from 'react'
 
-import { ExpandablePanel } from '@instantsearch/_widgets/expandable-panel/expandable-panel'
+import { useGetRefinementWidgets } from '@instantsearch/hooks/useGetRefinementWidgets'
+import {
+  getPanelAttributes,
+  getPanelId,
+} from '@instantsearch/utils/refinements'
+import { DynamicWidgets } from '@instantsearch/widgets/dynamic-widgets/dynamic-widgets'
+import { ExpandablePanel } from '@instantsearch/widgets/expandable-panel/expandable-panel'
+import { SortBy } from '@instantsearch/widgets/sort-by/sort-by'
 
 import type { RefinementsPanelProps } from './refinements-panel'
-import { RefinementsPanelWidget } from './refinements-panel-widget'
 
-import type { Refinement } from '@/config/config'
 import { configAtom } from '@/config/config'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
+import { Tablet } from '@/lib/media'
 
 export type RefinementsPanelBodyProps = Pick<
   RefinementsPanelProps,
   'dynamicWidgets'
 >
 
+export type WidgetPanelProps = {
+  panelId: string
+  onToggle: (panelId: string) => void
+  [index: string]: any
+}
+
 export type Panels = {
   [key: string]: boolean
 }
 
-function getPanelId(refinement: Refinement) {
-  return refinement.options.attributes
-    ? refinement.options.attributes.join(':')
-    : refinement.options.attribute
+function togglePanels(panels: Panels, val: boolean) {
+  return Object.keys(panels).reduce(
+    (acc, panelKey) => ({ ...acc, [panelKey]: val }),
+    {}
+  )
 }
 
-function getPanelAttribute(refinement: Refinement) {
-  return refinement.options.attributes
-    ? refinement.options.attributes[0]
-    : refinement.options.attribute
+export const refinementsPanelsAtom = atom<Panels>({ sort: true })
+export const refinementsPanelsExpandedAtom = atom(
+  (get) =>
+    Boolean(Object.values(get(refinementsPanelsAtom)).find((v) => v === true)),
+  (get, set, update: (prev: boolean) => boolean) => {
+    const expanded = update(get(refinementsPanelsExpandedAtom))
+    set(
+      refinementsPanelsAtom,
+      togglePanels(get(refinementsPanelsAtom), expanded)
+    )
+  }
+)
+
+function WidgetPanel({
+  children,
+  onToggle,
+  panelId,
+  ...props
+}: WidgetPanelProps) {
+  const onToggleMemoized = useCallback(
+    () => onToggle(panelId),
+    [onToggle, panelId]
+  )
+
+  return (
+    <ExpandablePanel onToggle={onToggleMemoized} {...props}>
+      {children}
+    </ExpandablePanel>
+  )
 }
 
 export function RefinementsPanelBody({
   dynamicWidgets,
 }: RefinementsPanelBodyProps) {
-  const config = useAtomValue(configAtom)
-  const DynamicWidgets = dynamicWidgets ? ExperimentalDynamicWidgets : Fragment
-
+  const { refinements } = useAtomValue(configAtom)
   const { laptop } = useTailwindScreens()
 
-  const [panels, setPanels] = useState<Panels>({
-    categories: laptop,
-    priceFilter: false,
-    sizeFilter: false,
-    hexColorCode: false,
-  })
+  const [panels, setPanels] = useAtom(refinementsPanelsAtom)
+
+  // Set initial panels value
+  useEffect(() => {
+    setPanels((prevPanels) => ({
+      ...prevPanels,
+      ...refinements.reduce(
+        (acc, current) => ({
+          ...acc,
+          [getPanelId(current)]: !laptop ? false : Boolean(current.isExpanded),
+        }),
+        {}
+      ),
+    }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const onToggle = useCallback(
     (panelId: string) => {
       setPanels((prevPanels) => {
         const otherPanels = !laptop
-          ? Object.keys(prevPanels).reduce(
-              (acc, panelKey) => ({ ...acc, [panelKey]: false }),
-              {}
-            )
+          ? togglePanels(prevPanels, false)
           : prevPanels
 
         return {
@@ -63,32 +106,55 @@ export function RefinementsPanelBody({
         }
       })
     },
-    [laptop]
+    [setPanels, laptop]
   )
 
-  const widgets = useMemo(
+  const widgets = useGetRefinementWidgets(refinements)
+  const widgetsPanels = useMemo(
     () =>
-      config.refinements.map((refinement) => {
+      widgets.map((widget, i) => {
+        const refinement = refinements[i]
         const panelId = getPanelId(refinement)
-        const panelAttribute = getPanelAttribute(refinement)
+        const panelAttributes = getPanelAttributes(refinement)
 
         return (
-          <ExpandablePanel
+          <WidgetPanel
             key={panelId}
+            panelId={panelId}
+            attributes={panelAttributes}
             header={refinement.header}
-            attribute={panelAttribute}
             isOpened={panels[panelId]}
-            onToggle={() => onToggle(panelId)}
+            onToggle={onToggle}
           >
-            <RefinementsPanelWidget
-              type={refinement.type}
-              {...refinement.options}
-            />
-          </ExpandablePanel>
+            {widget}
+          </WidgetPanel>
         )
       }),
-    [config.refinements, onToggle, panels]
+    [widgets, refinements, onToggle, panels]
   )
 
-  return <DynamicWidgets>{widgets}</DynamicWidgets>
+  const { sorts } = useAtomValue(configAtom)
+  const sortDefaultRefinement = sorts.find((s) => s.isDefault)?.value
+
+  const sortWidget = useMemo(
+    () => (
+      <SortBy
+        key="sort"
+        view="dropdown"
+        defaultRefinement={sortDefaultRefinement}
+        items={sorts}
+        isOpened={panels.sort}
+        className="pt-0"
+        onToggle={() => onToggle('sort')}
+      />
+    ),
+    [onToggle, panels.sort, sortDefaultRefinement, sorts]
+  )
+
+  return (
+    <div>
+      <Tablet>{sortWidget}</Tablet>
+      <DynamicWidgets enabled={dynamicWidgets}>{widgetsPanels}</DynamicWidgets>
+    </div>
+  )
 }

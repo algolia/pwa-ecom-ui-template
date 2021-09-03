@@ -1,11 +1,19 @@
 .RefinementsPanel {
   /* Mobile */
-  @apply flex justify-center bg-white shadow-medium z-refinements fixed w-[85%] h-full top-0 right-0 overflow-y-auto transition-transform;
+  @apply flex justify-center bg-white shadow-medium z-refinements fixed w-[85%] h-full top-0 right-0 overflow-y-auto transition-all ease-out-expo duration-500 translate-x-[105%];
 
   /* Laptop */
-  @apply laptop:block laptop:bg-none laptop:shadow-none laptop:z-auto laptop:flex-shrink-0 laptop:sticky laptop:w-64 laptop:h-container laptop:top-header laptop:right-auto;
+  @apply laptop:block laptop:bg-none laptop:shadow-none laptop:z-auto laptop:flex-shrink-0 laptop:sticky laptop:w-0 laptop:h-container laptop:top-header laptop:right-auto laptop:overflow-y-hidden laptop:transform-none laptop:opacity-0;
+}
+
+.RefinementsPanel-mobileExpanded {
+  @apply translate-x-0 laptop:transform-none;
+}
+
+.RefinementsPanel-desktopExpanded {
+  @apply laptop:w-[276px] laptop:opacity-100;
 }
 
 .RefinementsPanel-gradient {
-  @apply hidden absolute right-0 w-5 h-full bg-gradient-to-l from-white via-white pointer-events-none laptop:block;
+  @apply hidden absolute top-0 right-0 w-5 h-full bg-gradient-to-l from-white via-white pointer-events-none laptop:block;
 }

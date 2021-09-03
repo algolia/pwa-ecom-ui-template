@@ -1,26 +1,13 @@
-import { memo } from 'react'
-import isEqual from 'react-fast-compare'
-import type { StateResultsProvided } from 'react-instantsearch-core'
-import { connectStateResults } from 'react-instantsearch-dom'
+import classNames from 'classnames'
+import { useAtomValue } from 'jotai/utils'
 
-import { useClassNames } from '@/hooks/useClassNames'
+import { isSearchStalledAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 
-export type LoadingBarProps = StateResultsProvided
-
-function LoadingBarComponent({ isSearchStalled }: StateResultsProvided) {
-  const cn = useClassNames(
-    'loadingBar',
-    {
-      'loadingBar--loading': isSearchStalled,
-    },
-    [isSearchStalled]
-  )
+export function LoadingBar() {
+  const isSearchStalled = useAtomValue(isSearchStalledAtom)
+  const cn = classNames('loadingBar', {
+    'loadingBar--loading': isSearchStalled,
+  })
 
   return <div className={cn} />
 }
-
-export const LoadingBar = connectStateResults(
-  memo(LoadingBarComponent, (prevProps, nextProps) =>
-    isEqual(prevProps, nextProps)
-  )
-)

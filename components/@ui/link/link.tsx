@@ -1,6 +1,6 @@
-import { useRouter } from 'next/dist/client/router'
 import type { LinkProps as NextLinkProps } from 'next/link'
 import NextLink from 'next/link'
+import { useRouter } from 'next/router'
 import type { AnchorHTMLAttributes, PropsWithChildren } from 'react'
 import { useCallback } from 'react'
 

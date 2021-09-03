@@ -1,0 +1,17 @@
+@layer utilities {
+  .chip {
+    @apply small-bold p-2 flex items-center justify-center gap-1 bg-neutral-lightest border border-neutral-light rounded-sm transition-colors;
+
+    &:focus-visible {
+      @apply outline-none ring-2 ring-uranus-base;
+    }
+
+    &:hover {
+      @apply can-hover:bg-white;
+    }
+
+    &.chip-selected {
+      @apply text-white bg-brand-black;
+    }
+  }
+}

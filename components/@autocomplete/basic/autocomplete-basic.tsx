@@ -1,15 +1,16 @@
 import type { SearchClient } from 'algoliasearch/lite'
-import { useRouter } from 'next/dist/client/router'
+import { useAtomValue } from 'jotai/utils'
+import { useRouter } from 'next/router'
 import { useCallback, useMemo } from 'react'
 
-import type { AutocompleteProps } from '../_default/autocomplete'
-import { Autocomplete } from '../_default/autocomplete'
-import { popularSearchesPluginCreator } from '../plugins/popular-searches/popular-searches'
-import { recentSearchesPluginCreator } from '../plugins/recent-searches'
-import { searchButtonPluginCreator } from '../plugins/search-button'
-import { voiceCameraIconsPluginCreator } from '../plugins/voice-camera-icons'
+import type { AutocompleteProps } from '@autocomplete/_default/autocomplete'
+import { Autocomplete } from '@autocomplete/_default/autocomplete'
+import { popularSearchesPluginCreator } from '@autocomplete/plugins/popular-searches/popular-searches'
+import { recentSearchesPluginCreator } from '@autocomplete/plugins/recent-searches'
+import { searchButtonPluginCreator } from '@autocomplete/plugins/search-button'
+import { voiceCameraIconsPluginCreator } from '@autocomplete/plugins/voice-camera-icons'
 
-import { useSearchContext } from '@/hooks/useSearchContext'
+import { searchAtom } from '@/components/@instantsearch/search'
 import { createAnimatedPlaceholderPlugin } from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
 import { createClearLeftPlugin } from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 
@@ -29,10 +30,10 @@ export function AutocompleteBasic({
   ...props
 }: AutocompleteBasicProps) {
   const router = useRouter()
-  const { searchClient: searchClientContext, query: initialQuery } =
-    useSearchContext()
+  const { searchClient: searchClientContext, initialQuery } =
+    useAtomValue(searchAtom)
 
-  const searchClient = customSearchClient ?? searchClientContext
+  const searchClient = customSearchClient ?? searchClientContext!
 
   const goToSearchPage = useCallback(
     (query: string) => router.push(`/search?query=${query}`),

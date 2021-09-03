@@ -1,0 +1,5 @@
+@layer utilities {
+  .input {
+    @apply bg-neutral-lightest h-12 w-full outline-none appearance-none px-4;
+  }
+}

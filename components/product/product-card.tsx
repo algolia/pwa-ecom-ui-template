@@ -1,8 +1,12 @@
-import { memo } from 'react'
+import classNames from 'classnames'
+import { useState } from 'react'
 
 import { Link } from '@ui/link/link'
 
+import type { ViewMode } from '../view-modes/view-modes'
+
 import { ProductColorVariationList } from './product-color-variation-list'
+import { ProductDescription } from './product-description'
 import { ProductFavorite } from './product-favorite'
 import { ProductImage } from './product-image'
 import { ProductLabel } from './product-label'
@@ -12,16 +16,16 @@ import type { ProductTagType } from './product-tag'
 import { ProductTag } from './product-tag'
 import { ProductTitle } from './product-title'
 
-import { useClassNames } from '@/hooks/useClassNames'
-
 export type ProductCardProps = {
   url?: string
   image?: string
   tags?: ProductTagType[]
   label?: string
-  title?: string
   labelHighlighting?: React.ComponentType
+  title?: string
   titleHighlighting?: React.ComponentType
+  description?: string
+  descriptionHighlighting?: React.ComponentType
   colors?: string[]
   price?: number
   originalPrice?: number
@@ -29,16 +33,19 @@ export type ProductCardProps = {
   rating?: number
   reviews?: number
   available?: boolean
+  view?: ViewMode
 }
 
-export const ProductCard = memo(function ProductCard({
+export function ProductCard({
   url = '',
   image,
   tags,
   label,
-  title,
   labelHighlighting,
+  title,
   titleHighlighting,
+  description,
+  descriptionHighlighting,
   colors,
   price,
   originalPrice,
@@ -46,21 +53,31 @@ export const ProductCard = memo(function ProductCard({
   rating,
   reviews,
   available,
+  view,
 }: ProductCardProps) {
+  const [isFavorite, setIsFavorite] = useState(false)
+
   return (
     <article
-      className={useClassNames(
-        'w-full relative border border-transparent transition-all laptop:p-3 can-hover:laptop:hover:shadow-sm can-hover:laptop:hover:border-neutral-light',
-        { 'opacity-50': !available },
-        [available]
+      className={classNames(
+        'w-full h-full relative border border-transparent transition-all laptop:p-3 group can-hover:laptop:hover:shadow-sm can-hover:laptop:hover:border-neutral-light',
+        { 'opacity-50': !available }
       )}
     >
       <Link
         href={url}
         title="See product details"
-        className="flex flex-col gap-1 pointer-events-none"
+        className={classNames('flex gap-2', {
+          'flex-col': view === 'grid',
+          'flex-row items-start': view === 'list',
+        })}
+        onClick={(e) => e.preventDefault()}
       >
-        <div className="relative">
+        <div
+          className={classNames('relative', {
+            'w-32 h-auto flex-shrink-0': view === 'list',
+          })}
+        >
           {image && <ProductImage src={image} alt={title} />}
 
           {tags && tags.length > 0 && (
@@ -88,6 +105,11 @@ export const ProductCard = memo(function ProductCard({
                 {title}
               </ProductTitle>
             )}
+            {description && view === 'list' && (
+              <ProductDescription highlighting={descriptionHighlighting}>
+                {description}
+              </ProductDescription>
+            )}
           </header>
 
           <footer className="flex flex-col gap-1">
@@ -107,9 +129,13 @@ export const ProductCard = memo(function ProductCard({
       </Link>
 
       <ProductFavorite
-        className="absolute top-1 right-1 laptop:top-5 laptop:right-5"
-        onClick={() => {}}
+        className={classNames('absolute top-1 laptop:top-4 ', {
+          'left-1 laptop:left-4': view === 'list',
+          'right-1 laptop:right-4': view === 'grid',
+        })}
+        isFavorite={isFavorite}
+        onClick={() => setIsFavorite((favorite) => !favorite)}
       />
     </article>
   )
-})
+}

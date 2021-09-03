@@ -1,55 +1,60 @@
+import classNames from 'classnames'
 import { atom } from 'jotai'
-import { useAtomValue } from 'jotai/utils'
+import { atomWithStorage, useAtomValue } from 'jotai/utils'
 
 import { RefinementsPanelBody } from './refinements-panel-body'
 import { RefinementsPanelFooter } from './refinements-panel-footer'
 import { RefinementsPanelHeader } from './refinements-panel-header'
 
+import { ClientOnly } from '@/components/client-only/client-only'
 import { overlayAtom } from '@/components/overlay/overlay'
-import { useClassNames } from '@/hooks/useClassNames'
 import { Tablet } from '@/lib/media'
 
 export type RefinementsPanelProps = {
   dynamicWidgets?: boolean
 }
 
-const refinementsPanelAtom = atom({ mobileExpanded: false })
+const mobileExpandedAtom = atom(false)
 export const refinementsPanelMobileExpandedAtom = atom(
-  (get) => get(refinementsPanelAtom).mobileExpanded && get(overlayAtom).visible,
+  (get) => get(mobileExpandedAtom) && get(overlayAtom).visible,
   (get, set, expanded: boolean) => {
-    set(refinementsPanelAtom, { mobileExpanded: expanded })
+    set(mobileExpandedAtom, expanded)
     set(overlayAtom, { visible: expanded, zIndex: 'z-overlay-full' })
   }
+)
+export const refinementsPanelDesktopExpandedAtom = atomWithStorage(
+  'refinementsPanelDesktopExpanded',
+  true
 )
 
 export function RefinementsPanel({
   dynamicWidgets = true,
 }: RefinementsPanelProps) {
   const mobileExpanded = useAtomValue(refinementsPanelMobileExpandedAtom)
+  const desktopExpanded = useAtomValue(refinementsPanelDesktopExpandedAtom)
+
+  const cn = classNames('RefinementsPanel', {
+    'RefinementsPanel-mobileExpanded': mobileExpanded,
+    'RefinementsPanel-desktopExpanded': desktopExpanded,
+  })
 
   return (
-    <section
-      className={useClassNames(
-        'RefinementsPanel',
-        {
-          'translate-x-[105%] laptop:transform-none': !mobileExpanded,
-        },
-        [mobileExpanded]
-      )}
-    >
-      <div className="w-full laptop:overflow-hidden laptop:transition-width">
-        <div className="RefinementsPanel-gradient" />
-
-        <div className="h-full w-full flex flex-col laptop:pr-5">
-          <div className="flex-grow px-4 overflow-y-auto laptop:px-0 laptop:overflow-y-auto">
-            <RefinementsPanelHeader />
-            <RefinementsPanelBody dynamicWidgets={dynamicWidgets} />
+    <ClientOnly>
+      <section className={cn}>
+        <div className="w-full laptop:w-64 laptop:h-full laptop:overflow-y-auto">
+          <div className="h-full w-full flex flex-col laptop:pr-5">
+            <div className="flex-grow px-4 overflow-y-auto laptop:px-0 laptop:overflow-y-visible">
+              <RefinementsPanelHeader />
+              <RefinementsPanelBody dynamicWidgets={dynamicWidgets} />
+            </div>
+            <Tablet>
+              <RefinementsPanelFooter />
+            </Tablet>
           </div>
-          <Tablet>
-            <RefinementsPanelFooter />
-          </Tablet>
         </div>
-      </div>
-    </section>
+
+        <div className="RefinementsPanel-gradient" />
+      </section>
+    </ClientOnly>
   )
 }

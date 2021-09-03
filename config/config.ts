@@ -1,19 +1,18 @@
 import { atom } from 'jotai'
+import { freezeAtom } from 'jotai/utils'
 
-export type RefinementType = 'hierarchical' | 'list' | 'size' | 'color'
+import type { Refinement, RefinementLayout } from '@/typings/refinements'
 
-export type Refinement = {
-  type: RefinementType
-  header: string
-  label: string
-  options: Record<string, any>
-}
+export type Config = typeof config
+
+const refinementsLayout = 'panel' as RefinementLayout
 
 const refinements: Refinement[] = [
   {
     type: 'hierarchical',
     header: 'Categories',
     label: 'Category',
+    isExpanded: true,
     options: {
       attributes: [
         'hierarchical_categories.lvl0',
@@ -23,12 +22,22 @@ const refinements: Refinement[] = [
     },
   },
   {
-    type: 'list',
     header: 'Price',
     label: 'Price',
-    options: {
-      attribute: 'priceFilter',
-    },
+    widgets: [
+      {
+        type: 'price',
+        options: {
+          attribute: 'price',
+        },
+      },
+      {
+        type: 'list',
+        options: {
+          attribute: 'priceFilter',
+        },
+      },
+    ],
   },
   {
     type: 'size',
@@ -49,8 +58,39 @@ const refinements: Refinement[] = [
       limit: 9,
     },
   },
+  {
+    type: 'rating',
+    header: 'Rating',
+    label: 'Rating',
+    options: {
+      attribute: 'reviewScore',
+    },
+  },
 ]
 
-export const configAtom = atom(() => ({
+const sorts = [
+  { value: 'gstar_demo', label: 'Most popular', isDefault: true },
+  { value: 'gstar_demo_price_asc', label: 'Price Low to High' },
+  { value: 'gstar_demo_price_desc', label: 'Price High to Low' },
+]
+
+const breadcrumbAttributes = [
+  'hierarchical_categories.lvl0',
+  'hierarchical_categories.lvl1',
+  'hierarchical_categories.lvl2',
+]
+
+const searchParameters = {
+  hitsPerPage: 10,
+  maxValuesPerFacet: 50,
+}
+
+const config = {
+  refinementsLayout,
   refinements,
-}))
+  sorts,
+  breadcrumbAttributes,
+  searchParameters,
+}
+
+export const configAtom = freezeAtom(atom(() => config))

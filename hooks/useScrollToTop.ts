@@ -1,11 +1,11 @@
 import type { DependencyList } from 'react'
 import { useEffect, useRef } from 'react'
 
-import { isBrowser } from '@/utils/browser'
+import { isomorphicDocument } from '@/utils/browser'
 
 export function useScrollToTop(
   deps: DependencyList = [],
-  root = isBrowser ? document.documentElement : undefined
+  root = isomorphicDocument?.documentElement
 ) {
   const rootRef = useRef<HTMLElement>()
 

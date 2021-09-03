@@ -1,46 +1,49 @@
-import FilterIcon from '@material-design-icons/svg/outlined/filter_list.svg'
-import { useUpdateAtom } from 'jotai/utils'
+import { useAtomValue } from 'jotai/utils'
 import dynamic from 'next/dynamic'
-import React from 'react'
-import { Configure } from 'react-instantsearch-dom'
 
-import { Button } from '@/components/@ui/button/button'
-import { IconLabel } from '@/components/@ui/icon-label/icon-label'
-import {
-  RefinementsPanel,
-  refinementsPanelMobileExpandedAtom,
-} from '@/components/refinements-panel/refinements-panel'
+import { Breadcrumb } from '@/components/@instantsearch/widgets/breadcrumb/breadcrumb'
+import { configAtom } from '@/config/config'
+import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 import type { PageLayoutProps } from '@/layouts/page-layout'
 import { PageLayout } from '@/layouts/page-layout'
 
-const Hits = dynamic<any>(() =>
-  import(/* webpackChunkName: 'search' */ '@/components/hits/hits').then(
-    (mod) => mod.Hits
-  )
+const Products = dynamic<any>(() =>
+  import(
+    /* webpackChunkName: 'search' */ '@/components/products/products'
+  ).then((mod) => mod.Products)
+)
+
+const RefinementsBar = dynamic<any>(() =>
+  import(
+    /* webpackChunkName: 'search' */ '@/components/refinements-bar/refinements-bar'
+  ).then((mod) => mod.RefinementsBar)
+)
+
+const RefinementsPanel = dynamic<any>(() =>
+  import(
+    /* webpackChunkName: 'refinements-panel' */ '@/components/refinements-panel/refinements-panel'
+  ).then((mod) => mod.RefinementsPanel)
 )
 
 export default function Search(props: PageLayoutProps) {
-  const setMobileExpanded = useUpdateAtom(refinementsPanelMobileExpandedAtom)
+  const { refinementsLayout, breadcrumbAttributes } = useAtomValue(configAtom)
+  const { laptop } = useTailwindScreens()
 
   return (
     <PageLayout {...props}>
-      <Configure hitsPerPage={10} maxValuesPerFacet={50} />
+      <div className="flex flex-col p-2.5 laptop:p-0 laptop:mx-20">
+        <Breadcrumb attributes={breadcrumbAttributes} />
 
-      <div className="flex flex-col p-2.5 laptop:flex-row laptop:p-0 laptop:mx-20 laptop:mt-5 laptop:gap-5">
-        <RefinementsPanel />
+        <div className="flex flex-col laptop:flex-row">
+          {(refinementsLayout === 'panel' || !laptop) && <RefinementsPanel />}
 
-        <div className="flex ml-auto mb-2.5 laptop:hidden">
-          <Button onClick={() => setMobileExpanded(true)}>
-            <IconLabel
-              icon={FilterIcon}
-              label="Filter &amp; Sort"
-              labelPosition="right"
-              labelTheme="label-regular"
+          <div className="flex-grow flex flex-col gap-2 laptop:gap-5">
+            <RefinementsBar
+              showWidgets={refinementsLayout === 'bar' && laptop}
             />
-          </Button>
+            <Products />
+          </div>
         </div>
-
-        <Hits />
       </div>
     </PageLayout>
   )

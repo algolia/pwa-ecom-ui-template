@@ -1,6 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
-/** @type {import('@types/tailwindcss/tailwind-config').TailwindConfig } */
+/** @type {import('tailwindcss/tailwind-config').TailwindConfig } */
 module.exports = {
   mode: 'jit',
   purge: [
@@ -28,6 +28,7 @@ module.exports = {
         'venus-base': 'var(--color-venus-base)',
 
         'nebula-lightest': 'var(--color-nebula-lightest)',
+        'nebula-light': 'var(--color-nebula-light)',
         'nebula-dark': 'var(--color-nebula-dark)',
         'nebula-darkest': 'var(--color-nebula-darkest)',
       },
@@ -43,9 +44,15 @@ module.exports = {
       },
       transitionDuration: {
         DEFAULT: '300ms',
+        2000: '2000ms',
+      },
+      transitionTimingFunction: {
+        'in-expo': 'cubic-bezier(0.7, 0, 0.84, 0)',
+        'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'in-out-expo': 'cubic-bezier(0.87, 0, 0.13, 1)',
       },
       spacing: {
-        header: '230px',
+        header: '15rem',
       },
       animation: {
         loading: 'loading 6s cubic-bezier(0.2, 0.7, 0.4, 1) forwards',
@@ -64,15 +71,16 @@ module.exports = {
       'cannot-hover': { raw: '(any-hover: none)' },
     },
     zIndex: {
+      dropdown: 5,
       'loading-bar': 10,
       'overlay-header': 20,
-      'header': 30,
+      header: 30,
       'autocomplete-panel': 40,
-      'overlay-full': 50,
-      'refinements': 60,
-      'dev': 100,
-      'auto': 'auto',
-    }
+      dev: 50,
+      'overlay-full': 60,
+      refinements: 70,
+      auto: 'auto',
+    },
   },
   plugins: [require('@tailwindcss/aspect-ratio')],
 }
