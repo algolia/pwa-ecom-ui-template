@@ -23,12 +23,12 @@ import { Count } from '@/components/@ui/count/count'
 export type ExpandablePanelProps = CurrentRefinementsProvided & {
   children: React.ReactNode
   className?: string
-  header?: string
+  header: React.ReactNode | string
   footer?: string
   attributes?: string[]
   maxHeight?: string
-  isOpened: boolean
-  onToggle: MouseEventHandler
+  isOpened?: boolean
+  onToggle?: MouseEventHandler
 }
 
 function ExpandablePanelComponent({
@@ -39,7 +39,7 @@ function ExpandablePanelComponent({
   footer,
   attributes = [],
   maxHeight,
-  isOpened,
+  isOpened = false,
   onToggle,
 }: ExpandablePanelProps) {
   const collapseRef = useRef<HTMLDivElement>(null)
@@ -107,7 +107,11 @@ function ExpandablePanelComponent({
       <Button
         className="w-full flex items-center justify-between gap-3"
         aria-expanded={isOpened}
-        onClick={(e) => onToggle(e)}
+        onClick={(e) => {
+          if (typeof onToggle === 'function') {
+            onToggle(e)
+          }
+        }}
       >
         <div className="flex items-center w-full subhead laptop:small-bold laptop:uppercase">
           {header}

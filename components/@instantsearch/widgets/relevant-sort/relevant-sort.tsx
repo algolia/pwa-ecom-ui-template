@@ -16,14 +16,19 @@ function RelevantSortComponent({
   className,
 }: RevelantSortProps) {
   return !isVirtualReplica ? null : (
-    <div className={classNames('flex gap-3 small-regular', className)}>
+    <div
+      className={classNames(
+        'inline-flex gap-3 small-regular p-2 border border-neutral-light rounded-sm',
+        className
+      )}
+    >
       <div>
         {isRelevantSorted
           ? 'We removed some search results to show you the most relevant ones.'
           : 'Currently showing all results.'}
       </div>
       <Button
-        className="small-bold underline"
+        className="small-bold underline flex-shrink-0"
         onClick={() => refine(isRelevantSorted ? 0 : undefined)}
       >
         {isRelevantSorted ? 'See all results' : 'See relevant results'}

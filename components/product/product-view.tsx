@@ -44,8 +44,7 @@ export function ProductView({ products, view = 'grid' }: ProductViewProps) {
   return (
     <m.ol
       className={classNames('overflow-hidden', {
-        'grid grid-cols-2 gap-4 laptop:grid-cols-5 laptop:gap-6':
-          view === 'grid',
+        'grid grid-cols-2 gap-4 laptop:grid-cols-5': view === 'grid',
         'flex flex-col gap-4 laptop:gap-0': view === 'list',
       })}
       initial="hidden"
