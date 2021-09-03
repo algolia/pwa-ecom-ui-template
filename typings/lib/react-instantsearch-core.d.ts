@@ -38,4 +38,13 @@ declare module 'react-instantsearch-core' {
     count: Array<{ value: string; count: number }>
     currentRefinement: RatingMenuRefinement
   }
+
+  // RelevantSort
+  export interface RelevantSortProvided {
+    isVirtualReplica: boolean
+    isRelevantSorted: boolean
+    refine: (value: number | undefined) => any
+    buttonTextComponent: React.Component
+    textComponent?: React.Component
+  }
 }

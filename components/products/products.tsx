@@ -5,6 +5,7 @@ import type { InfiniteHitsProvided } from 'react-instantsearch-core'
 import { connectInfiniteHits, Highlight } from 'react-instantsearch-dom'
 
 import { LoadMore } from '@instantsearch/widgets/load-more/load-more'
+import { RelevantSort } from '@instantsearch/widgets/relevant-sort/relevant-sort'
 
 import type { ProductTagType } from '@/components/product/product-tag'
 import type { ProductViewCardProps } from '@/components/product/product-view'
@@ -85,6 +86,7 @@ function ProductsComponent({ hits }: ProductsProps) {
 
   return (
     <section className="w-full">
+      <RelevantSort className="mb-2" />
       <ProductView products={products} view={viewMode} />
       <LoadMore />
     </section>
