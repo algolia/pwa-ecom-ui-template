@@ -86,7 +86,7 @@ function ProductsComponent({ hits }: ProductsProps) {
 
   return (
     <section className="w-full">
-      <RelevantSort className="mb-2" />
+      <RelevantSort className="mb-2.5 laptop:mb-2" />
       <ProductView products={products} view={viewMode} />
       <LoadMore />
     </section>
