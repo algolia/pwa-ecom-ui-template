@@ -11,19 +11,18 @@ import type {
 } from 'react-instantsearch-core'
 import { connectCurrentRefinements } from 'react-instantsearch-dom'
 
+import { useCurrentRefinementCount } from '@instantsearch/hooks/useCurrentRefinementCount'
+import { useHasRefinements } from '@instantsearch/hooks/useHasRefinements'
+import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 import { Button } from '@ui/button/button'
 import { Icon } from '@ui/icon/icon'
-
-import { useCurrentRefinementCount } from '../../hooks/useCurrentRefinementCount'
-import { useHasRefinements } from '../../hooks/useHasRefinements'
-import { searchResultsAtom } from '../state-results/state-results'
 
 import { Count } from '@/components/@ui/count/count'
 
 export type ExpandablePanelProps = CurrentRefinementsProvided & {
   children: React.ReactNode
   className?: string
-  header: React.ReactNode | string
+  header?: React.ReactNode | string
   footer?: string
   attributes?: string[]
   maxHeight?: string
@@ -114,7 +113,7 @@ function ExpandablePanelComponent({
         }}
       >
         <div className="flex items-center w-full subhead laptop:small-bold laptop:uppercase">
-          {header}
+          {header || attributes[0]}
 
           {currentRefinementCount > 0 && (
             <Count className="ml-auto">{currentRefinementCount}</Count>

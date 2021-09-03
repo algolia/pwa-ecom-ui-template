@@ -5,16 +5,19 @@ import isEqual from 'react-fast-compare'
 import type { StateResultsProvided } from 'react-instantsearch-core'
 import { connectStateResults } from 'react-instantsearch-core'
 
-export type StateResultsProps = StateResultsProvided
+export type VirtualStateResultsProps = StateResultsProvided
 
-export type StateResultsAtomValue = Partial<
-  Pick<StateResultsProps, 'isSearchStalled' | 'searchResults' | 'searchState'>
+export type VirtualStateResultsAtomValue = Partial<
+  Pick<
+    VirtualStateResultsProps,
+    'isSearchStalled' | 'searchResults' | 'searchState'
+  >
 >
 
-export const stateResultsAtom = atom<StateResultsAtomValue>({
+export const stateResultsAtom = atom<VirtualStateResultsAtomValue>({
   searchState: undefined,
   searchResults: undefined,
-  isSearchStalled: false,
+  isSearchStalled: undefined,
 })
 
 export const searchStateAtom = selectAtom(
@@ -32,11 +35,11 @@ export const isSearchStalledAtom = selectAtom(
   ({ isSearchStalled }) => isSearchStalled
 )
 
-function StateResultsComponent({
+function VirtualStateResultsComponent({
   searchState,
   searchResults,
   isSearchStalled,
-}: StateResultsProps) {
+}: VirtualStateResultsProps) {
   const setStateResults = useUpdateAtom(stateResultsAtom)
 
   useEffect(() => {
@@ -46,6 +49,6 @@ function StateResultsComponent({
   return null
 }
 
-export const StateResults = connectStateResults(
-  memo(StateResultsComponent, isEqual)
+export const VirtualStateResults = connectStateResults(
+  memo(VirtualStateResultsComponent, isEqual)
 )

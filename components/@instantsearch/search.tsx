@@ -8,8 +8,9 @@ import isEqual from 'react-fast-compare'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 import { Configure, InstantSearch } from 'react-instantsearch-dom'
 
-import { StateResults } from '@instantsearch/widgets/state-results/state-results'
 import { VirtualSearchBox } from '@instantsearch/widgets/virtual-search-box/virtual-search-box'
+import { VirtualStateResults } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
+import { VirtualStats } from '@instantsearch/widgets/virtual-stats/virtual-stats'
 
 import { configAtom } from '@/config/config'
 import { useDeepCompareCallback } from '@/hooks/useDeepCompareCallback'
@@ -145,8 +146,10 @@ export const Search = memo(function Search({
     >
       <Provider initialValues={get()}>
         <Configure {...config.searchParameters} />
+
         <VirtualSearchBox />
-        <StateResults />
+        <VirtualStateResults />
+        <VirtualStats />
 
         {children}
       </Provider>

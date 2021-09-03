@@ -22,6 +22,12 @@ export type RefinementsPanelBodyProps = Pick<
   'dynamicWidgets'
 >
 
+export type WidgetPanelProps = {
+  panelId: string
+  onToggle: (panelId: string) => void
+  [index: string]: any
+}
+
 export type Panels = {
   [key: string]: boolean
 }
@@ -45,6 +51,24 @@ export const refinementsPanelsExpandedAtom = atom(
     )
   }
 )
+
+function WidgetPanel({
+  children,
+  onToggle,
+  panelId,
+  ...props
+}: WidgetPanelProps) {
+  const onToggleMemoized = useCallback(
+    () => onToggle(panelId),
+    [onToggle, panelId]
+  )
+
+  return (
+    <ExpandablePanel onToggle={onToggleMemoized} {...props}>
+      {children}
+    </ExpandablePanel>
+  )
+}
 
 export function RefinementsPanelBody({
   dynamicWidgets,
@@ -94,15 +118,16 @@ export function RefinementsPanelBody({
         const panelAttributes = getPanelAttributes(refinement)
 
         return (
-          <ExpandablePanel
+          <WidgetPanel
             key={panelId}
+            panelId={panelId}
             attributes={panelAttributes}
             header={refinement.header}
             isOpened={panels[panelId]}
-            onToggle={() => onToggle(panelId)}
+            onToggle={onToggle}
           >
             {widget}
-          </ExpandablePanel>
+          </WidgetPanel>
         )
       }),
     [widgets, refinements, onToggle, panels]

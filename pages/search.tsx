@@ -1,6 +1,7 @@
 import { useAtomValue } from 'jotai/utils'
 import dynamic from 'next/dynamic'
 
+import { Breadcrumb } from '@/components/@instantsearch/widgets/breadcrumb/breadcrumb'
 import { configAtom } from '@/config/config'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 import type { PageLayoutProps } from '@/layouts/page-layout'
@@ -25,17 +26,23 @@ const RefinementsPanel = dynamic<any>(() =>
 )
 
 export default function Search(props: PageLayoutProps) {
-  const { refinementsLayout } = useAtomValue(configAtom)
+  const { refinementsLayout, breadcrumbAttributes } = useAtomValue(configAtom)
   const { laptop } = useTailwindScreens()
 
   return (
     <PageLayout {...props}>
-      <div className="flex flex-col p-2.5 laptop:flex-row laptop:p-0 laptop:mx-20 laptop:mt-5">
-        {(refinementsLayout === 'panel' || !laptop) && <RefinementsPanel />}
+      <div className="flex flex-col p-2.5 laptop:p-0 laptop:mx-20">
+        <Breadcrumb attributes={breadcrumbAttributes} />
 
-        <div className="flex-grow flex flex-col gap-2.5 laptop:gap-5">
-          <RefinementsBar showWidgets={refinementsLayout === 'bar' && laptop} />
-          <Products />
+        <div className="flex flex-col laptop:flex-row">
+          {(refinementsLayout === 'panel' || !laptop) && <RefinementsPanel />}
+
+          <div className="flex-grow flex flex-col gap-2.5 laptop:gap-5">
+            <RefinementsBar
+              showWidgets={refinementsLayout === 'bar' && laptop}
+            />
+            <Products />
+          </div>
         </div>
       </div>
     </PageLayout>

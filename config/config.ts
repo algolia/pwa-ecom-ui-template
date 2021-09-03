@@ -12,12 +12,14 @@ const refinements: Refinement[] = [
     type: 'hierarchical',
     header: 'Categories',
     label: 'Category',
+    isExpanded: true,
     options: {
       attributes: [
         'hierarchical_categories.lvl0',
         'hierarchical_categories.lvl1',
         'hierarchical_categories.lvl2',
       ],
+      defaultRefinement: 'men > jeans & bottoms > jeans',
     },
   },
   {
@@ -73,6 +75,12 @@ const sorts = [
   { value: 'gstar_demo_price_desc', label: 'Price High to Low' },
 ]
 
+const breadcrumbAttributes = [
+  'hierarchical_categories.lvl0',
+  'hierarchical_categories.lvl1',
+  'hierarchical_categories.lvl2',
+]
+
 const searchParameters = {
   hitsPerPage: 10,
   maxValuesPerFacet: 50,
@@ -82,6 +90,7 @@ const config = {
   refinementsLayout,
   refinements,
   sorts,
+  breadcrumbAttributes,
   searchParameters,
 }
 
