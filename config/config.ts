@@ -19,7 +19,6 @@ const refinements: Refinement[] = [
         'hierarchical_categories.lvl1',
         'hierarchical_categories.lvl2',
       ],
-      defaultRefinement: 'men > jeans & bottoms > jeans',
     },
   },
   {

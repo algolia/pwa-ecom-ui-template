@@ -11,6 +11,8 @@ export function Stats({ className }: StatsProps) {
   const { processingTimeMS, nbHits, nbSortedHits, areHitsSorted } =
     useAtomValue(statsAtom)
 
+  if (!nbHits) return null
+
   return (
     <div className={classNames('small-regular text-neutral-dark', className)}>
       {areHitsSorted && nbHits !== nbSortedHits

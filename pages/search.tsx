@@ -37,7 +37,7 @@ export default function Search(props: PageLayoutProps) {
         <div className="flex flex-col laptop:flex-row">
           {(refinementsLayout === 'panel' || !laptop) && <RefinementsPanel />}
 
-          <div className="flex-grow flex flex-col gap-2.5 laptop:gap-5">
+          <div className="flex-grow flex flex-col gap-2 laptop:gap-5">
             <RefinementsBar
               showWidgets={refinementsLayout === 'bar' && laptop}
             />
