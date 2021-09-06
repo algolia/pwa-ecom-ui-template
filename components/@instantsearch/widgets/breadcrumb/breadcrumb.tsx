@@ -17,7 +17,7 @@ function BreadcrumbComponent({ items, refine, createURL }: BreadcrumbProps) {
   if (!items.length) return null
 
   const navItems = items.slice(0, -1)
-  navItems.unshift({ label: 'Home', value: undefined })
+  navItems.unshift({ label: 'All', value: undefined })
 
   const currentItem = items[items.length - 1]
 
