@@ -1,32 +1,18 @@
+import { m } from 'framer-motion'
+import { useAtomValue } from 'jotai/utils'
 import type {
   GetStaticPropsContext,
   GetServerSidePropsContext,
   GetServerSidePropsResult,
   GetStaticPropsResult,
 } from 'next'
-import dynamic from 'next/dynamic'
+
+import { searchClientAtom } from './app-layout'
 
 import { Search } from '@/components/@instantsearch/search'
-import { BannerXS } from '@/components/banner/banner-xs'
-import type { FooterProps } from '@/components/footer/footer'
-import type { HeaderProps } from '@/components/header/header'
-import { LoadingBar } from '@/components/loading-bar/loading-bar'
-import { Overlay } from '@/components/overlay/overlay'
 import { appId, indexName, searchApiKey } from '@/utils/env'
 import { getResultsState } from '@/utils/getResultsState'
 import { urlToSearchState } from '@/utils/url'
-
-export const Header = dynamic<HeaderProps>(() =>
-  import(/* webpackChunkName: 'common' */ '@/components/header/header').then(
-    (mod) => mod.Header
-  )
-)
-
-export const Footer = dynamic<FooterProps>(() =>
-  import(/* webpackChunkName: 'common' */ '@/components/footer/footer').then(
-    (mod) => mod.Footer
-  )
-)
 
 export type PageLayoutProps = {
   children: React.ReactNode
@@ -34,23 +20,32 @@ export type PageLayoutProps = {
   resultsState?: any
 }
 
+const variants = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+}
+
+const transition = { type: 'linear' }
+
 export function PageLayout({ children, ...props }: PageLayoutProps) {
+  const searchClient = useAtomValue(searchClientAtom)
   return (
     <Search
+      searchClient={searchClient}
       appId={appId}
       searchApiKey={searchApiKey}
       indexName={indexName}
       {...props}
     >
-      <BannerXS>20% Off! Code: SPRING21 - Terms apply*</BannerXS>
-      <Header />
-
-      <main>{children}</main>
-
-      <Footer />
-
-      <LoadingBar />
-      <Overlay />
+      <m.main
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        variants={variants}
+        transition={transition}
+      >
+        {children}
+      </m.main>
     </Search>
   )
 }

@@ -5,7 +5,7 @@ import { isBrowser } from '@/utils/browser'
 
 if (isBrowser) {
   whyDidYouRender(React, {
-    trackAllPureComponents: true,
+    trackAllPureComponents: false,
     collapseGroups: true,
   })
 }

@@ -5,7 +5,7 @@ import type { Refinement, RefinementLayout } from '@/typings/refinements'
 
 export type Config = typeof config
 
-const refinementsLayout = 'panel' as RefinementLayout
+export const refinementsLayoutAtom = atom<RefinementLayout>('panel')
 
 const refinements: Refinement[] = [
   {
@@ -86,7 +86,7 @@ const searchParameters = {
 }
 
 const config = {
-  refinementsLayout,
+  refinementsLayoutAtom,
   refinements,
   sorts,
   breadcrumbAttributes,

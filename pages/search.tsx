@@ -26,7 +26,9 @@ const RefinementsPanel = dynamic<any>(() =>
 )
 
 export default function Search(props: PageLayoutProps) {
-  const { refinementsLayout, breadcrumbAttributes } = useAtomValue(configAtom)
+  const { breadcrumbAttributes, refinementsLayoutAtom } =
+    useAtomValue(configAtom)
+  const refinementsLayout = useAtomValue(refinementsLayoutAtom)
   const { laptop } = useTailwindScreens()
 
   return (

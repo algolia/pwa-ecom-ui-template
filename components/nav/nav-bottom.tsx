@@ -1,19 +1,23 @@
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
 import classNames from 'classnames'
 import { m } from 'framer-motion'
+import { atom } from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { useRouter } from 'next/router'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 
 import { AutocompleteBasic } from '@autocomplete/basic/autocomplete-basic'
-import { AutocompleteInstantSearch } from '@autocomplete/instantsearch/autocomplete-instantsearch'
 import { Button } from '@ui/button/button'
 import { IconLabel } from '@ui/icon-label/icon-label'
 
 import { NavItem } from './nav-item'
 
-import { searchAtom } from '@/components/@instantsearch/search'
+import {
+  initialSearchStateAtom,
+  searchQueryAtom,
+} from '@/components/@instantsearch/search'
 import { overlayAtom } from '@/components/overlay/overlay'
+import { searchClientAtom } from '@/layouts/app-layout'
 import { Laptop, Tablet } from '@/lib/media'
 
 const transition = {
@@ -21,37 +25,45 @@ const transition = {
   duration: 0.6,
 }
 
+const isFocusedAtom = atom(false)
+const isExpandedAtom = atom((get) => get(isFocusedAtom) || get(searchQueryAtom))
+
 export function NavBottom() {
   const router = useRouter()
-  const isHomePage = useMemo(() => router?.pathname === '/', [router?.pathname])
+  const isHomePage = useMemo(() => router?.route === '/', [router?.route])
+
+  const searchClient = useAtomValue(searchClientAtom)
+
+  const initialSearchState = useAtomValue(initialSearchStateAtom)
+  const initialQuery = initialSearchState?.query
 
   // Autocomplete placeholders
   const { current: placeholders } = useRef(['products', 'articles', 'faq'])
 
   // Autocomplete expand on focus
-  const { initialQuery } = useAtomValue(searchAtom)
-  const [isFocused, setIsFocused] = useState(false)
+  const isExpanded = useAtomValue(isExpandedAtom)
+
+  const setIsFocused = useUpdateAtom(isFocusedAtom)
   const setOverlay = useUpdateAtom(overlayAtom)
 
-  useEffect(() => {
-    setIsFocused(Boolean(initialQuery))
+  const handleFocusBlur = useCallback((focused: boolean) => {
+    setIsFocused(focused)
+    setOverlay({ visible: focused, zIndex: 'z-overlay-header' })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const onFocusBlur = (focused: boolean, hasQuery: boolean) => {
-    setIsFocused(hasQuery ? true : focused)
-    if (isHomePage) setOverlay({ visible: focused, zIndex: 'z-overlay-header' })
-  }
+  const handleSelect = useCallback(
+    (query: string = '') => {
+      setOverlay({ visible: false })
+      router.push(`/search?query=${query}`)
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  )
 
   const autocompleteCn = classNames(
     'w-full pl-2.5 laptop:w-80 laptop:p-0 laptop:ease-out laptop:absolute laptop:right-0',
-    { focused: isFocused }
-  )
-
-  // Autocomplete implementation
-  const Autocomplete = useMemo(
-    () => (isHomePage ? AutocompleteBasic : AutocompleteInstantSearch),
-    [isHomePage]
+    { focused: isExpanded }
   )
 
   // Render
@@ -78,11 +90,18 @@ export function NavBottom() {
 
       <m.div
         className={autocompleteCn}
-        animate={{ width: isFocused ? '90%' : '20rem' }}
+        animate={{ width: isExpanded ? '90%' : '20rem' }}
         transition={transition}
       >
         <div className="hidden absolute w-24 h-full -translate-x-full bg-gradient-to-l from-white laptop:block" />
-        <Autocomplete placeholders={placeholders} onFocusBlur={onFocusBlur} />
+        <AutocompleteBasic
+          searchClient={searchClient}
+          initialQuery={initialQuery}
+          placeholders={placeholders}
+          hidePanel={!isHomePage}
+          onFocusBlur={handleFocusBlur}
+          onSelect={handleSelect}
+        />
       </m.div>
     </div>
   )

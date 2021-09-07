@@ -5,10 +5,10 @@ import { Grid } from './grid'
 
 import { Laptop, Tablet } from '@/lib/media'
 
-export const gridsAtom = atom({ hidden: true })
+export const gridsHiddenAtom = atom(true)
 
 export function Grids() {
-  const { hidden } = useAtomValue(gridsAtom)
+  const hidden = useAtomValue(gridsHiddenAtom)
   if (hidden) return null
 
   return (
