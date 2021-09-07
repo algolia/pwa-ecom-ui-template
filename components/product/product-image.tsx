@@ -21,7 +21,6 @@ export function ProductImage({ src, alt = '' }: ProductImageProps) {
         layout="responsive"
         width="20"
         height="27"
-        priority={true}
         className={classNames(
           'transition-all duration-2000 ease-out-expo can-hover:group-hover:scale-110',
           {
