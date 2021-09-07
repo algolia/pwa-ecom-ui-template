@@ -83,6 +83,8 @@ const breadcrumbAttributes = [
 const searchParameters = {
   hitsPerPage: 10,
   maxValuesPerFacet: 50,
+  attributesToSnippet: ['description:30'],
+  snippetEllipsisText: '…',
 }
 
 const autocomplete = {

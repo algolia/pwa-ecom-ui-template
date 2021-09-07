@@ -2,7 +2,11 @@ import { useAtomValue } from 'jotai/utils'
 import { memo, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 import type { InfiniteHitsProvided } from 'react-instantsearch-core'
-import { connectInfiniteHits, Highlight } from 'react-instantsearch-dom'
+import {
+  connectInfiniteHits,
+  Highlight,
+  Snippet,
+} from 'react-instantsearch-dom'
 
 import { LoadMore } from '@instantsearch/widgets/load-more/load-more'
 import { RelevantSort } from '@instantsearch/widgets/relevant-sort/relevant-sort'
@@ -50,10 +54,8 @@ function ProductsComponent({ hits }: ProductsProps) {
             return <Highlight attribute="name" tagName="mark" hit={hit} />
           },
           description: hit.description,
-          descriptionHighlighting() {
-            return (
-              <Highlight attribute="description" tagName="mark" hit={hit} />
-            )
+          descriptionSnippeting() {
+            return <Snippet attribute="description" tagName="mark" hit={hit} />
           },
           colors: [],
           price: hit.newPrice ?? hit.price,

@@ -1,15 +1,13 @@
 export type ProductDescriptionProps = {
   children: React.ReactNode
-  highlighting?: React.ComponentType
+  snippeting?: React.ComponentType
 }
 
 export function ProductDescription({
   children,
-  highlighting: Highlighting,
+  snippeting: Snippeting,
 }: ProductDescriptionProps) {
   return (
-    <p className="small-regular">
-      {Highlighting ? <Highlighting /> : children}
-    </p>
+    <p className="small-regular">{Snippeting ? <Snippeting /> : children}</p>
   )
 }
