@@ -4,7 +4,7 @@ import { m } from 'framer-motion'
 import { atom } from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { useRouter } from 'next/router'
-import { useCallback, useMemo, useRef } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import { AutocompleteBasic } from '@autocomplete/basic/autocomplete-basic'
 import { Button } from '@ui/button/button'
@@ -17,6 +17,7 @@ import {
   searchQueryAtom,
 } from '@/components/@instantsearch/search'
 import { overlayAtom } from '@/components/overlay/overlay'
+import { configAtom } from '@/config/config'
 import { searchClientAtom } from '@/layouts/app-layout'
 import { Laptop, Tablet } from '@/lib/media'
 
@@ -30,15 +31,13 @@ const isExpandedAtom = atom((get) => get(isFocusedAtom) || get(searchQueryAtom))
 
 export function NavBottom() {
   const router = useRouter()
+  const { autocomplete: autocompleteConfig } = useAtomValue(configAtom)
   const isHomePage = useMemo(() => router?.route === '/', [router?.route])
 
   const searchClient = useAtomValue(searchClientAtom)
 
   const initialSearchState = useAtomValue(initialSearchStateAtom)
   const initialQuery = initialSearchState?.query
-
-  // Autocomplete placeholders
-  const { current: placeholders } = useRef(['products', 'articles', 'faq'])
 
   // Autocomplete expand on focus
   const isExpanded = useAtomValue(isExpandedAtom)
@@ -97,7 +96,7 @@ export function NavBottom() {
         <AutocompleteBasic
           searchClient={searchClient}
           initialQuery={initialQuery}
-          placeholders={placeholders}
+          placeholders={autocompleteConfig.placeholders}
           hidePanel={!isHomePage}
           onFocusBlur={handleFocusBlur}
           onSelect={handleSelect}

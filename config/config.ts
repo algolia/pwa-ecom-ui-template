@@ -85,12 +85,17 @@ const searchParameters = {
   maxValuesPerFacet: 50,
 }
 
+const autocomplete = {
+  placeholders: ['products', 'articles', 'faq'],
+}
+
 const config = {
   refinementsLayoutAtom,
   refinements,
   sorts,
   breadcrumbAttributes,
   searchParameters,
+  autocomplete,
 }
 
 export const configAtom = freezeAtom(atom(() => config))
