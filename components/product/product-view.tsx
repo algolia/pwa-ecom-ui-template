@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { AnimatePresence, m } from 'framer-motion'
+import { AnimatePresence, m, useReducedMotion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 import type { ProductCardProps } from './product-card'
@@ -35,6 +35,7 @@ const listItemVariants = {
 
 export function ProductView({ products, view = 'grid' }: ProductViewProps) {
   const [productsPerPage, setProductsPerPage] = useState(0)
+  const shouldReduceMotion = useReducedMotion()
 
   useEffect(() => {
     if (!productsPerPage) setProductsPerPage(products.length)
@@ -55,7 +56,7 @@ export function ProductView({ products, view = 'grid' }: ProductViewProps) {
         {products.map(({ objectID, ...props }: ProductViewCardProps, i) => (
           <m.li
             key={objectID}
-            layout="position"
+            layout={shouldReduceMotion ? false : 'position'}
             transition={listItemTransition}
             variants={listItemVariants}
             custom={i % productsPerPage}
