@@ -31,7 +31,10 @@ export function Link({
   )
 
   return (
-    <NextLink {...{ href, as, replace, scroll, shallow, prefetch, locale }}>
+    <NextLink
+      {...{ href, as, replace, scroll, shallow, prefetch, locale }}
+      scroll={false}
+    >
       <a role="link" tabIndex={0} onClick={onClick} {...anchorProps}>
         {children}
       </a>

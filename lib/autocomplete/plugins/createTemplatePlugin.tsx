@@ -6,7 +6,7 @@ import type {
 import { unmountComponentAtNode } from 'react-dom'
 
 type CreateTemplatePluginProps = {
-  container: string | HTMLElement
+  container: HTMLElement | string
   render?: (root: HTMLElement, props: OnStateChangeProps<any>) => void
   initialQuery?: string
 }
@@ -28,6 +28,7 @@ export function createTemplatePlugin<
 }: CreateTemplatePluginProps): CustomAutocompletePlugin<TItem, TData> {
   const rootEl =
     typeof document !== 'undefined' ? document.createElement('div') : undefined
+  let rafId = -1
 
   const renderFn = (props: OnStateChangeProps<any>) => {
     if (render && rootEl) {
@@ -37,7 +38,7 @@ export function createTemplatePlugin<
 
   return {
     subscribe() {
-      window.requestAnimationFrame(() => {
+      rafId = window.requestAnimationFrame(() => {
         const containerEl =
           typeof container === 'string'
             ? document.querySelector<HTMLDivElement>(container)
@@ -58,6 +59,8 @@ export function createTemplatePlugin<
     },
 
     unsubscribe() {
+      window.cancelAnimationFrame(rafId)
+
       if (rootEl) {
         unmountComponentAtNode(rootEl)
       }

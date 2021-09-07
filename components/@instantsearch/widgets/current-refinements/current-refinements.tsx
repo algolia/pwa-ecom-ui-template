@@ -1,3 +1,5 @@
+import classNames from 'classnames'
+import { m } from 'framer-motion'
 import { atom } from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { memo, useEffect, useMemo } from 'react'
@@ -50,25 +52,28 @@ function CurrentRefinementsComponent({
     [setRefinementCount, refinements]
   )
 
-  if (!refinements.length) return null
-
   return (
     <div className={className}>
       {header && <div className="text-neutral-dark mb-2">{header}</div>}
       <ul className="flex flex-wrap gap-3">
         {refinements.map((refinement) => {
           return (
-            <li key={[refinement.category, refinement.label].join(':')}>
+            <m.li key={[refinement.category, refinement.label].join(':')}>
               <Chip closeIcon={true} onClick={() => refine(refinement.value)}>
                 {refinement.category && (
                   <div className="font-normal">{refinement.category}:</div>
                 )}
                 <div className="capitalize">{refinement.label}</div>
               </Chip>
-            </li>
+            </m.li>
           )
         })}
-        <li className="flex items-center">
+        <li
+          key="clear"
+          className={classNames('flex items-center', {
+            hidden: refinements.length < 2,
+          })}
+        >
           <ClearRefinements className="body-bold text-brand-nebula can-hover:transition-colors can-hover:hover:text-nebula-light">
             Clear all
           </ClearRefinements>

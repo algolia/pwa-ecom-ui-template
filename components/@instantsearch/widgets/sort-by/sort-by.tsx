@@ -8,7 +8,6 @@ import { connectSortBy } from 'react-instantsearch-core'
 import { ExpandablePanel } from '@instantsearch/widgets/expandable-panel/expandable-panel'
 
 import { IconLabel } from '@/components/@ui/icon-label/icon-label'
-import { Link } from '@/components/@ui/link/link'
 import { Select } from '@/components/@ui/select/select'
 
 export type SortByView = 'dropdown' | 'select'
@@ -52,7 +51,7 @@ function SortByComponent({
       <ul className="flex flex-col gap-4">
         {items.map((item) => (
           <li key={item.value}>
-            <Link
+            <a
               href={createURL(item.value)}
               className={classNames({ 'font-bold': item.isRefined })}
               onClick={(e) => {
@@ -61,7 +60,7 @@ function SortByComponent({
               }}
             >
               {item.label}
-            </Link>
+            </a>
           </li>
         ))}
       </ul>
@@ -71,15 +70,13 @@ function SortByComponent({
       defaultOption={defaultOption.current}
       options={items}
       prefix={
-        <>
-          <IconLabel
-            icon={SortIcon}
-            label="Sort:"
-            labelPosition="right"
-            labelTheme="label-regular"
-            classNameIcon="w-4 h-4"
-          />
-        </>
+        <IconLabel
+          icon={SortIcon}
+          label="Sort:"
+          labelPosition="right"
+          labelTheme="label-regular"
+          classNameIcon="w-4 h-4"
+        />
       }
       className={className}
       onChange={(selectedOption) => refine(selectedOption.value)}

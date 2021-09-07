@@ -1,7 +1,8 @@
+import type { OnStateChangeProps } from '@algolia/autocomplete-js'
 import type { SearchClient } from 'algoliasearch/lite'
-import { useAtomValue } from 'jotai/utils'
-import { useRouter } from 'next/router'
-import { useCallback, useMemo } from 'react'
+import { useUpdateAtom } from 'jotai/utils'
+import { memo, useCallback, useMemo } from 'react'
+import type { InstantSearchProps } from 'react-instantsearch-core'
 
 import type { AutocompleteProps } from '@autocomplete/_default/autocomplete'
 import { Autocomplete } from '@autocomplete/_default/autocomplete'
@@ -10,41 +11,51 @@ import { recentSearchesPluginCreator } from '@autocomplete/plugins/recent-search
 import { searchButtonPluginCreator } from '@autocomplete/plugins/search-button'
 import { voiceCameraIconsPluginCreator } from '@autocomplete/plugins/voice-camera-icons'
 
-import { searchAtom } from '@/components/@instantsearch/search'
+import { searchStateAtom } from '@/components/@instantsearch/search'
 import { createAnimatedPlaceholderPlugin } from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
 import { createClearLeftPlugin } from '@/lib/autocomplete/plugins/createClearLeftPlugin'
+import { createFocusBlurPlugin } from '@/lib/autocomplete/plugins/createFocusBlurPlugin'
 
 export type AutocompleteBasicProps = AutocompleteProps & {
-  searchClient?: SearchClient
+  searchClient: SearchClient
   placeholders?: string[]
   placeholderWordDelay?: number
   placeholderLetterDelay?: number
+  onSelect?: (query: string) => void
+  onFocusBlur?: (isFocused: boolean) => void
 }
 
-export function AutocompleteBasic({
-  searchClient: customSearchClient,
+function AutocompleteBasicComponent({
+  searchClient,
+  initialQuery,
   placeholders = [],
   placeholderWordDelay,
   placeholderLetterDelay,
   plugins: customPlugins = [],
+  onSelect,
+  onFocusBlur,
   ...props
 }: AutocompleteBasicProps) {
-  const router = useRouter()
-  const { searchClient: searchClientContext, initialQuery } =
-    useAtomValue(searchAtom)
+  const setSearchState = useUpdateAtom(searchStateAtom)
 
-  const searchClient = customSearchClient ?? searchClientContext!
-
-  const goToSearchPage = useCallback(
-    (query: string) => router.push(`/search?query=${query}`),
-    [router]
+  const updateSearchState = useCallback(
+    (nextSearchState: InstantSearchProps['searchState']) => {
+      setSearchState(
+        (currentSearchState: InstantSearchProps['searchState']) => ({
+          ...currentSearchState,
+          ...nextSearchState,
+          page: 1,
+        })
+      )
+    },
+    [setSearchState]
   )
 
   const recentSearches = useMemo(
     () =>
       recentSearchesPluginCreator({
         onSelect({ item }) {
-          goToSearchPage(item.label)
+          if (typeof onSelect === 'function') onSelect(item.label)
         },
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,7 +70,7 @@ export function AutocompleteBasic({
         searchClient,
         recentSearches,
         onSelect({ item }) {
-          goToSearchPage(item.query)
+          if (typeof onSelect === 'function') onSelect(item.query)
         },
       }),
       createAnimatedPlaceholderPlugin({
@@ -74,13 +85,17 @@ export function AutocompleteBasic({
       searchButtonPluginCreator({
         initialQuery,
         onClick({ state }) {
-          goToSearchPage(state.query)
+          if (typeof onSelect === 'function') onSelect(state.query)
         },
+      }),
+      createFocusBlurPlugin({
+        onFocusBlur,
       }),
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       searchClient,
+      initialQuery,
       recentSearches,
       placeholders,
       placeholderWordDelay,
@@ -90,9 +105,21 @@ export function AutocompleteBasic({
 
   const onSubmit = useCallback(
     ({ state }) => {
-      goToSearchPage(state.query)
+      if (typeof onSelect === 'function') onSelect(state.query)
     },
-    [goToSearchPage]
+    [onSelect]
+  )
+
+  const onStateChange = useCallback(
+    ({ prevState, state }: OnStateChangeProps<any>) => {
+      if (
+        prevState.query !== state.query &&
+        typeof state.query !== 'undefined'
+      ) {
+        updateSearchState({ query: state.query })
+      }
+    },
+    [updateSearchState]
   )
 
   return (
@@ -100,7 +127,10 @@ export function AutocompleteBasic({
       plugins={plugins}
       initialQuery={initialQuery}
       onSubmit={onSubmit}
+      onStateChange={onStateChange}
       {...props}
     />
   )
 }
+
+export const AutocompleteBasic = memo(AutocompleteBasicComponent)

@@ -8,23 +8,14 @@ import { connectStateResults } from 'react-instantsearch-core'
 export type VirtualStateResultsProps = StateResultsProvided
 
 export type VirtualStateResultsAtomValue = Partial<
-  Pick<
-    VirtualStateResultsProps,
-    'isSearchStalled' | 'searchResults' | 'searchState'
-  >
+  Pick<VirtualStateResultsProps, 'isSearchStalled' | 'searchResults'>
 >
 
 export const stateResultsAtom = atom<VirtualStateResultsAtomValue>({
-  searchState: undefined,
   searchResults: undefined,
   isSearchStalled: undefined,
 })
 
-export const searchStateAtom = selectAtom(
-  stateResultsAtom,
-  ({ searchState }) => searchState,
-  isEqual
-)
 export const searchResultsAtom = selectAtom(
   stateResultsAtom,
   ({ searchResults }) => searchResults,
@@ -36,15 +27,14 @@ export const isSearchStalledAtom = selectAtom(
 )
 
 function VirtualStateResultsComponent({
-  searchState,
   searchResults,
   isSearchStalled,
 }: VirtualStateResultsProps) {
   const setStateResults = useUpdateAtom(stateResultsAtom)
 
   useEffect(() => {
-    setStateResults({ searchState, searchResults, isSearchStalled })
-  }, [setStateResults, searchState, searchResults, isSearchStalled])
+    setStateResults({ searchResults, isSearchStalled })
+  }, [setStateResults, searchResults, isSearchStalled])
 
   return null
 }

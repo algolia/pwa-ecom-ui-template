@@ -17,9 +17,8 @@ export type ProductViewProps = {
 }
 
 const listItemTransition = {
-  type: 'spring',
-  duration: 0.5,
-  bounce: 0.15,
+  ease: [0.16, 1, 0.3, 1],
+  duration: 0.6,
 }
 
 const listItemVariants = {
@@ -45,7 +44,8 @@ export function ProductView({ products, view = 'grid' }: ProductViewProps) {
     <m.ol
       className={classNames('overflow-hidden', {
         'grid grid-cols-2 gap-4 laptop:grid-cols-5': view === 'grid',
-        'flex flex-col gap-4 laptop:gap-0': view === 'list',
+        'flex flex-col gap-4 laptop:grid laptop:grid-cols-2 laptop:gap-0':
+          view === 'list',
       })}
       initial="hidden"
       animate="show"
