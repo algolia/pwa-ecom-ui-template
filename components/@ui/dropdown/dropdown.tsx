@@ -22,8 +22,8 @@ export type DropdownProps = Omit<ButtonProps, 'ref'> & {
   className?: string
   classNameContainer?: string
   isOpen?: boolean
-  onToggle?: (isOpen: boolean) => void
   initialIsOpen?: boolean
+  onToggle?: (isOpen: boolean) => void
 }
 
 export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
@@ -35,8 +35,8 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       className,
       classNameContainer,
       isOpen: customIsOpen,
-      onToggle,
       initialIsOpen = false,
+      onToggle,
       ...props
     }: DropdownProps,
     customRef

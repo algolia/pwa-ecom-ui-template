@@ -1,6 +1,6 @@
 import SortIcon from '@material-design-icons/svg/outlined/sort.svg'
 import classNames from 'classnames'
-import { memo, useRef } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 import type { SortByProvided } from 'react-instantsearch-core'
 import { connectSortBy } from 'react-instantsearch-core'
@@ -28,10 +28,19 @@ function SortByComponent({
   isOpened,
   ...props
 }: SortByProps) {
-  const defaultOption = useRef(
-    items.find((item) => item.value === currentRefinement)
+  const currentOption = useMemo(
+    () => items.find((item) => item.value === currentRefinement),
+    [items, currentRefinement]
   )
   const refinedOption = items.find((item) => item.isRefined)
+
+  const handleSelectChange = useCallback(
+    (selectedOption) => {
+      refine(selectedOption.value)
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  )
 
   return view === 'dropdown' ? (
     <ExpandablePanel
@@ -67,8 +76,8 @@ function SortByComponent({
     </ExpandablePanel>
   ) : (
     <Select
-      defaultOption={defaultOption.current}
       options={items}
+      currentOption={currentOption}
       prefix={
         <IconLabel
           icon={SortIcon}
@@ -79,7 +88,7 @@ function SortByComponent({
         />
       }
       className={className}
-      onChange={(selectedOption) => refine(selectedOption.value)}
+      onChange={handleSelectChange}
       {...props}
     />
   )

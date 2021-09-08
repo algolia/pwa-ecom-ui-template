@@ -23,6 +23,7 @@ export type SelectProps = {
   prefix?: React.ReactNode | string
   suffix?: React.ReactNode | string
   className?: string
+  currentOption?: SelectOption
   onChange?: (selectedOption: SelectOption) => void
 }
 
@@ -34,6 +35,7 @@ export function Select({
   prefix,
   suffix,
   className,
+  currentOption: customCurrentOption,
   onChange,
 }: SelectProps) {
   const {
@@ -42,7 +44,8 @@ export function Select({
     setIsVisible: setIsOpen,
   } = useIsVisible(defaultOpen)
 
-  const [currentOption, setCurrentOption] = useState(defaultOption)
+  const [defaultCurrentOption, setCurrentOption] = useState(defaultOption)
+  const currentOption = customCurrentOption ?? defaultCurrentOption
 
   const currentFocusedOptionIdx = useRef(-1)
   const optionEls = useRef<HTMLButtonElement[]>([])
