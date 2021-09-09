@@ -4,12 +4,11 @@ import type {
 } from '@algolia/autocomplete-js'
 import { autocomplete } from '@algolia/autocomplete-js'
 import classNames from 'classnames'
-import { useAtomValue } from 'jotai/utils'
+import { atom } from 'jotai'
+import { useUpdateAtom } from 'jotai/utils'
 import type { ReactElement } from 'react'
 import { createElement, Fragment, useEffect, useRef } from 'react'
 import { render } from 'react-dom'
-
-import { searchStateAtom } from '@/components/@instantsearch/search'
 
 export type AutocompleteProps = Partial<AutocompleteOptions<any>> & {
   container?: HTMLElement | string
@@ -21,6 +20,8 @@ export type AutocompleteProps = Partial<AutocompleteOptions<any>> & {
   onBlur?: () => void
 }
 
+export const autocompleteAtom = atom<AutocompleteApi<any> | null>(null)
+
 export function Autocomplete({
   container: customContainer,
   panelContainer: customPanelContainer,
@@ -28,19 +29,19 @@ export function Autocomplete({
   initialQuery = '',
   hidePanel = false,
   children,
-
   ...props
 }: AutocompleteProps) {
-  const autocompleteRef = useRef<AutocompleteApi<any>>()
   const containerRef = useRef<HTMLDivElement>(null)
   const panelContainerRef = useRef<HTMLDivElement>(null)
+
+  const setAutocomplete = useUpdateAtom(autocompleteAtom)
 
   useEffect(() => {
     if (!containerRef.current || !panelContainerRef.current) {
       return undefined
     }
 
-    autocompleteRef.current = autocomplete({
+    const autocompleteInstance = autocomplete({
       container: customContainer ?? containerRef.current,
       panelContainer: customPanelContainer ?? panelContainerRef.current,
       panelPlacement: 'full-width',
@@ -57,7 +58,11 @@ export function Autocomplete({
       ...props,
     })
 
+    setAutocomplete(autocompleteInstance)
+
     return () => {
+      setAutocomplete(null)
+
       // Waiting for an 'unsubscribe' method on Autocomplete plugin API
       plugins.forEach((plugin: any) => {
         if (typeof plugin.unsubscribe === 'function') {
@@ -65,7 +70,7 @@ export function Autocomplete({
         }
       })
 
-      autocompleteRef.current?.destroy()
+      autocompleteInstance?.destroy()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -76,12 +81,6 @@ export function Autocomplete({
     props.onSubmit,
     props.onStateChange,
   ])
-
-  const searchState = useAtomValue(searchStateAtom)
-  useEffect(
-    () => autocompleteRef.current?.setQuery(searchState.query),
-    [searchState.query]
-  )
 
   const panelClassName = classNames('absolute w-full z-autocomplete-panel', {
     hidden: hidePanel,

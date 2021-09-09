@@ -25,7 +25,7 @@ export type ProductCardProps = {
   title?: string
   titleHighlighting?: React.ComponentType
   description?: string
-  descriptionHighlighting?: React.ComponentType
+  descriptionSnippeting?: React.ComponentType
   colors?: string[]
   price?: number
   originalPrice?: number
@@ -45,7 +45,7 @@ export function ProductCard({
   title,
   titleHighlighting,
   description,
-  descriptionHighlighting,
+  descriptionSnippeting,
   colors,
   price,
   originalPrice,
@@ -106,7 +106,7 @@ export function ProductCard({
               </ProductTitle>
             )}
             {description && view === 'list' && (
-              <ProductDescription highlighting={descriptionHighlighting}>
+              <ProductDescription snippeting={descriptionSnippeting}>
                 {description}
               </ProductDescription>
             )}

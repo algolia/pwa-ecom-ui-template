@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import type { Variants } from 'framer-motion'
-import { m } from 'framer-motion'
+import { useReducedMotion, m } from 'framer-motion'
 
 export type CollapseProps = {
   isCollapsed: boolean
@@ -9,17 +9,21 @@ export type CollapseProps = {
 }
 
 const variants: Variants = {
-  collapsed: {
-    height: 0,
-    opacity: 0,
-    pointerEvents: 'none',
-    transitionEnd: { display: 'none' },
+  collapsed: (shouldReduceMotion: boolean) => {
+    return {
+      height: shouldReduceMotion ? 'auto' : 0,
+      opacity: 0,
+      pointerEvents: 'none',
+      transitionEnd: { display: 'none' },
+    }
   },
-  expanded: {
-    height: 'auto',
-    opacity: 1,
-    pointerEvents: 'auto',
-    display: 'block',
+  expanded: (shouldReduceMotion: boolean) => {
+    return {
+      height: shouldReduceMotion ? 'auto' : 'auto',
+      opacity: 1,
+      pointerEvents: 'auto',
+      display: 'block',
+    }
   },
 }
 
@@ -29,6 +33,8 @@ const transition = {
 }
 
 export function Collapse({ isCollapsed, className, children }: CollapseProps) {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
     <m.div
       key="collapse"
@@ -37,6 +43,7 @@ export function Collapse({ isCollapsed, className, children }: CollapseProps) {
       variants={variants}
       className={classNames('overflow-hidden', className)}
       transition={transition}
+      custom={shouldReduceMotion}
     >
       {children}
     </m.div>

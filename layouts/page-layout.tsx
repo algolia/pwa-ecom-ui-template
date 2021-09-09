@@ -7,12 +7,15 @@ import type {
   GetStaticPropsResult,
 } from 'next'
 
+import { Search } from '@instantsearch/search'
+import { urlToSearchState } from '@instantsearch/utils/url'
+
 import { searchClientAtom } from './app-layout'
 
-import { Search } from '@/components/@instantsearch/search'
+import { useUrlSync } from '@/components/@instantsearch/hooks/useUrlSync'
+import { configAtom } from '@/config/config'
 import { appId, indexName, searchApiKey } from '@/utils/env'
 import { getResultsState } from '@/utils/getResultsState'
-import { urlToSearchState } from '@/utils/url'
 
 export type PageLayoutProps = {
   children: React.ReactNode
@@ -28,13 +31,18 @@ const variants = {
 const transition = { type: 'linear' }
 
 export function PageLayout({ children, ...props }: PageLayoutProps) {
+  const { searchParameters } = useAtomValue(configAtom)
   const searchClient = useAtomValue(searchClientAtom)
+  const { searchState, onSearchStateChange, createURL } = useUrlSync()
+
   return (
     <Search
-      searchClient={searchClient}
-      appId={appId}
-      searchApiKey={searchApiKey}
       indexName={indexName}
+      searchClient={searchClient}
+      searchState={searchState}
+      searchParameters={searchParameters}
+      createURL={createURL}
+      onSearchStateChange={onSearchStateChange}
       {...props}
     >
       <m.main

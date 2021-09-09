@@ -3,7 +3,7 @@
 }
 
 .ais-HierarchicalMenu-link {
-  @apply flex items-center py-2;
+  @apply flex items-center py-2 can-hover:transition-colors can-hover:hover:text-neutral-dark;
 
   &::before {
     @apply w-4 h-4 mr-1;

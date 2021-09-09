@@ -4,7 +4,7 @@ import { m } from 'framer-motion'
 import { atom } from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { useRouter } from 'next/router'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 
 import { AutocompleteBasic } from '@autocomplete/basic/autocomplete-basic'
 import { Button } from '@ui/button/button'
@@ -12,12 +12,10 @@ import { IconLabel } from '@ui/icon-label/icon-label'
 
 import { NavItem } from './nav-item'
 
-import {
-  initialSearchStateAtom,
-  searchQueryAtom,
-} from '@/components/@instantsearch/search'
+import { searchQueryAtom } from '@/components/@instantsearch/hooks/useUrlSync'
 import { overlayAtom } from '@/components/overlay/overlay'
 import { configAtom } from '@/config/config'
+import { useIsMounted } from '@/hooks/useIsMounted'
 import { searchClientAtom } from '@/layouts/app-layout'
 import { Laptop, Tablet } from '@/lib/media'
 
@@ -27,20 +25,25 @@ const transition = {
 }
 
 const isFocusedAtom = atom(false)
-const isExpandedAtom = atom((get) => get(isFocusedAtom) || get(searchQueryAtom))
+const isExpandedAtom = atom(
+  (get) => get(isFocusedAtom) || Boolean(get(searchQueryAtom))
+)
 
 export function NavBottom() {
+  // Router
   const router = useRouter()
-  const { autocomplete: autocompleteConfig } = useAtomValue(configAtom)
   const isHomePage = useMemo(() => router?.route === '/', [router?.route])
 
+  // Get app state
+  const { autocomplete: autocompleteConfig } = useAtomValue(configAtom)
+  const { current: initialQuery } = useRef(useAtomValue(searchQueryAtom))
   const searchClient = useAtomValue(searchClientAtom)
 
-  const initialSearchState = useAtomValue(initialSearchStateAtom)
-  const initialQuery = initialSearchState?.query
-
-  // Autocomplete expand on focus
-  const isExpanded = useAtomValue(isExpandedAtom)
+  // Autocomplete expand on focused
+  // Wait for the component to be mounted,
+  // otherwise we have a mismatch between server/client HTML
+  const isMounted = useIsMounted()
+  const isExpanded = useAtomValue(isExpandedAtom) && isMounted()
 
   const setIsFocused = useUpdateAtom(isFocusedAtom)
   const setOverlay = useUpdateAtom(overlayAtom)
@@ -54,7 +57,7 @@ export function NavBottom() {
   const handleSelect = useCallback(
     (query: string = '') => {
       setOverlay({ visible: false })
-      router.push(`/search?query=${query}`)
+      router.push(`/catalog?q=${query}`)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
@@ -94,8 +97,8 @@ export function NavBottom() {
       >
         <div className="hidden absolute w-24 h-full -translate-x-full bg-gradient-to-l from-white laptop:block" />
         <AutocompleteBasic
-          searchClient={searchClient}
           initialQuery={initialQuery}
+          searchClient={searchClient}
           placeholders={autocompleteConfig.placeholders}
           hidePanel={!isHomePage}
           onFocusBlur={handleFocusBlur}

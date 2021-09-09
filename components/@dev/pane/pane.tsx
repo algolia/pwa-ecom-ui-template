@@ -30,7 +30,7 @@ export function Pane() {
         label: 'Current route',
         options: {
           index: '/',
-          search: '/search',
+          catalog: '/catalog',
           'kit/buttons': '/kit/buttons',
           'kit/chips': '/kit/chips',
         },
