@@ -5,8 +5,7 @@ import { memo, useCallback, useEffect, useRef } from 'react'
 
 import { Button } from '@ui/button/button'
 
-import { searchStateAtom } from '../../search'
-
+import { searchQueryAtom } from '@/components/@instantsearch/hooks/useUrlSync'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 
 function LoadMoreButton({
@@ -36,11 +35,11 @@ function LoadMoreButton({
     refineNext()
   }, [refineNext])
 
-  const searchState = useAtomValue(searchStateAtom)
+  const searchQuery = useAtomValue(searchQueryAtom)
   useEffect(() => {
     refineCounter.current = 0
     loadMoreClicked.current = false
-  }, [searchState.query])
+  }, [searchQuery])
 
   return (
     <Button

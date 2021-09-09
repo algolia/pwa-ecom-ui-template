@@ -93,3 +93,7 @@
 .aa-ItemActionButton svg {
   @apply w-5 h-5;
 }
+
+.aa-ClearButton:hover .aa-ClearIcon {
+  @apply text-nebula-dark transition-colors;
+}

@@ -2,7 +2,7 @@ import type { OnStateChangeProps } from '@algolia/autocomplete-js'
 import type { SearchClient } from 'algoliasearch/lite'
 import { useUpdateAtom } from 'jotai/utils'
 import { memo, useCallback, useMemo } from 'react'
-import type { InstantSearchProps } from 'react-instantsearch-core'
+import type { SearchState } from 'react-instantsearch-core'
 
 import type { AutocompleteProps } from '@autocomplete/_default/autocomplete'
 import { Autocomplete } from '@autocomplete/_default/autocomplete'
@@ -11,7 +11,7 @@ import { recentSearchesPluginCreator } from '@autocomplete/plugins/recent-search
 import { searchButtonPluginCreator } from '@autocomplete/plugins/search-button'
 import { voiceCameraIconsPluginCreator } from '@autocomplete/plugins/voice-camera-icons'
 
-import { searchStateAtom } from '@/components/@instantsearch/search'
+import { searchStateAtom } from '@/components/@instantsearch/hooks/useUrlSync'
 import { createAnimatedPlaceholderPlugin } from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
 import { createClearLeftPlugin } from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 import { createFocusBlurPlugin } from '@/lib/autocomplete/plugins/createFocusBlurPlugin'
@@ -39,14 +39,12 @@ function AutocompleteBasicComponent({
   const setSearchState = useUpdateAtom(searchStateAtom)
 
   const updateSearchState = useCallback(
-    (nextSearchState: InstantSearchProps['searchState']) => {
-      setSearchState(
-        (currentSearchState: InstantSearchProps['searchState']) => ({
-          ...currentSearchState,
-          ...nextSearchState,
-          page: 1,
-        })
-      )
+    (nextSearchState: SearchState) => {
+      setSearchState((currentSearchState: SearchState) => ({
+        ...currentSearchState,
+        ...nextSearchState,
+        page: 1,
+      }))
     },
     [setSearchState]
   )
@@ -124,8 +122,8 @@ function AutocompleteBasicComponent({
 
   return (
     <Autocomplete
-      plugins={plugins}
       initialQuery={initialQuery}
+      plugins={plugins}
       onSubmit={onSubmit}
       onStateChange={onStateChange}
       {...props}
