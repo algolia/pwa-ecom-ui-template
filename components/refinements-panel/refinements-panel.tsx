@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { atom } from 'jotai'
-import { atomWithStorage, useAtomValue } from 'jotai/utils'
+import { useAtomValue } from 'jotai/utils'
 
 import { RefinementsPanelBody } from './refinements-panel-body'
 import { RefinementsPanelFooter } from './refinements-panel-footer'
@@ -21,13 +21,10 @@ export const refinementsPanelMobileExpandedAtom = atom(
     set(overlayAtom, { visible: expanded, zIndex: 'z-overlay-full' })
   }
 )
-export const refinementsPanelDesktopExpandedAtom = atomWithStorage(
-  'refinementsPanelDesktopExpanded',
-  true
-)
+export const refinementsPanelDesktopExpandedAtom = atom(true)
 
 export function RefinementsPanel({
-  dynamicWidgets = true,
+  dynamicWidgets = false,
 }: RefinementsPanelProps) {
   const mobileExpanded = useAtomValue(refinementsPanelMobileExpandedAtom)
   const desktopExpanded = useAtomValue(refinementsPanelDesktopExpandedAtom)
@@ -38,7 +35,6 @@ export function RefinementsPanel({
   })
 
   return (
-    // <ClientOnly>
     <section className={cn}>
       <div className="w-full laptop:w-64 laptop:h-full laptop:overflow-y-auto">
         <div className="h-full w-full flex flex-col laptop:pr-5">
@@ -54,6 +50,5 @@ export function RefinementsPanel({
 
       <div className="RefinementsPanel-gradient" />
     </section>
-    // </ClientOnly>
   )
 }

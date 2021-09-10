@@ -1,40 +1,35 @@
 import { useAtomValue } from 'jotai/utils'
+import dynamic from 'next/dynamic'
 
 import { Breadcrumb } from '@/components/@instantsearch/widgets/breadcrumb/breadcrumb'
-import { Products } from '@/components/products/products'
-import { RefinementsBar } from '@/components/refinements-bar/refinements-bar'
-import { RefinementsPanel } from '@/components/refinements-panel/refinements-panel'
 import { configAtom } from '@/config/config'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 import type { PageLayoutProps } from '@/layouts/page-layout'
-import { getPropsPage, PageLayout } from '@/layouts/page-layout'
-import { isBrowser } from '@/utils/browser'
+import { getServerSidePropsPage, PageLayout } from '@/layouts/page-layout'
 
-// const Products = dynamic<any>(() =>
-//   import(
-//     /* webpackChunkName: 'search' */ '@/components/products/products'
-//   ).then((mod) => mod.Products)
-// )
+const Products = dynamic<any>(() =>
+  import(
+    /* webpackChunkName: 'search' */ '@/components/products/products'
+  ).then((mod) => mod.Products)
+)
 
-// const RefinementsBar = dynamic<any>(() =>
-//   import(
-//     /* webpackChunkName: 'search' */ '@/components/refinements-bar/refinements-bar'
-//   ).then((mod) => mod.RefinementsBar)
-// )
+const RefinementsBar = dynamic<any>(() =>
+  import(
+    /* webpackChunkName: 'search' */ '@/components/refinements-bar/refinements-bar'
+  ).then((mod) => mod.RefinementsBar)
+)
 
-// const RefinementsPanel = dynamic<any>(() =>
-//   import(
-//     /* webpackChunkName: 'refinements-panel' */ '@/components/refinements-panel/refinements-panel'
-//   ).then((mod) => mod.RefinementsPanel)
-// )
+const RefinementsPanel = dynamic<any>(() =>
+  import(
+    /* webpackChunkName: 'refinements-panel' */ '@/components/refinements-panel/refinements-panel'
+  ).then((mod) => mod.RefinementsPanel)
+)
 
 export default function Catalog(props: PageLayoutProps) {
   const { breadcrumbAttributes, refinementsLayoutAtom } =
     useAtomValue(configAtom)
   const refinementsLayout = useAtomValue(refinementsLayoutAtom)
   const { laptop } = useTailwindScreens()
-
-  if (!isBrowser) console.log('PageProps', props)
 
   return (
     <PageLayout {...props}>
@@ -56,14 +51,6 @@ export default function Catalog(props: PageLayoutProps) {
   )
 }
 
-export function getStaticPaths() {
-  return { paths: [], fallback: 'blocking' }
-}
-
-export const getStaticProps = async ({ params }) => {
-  const url = params.slugs
-    ? `http://localhost:3000/catalog/${params.slugs.join('/')}`
-    : ''
-
-  return await getPropsPage(Catalog as React.ComponentType, url)
-}
+export const getServerSideProps = getServerSidePropsPage(
+  Catalog as React.ComponentType
+)

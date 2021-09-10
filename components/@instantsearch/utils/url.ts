@@ -72,7 +72,7 @@ export const createURL = (searchState: SearchState): string => {
 export const urlToSearchState = (url: string = ''): SearchState => {
   if (!url) return {}
 
-  const { pathname, search } = new URL(url)
+  const { pathname, search } = new URL(url, 'http://base.com')
 
   const searchState = qs.parse(search, { ignoreQueryPrefix: true })
 

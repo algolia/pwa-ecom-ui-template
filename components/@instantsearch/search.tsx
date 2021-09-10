@@ -7,8 +7,6 @@ import { VirtualSearchBox } from '@instantsearch/widgets/virtual-search-box/virt
 import { VirtualStateResults } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 import { VirtualStats } from '@instantsearch/widgets/virtual-stats/virtual-stats'
 
-import { isBrowser } from '@/utils/browser'
-
 export type SearchProps = InstantSearchProps & {
   children: React.ReactNode
   searchParameters?: Record<string, any>
@@ -19,8 +17,6 @@ function SearchComponent({
   searchParameters,
   ...props
 }: SearchProps) {
-  if (!isBrowser) console.log('InstantSearch', props)
-
   return (
     <InstantSearch {...props}>
       <Configure {...searchParameters} />

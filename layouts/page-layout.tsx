@@ -41,14 +41,11 @@ export function PageLayout({
   const searchClient = useAtomValue(searchClientAtom)
   const { searchState, onSearchStateChange, createURL } = useUrlSync()
 
-  // I'm using 'searchState' initialized from the URL, so 'initialSearchState' coming from findResultsState should be the same
-  if (isBrowser) console.log('PageLayout', resultsState, initialSearchState)
-
   return (
     <Search
       indexName={indexName}
       searchClient={searchClient}
-      searchState={initialSearchState ?? searchState}
+      searchState={isBrowser ? searchState : initialSearchState}
       searchParameters={searchParameters}
       resultsState={resultsState}
       createURL={createURL}

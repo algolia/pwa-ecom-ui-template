@@ -6,16 +6,6 @@ export type DynamicWidgetsProps = {
   [index: string]: any
 }
 
-function DummyWrapper({
-  children,
-  ...props
-}: {
-  children: React.ReactNode
-  [index: string]: any
-}) {
-  return <div {...props}>{children}</div>
-}
-
 export function DynamicWidgets({
   children,
   enabled = true,
@@ -26,6 +16,6 @@ export function DynamicWidgets({
       {children}
     </ExperimentalDynamicWidgets>
   ) : (
-    <DummyWrapper {...props}>{children}</DummyWrapper>
+    <div {...props}>{children}</div>
   )
 }

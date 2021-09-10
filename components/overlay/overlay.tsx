@@ -15,7 +15,7 @@ export const overlayAtom = atom<OverlayAtomValue>({
 
 export function Overlay() {
   const router = useRouter()
-  const isHomePage = useMemo(() => router?.route === '/', [router?.route])
+  const isHomePage = useMemo(() => router?.pathname === '/', [router?.pathname])
 
   const [{ visible, zIndex }, setOverlay] = useAtom(overlayAtom)
 

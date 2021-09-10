@@ -32,7 +32,7 @@ const isExpandedAtom = atom(
 export function NavBottom() {
   // Router
   const router = useRouter()
-  const isHomePage = useMemo(() => router?.route === '/', [router?.route])
+  const isHomePage = useMemo(() => router?.pathname === '/', [router?.pathname])
 
   // Get app state
   const { autocomplete: autocompleteConfig } = useAtomValue(configAtom)

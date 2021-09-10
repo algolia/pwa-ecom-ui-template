@@ -30,8 +30,8 @@ export function useUrlSync() {
   // Router
   const router = useRouter()
   const isCatalogPage = useMemo(
-    () => router?.route === '/catalog/[[...slugs]]',
-    [router?.route]
+    () => router?.pathname === '/catalog/[[...slugs]]',
+    [router?.pathname]
   )
 
   // Internal search state
@@ -47,7 +47,7 @@ export function useUrlSync() {
         router.push(newRoute, undefined, { shallow: true })
       }
     },
-    [router?.asPath, router?.route] // eslint-disable-line react-hooks/exhaustive-deps
+    [router?.asPath] // eslint-disable-line react-hooks/exhaustive-deps
   )
 
   const debouncedPushRoute = useDebouncedCallback(pushRoute, 500)
