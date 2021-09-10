@@ -1,8 +1,7 @@
-import { atom, useAtom } from 'jotai'
+import { atom } from 'jotai'
 import { selectAtom, useAtomValue } from 'jotai/utils'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useMemo } from 'react'
-import isEqual from 'react-fast-compare'
 import type { SearchState } from 'react-instantsearch-core'
 
 import {
@@ -14,6 +13,7 @@ import {
 import { autocompleteAtom } from '@/components/@autocomplete/_default/autocomplete'
 import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 import { useDeepCompareEffect } from '@/hooks/useDeepCompareEffect'
+import { useDeepUpdateAtom } from '@/hooks/useDeepUpdateAtom'
 import { isomorphicWindow } from '@/utils/browser'
 import { scrollToTop } from '@/utils/scrollToTop'
 
@@ -35,20 +35,15 @@ export function useUrlSync() {
   )
 
   // Internal search state
-  const [searchState, _setSearchState] = useAtom(searchStateAtom)
+  const [searchState, _setSearchState] = useDeepUpdateAtom(searchStateAtom)
 
   const setSearchState = useCallback(
-    (nextSearchState: SearchState) => {
-      const newSearchState = {
-        ...searchState,
+    (nextSearchState: SearchState) =>
+      _setSearchState((currentSearchState) => ({
+        ...currentSearchState,
         ...nextSearchState,
-      }
-
-      if (!isEqual(searchState, newSearchState)) {
-        _setSearchState(newSearchState)
-      }
-    },
-    [_setSearchState, searchState]
+      })),
+    [_setSearchState]
   )
 
   // Push new route based on the search state
