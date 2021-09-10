@@ -6,6 +6,8 @@ import type {
   GetServerSidePropsResult,
   GetStaticPropsResult,
 } from 'next'
+import { memo } from 'react'
+import isEqual from 'react-fast-compare'
 
 import { Search } from '@instantsearch/search'
 import { urlToSearchState } from '@instantsearch/utils/url'
@@ -31,7 +33,7 @@ const variants = {
 
 const transition = { type: 'linear' }
 
-export function PageLayout({
+function PageLayoutComponent({
   children,
   resultsState,
   searchState: initialSearchState,
@@ -64,6 +66,8 @@ export function PageLayout({
     </Search>
   )
 }
+
+export const PageLayout = memo(PageLayoutComponent, isEqual)
 
 export type GetServerSidePropsOptions = Partial<GetServerSidePropsResult<any>>
 export type GetStaticPropsOptions = Partial<GetStaticPropsResult<any>>
