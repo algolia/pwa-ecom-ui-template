@@ -35,7 +35,21 @@ export function useUrlSync() {
   )
 
   // Internal search state
-  const [searchState, setSearchState] = useAtom(searchStateAtom)
+  const [searchState, _setSearchState] = useAtom(searchStateAtom)
+
+  const setSearchState = useCallback(
+    (nextSearchState: SearchState) => {
+      const newSearchState = {
+        ...searchState,
+        ...nextSearchState,
+      }
+
+      if (!isEqual(searchState, newSearchState)) {
+        _setSearchState(newSearchState)
+      }
+    },
+    [_setSearchState, searchState]
+  )
 
   // Push new route based on the search state
   const pushRoute = useCallback(
@@ -44,7 +58,7 @@ export function useUrlSync() {
 
       const newRoute = `/catalog${searchStateToUrl(nextSearchState)}`
       if (router.asPath !== newRoute) {
-        router.push(newRoute, undefined, { shallow: true })
+        router.push(newRoute, newRoute, { shallow: true })
       }
     },
     [router?.asPath] // eslint-disable-line react-hooks/exhaustive-deps
@@ -57,12 +71,8 @@ export function useUrlSync() {
   useEffect(() => {
     const handleRouteChange = () => {
       const newSearchState = urlToSearchState(window.location.href)
-
-      // Make sure search state has changed
-      if (!isEqual(searchState, newSearchState)) {
-        setSearchState(newSearchState)
-        autocomplete?.setQuery(newSearchState.query ?? '')
-      }
+      setSearchState(newSearchState)
+      autocomplete?.setQuery(newSearchState.query ?? '')
     }
 
     router.events.on('routeChangeComplete', handleRouteChange)
@@ -70,7 +80,7 @@ export function useUrlSync() {
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
     }
-  }, [router?.events, setSearchState, searchState, autocomplete])
+  }, [router?.events, setSearchState, autocomplete])
 
   // Sync internal search state with InstantSearch and push new route
   const onSearchStateChange = useCallback(
