@@ -24,7 +24,7 @@ export const refinementsPanelMobileExpandedAtom = atom(
 export const refinementsPanelDesktopExpandedAtom = atom(true)
 
 export function RefinementsPanel({
-  dynamicWidgets = false,
+  dynamicWidgets = true,
 }: RefinementsPanelProps) {
   const mobileExpanded = useAtomValue(refinementsPanelMobileExpandedAtom)
   const desktopExpanded = useAtomValue(refinementsPanelDesktopExpandedAtom)

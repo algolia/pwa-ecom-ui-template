@@ -31,7 +31,7 @@ export type RefinementsBarProps = {
 }
 
 export function RefinementsBar({
-  dynamicWidgets = false,
+  dynamicWidgets = true,
   showWidgets = false,
   className,
 }: RefinementsBarProps) {

@@ -21,10 +21,18 @@ export async function getResultsState({
   // 'useSearchClient' hook is not used here as this function runs on server-side only
   const searchClient = algoliasearch(appId, searchApiKey)
 
+  // We need two 'findResultsState' for 'DynamicWidgets' to work properly
+  const firstResultsState = await findResultsState(component, {
+    searchClient,
+    indexName,
+    searchState,
+  })
+
   let resultsState = await findResultsState(component, {
     searchClient,
     indexName,
     searchState,
+    resultsState: firstResultsState,
   })
 
   // Strips down unserializable values so Next.js doesn't show an error
