@@ -6,7 +6,6 @@ import { RefinementsPanelBody } from './refinements-panel-body'
 import { RefinementsPanelFooter } from './refinements-panel-footer'
 import { RefinementsPanelHeader } from './refinements-panel-header'
 
-import { ClientOnly } from '@/components/client-only/client-only'
 import { overlayAtom } from '@/components/overlay/overlay'
 import { Tablet } from '@/lib/media'
 
@@ -39,22 +38,22 @@ export function RefinementsPanel({
   })
 
   return (
-    <ClientOnly>
-      <section className={cn}>
-        <div className="w-full laptop:w-64 laptop:h-full laptop:overflow-y-auto">
-          <div className="h-full w-full flex flex-col laptop:pr-5">
-            <div className="flex-grow px-4 overflow-y-auto laptop:px-0 laptop:overflow-y-visible">
-              <RefinementsPanelHeader />
-              <RefinementsPanelBody dynamicWidgets={dynamicWidgets} />
-            </div>
-            <Tablet>
-              <RefinementsPanelFooter />
-            </Tablet>
+    // <ClientOnly>
+    <section className={cn}>
+      <div className="w-full laptop:w-64 laptop:h-full laptop:overflow-y-auto">
+        <div className="h-full w-full flex flex-col laptop:pr-5">
+          <div className="flex-grow px-4 overflow-y-auto laptop:px-0 laptop:overflow-y-visible">
+            <RefinementsPanelHeader />
+            <RefinementsPanelBody dynamicWidgets={dynamicWidgets} />
           </div>
+          <Tablet>
+            <RefinementsPanelFooter />
+          </Tablet>
         </div>
+      </div>
 
-        <div className="RefinementsPanel-gradient" />
-      </section>
-    </ClientOnly>
+      <div className="RefinementsPanel-gradient" />
+    </section>
+    // </ClientOnly>
   )
 }

@@ -14,7 +14,8 @@ import { searchClientAtom } from './app-layout'
 
 import { useUrlSync } from '@/components/@instantsearch/hooks/useUrlSync'
 import { configAtom } from '@/config/config'
-import { appId, indexName, searchApiKey } from '@/utils/env'
+import { isBrowser } from '@/utils/browser'
+import { appId, searchApiKey, indexName } from '@/utils/env'
 import { getResultsState } from '@/utils/getResultsState'
 
 export type PageLayoutProps = {
@@ -30,10 +31,18 @@ const variants = {
 
 const transition = { type: 'linear' }
 
-export function PageLayout({ children, ...props }: PageLayoutProps) {
+export function PageLayout({
+  children,
+  resultsState,
+  searchState: initialSearchState,
+  ...props
+}: PageLayoutProps) {
   const { searchParameters } = useAtomValue(configAtom)
   const searchClient = useAtomValue(searchClientAtom)
   const { searchState, onSearchStateChange, createURL } = useUrlSync()
+
+  // I'm using 'searchState' initialized from the URL, so 'initialSearchState' coming from findResultsState should be the same
+  if (isBrowser) console.log('PageLayout', resultsState, initialSearchState)
 
   return (
     <Search
@@ -41,6 +50,7 @@ export function PageLayout({ children, ...props }: PageLayoutProps) {
       searchClient={searchClient}
       searchState={searchState}
       searchParameters={searchParameters}
+      resultsState={resultsState}
       createURL={createURL}
       onSearchStateChange={onSearchStateChange}
       {...props}

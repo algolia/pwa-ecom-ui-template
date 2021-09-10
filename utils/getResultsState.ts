@@ -1,10 +1,11 @@
 import algoliasearch from 'algoliasearch/lite'
+import type { SearchState } from 'react-instantsearch-core'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 import { findResultsState } from 'react-instantsearch-dom/server'
 
 export type GetResultsStateParams = {
   component: React.ComponentType
-  searchState: InstantSearchProps['searchState']
+  searchState: SearchState
   appId: string
   searchApiKey: string
   indexName: string
