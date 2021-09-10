@@ -49,14 +49,12 @@ export function NavBottom() {
   const setOverlay = useUpdateAtom(overlayAtom)
 
   // Show/hide overlay when autocomplete is focused/blurred
-  useEffect(
-    () =>
-      setOverlay({
-        visible: isFocused && isHomePage,
-        zIndex: 'z-overlay-header',
-      }),
-    [setOverlay, isFocused, isHomePage]
-  )
+  useEffect(() => {
+    setOverlay({
+      visible: isFocused && isHomePage,
+      zIndex: 'z-overlay-header',
+    })
+  }, [setOverlay, isFocused, isHomePage])
 
   // Handlers
   const handleFocusBlur = useCallback(
