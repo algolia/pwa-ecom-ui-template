@@ -48,7 +48,7 @@ export function PageLayout({
     <Search
       indexName={indexName}
       searchClient={searchClient}
-      searchState={searchState}
+      searchState={initialSearchState ?? searchState}
       searchParameters={searchParameters}
       resultsState={resultsState}
       createURL={createURL}

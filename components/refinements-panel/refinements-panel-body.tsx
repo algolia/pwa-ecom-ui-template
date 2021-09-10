@@ -7,7 +7,6 @@ import {
   getPanelAttributes,
   getPanelId,
 } from '@instantsearch/utils/refinements'
-import { DynamicWidgets } from '@instantsearch/widgets/dynamic-widgets/dynamic-widgets'
 import { ExpandablePanel } from '@instantsearch/widgets/expandable-panel/expandable-panel'
 import { SortBy } from '@instantsearch/widgets/sort-by/sort-by'
 
@@ -154,7 +153,7 @@ export function RefinementsPanelBody({
   return (
     <div>
       <Tablet>{sortWidget}</Tablet>
-      <DynamicWidgets enabled={dynamicWidgets}>{widgetsPanels}</DynamicWidgets>
+      {widgetsPanels}
     </div>
   )
 }
