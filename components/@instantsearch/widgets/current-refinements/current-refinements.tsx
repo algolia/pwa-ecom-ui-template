@@ -51,6 +51,8 @@ function CurrentRefinementsComponent({
     setRefinementCount(refinements.length)
   }, [setRefinementCount, refinements])
 
+  if (!refinements.length) return null
+
   return (
     <div className={className}>
       {header && <div className="text-neutral-dark mb-2">{header}</div>}
