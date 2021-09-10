@@ -4,8 +4,11 @@ import dynamic from 'next/dynamic'
 import { Breadcrumb } from '@/components/@instantsearch/widgets/breadcrumb/breadcrumb'
 import { configAtom } from '@/config/config'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
-import type { PageLayoutProps } from '@/layouts/page-layout'
-import { getServerSidePropsPage, PageLayout } from '@/layouts/page-layout'
+import type { SearchPageLayoutProps } from '@/layouts/search-page-layout'
+import {
+  getServerSidePropsPage,
+  SearchPageLayout,
+} from '@/layouts/search-page-layout'
 
 const Products = dynamic<any>(() =>
   import(
@@ -25,14 +28,14 @@ const RefinementsPanel = dynamic<any>(() =>
   ).then((mod) => mod.RefinementsPanel)
 )
 
-export default function Catalog(props: PageLayoutProps) {
+export default function Catalog(props: SearchPageLayoutProps) {
   const { breadcrumbAttributes, refinementsLayoutAtom } =
     useAtomValue(configAtom)
   const refinementsLayout = useAtomValue(refinementsLayoutAtom)
   const { laptop } = useTailwindScreens()
 
   return (
-    <PageLayout {...props}>
+    <SearchPageLayout {...props}>
       <div className="flex flex-col p-2.5 laptop:p-0 laptop:mx-20">
         <Breadcrumb attributes={breadcrumbAttributes} />
 
@@ -47,7 +50,7 @@ export default function Catalog(props: PageLayoutProps) {
           </div>
         </div>
       </div>
-    </PageLayout>
+    </SearchPageLayout>
   )
 }
 

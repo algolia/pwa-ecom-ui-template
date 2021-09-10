@@ -1,4 +1,3 @@
-import { m } from 'framer-motion'
 import { useAtomValue } from 'jotai/utils'
 import type {
   GetStaticPropsContext,
@@ -13,6 +12,8 @@ import { Search } from '@instantsearch/search'
 import { urlToSearchState } from '@instantsearch/utils/url'
 
 import { searchClientAtom } from './app-layout'
+import type { BasicPageLayoutProps } from './basic-page-layout'
+import { BasicPageLayout } from './basic-page-layout'
 
 import { useUrlSync } from '@/components/@instantsearch/hooks/useUrlSync'
 import { configAtom } from '@/config/config'
@@ -20,54 +21,40 @@ import { isBrowser } from '@/utils/browser'
 import { appId, searchApiKey, indexName } from '@/utils/env'
 import { getResultsState } from '@/utils/getResultsState'
 
-export type PageLayoutProps = {
-  children: React.ReactNode
+export type SearchPageLayoutProps = BasicPageLayoutProps & {
   searchState?: any
   resultsState?: any
 }
 
-const variants = {
-  visible: { opacity: 1 },
-  hidden: { opacity: 0 },
-}
-
-const transition = { type: 'linear' }
-
-function PageLayoutComponent({
+function SearchPageLayoutComponent({
   children,
   resultsState,
   searchState: initialSearchState,
   ...props
-}: PageLayoutProps) {
+}: SearchPageLayoutProps) {
   const { searchParameters } = useAtomValue(configAtom)
   const searchClient = useAtomValue(searchClientAtom)
   const { searchState, onSearchStateChange, createURL } = useUrlSync()
 
   return (
-    <Search
-      indexName={indexName}
-      searchClient={searchClient}
-      searchState={isBrowser ? searchState : initialSearchState}
-      searchParameters={searchParameters}
-      resultsState={resultsState}
-      createURL={createURL}
-      onSearchStateChange={onSearchStateChange}
-      {...props}
-    >
-      <m.main
-        initial="hidden"
-        animate="visible"
-        exit="hidden"
-        variants={variants}
-        transition={transition}
+    <BasicPageLayout>
+      <Search
+        indexName={indexName}
+        searchClient={searchClient}
+        searchState={isBrowser ? searchState : initialSearchState}
+        searchParameters={searchParameters}
+        resultsState={resultsState}
+        createURL={createURL}
+        onSearchStateChange={onSearchStateChange}
+        {...props}
       >
         {children}
-      </m.main>
-    </Search>
+      </Search>
+    </BasicPageLayout>
   )
 }
 
-export const PageLayout = memo(PageLayoutComponent, isEqual)
+export const SearchPageLayout = memo(SearchPageLayoutComponent, isEqual)
 
 export type GetServerSidePropsOptions = Partial<GetServerSidePropsResult<any>>
 export type GetStaticPropsOptions = Partial<GetStaticPropsResult<any>>
