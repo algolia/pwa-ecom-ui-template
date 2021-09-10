@@ -1,8 +1,7 @@
-import { atom, useAtom } from 'jotai'
+import { atom } from 'jotai'
 import { selectAtom, useAtomValue } from 'jotai/utils'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useMemo } from 'react'
-import isEqual from 'react-fast-compare'
 import type { SearchState } from 'react-instantsearch-core'
 
 import {
@@ -14,6 +13,7 @@ import {
 import { autocompleteAtom } from '@/components/@autocomplete/_default/autocomplete'
 import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 import { useDeepCompareEffect } from '@/hooks/useDeepCompareEffect'
+import { useDeepUpdateAtom } from '@/hooks/useDeepUpdateAtom'
 import { isomorphicWindow } from '@/utils/browser'
 import { scrollToTop } from '@/utils/scrollToTop'
 
@@ -30,12 +30,21 @@ export function useUrlSync() {
   // Router
   const router = useRouter()
   const isCatalogPage = useMemo(
-    () => router?.route === '/catalog/[[...slugs]]',
-    [router?.route]
+    () => router?.pathname === '/catalog/[[...slugs]]',
+    [router?.pathname]
   )
 
   // Internal search state
-  const [searchState, setSearchState] = useAtom(searchStateAtom)
+  const [searchState, _setSearchState] = useDeepUpdateAtom(searchStateAtom)
+
+  const setSearchState = useCallback(
+    (nextSearchState: SearchState) =>
+      _setSearchState((currentSearchState) => ({
+        ...currentSearchState,
+        ...nextSearchState,
+      })),
+    [_setSearchState]
+  )
 
   // Push new route based on the search state
   const pushRoute = useCallback(
@@ -44,25 +53,21 @@ export function useUrlSync() {
 
       const newRoute = `/catalog${searchStateToUrl(nextSearchState)}`
       if (router.asPath !== newRoute) {
-        router.push(newRoute, undefined, { shallow: true })
+        router.push(newRoute, newRoute, { shallow: true })
       }
     },
-    [router?.asPath, router?.route] // eslint-disable-line react-hooks/exhaustive-deps
+    [router?.asPath] // eslint-disable-line react-hooks/exhaustive-deps
   )
 
-  const debouncedPushRoute = useDebouncedCallback(pushRoute, 400)
+  const debouncedPushRoute = useDebouncedCallback(pushRoute, 500)
 
   // Listen for route changes and update search state accordingly
   const autocomplete = useAtomValue(autocompleteAtom)
   useEffect(() => {
     const handleRouteChange = () => {
       const newSearchState = urlToSearchState(window.location.href)
-
-      // Make sure search state has changed
-      if (!isEqual(searchState, newSearchState)) {
-        setSearchState(newSearchState)
-        autocomplete?.setQuery(newSearchState.query ?? '')
-      }
+      setSearchState(newSearchState)
+      autocomplete?.setQuery(newSearchState.query ?? '')
     }
 
     router.events.on('routeChangeComplete', handleRouteChange)
@@ -70,7 +75,7 @@ export function useUrlSync() {
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
     }
-  }, [router?.events, setSearchState, searchState, autocomplete])
+  }, [router?.events, setSearchState, autocomplete])
 
   // Sync internal search state with InstantSearch and push new route
   const onSearchStateChange = useCallback(

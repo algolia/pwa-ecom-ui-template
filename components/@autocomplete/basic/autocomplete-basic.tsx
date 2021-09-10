@@ -36,17 +36,17 @@ function AutocompleteBasicComponent({
   onFocusBlur,
   ...props
 }: AutocompleteBasicProps) {
-  const setSearchState = useUpdateAtom(searchStateAtom)
+  const _setSearchState = useUpdateAtom(searchStateAtom)
 
-  const updateSearchState = useCallback(
+  const setSearchState = useCallback(
     (nextSearchState: SearchState) => {
-      setSearchState((currentSearchState: SearchState) => ({
+      _setSearchState((currentSearchState: SearchState) => ({
         ...currentSearchState,
         ...nextSearchState,
         page: 1,
       }))
     },
-    [setSearchState]
+    [_setSearchState]
   )
 
   const recentSearches = useMemo(
@@ -114,10 +114,10 @@ function AutocompleteBasicComponent({
         prevState.query !== state.query &&
         typeof state.query !== 'undefined'
       ) {
-        updateSearchState({ query: state.query })
+        setSearchState({ query: state.query })
       }
     },
-    [updateSearchState]
+    [setSearchState]
   )
 
   return (

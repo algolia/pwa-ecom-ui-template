@@ -47,10 +47,9 @@ function CurrentRefinementsComponent({
   )
 
   const setRefinementCount = useUpdateAtom(refinementCountAtom)
-  useEffect(
-    () => setRefinementCount(refinements.length),
-    [setRefinementCount, refinements]
-  )
+  useEffect(() => {
+    setRefinementCount(refinements.length)
+  }, [setRefinementCount, refinements])
 
   return (
     <div className={className}>

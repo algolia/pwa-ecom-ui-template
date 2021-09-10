@@ -1,17 +1,19 @@
 import { useAtom } from 'jotai'
+import { useAtomValue } from 'jotai/utils'
 import { useRouter } from 'next/router'
 import { useEffect, useRef } from 'react'
 import { Pane as Tweakpane } from 'tweakpane'
 
 import { gridsHiddenAtom } from '../grids/grids'
 
-import { refinementsLayoutAtom } from '@/config/config'
+import { configAtom } from '@/config/config'
 
 export function Pane() {
   const paneContainer = useRef(null)
   const router = useRouter()
 
   const [gridsHidden, setGridsHidden] = useAtom(gridsHiddenAtom)
+  const { refinementsLayoutAtom } = useAtomValue(configAtom)
   const [refinementsLayout, setRefinementsLayout] = useAtom(
     refinementsLayoutAtom
   )

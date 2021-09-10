@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 import { atom, useAtom } from 'jotai'
-import { useRouter } from 'next/router'
-import { useCallback, useMemo } from 'react'
+import { useCallback } from 'react'
 
 export type OverlayAtomValue = {
   visible: boolean
@@ -14,9 +13,6 @@ export const overlayAtom = atom<OverlayAtomValue>({
 })
 
 export function Overlay() {
-  const router = useRouter()
-  const isHomePage = useMemo(() => router?.route === '/', [router?.route])
-
   const [{ visible, zIndex }, setOverlay] = useAtom(overlayAtom)
 
   const onClick = useCallback(() => {
@@ -27,7 +23,7 @@ export function Overlay() {
     'fixed w-full h-full inset-0 bg-black bg-opacity-50 opacity-0 backdrop-blur-sm transition-opacity pointer-events-none cursor-pointer',
     zIndex,
     {
-      'opacity-100 pointer-events-auto': visible && isHomePage,
+      'opacity-100 pointer-events-auto': visible,
     }
   )
 

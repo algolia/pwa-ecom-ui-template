@@ -1,10 +1,10 @@
 import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
 import classNames from 'classnames'
 import { m } from 'framer-motion'
-import { atom } from 'jotai'
+import { atom, useAtom } from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { useRouter } from 'next/router'
-import { useCallback, useMemo, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 
 import { AutocompleteBasic } from '@autocomplete/basic/autocomplete-basic'
 import { Button } from '@ui/button/button'
@@ -32,7 +32,7 @@ const isExpandedAtom = atom(
 export function NavBottom() {
   // Router
   const router = useRouter()
-  const isHomePage = useMemo(() => router?.route === '/', [router?.route])
+  const isHomePage = useMemo(() => router?.pathname === '/', [router?.pathname])
 
   // Get app state
   const { autocomplete: autocompleteConfig } = useAtomValue(configAtom)
@@ -45,14 +45,23 @@ export function NavBottom() {
   const isMounted = useIsMounted()
   const isExpanded = useAtomValue(isExpandedAtom) && isMounted()
 
-  const setIsFocused = useUpdateAtom(isFocusedAtom)
+  const [isFocused, setIsFocused] = useAtom(isFocusedAtom)
   const setOverlay = useUpdateAtom(overlayAtom)
 
-  const handleFocusBlur = useCallback((focused: boolean) => {
-    setIsFocused(focused)
-    setOverlay({ visible: focused, zIndex: 'z-overlay-header' })
+  // Show/hide overlay when autocomplete is focused/blurred
+  useEffect(() => {
+    setOverlay({
+      visible: isFocused && isHomePage,
+      zIndex: 'z-overlay-header',
+    })
+  }, [setOverlay, isFocused, isHomePage])
+
+  // Handlers
+  const handleFocusBlur = useCallback(
+    (focused: boolean) => setIsFocused(focused),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    []
+  )
 
   const handleSelect = useCallback(
     (query: string = '') => {

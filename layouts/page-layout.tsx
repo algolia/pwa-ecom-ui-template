@@ -6,6 +6,8 @@ import type {
   GetServerSidePropsResult,
   GetStaticPropsResult,
 } from 'next'
+import { memo } from 'react'
+import isEqual from 'react-fast-compare'
 
 import { Search } from '@instantsearch/search'
 import { urlToSearchState } from '@instantsearch/utils/url'
@@ -14,7 +16,8 @@ import { searchClientAtom } from './app-layout'
 
 import { useUrlSync } from '@/components/@instantsearch/hooks/useUrlSync'
 import { configAtom } from '@/config/config'
-import { appId, indexName, searchApiKey } from '@/utils/env'
+import { isBrowser } from '@/utils/browser'
+import { appId, searchApiKey, indexName } from '@/utils/env'
 import { getResultsState } from '@/utils/getResultsState'
 
 export type PageLayoutProps = {
@@ -30,7 +33,12 @@ const variants = {
 
 const transition = { type: 'linear' }
 
-export function PageLayout({ children, ...props }: PageLayoutProps) {
+function PageLayoutComponent({
+  children,
+  resultsState,
+  searchState: initialSearchState,
+  ...props
+}: PageLayoutProps) {
   const { searchParameters } = useAtomValue(configAtom)
   const searchClient = useAtomValue(searchClientAtom)
   const { searchState, onSearchStateChange, createURL } = useUrlSync()
@@ -39,8 +47,9 @@ export function PageLayout({ children, ...props }: PageLayoutProps) {
     <Search
       indexName={indexName}
       searchClient={searchClient}
-      searchState={searchState}
+      searchState={isBrowser ? searchState : initialSearchState}
       searchParameters={searchParameters}
+      resultsState={resultsState}
       createURL={createURL}
       onSearchStateChange={onSearchStateChange}
       {...props}
@@ -58,13 +67,15 @@ export function PageLayout({ children, ...props }: PageLayoutProps) {
   )
 }
 
+export const PageLayout = memo(PageLayoutComponent, isEqual)
+
 export type GetServerSidePropsOptions = Partial<GetServerSidePropsResult<any>>
 export type GetStaticPropsOptions = Partial<GetStaticPropsResult<any>>
 
-const getPropsPage = async (
+export const getPropsPage = async (
   component: React.ComponentType,
   url: string,
-  options: GetServerSidePropsOptions | GetStaticPropsOptions | undefined
+  options?: GetServerSidePropsOptions | GetStaticPropsOptions
 ) => {
   const searchState = urlToSearchState(url)
   const resultsState = await getResultsState({

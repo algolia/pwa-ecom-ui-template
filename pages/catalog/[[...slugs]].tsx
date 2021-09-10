@@ -5,7 +5,7 @@ import { Breadcrumb } from '@/components/@instantsearch/widgets/breadcrumb/bread
 import { configAtom } from '@/config/config'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 import type { PageLayoutProps } from '@/layouts/page-layout'
-import { PageLayout } from '@/layouts/page-layout'
+import { getServerSidePropsPage, PageLayout } from '@/layouts/page-layout'
 
 const Products = dynamic<any>(() =>
   import(
@@ -25,7 +25,7 @@ const RefinementsPanel = dynamic<any>(() =>
   ).then((mod) => mod.RefinementsPanel)
 )
 
-export default function Search(props: PageLayoutProps) {
+export default function Catalog(props: PageLayoutProps) {
   const { breadcrumbAttributes, refinementsLayoutAtom } =
     useAtomValue(configAtom)
   const refinementsLayout = useAtomValue(refinementsLayoutAtom)
@@ -50,3 +50,7 @@ export default function Search(props: PageLayoutProps) {
     </PageLayout>
   )
 }
+
+export const getServerSideProps = getServerSidePropsPage(
+  Catalog as React.ComponentType
+)
