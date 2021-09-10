@@ -50,7 +50,7 @@ export function useUrlSync() {
     [router?.asPath, router?.route] // eslint-disable-line react-hooks/exhaustive-deps
   )
 
-  const debouncedPushRoute = useDebouncedCallback(pushRoute, 400)
+  const debouncedPushRoute = useDebouncedCallback(pushRoute, 500)
 
   // Listen for route changes and update search state accordingly
   const autocomplete = useAtomValue(autocompleteAtom)

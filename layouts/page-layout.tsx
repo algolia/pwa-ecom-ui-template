@@ -61,10 +61,10 @@ export function PageLayout({ children, ...props }: PageLayoutProps) {
 export type GetServerSidePropsOptions = Partial<GetServerSidePropsResult<any>>
 export type GetStaticPropsOptions = Partial<GetStaticPropsResult<any>>
 
-const getPropsPage = async (
+export const getPropsPage = async (
   component: React.ComponentType,
   url: string,
-  options: GetServerSidePropsOptions | GetStaticPropsOptions | undefined
+  options?: GetServerSidePropsOptions | GetStaticPropsOptions
 ) => {
   const searchState = urlToSearchState(url)
   const resultsState = await getResultsState({
