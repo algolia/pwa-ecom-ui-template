@@ -74,7 +74,16 @@ export const urlToSearchState = (url: string = ''): SearchState => {
 
   const { pathname, search } = new URL(url, 'http://base.com')
 
-  const searchState = qs.parse(search, { ignoreQueryPrefix: true })
+  const searchState = qs.parse(search, {
+    ignoreQueryPrefix: true,
+    decoder(value, defaultDecoder, charset, type) {
+      if (type === 'value' && /^(\d+|\d*\.\d+)$/.test(value)) {
+        return parseFloat(value)
+      }
+
+      return defaultDecoder(value)
+    },
+  })
 
   const parsedSearchState: Record<string, any> = {}
   for (const [key, val] of Object.entries(searchState)) {
