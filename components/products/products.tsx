@@ -8,6 +8,7 @@ import {
   Snippet,
 } from 'react-instantsearch-dom'
 
+import { LoadLess } from '@instantsearch/widgets/load-less/load-less'
 import { LoadMore } from '@instantsearch/widgets/load-more/load-more'
 import { RelevantSort } from '@instantsearch/widgets/relevant-sort/relevant-sort'
 import { Stats } from '@instantsearch/widgets/stats/stats'
@@ -34,7 +35,11 @@ export type ProductHit = {
 
 export type ProductsProps = InfiniteHitsProvided<ProductHit>
 
-function ProductsComponent({ hits }: ProductsProps) {
+function ProductsComponent({
+  hits,
+  hasPrevious,
+  refinePrevious,
+}: ProductsProps) {
   const viewMode = useAtomValue(viewModeAtom)
 
   const products = useMemo(
@@ -94,6 +99,7 @@ function ProductsComponent({ hits }: ProductsProps) {
         <Stats className="ml-auto" />
       </div>
 
+      <LoadLess hasPrevious={hasPrevious} refinePrevious={refinePrevious} />
       <ProductView products={products} view={viewMode} />
       <LoadMore />
     </section>
