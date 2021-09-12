@@ -1,14 +1,13 @@
-import CheckIcon from '@material-design-icons/svg/outlined/check.svg'
 import classNames from 'classnames'
 import { useCallback, useRef, useState } from 'react'
 
 import { Button } from '@ui/button/button'
 import { Dropdown } from '@ui/dropdown/dropdown'
-
-import { Icon } from '../icon/icon'
+import { Icon } from '@ui/icon/icon'
 
 import { useIsVisible } from '@/hooks/useIsVisible'
 import { modAbs } from '@/utils/math'
+import CheckIcon from '~icons/ic/outline-check'
 
 export type SelectOption = {
   value: string

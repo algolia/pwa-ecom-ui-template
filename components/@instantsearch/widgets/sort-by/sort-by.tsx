@@ -1,4 +1,3 @@
-import SortIcon from '@material-design-icons/svg/outlined/sort.svg'
 import classNames from 'classnames'
 import { memo, useCallback, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
@@ -9,6 +8,7 @@ import { ExpandablePanel } from '@instantsearch/widgets/expandable-panel/expanda
 
 import { IconLabel } from '@/components/@ui/icon-label/icon-label'
 import { Select } from '@/components/@ui/select/select'
+import SortIcon from '~icons/ic/outline-sort'
 
 export type SortByView = 'dropdown' | 'select'
 

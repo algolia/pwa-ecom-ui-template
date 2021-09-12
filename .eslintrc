@@ -28,6 +28,12 @@
         "props": true,
         "ignorePropertyModificationsFor": ["accu"]
       }
+    ],
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": ["~icons"]
+      }
     ]
   }
 }

@@ -1,4 +1,3 @@
-import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
 import classNames from 'classnames'
 import { m } from 'framer-motion'
 import { atom, useAtom } from 'jotai'
@@ -18,6 +17,7 @@ import { configAtom } from '@/config/config'
 import { useIsMounted } from '@/hooks/useIsMounted'
 import { searchClientAtom } from '@/layouts/app-layout'
 import { Laptop, Tablet } from '@/lib/media'
+import MenuIcon from '~icons/ic/outline-menu'
 
 const transition = {
   type: 'spring',
