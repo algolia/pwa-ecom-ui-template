@@ -1,9 +1,9 @@
-import { PageLayout } from '@/layouts/page-layout'
+import { BasicPageLayout } from '@/layouts/basic-page-layout'
 
 export default function Index() {
   return (
-    <PageLayout>
+    <BasicPageLayout>
       <div className="h-screen"></div>
-    </PageLayout>
+    </BasicPageLayout>
   )
 }
