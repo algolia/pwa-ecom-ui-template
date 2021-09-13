@@ -27,11 +27,11 @@ export default function Home(props: SearchPageLayoutProps) {
         <p className="text-sm font-bold laptop:text-3xl">Spring/summer 2021</p>
       </BannerXL>
 
-      <ProductsShowcase indexId="shoes" title="New in shoes" query="shoes" />
+      <ProductsShowcase indexId="shoes" title="New in shoes" />
       <ProductsShowcase
         indexId="spring-summer-2021"
         title="Spring/summer 2021"
-        query="jean"
+        ruleContexts={['home-spring-summer-2021']}
         className="laptop:bg-gray-50"
       />
       <ProductsShowcase
