@@ -42,7 +42,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
         />
       </Head>
 
-      <BannerXS>20% Off! Code: SPRING21 - Terms apply*</BannerXS>
+      <BannerXS className="z-header">
+        20% Off! Code: SPRING21 - Terms apply*
+      </BannerXS>
       <Header />
 
       <AnimatePresence exitBeforeEnter={true} onExitComplete={scrollToTop}>
