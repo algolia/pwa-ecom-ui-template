@@ -2,6 +2,10 @@ import { useAtomValue } from 'jotai/utils'
 import dynamic from 'next/dynamic'
 
 import { Breadcrumb } from '@/components/@instantsearch/widgets/breadcrumb/breadcrumb'
+import { InfiniteHits } from '@/components/@instantsearch/widgets/infinite-hits/infinite-hits'
+import { Container } from '@/components/container/container'
+import { ProductHit } from '@/components/product/product-hit'
+import { viewModeAtom } from '@/components/view-modes/view-modes'
 import { configAtom } from '@/config/config'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 import type { SearchPageLayoutProps } from '@/layouts/search-page-layout'
@@ -9,12 +13,6 @@ import {
   getServerSidePropsPage,
   SearchPageLayout,
 } from '@/layouts/search-page-layout'
-
-const Products = dynamic<any>(() =>
-  import(
-    /* webpackChunkName: 'search' */ '@/components/products/products'
-  ).then((mod) => mod.Products)
-)
 
 const RefinementsBar = dynamic<any>(() =>
   import(
@@ -32,11 +30,12 @@ export default function Catalog(props: SearchPageLayoutProps) {
   const { breadcrumbAttributes, refinementsLayoutAtom } =
     useAtomValue(configAtom)
   const refinementsLayout = useAtomValue(refinementsLayoutAtom)
+  const viewMode = useAtomValue(viewModeAtom)
   const { laptop } = useTailwindScreens()
 
   return (
     <SearchPageLayout {...props}>
-      <div className="flex flex-col p-2.5 laptop:p-0 laptop:mx-20">
+      <Container className="flex flex-col">
         <Breadcrumb attributes={breadcrumbAttributes} />
 
         <div className="flex flex-col laptop:flex-row">
@@ -46,10 +45,15 @@ export default function Catalog(props: SearchPageLayoutProps) {
             <RefinementsBar
               showWidgets={refinementsLayout === 'bar' && laptop}
             />
-            <Products />
+            <InfiniteHits
+              hitComponent={ProductHit}
+              viewMode={viewMode}
+              showLess={true}
+              showMore={true}
+            />
           </div>
         </div>
-      </div>
+      </Container>
     </SearchPageLayout>
   )
 }
