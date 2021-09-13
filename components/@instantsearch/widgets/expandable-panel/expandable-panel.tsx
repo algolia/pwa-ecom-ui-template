@@ -55,7 +55,7 @@ function ExpandablePanelComponent({
       )}
     >
       <Button
-        className="w-full flex items-center justify-between gap-3"
+        className="w-full flex items-center justify-between gap-3 group"
         aria-expanded={isOpened}
         onClick={(e) => {
           if (typeof onToggle === 'function') {
@@ -70,7 +70,7 @@ function ExpandablePanelComponent({
             <Count className="ml-auto">{currentRefinementCount}</Count>
           )}
         </div>
-        <div className="text-neutral-dark">
+        <div className="text-neutral-dark can-hover:transition-colors can-hover:group-hover:text-neutral-light">
           {isOpened ? <Icon icon={RemoveIcon} /> : <Icon icon={AddIcon} />}
         </div>
       </Button>
