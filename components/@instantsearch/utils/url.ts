@@ -2,6 +2,7 @@ import qs from 'qs'
 import type { SearchState } from 'react-instantsearch-core'
 
 import { getMapping } from '@/utils/getMapping'
+import { parseUrl } from '@/utils/parseUrl'
 
 const paramRegexBlacklist = [/configure/, /hierarchicalMenu/]
 const [paramToAlias, aliasToParam] = getMapping({
@@ -72,7 +73,7 @@ export const createURL = (searchState: SearchState): string => {
 export const urlToSearchState = (url: string = ''): SearchState => {
   if (!url) return {}
 
-  const { pathname, search } = new URL(url, 'http://base.com')
+  const { pathname, search } = parseUrl(url)
 
   const searchState = qs.parse(search, {
     ignoreQueryPrefix: true,

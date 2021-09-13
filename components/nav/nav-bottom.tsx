@@ -17,6 +17,7 @@ import { configAtom } from '@/config/config'
 import { useIsMounted } from '@/hooks/useIsMounted'
 import { searchClientAtom } from '@/layouts/app-layout'
 import { Laptop, Tablet } from '@/lib/media'
+import { parseUrl } from '@/utils/parseUrl'
 import MenuIcon from '~icons/ic/outline-menu'
 
 const transition = {
@@ -77,6 +78,12 @@ export function NavBottom() {
     { focused: isExpanded }
   )
 
+  // Current selected sex
+  const currentSex = useMemo(() => {
+    const { pathname } = parseUrl(router?.asPath)
+    return pathname.match(/\/catalog\/(.[^/]*)\/?/)?.[1]
+  }, [router?.asPath])
+
   // Render
   return (
     <div className="flex items-center px-4 relative divide-x border-b border-neutral-light laptop:h-12 laptop:mx-20 laptop:mb-5 laptop:px-0 laptop:justify-between laptop:border-none laptop:divide-none">
@@ -87,16 +94,24 @@ export function NavBottom() {
       </Tablet>
 
       <Laptop>
-        <nav>
-          <ul className="flex gap-6 small-uppercase">
-            <NavItem label="Sale" />
-            <NavItem label="New In" href="/new-in" />
-            <NavItem label="Clothing" />
-            <NavItem label="Shoes" />
-            <NavItem label="Accessories" />
-            <NavItem label="Brands" />
-          </ul>
-        </nav>
+        {currentSex && (
+          <nav>
+            <ul className="flex gap-6 small-uppercase">
+              <NavItem
+                label="Jeans &amp; Bottoms"
+                href={`/catalog/${currentSex}/jeans-bottoms`}
+              />
+              <NavItem
+                label="Shoes &amp; Accesories"
+                href={`/catalog/${currentSex}/shoes-and-accesories`}
+              />
+              <NavItem
+                label="Tops &amp; Jackets"
+                href={`/catalog/${currentSex}/tops-and-jackets`}
+              />
+            </ul>
+          </nav>
+        )}
       </Laptop>
 
       <m.div

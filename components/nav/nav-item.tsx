@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
 import { Link } from '@ui/link/link'
@@ -7,8 +8,13 @@ export type NavItemProps = {
   href?: string
 }
 
-export function NavItem({ label, href }: NavItemProps) {
-  const isSelected = false
+export function NavItem({ label, href = '' }: NavItemProps) {
+  const router = useRouter()
+
+  const isSelected = useMemo(
+    () => router?.asPath.startsWith(href),
+    [router?.asPath, href]
+  )
 
   const labelLowercase = useMemo(
     () => encodeURIComponent(label.toLowerCase()),
@@ -16,7 +22,7 @@ export function NavItem({ label, href }: NavItemProps) {
   )
 
   return (
-    <li className={isSelected ? 'font-bold pointer-events-none' : ''}>
+    <li className={isSelected ? 'font-bold' : ''}>
       <Link href={href ?? `/${labelLowercase}`} title={label} tabIndex={0}>
         {label}
       </Link>
