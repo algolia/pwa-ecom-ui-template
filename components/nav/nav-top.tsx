@@ -30,7 +30,11 @@ export const NavTop = memo(function NavTop() {
 
         <div className="flex gap-48">
           <div className="hidden items-center gap-8 laptop:flex">
-            <Link href="/support" title="Support">
+            <Link
+              href="/support"
+              title="Support"
+              className="can-hover:transition-colors can-hover:hover:text-neutral-dark"
+            >
               <IconLabel
                 icon={HeadsetMicIcon}
                 label="Support"
@@ -38,7 +42,11 @@ export const NavTop = memo(function NavTop() {
                 labelTheme="label-regular"
               />
             </Link>
-            <Link href="/store-locator" title="Find a store">
+            <Link
+              href="/store-locator"
+              title="Find a store"
+              className="can-hover:transition-colors can-hover:hover:text-neutral-dark"
+            >
               <IconLabel
                 icon={PinDropIcon}
                 label="Find a store"

@@ -23,7 +23,12 @@ export function NavItem({ label, href = '' }: NavItemProps) {
 
   return (
     <li className={isSelected ? 'font-bold' : ''}>
-      <Link href={href ?? `/${labelLowercase}`} title={label} tabIndex={0}>
+      <Link
+        href={href ?? `/${labelLowercase}`}
+        title={label}
+        tabIndex={0}
+        className="can-hover:transition-colors can-hover:hover:text-neutral-dark"
+      >
         {label}
       </Link>
     </li>
