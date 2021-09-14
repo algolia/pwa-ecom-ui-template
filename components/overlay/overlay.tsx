@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 
 export type OverlayAtomValue = {
   visible: boolean
-  zIndex: 'z-overlay-full' | 'z-overlay-header'
+  zIndex?: 'z-overlay-full' | 'z-overlay-header'
 }
 
 export const overlayAtom = atom<OverlayAtomValue>({

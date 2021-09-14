@@ -36,7 +36,7 @@
     }
 
     &:disabled {
-      @apply bg-neutral-light text-brand-black;
+      @apply bg-neutral-light text-neutral-dark;
     }
   }
 
@@ -53,7 +53,7 @@
     }
 
     &:disabled {
-      @apply bg-neutral-lightest border-neutral-light text-brand-black;
+      @apply bg-neutral-lightest border-neutral-light text-neutral-dark;
     }
   }
 
@@ -70,7 +70,7 @@
     }
 
     &:disabled {
-      @apply bg-neutral-light text-brand-black;
+      @apply bg-neutral-light text-neutral-dark;
     }
   }
 
@@ -83,7 +83,7 @@
     }
 
     &:disabled {
-      @apply bg-neutral-lightest border-neutral-light text-brand-black;
+      @apply bg-neutral-lightest border-neutral-light text-neutral-dark;
     }
 
     &.btn-selected {

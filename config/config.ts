@@ -5,7 +5,7 @@ import type { Refinement, RefinementLayout } from '@/typings/refinements'
 
 export type Config = typeof config
 
-const refinementsLayout = 'panel' as RefinementLayout
+const refinementsLayoutAtom = atom<RefinementLayout>('panel')
 
 const refinements: Refinement[] = [
   {
@@ -83,14 +83,21 @@ const breadcrumbAttributes = [
 const searchParameters = {
   hitsPerPage: 10,
   maxValuesPerFacet: 50,
+  attributesToSnippet: ['description:30'],
+  snippetEllipsisText: '…',
+}
+
+const autocomplete = {
+  placeholders: ['products', 'articles', 'faq'],
 }
 
 const config = {
-  refinementsLayout,
+  refinementsLayoutAtom,
   refinements,
   sorts,
   breadcrumbAttributes,
   searchParameters,
+  autocomplete,
 }
 
 export const configAtom = freezeAtom(atom(() => config))

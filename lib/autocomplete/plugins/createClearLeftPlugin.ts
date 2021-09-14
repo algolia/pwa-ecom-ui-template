@@ -1,3 +1,4 @@
+import type { BaseItem } from '@algolia/autocomplete-core'
 import type {
   OnStateChangeProps,
   AutocompletePlugin,
@@ -7,15 +8,22 @@ type CreateClearLeftPluginProps = {
   initialQuery?: string
 }
 
+type CustomAutocompletePlugin<
+  TItem extends BaseItem,
+  TData
+> = AutocompletePlugin<TItem, TData> & {
+  unsubscribe?: () => void
+}
+
 export function createClearLeftPlugin<
   TItem extends Record<string, unknown>,
   TData
->({ initialQuery = '' }: CreateClearLeftPluginProps = {}): AutocompletePlugin<
-  TItem,
-  TData
-> {
+>({
+  initialQuery = '',
+}: CreateClearLeftPluginProps = {}): CustomAutocompletePlugin<TItem, TData> {
   let clearBtnEl: HTMLElement | null
   let submitBtnEl: HTMLElement | null
+  let rafId = -1
 
   const toggleBtns = (queryEmpty: boolean) => {
     if (clearBtnEl) clearBtnEl.style.display = queryEmpty ? 'none' : 'block'
@@ -25,7 +33,7 @@ export function createClearLeftPlugin<
   return {
     subscribe() {
       // Wait for the autocomplete to be mounted
-      window.requestAnimationFrame(() => {
+      rafId = window.requestAnimationFrame(() => {
         clearBtnEl = document.querySelector('.aa-ClearButton')
         submitBtnEl = document.querySelector('.aa-SubmitButton')
 
@@ -39,6 +47,10 @@ export function createClearLeftPlugin<
 
         toggleBtns(!initialQuery)
       })
+    },
+
+    unsubscribe() {
+      window.cancelAnimationFrame(rafId)
     },
 
     onStateChange({ state }: OnStateChangeProps<TItem>) {

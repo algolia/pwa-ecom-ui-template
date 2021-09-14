@@ -1,4 +1,3 @@
-import FilterIcon from '@material-design-icons/svg/outlined/filter_list.svg'
 import classNames from 'classnames'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import dynamic from 'next/dynamic'
@@ -17,6 +16,7 @@ import { ToggleFilters } from '@/components/toggle-filters/toggle-filters'
 import { ViewModes } from '@/components/view-modes/view-modes'
 import { configAtom } from '@/config/config'
 import { Laptop, Tablet } from '@/lib/media'
+import FilterIcon from '~icons/ic/outline-filter-list'
 
 const RefinementsBarDropdowns = dynamic<any>(() =>
   import(

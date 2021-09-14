@@ -1,9 +1,7 @@
-import AddIcon from '@material-design-icons/svg/outlined/add.svg'
-import RemoveIcon from '@material-design-icons/svg/outlined/remove.svg'
 import classNames from 'classnames'
 import { useAtomValue } from 'jotai/utils'
-import type { CSSProperties, MouseEventHandler } from 'react'
-import { memo, useEffect, useRef } from 'react'
+import type { MouseEventHandler } from 'react'
+import { memo } from 'react'
 import isEqual from 'react-fast-compare'
 import type {
   CurrentRefinementsProvided,
@@ -17,7 +15,10 @@ import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/
 import { Button } from '@ui/button/button'
 import { Icon } from '@ui/icon/icon'
 
+import { Collapse } from '@/components/@ui/collapse/collapse'
 import { Count } from '@/components/@ui/count/count'
+import AddIcon from '~icons/ic/outline-add'
+import RemoveIcon from '~icons/ic/outline-remove'
 
 export type ExpandablePanelProps = CurrentRefinementsProvided & {
   children: React.ReactNode
@@ -25,7 +26,6 @@ export type ExpandablePanelProps = CurrentRefinementsProvided & {
   header?: React.ReactNode | string
   footer?: string
   attributes?: string[]
-  maxHeight?: string
   isOpened?: boolean
   onToggle?: MouseEventHandler
 }
@@ -37,61 +37,12 @@ function ExpandablePanelComponent({
   header,
   footer,
   attributes = [],
-  maxHeight,
   isOpened = false,
   onToggle,
 }: ExpandablePanelProps) {
-  const collapseRef = useRef<HTMLDivElement>(null)
-  const gradientRef = useRef<HTMLDivElement>(null)
-  const isOpenByDefault = useRef(isOpened)
-
   const searchResults = useAtomValue(searchResultsAtom) as SearchResults
   const hasRefinements = useHasRefinements(searchResults, attributes)
-
-  const collapseElStyles: CSSProperties = {}
-  if (typeof maxHeight !== 'undefined') {
-    collapseElStyles.maxHeight = maxHeight
-    collapseElStyles.overflowY = 'auto'
-  }
-
   const currentRefinementCount = useCurrentRefinementCount(items, attributes)
-
-  useEffect(() => {
-    const collapseEl = collapseRef.current
-    const gradientEl = gradientRef.current
-
-    if (!collapseEl || !gradientEl) return undefined
-
-    const setAutoHeight = () => {
-      collapseEl.style.setProperty('height', 'auto')
-      gradientEl.style.setProperty('opacity', '0')
-    }
-
-    const onTransitionEnd = (ev: TransitionEvent) => {
-      if (ev.target === collapseEl) {
-        setAutoHeight()
-      }
-    }
-
-    gradientEl.style.setProperty('opacity', '1')
-
-    if (isOpenByDefault.current) {
-      isOpenByDefault.current = false
-      setAutoHeight()
-    } else if (isOpened) {
-      collapseEl.style.setProperty('height', `${collapseEl.scrollHeight}px`)
-      collapseEl.addEventListener('transitionend', onTransitionEnd)
-    } else {
-      collapseEl.style.setProperty('height', `${collapseEl.scrollHeight}px`)
-      window.requestAnimationFrame(() =>
-        collapseEl.style.setProperty('height', '0px')
-      )
-    }
-
-    return () => {
-      collapseEl.removeEventListener('transitionend', onTransitionEnd)
-    }
-  }, [isOpened])
 
   return (
     <div
@@ -104,7 +55,7 @@ function ExpandablePanelComponent({
       )}
     >
       <Button
-        className="w-full flex items-center justify-between gap-3"
+        className="w-full flex items-center justify-between gap-3 group"
         aria-expanded={isOpened}
         onClick={(e) => {
           if (typeof onToggle === 'function') {
@@ -119,29 +70,16 @@ function ExpandablePanelComponent({
             <Count className="ml-auto">{currentRefinementCount}</Count>
           )}
         </div>
-        <div className="text-neutral-dark">
+        <div className="text-neutral-dark can-hover:transition-colors can-hover:group-hover:text-neutral-light">
           {isOpened ? <Icon icon={RemoveIcon} /> : <Icon icon={AddIcon} />}
         </div>
       </Button>
 
-      <div
-        className={classNames(
-          'relative transition-all ease-out overflow-hidden h-0 opacity-0',
-          { 'opacity-100': isOpened }
-        )}
-        ref={collapseRef}
-      >
-        <div className="mt-4" style={collapseElStyles}>
-          {children}
-        </div>
+      <Collapse isCollapsed={!isOpened}>
+        <div className="mt-4">{children}</div>
 
         {footer && <div>{footer}</div>}
-
-        <div
-          ref={gradientRef}
-          className="absolute bottom-0 w-full h-8 bg-gradient-to-t from-white pointer-events-none transition-opacity ease-out"
-        />
-      </div>
+      </Collapse>
     </div>
   )
 }

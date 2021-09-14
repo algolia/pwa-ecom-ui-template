@@ -1,10 +1,11 @@
-import FavoriteFillIcon from '@material-design-icons/svg/outlined/favorite.svg'
-import FavoriteOutlineIcon from '@material-design-icons/svg/outlined/favorite_border.svg'
 import classNames from 'classnames'
 import type { MouseEventHandler } from 'react'
 
 import { Button } from '@ui/button/button'
 import { Icon } from '@ui/icon/icon'
+
+import FavoriteFillIcon from '~icons/ic/outline-favorite'
+import FavoriteOutlineIcon from '~icons/ic/outline-favorite-border'
 
 export type ProductFavoriteProps = {
   isFavorite?: boolean

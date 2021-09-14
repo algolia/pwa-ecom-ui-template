@@ -2,7 +2,7 @@ import type { BaseItem } from '@algolia/autocomplete-core'
 import type { AutocompletePlugin } from '@algolia/autocomplete-js'
 
 type CreateFocusBlurPluginProps = {
-  onFocusBlur?: (isFocused: boolean, hasQuery: boolean) => void
+  onFocusBlur?: (isFocused: boolean) => void
 }
 
 type CustomAutocompletePlugin<
@@ -20,19 +20,19 @@ export function createFocusBlurPlugin<
   TData
 > {
   let inputEl: HTMLInputElement | null
-  let hasQuery = false
+  let rafId = -1
 
   const onFocus = () => {
-    if (typeof onFocusBlur === 'function') onFocusBlur(true, hasQuery)
+    if (typeof onFocusBlur === 'function') onFocusBlur(true)
   }
   const onBlur = () => {
-    if (typeof onFocusBlur === 'function') onFocusBlur(false, hasQuery)
+    if (typeof onFocusBlur === 'function') onFocusBlur(false)
   }
 
   return {
     subscribe() {
       // Wait for the autocomplete to be mounted
-      window.requestAnimationFrame(() => {
+      rafId = window.requestAnimationFrame(() => {
         inputEl = document.querySelector('.aa-Input')
 
         if (inputEl) {
@@ -42,11 +42,9 @@ export function createFocusBlurPlugin<
       })
     },
 
-    onStateChange({ state }) {
-      hasQuery = Boolean(state.query)
-    },
-
     unsubscribe() {
+      window.cancelAnimationFrame(rafId)
+
       if (inputEl) {
         inputEl.removeEventListener('focus', onFocus)
         inputEl.removeEventListener('blur', onBlur)

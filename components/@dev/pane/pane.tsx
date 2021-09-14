@@ -1,16 +1,22 @@
 import { useAtom } from 'jotai'
+import { useAtomValue } from 'jotai/utils'
 import { useRouter } from 'next/router'
 import { useEffect, useRef } from 'react'
 import { Pane as Tweakpane } from 'tweakpane'
 
-import { devAtom } from '@dev/dev'
+import { gridsHiddenAtom } from '../grids/grids'
+
+import { configAtom } from '@/config/config'
 
 export function Pane() {
   const paneContainer = useRef(null)
   const router = useRouter()
 
-  const [dev] = useAtom(devAtom)
-  const [grids, setGrids] = useAtom(dev.grids)
+  const [gridsHidden, setGridsHidden] = useAtom(gridsHiddenAtom)
+  const { refinementsLayoutAtom } = useAtomValue(configAtom)
+  const [refinementsLayout, setRefinementsLayout] = useAtom(
+    refinementsLayoutAtom
+  )
 
   useEffect(() => {
     const pane = new Tweakpane({
@@ -19,24 +25,44 @@ export function Pane() {
       container: paneContainer.current!,
     })
 
+    // Routes
     const routesFolder = pane.addFolder({ title: 'Routes' })
     routesFolder
       .addInput(router, 'route', {
+        label: 'Current route',
         options: {
           index: '/',
-          search: '/search',
+          catalog: '/catalog',
           'kit/buttons': '/kit/buttons',
           'kit/chips': '/kit/chips',
+          'kit/banners': '/kit/banners',
         },
       })
       .on('change', (ev) => {
         router.push(ev.value)
       })
 
+    // Refinements
+    const refinementsFolder = pane.addFolder({ title: 'Refinements' })
+    refinementsFolder
+      .addInput({ refinementsLayout }, 'refinementsLayout', {
+        label: 'Layout',
+        options: {
+          bar: 'bar',
+          panel: 'panel',
+        },
+      })
+      .on('change', (ev) => {
+        setRefinementsLayout(ev.value)
+      })
+
+    // Grids
     const gridFolder = pane.addFolder({ title: 'Grid' })
-    gridFolder.addInput(grids, 'hidden').on('change', (ev) => {
-      setGrids({ hidden: ev.value })
-    })
+    gridFolder
+      .addInput({ gridsHidden }, 'gridsHidden', { label: 'Hidden' })
+      .on('change', (ev) => {
+        setGridsHidden(ev.value)
+      })
 
     return () => {
       pane.dispose()

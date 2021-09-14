@@ -1,10 +1,11 @@
-import ListViewIcon from '@material-design-icons/svg/outlined/format_list_bulleted.svg'
-import GridViewIcon from '@material-design-icons/svg/outlined/grid_view.svg'
 import classNames from 'classnames'
 import { atom, useAtom } from 'jotai'
 
 import { Button } from '@ui/button/button'
 import { Icon } from '@ui/icon/icon'
+
+import ListViewIcon from '~icons/ic/outline-format-list-bulleted'
+import GridViewIcon from '~icons/ic/outline-grid-view'
 
 export type ViewMode = 'grid' | 'list'
 

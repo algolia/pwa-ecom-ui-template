@@ -17,7 +17,7 @@ export function Stats({ className }: StatsProps) {
     <div className={classNames('small-regular text-neutral-dark', className)}>
       {areHitsSorted && nbHits !== nbSortedHits
         ? `${nbSortedHits?.toLocaleString()} relevant results sorted out of ${nbHits?.toLocaleString()} found in ${processingTimeMS?.toLocaleString()}ms`
-        : `${nbHits?.toLocaleString()} results found in ${processingTimeMS?.toLocaleString()}ms`}
+        : `${nbHits?.toLocaleString()} results found in ${processingTimeMS?.toLocaleString()} ms`}
     </div>
   )
 }

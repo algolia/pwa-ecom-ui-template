@@ -1,4 +1,3 @@
-import ArrowIcon from '@material-design-icons/svg/outlined/keyboard_arrow_down.svg'
 import classNames from 'classnames'
 import { forwardRef } from 'react'
 
@@ -9,6 +8,7 @@ import { Count } from '@ui/count/count'
 import { Icon } from '@ui/icon/icon'
 
 import { useIsVisible } from '@/hooks/useIsVisible'
+import ArrowIcon from '~icons/ic/outline-keyboard-arrow-down'
 
 export type DropdownOption = {
   value: string
@@ -22,8 +22,8 @@ export type DropdownProps = Omit<ButtonProps, 'ref'> & {
   className?: string
   classNameContainer?: string
   isOpen?: boolean
-  onToggle?: (isOpen: boolean) => void
   initialIsOpen?: boolean
+  onToggle?: (isOpen: boolean) => void
 }
 
 export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
@@ -35,8 +35,8 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       className,
       classNameContainer,
       isOpen: customIsOpen,
-      onToggle,
       initialIsOpen = false,
+      onToggle,
       ...props
     }: DropdownProps,
     customRef
