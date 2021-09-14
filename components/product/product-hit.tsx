@@ -2,12 +2,16 @@ import { Highlight, Snippet } from 'react-instantsearch-dom'
 
 import type { HitComponentProps } from '@instantsearch/widgets/infinite-hits/infinite-hits'
 
+import type { ProductCardProps } from './product-card'
 import { ProductCard } from './product-card'
 import type { ProductTagType } from './product-tag'
-import type { ProductViewCardProps } from './product-view'
 
 export type ProductHitProps = HitComponentProps & {
   highlighting?: boolean
+}
+
+export type ProductCardHitProps = ProductCardProps & {
+  objectID: string
 }
 
 export function ProductHit({
@@ -15,7 +19,7 @@ export function ProductHit({
   viewMode,
   highlighting = true,
 }: ProductHitProps) {
-  const product: ProductViewCardProps = {
+  const product: ProductCardHitProps = {
     objectID: hit.objectID,
     url: `/${hit.url}`,
     image: hit.image_link,
