@@ -5,14 +5,21 @@ import { connectQueryRules } from 'react-instantsearch-core'
 
 import { Banner } from '@/components/banner/banner'
 
-export type QueryRuleBannersProps = QueryRuleCustomDataProvided
+export type QueryRuleBannersProps = QueryRuleCustomDataProvided & {
+  limit?: number
+}
 
-function QueryRuleBannersComponent({ items }: QueryRuleBannersProps) {
+function QueryRuleBannersComponent({
+  items,
+  limit = Infinity,
+}: QueryRuleBannersProps) {
   if (!items.length) return null
+
+  const slicedItems = items.slice(0, limit)
 
   return (
     <div className="flex flex-col">
-      {items.map(({ size, title, description, image }) => (
+      {slicedItems.map(({ size, title, description, image }) => (
         <Banner
           key={image}
           size={size}
