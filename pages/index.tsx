@@ -24,7 +24,7 @@ export default function Home(props: SearchPageLayoutProps) {
         overlay={true}
       />
 
-      <ProductsShowcase indexId="shoes" title="New in shoes" />
+      <ProductsShowcase indexId="shoes" title="New in shoes" query="shoes" />
       <ProductsShowcase
         indexId="spring-summer-2021"
         title="Spring/summer 2021"
