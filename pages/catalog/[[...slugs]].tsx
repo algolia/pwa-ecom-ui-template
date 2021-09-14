@@ -36,7 +36,7 @@ export default function Catalog(props: SearchPageLayoutProps) {
 
   return (
     <SearchPageLayout {...props}>
-      <Container className="flex flex-col gap-10">
+      <Container className="flex flex-col gap-3 laptop:gap-10">
         <Breadcrumb attributes={breadcrumbAttributes} />
 
         <QueryRuleBanners />
