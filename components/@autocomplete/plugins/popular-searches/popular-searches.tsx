@@ -9,13 +9,15 @@ import { indexName, querySuggestionsIndexName } from '@/utils/env'
 
 type PopularSearchesPluginCreatorParams = {
   searchClient: SearchClient
-  recentSearches: ReturnType<typeof createLocalStorageRecentSearchesPlugin>
+  recentSearchesPlugin: ReturnType<
+    typeof createLocalStorageRecentSearchesPlugin
+  >
   onSelect?: (params: OnSelectParams<AutocompleteQuerySuggestionsHit>) => void
 }
 
 export function popularSearchesPluginCreator({
   searchClient,
-  recentSearches,
+  recentSearchesPlugin,
   onSelect: customOnSelect,
 }: PopularSearchesPluginCreatorParams) {
   return createQuerySuggestionsPlugin({
@@ -23,7 +25,7 @@ export function popularSearchesPluginCreator({
     indexName: querySuggestionsIndexName,
     categoryAttribute: [indexName, 'facets', 'exact_matches', 'keywords'],
     getSearchParams() {
-      return recentSearches.data?.getAlgoliaSearchParams({
+      return recentSearchesPlugin.data?.getAlgoliaSearchParams({
         hitsPerPage: 8,
       }) as SearchOptions
     },

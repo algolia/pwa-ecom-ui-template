@@ -1,7 +1,8 @@
 import type { OnStateChangeProps } from '@algolia/autocomplete-js'
 import type { SearchClient } from 'algoliasearch/lite'
 import { useUpdateAtom } from 'jotai/utils'
-import { memo, useCallback, useMemo } from 'react'
+import { useRouter } from 'next/router'
+import { memo, useCallback, useEffect, useMemo } from 'react'
 import type { SearchState } from 'react-instantsearch-core'
 
 import type { AutocompleteProps } from '@autocomplete/_default/autocomplete'
@@ -36,6 +37,9 @@ function AutocompleteBasicComponent({
   onFocusBlur,
   ...props
 }: AutocompleteBasicProps) {
+  const router = useRouter()
+  const isHomePage = useMemo(() => router?.pathname === '/', [router?.pathname])
+
   const _setSearchState = useUpdateAtom(searchStateAtom)
 
   const setSearchState = useCallback(
@@ -49,7 +53,7 @@ function AutocompleteBasicComponent({
     [_setSearchState]
   )
 
-  const recentSearches = useMemo(
+  const recentSearchesPlugin = useMemo(
     () =>
       recentSearchesPluginCreator({
         onSelect({ item }) {
@@ -60,24 +64,37 @@ function AutocompleteBasicComponent({
     []
   )
 
-  const plugins = useMemo(
-    () => [
-      ...customPlugins,
-      recentSearches,
-      popularSearchesPluginCreator({
-        searchClient,
-        recentSearches,
-        onSelect({ item }) {
-          if (typeof onSelect === 'function') onSelect(item.query)
-        },
-      }),
+  const animatedPlaceholderPlugin = useMemo(
+    () =>
       createAnimatedPlaceholderPlugin({
+        enabled: isHomePage,
         placeholders,
         placeholderTemplate: (currentPlaceholder: string) =>
           `Search ${currentPlaceholder}`,
         wordDelay: placeholderWordDelay,
         letterDelay: placeholderLetterDelay,
       }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [placeholders, placeholderWordDelay, placeholderLetterDelay]
+  )
+
+  useEffect(() => {
+    animatedPlaceholderPlugin.data!.enabled = isHomePage
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isHomePage])
+
+  const plugins = useMemo(
+    () => [
+      ...customPlugins,
+      recentSearchesPlugin,
+      popularSearchesPluginCreator({
+        searchClient,
+        recentSearchesPlugin,
+        onSelect({ item }) {
+          if (typeof onSelect === 'function') onSelect(item.query)
+        },
+      }),
+      animatedPlaceholderPlugin,
       createClearLeftPlugin({ initialQuery }),
       voiceCameraIconsPluginCreator(),
       searchButtonPluginCreator({
@@ -94,10 +111,8 @@ function AutocompleteBasicComponent({
     [
       searchClient,
       initialQuery,
-      recentSearches,
-      placeholders,
-      placeholderWordDelay,
-      placeholderLetterDelay,
+      recentSearchesPlugin,
+      animatedPlaceholderPlugin,
     ]
   )
 
