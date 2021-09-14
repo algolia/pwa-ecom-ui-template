@@ -1,5 +1,3 @@
-import CloseIcon from '@material-design-icons/svg/outlined/close.svg'
-import ArrowIcon from '@material-design-icons/svg/outlined/keyboard_arrow_right.svg'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { memo, useCallback, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
@@ -15,6 +13,8 @@ import {
 import { Button } from '@/components/@ui/button/button'
 import { Icon } from '@/components/@ui/icon/icon'
 import { ClientOnly } from '@/components/client-only/client-only'
+import CloseIcon from '~icons/ic/outline-close'
+import ArrowIcon from '~icons/ic/outline-keyboard-arrow-right'
 
 export type BreadcrumbProps = BreadcrumbProvided
 
@@ -42,7 +42,7 @@ function BreadcrumbComponent({ items, refine, createURL }: BreadcrumbProps) {
 
   return (
     <ClientOnly>
-      <div className="flex flex-col gap-1 capitalize my-6">
+      <div className="flex flex-col gap-1 capitalize mt-6">
         <ul className="flex items-center gap-1 text-neutral-dark">
           {navItems.map((item) => (
             <li

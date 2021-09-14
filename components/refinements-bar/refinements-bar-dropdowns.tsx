@@ -1,4 +1,3 @@
-import FilterIcon from '@material-design-icons/svg/outlined/filter_list.svg'
 import { useAtomValue } from 'jotai/utils'
 import { useCallback, useMemo, useState } from 'react'
 
@@ -13,6 +12,7 @@ import { Button } from '@ui/button/button'
 import { IconLabel } from '@ui/icon-label/icon-label'
 
 import { configAtom } from '@/config/config'
+import FilterIcon from '~icons/ic/outline-filter-list'
 
 export type RefinementsBarDropdownsProps = {
   dynamicWidgets?: boolean

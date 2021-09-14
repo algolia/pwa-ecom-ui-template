@@ -113,6 +113,19 @@
       visibility 0s linear theme('transitionDuration.DEFAULT');
   }
 
+  /* ========== Text shadow utilities */
+  .text-shadow-small {
+    text-shadow: theme('boxShadow.small');
+  }
+
+  .text-shadow-medium {
+    text-shadow: theme('boxShadow.medium');
+  }
+
+  .text-shadow-large {
+    text-shadow: theme('boxShadow.large');
+  }
+
   /* ========== Misc utilities */
   .scroll-smooth {
     scroll-behavior: smooth;

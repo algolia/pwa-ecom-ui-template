@@ -1,4 +1,3 @@
-import ArrowIcon from '@material-design-icons/svg/outlined/keyboard_arrow_down.svg'
 import classNames from 'classnames'
 import { forwardRef } from 'react'
 
@@ -9,6 +8,7 @@ import { Count } from '@ui/count/count'
 import { Icon } from '@ui/icon/icon'
 
 import { useIsVisible } from '@/hooks/useIsVisible'
+import ArrowIcon from '~icons/ic/outline-keyboard-arrow-down'
 
 export type DropdownOption = {
   value: string

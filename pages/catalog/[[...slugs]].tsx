@@ -2,16 +2,18 @@ import { useAtomValue } from 'jotai/utils'
 import dynamic from 'next/dynamic'
 
 import { Breadcrumb } from '@/components/@instantsearch/widgets/breadcrumb/breadcrumb'
+import { InfiniteHits } from '@/components/@instantsearch/widgets/infinite-hits/infinite-hits'
+import { QueryRuleBanners } from '@/components/@instantsearch/widgets/query-rule-banners/query-rule-banners'
+import { Container } from '@/components/container/container'
+import { ProductHit } from '@/components/product/product-hit'
+import { viewModeAtom } from '@/components/view-modes/view-modes'
 import { configAtom } from '@/config/config'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
-import type { PageLayoutProps } from '@/layouts/page-layout'
-import { getServerSidePropsPage, PageLayout } from '@/layouts/page-layout'
-
-const Products = dynamic<any>(() =>
-  import(
-    /* webpackChunkName: 'search' */ '@/components/products/products'
-  ).then((mod) => mod.Products)
-)
+import type { SearchPageLayoutProps } from '@/layouts/search-page-layout'
+import {
+  getServerSidePropsPage,
+  SearchPageLayout,
+} from '@/layouts/search-page-layout'
 
 const RefinementsBar = dynamic<any>(() =>
   import(
@@ -25,16 +27,19 @@ const RefinementsPanel = dynamic<any>(() =>
   ).then((mod) => mod.RefinementsPanel)
 )
 
-export default function Catalog(props: PageLayoutProps) {
+export default function Catalog(props: SearchPageLayoutProps) {
   const { breadcrumbAttributes, refinementsLayoutAtom } =
     useAtomValue(configAtom)
   const refinementsLayout = useAtomValue(refinementsLayoutAtom)
+  const viewMode = useAtomValue(viewModeAtom)
   const { laptop } = useTailwindScreens()
 
   return (
-    <PageLayout {...props}>
-      <div className="flex flex-col p-2.5 laptop:p-0 laptop:mx-20">
+    <SearchPageLayout {...props}>
+      <Container className="flex flex-col gap-10">
         <Breadcrumb attributes={breadcrumbAttributes} />
+
+        <QueryRuleBanners />
 
         <div className="flex flex-col laptop:flex-row">
           {(refinementsLayout === 'panel' || !laptop) && <RefinementsPanel />}
@@ -43,11 +48,16 @@ export default function Catalog(props: PageLayoutProps) {
             <RefinementsBar
               showWidgets={refinementsLayout === 'bar' && laptop}
             />
-            <Products />
+            <InfiniteHits
+              hitComponent={ProductHit}
+              viewMode={viewMode}
+              showLess={true}
+              showMore={true}
+            />
           </div>
         </div>
-      </div>
-    </PageLayout>
+      </Container>
+    </SearchPageLayout>
   )
 }
 

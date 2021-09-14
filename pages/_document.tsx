@@ -73,7 +73,7 @@ export default class MyDocument extends Document {
           />
           <meta
             property="og:image"
-            content="https://algolia-pwa-ui-template-preview.netlify.app/static/images/og.png"
+            content="https://algolia-pwa-ui-template-preview.netlify.app/static/images/socials/og.png"
           />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
@@ -91,7 +91,7 @@ export default class MyDocument extends Document {
           />
           <meta
             name="twitter:image"
-            content="https://algolia-pwa-ui-template-preview.netlify.app/static/images/twitter.png"
+            content="https://algolia-pwa-ui-template-preview.netlify.app/static/images/socials/twitter.png"
           />
 
           {/* Fonts */}

@@ -1,7 +1,9 @@
 import type { OnSelectParams } from '@algolia/autocomplete-core'
 import { createLocalStorageRecentSearchesPlugin } from '@algolia/autocomplete-plugin-recent-searches'
 import type { RecentSearchesItem } from '@algolia/autocomplete-plugin-recent-searches/dist/esm/types'
-import CloseIcon from '@material-design-icons/svg/outlined/close.svg'
+
+import { Icon } from '@/components/@ui/icon/icon'
+import CloseIcon from '~icons/ic/outline-close'
 
 type RecentSearchesPluginCreatorParams = {
   onSelect?: (params: OnSelectParams<RecentSearchesItem>) => void
@@ -60,7 +62,7 @@ export function recentSearchesPluginCreator({
                       onRemove(item.id)
                     }}
                   >
-                    <CloseIcon fill="currentColor" />
+                    <Icon icon={CloseIcon} />
                   </button>
                   <button
                     type="button"
