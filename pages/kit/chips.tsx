@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { Chip } from '@/components/@ui/chip/chip'
 
-export default function Buttons() {
+export default function Chips() {
   const [selected, setSelected] = useState(false)
 
   return (

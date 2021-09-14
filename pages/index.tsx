@@ -1,6 +1,6 @@
 import { Configure } from 'react-instantsearch-dom'
 
-import { BannerXL } from '@/components/banner/banner-xl'
+import { Banner } from '@/components/banner/banner'
 import { ProductsShowcase } from '@/components/products-showcase/products-showcase'
 import type { SearchPageLayoutProps } from '@/layouts/search-page-layout'
 import {
@@ -14,18 +14,15 @@ export default function Home(props: SearchPageLayoutProps) {
     <SearchPageLayout {...props}>
       <Configure hitsPerPage={6} />
 
-      <BannerXL
+      <Banner
+        size="xl"
+        title="New<br />Collection"
+        subtitle="Spring/summer 2021"
         image={BannerImage}
         imageAlt="New Collection - Spring/Summer 2021"
-        headerClassname="uppercase flex flex-col justify-end gap-3 p-6 text-white text-shadow-medium laptop:px-16 laptop:py-9"
-      >
-        <h1 className="text-3xl font-semibold tracking-wider leading-tight laptop:text-7xl">
-          New
-          <br />
-          Collection
-        </h1>
-        <p className="text-sm font-bold laptop:text-3xl">Spring/summer 2021</p>
-      </BannerXL>
+        fullWidth={true}
+        overlay={true}
+      />
 
       <ProductsShowcase indexId="shoes" title="New in shoes" />
       <ProductsShowcase

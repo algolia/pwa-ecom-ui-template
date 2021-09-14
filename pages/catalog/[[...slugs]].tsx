@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 
 import { Breadcrumb } from '@/components/@instantsearch/widgets/breadcrumb/breadcrumb'
 import { InfiniteHits } from '@/components/@instantsearch/widgets/infinite-hits/infinite-hits'
+import { QueryRuleBanners } from '@/components/@instantsearch/widgets/query-rule-banners/query-rule-banners'
 import { Container } from '@/components/container/container'
 import { ProductHit } from '@/components/product/product-hit'
 import { viewModeAtom } from '@/components/view-modes/view-modes'
@@ -35,8 +36,10 @@ export default function Catalog(props: SearchPageLayoutProps) {
 
   return (
     <SearchPageLayout {...props}>
-      <Container className="flex flex-col">
+      <Container className="flex flex-col gap-10">
         <Breadcrumb attributes={breadcrumbAttributes} />
+
+        <QueryRuleBanners />
 
         <div className="flex flex-col laptop:flex-row">
           {(refinementsLayout === 'panel' || !laptop) && <RefinementsPanel />}

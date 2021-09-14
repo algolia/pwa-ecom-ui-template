@@ -35,6 +35,7 @@ export function Pane() {
           catalog: '/catalog',
           'kit/buttons': '/kit/buttons',
           'kit/chips': '/kit/chips',
+          'kit/banners': '/kit/banners',
         },
       })
       .on('change', (ev) => {

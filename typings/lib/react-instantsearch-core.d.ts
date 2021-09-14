@@ -54,4 +54,9 @@ declare module 'react-instantsearch-core' {
     refine: (value?: string) => any
     createURL: (...args: any[]) => any
   }
+
+  // QueryRuleCustomData
+  export interface QueryRuleCustomDataProvided {
+    items: amy[]
+  }
 }

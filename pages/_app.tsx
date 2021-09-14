@@ -8,7 +8,7 @@ import { Dev } from '@dev/dev'
 import '@/lib/dev/wdyr'
 /// #endif
 
-import { BannerXS } from '@/components/banner/banner-xs'
+import { Banner } from '@/components/banner/banner'
 import type { FooterProps } from '@/components/footer/footer'
 import type { HeaderProps } from '@/components/header/header'
 import { LoadingBar } from '@/components/loading-bar/loading-bar'
@@ -42,9 +42,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
         />
       </Head>
 
-      <BannerXS className="z-header">
+      <Banner size="xs-large" className="z-header" fullWidth={true}>
         20% Off! Code: SPRING21 - Terms apply*
-      </BannerXS>
+      </Banner>
       <Header />
 
       <AnimatePresence exitBeforeEnter={true} onExitComplete={scrollToTop}>
