@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 
 import { Breadcrumb } from '@/components/@instantsearch/widgets/breadcrumb/breadcrumb'
 import { InfiniteHits } from '@/components/@instantsearch/widgets/infinite-hits/infinite-hits'
+import { NoResultsHandler } from '@/components/@instantsearch/widgets/no-results-handler/no-results-handler'
 import { QueryRuleBanners } from '@/components/@instantsearch/widgets/query-rule-banners/query-rule-banners'
 import { Container } from '@/components/container/container'
 import { ProductHit } from '@/components/product/product-hit'
@@ -36,10 +37,10 @@ export default function Catalog(props: SearchPageLayoutProps) {
 
   return (
     <SearchPageLayout {...props}>
-      <Container className="flex flex-col gap-10">
+      <Container className="flex flex-col gap-3 laptop:gap-10">
         <Breadcrumb attributes={breadcrumbAttributes} />
 
-        <QueryRuleBanners />
+        <QueryRuleBanners limit={1} />
 
         <div className="flex flex-col laptop:flex-row">
           {(refinementsLayout === 'panel' || !laptop) && <RefinementsPanel />}
@@ -48,12 +49,15 @@ export default function Catalog(props: SearchPageLayoutProps) {
             <RefinementsBar
               showWidgets={refinementsLayout === 'bar' && laptop}
             />
-            <InfiniteHits
-              hitComponent={ProductHit}
-              viewMode={viewMode}
-              showLess={true}
-              showMore={true}
-            />
+
+            <NoResultsHandler>
+              <InfiniteHits
+                hitComponent={ProductHit}
+                viewMode={viewMode}
+                showLess={true}
+                showMore={true}
+              />
+            </NoResultsHandler>
           </div>
         </div>
       </Container>

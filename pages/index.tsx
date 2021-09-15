@@ -22,6 +22,7 @@ export default function Home(props: SearchPageLayoutProps) {
         imageAlt="New Collection - Spring/Summer 2021"
         fullWidth={true}
         overlay={true}
+        classNameTitle="text-3xl font-normal tracking-wider leading-tight laptop:text-7xl"
       />
 
       <ProductsShowcase indexId="shoes" title="New in shoes" query="shoes" />

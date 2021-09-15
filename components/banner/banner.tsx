@@ -20,6 +20,9 @@ export type BannerProps = {
   gradient?: boolean
   fullWidth?: boolean
   className?: string
+  classNameTitle?: string
+  classNameSubtitle?: string
+  classNameDescription?: string
   children?: React.ReactNode
 }
 
@@ -34,10 +37,15 @@ export function Banner({
   gradient = false,
   fullWidth = false,
   className,
+  classNameTitle,
+  classNameSubtitle,
+  classNameDescription,
   children,
 }: BannerProps) {
   const [loaded, setLoaded] = useState(false)
   const isMounted = useIsMounted()
+
+  if (!size) return null
 
   const Wrapper = fullWidth ? DummyWrapper : Container
 
@@ -52,11 +60,11 @@ export function Banner({
 
           'h-24': size === 's',
 
-          'h-44 laptop:h-40': size === 'm',
+          'h-36 laptop:h-40': size === 'm',
 
-          'h-64 laptop:h-56': size === 'l',
+          'h-44 laptop:h-56': size === 'l',
 
-          'h-44 laptop:h-96': size === 'xl',
+          'h-48 laptop:h-96': size === 'xl',
         },
         className
       )}
@@ -87,26 +95,33 @@ export function Banner({
         <header className="absolute inset-0 flex flex-col justify-center p-6 text-shadow-medium gap-2 laptop:gap-0 laptop:flex-row laptop:items-center laptop:p-12">
           <div
             className={classNames(
-              'flex flex-col uppercase gap-2 laptop:gap-4',
-              description ? 'w-full laptop:w-3/6' : 'w-full'
+              'flex flex-col  gap-2 laptop:gap-4',
+              description ? 'w-full laptop:w-3/6' : 'w-full',
+              { uppercase: size !== 's' }
             )}
           >
             {title && (
               <h1
-                className={classNames({
-                  'text-3xl font-normal tracking-wider leading-tight laptop:text-7xl':
-                    size === 'xl',
-                  subhead: size === 's',
-                })}
+                className={classNames(
+                  'heading-2 laptop:heading-1',
+                  {
+                    'label-semibold laptop:subhead': size === 's',
+                    'heading-3': size === 'm',
+                  },
+                  classNameTitle
+                )}
                 dangerouslySetInnerHTML={{ __html: title }}
               />
             )}
             {subtitle && (
               <p
-                className={classNames({
-                  'text-sm font-bold laptop:text-3xl': size !== 's',
-                  'body-regular': size === 's',
-                })}
+                className={classNames(
+                  {
+                    'text-sm font-bold laptop:text-3xl': size !== 's',
+                    'body-regular': size === 's',
+                  },
+                  classNameSubtitle
+                )}
                 dangerouslySetInnerHTML={{ __html: subtitle }}
               />
             )}
@@ -117,10 +132,9 @@ export function Banner({
               className={classNames(
                 'w-full laptop:w-3/6 font-bold hidden laptop:block',
                 {
-                  'text-sm': size === 'l',
-
                   'text-xl': size === 'xl',
-                }
+                },
+                classNameDescription
               )}
               dangerouslySetInnerHTML={{ __html: description }}
             />

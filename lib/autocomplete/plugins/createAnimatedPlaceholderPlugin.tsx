@@ -2,37 +2,53 @@ import type { BaseItem } from '@algolia/autocomplete-core'
 import type { AutocompletePlugin } from '@algolia/autocomplete-js'
 
 type CreateAnimatedPlaceholderPluginProps = {
+  enabled?: boolean
   placeholders: string[]
   placeholderTemplate: (currentPlaceholder: string) => string
   wordDelay?: number
   letterDelay?: number
 }
 
+type CreateAnimatedPlaceholderPluginData = {
+  enabled: boolean
+}
+
 type CustomAutocompletePlugin<
   TItem extends BaseItem,
-  TData
+  TData extends CreateAnimatedPlaceholderPluginData
 > = AutocompletePlugin<TItem, TData> & {
   unsubscribe?: () => void
 }
 
 export function createAnimatedPlaceholderPlugin<
-  TItem extends Record<string, unknown>,
-  TData
+  TItem extends Record<string, unknown>
 >({
+  enabled = true,
   placeholders,
   placeholderTemplate,
   wordDelay = 1000,
   letterDelay = 150,
 }: CreateAnimatedPlaceholderPluginProps): CustomAutocompletePlugin<
   TItem,
-  TData
+  CreateAnimatedPlaceholderPluginData
 > {
   let currentPlaceholderWordIdx = 0
   let placeholderInterval: ReturnType<typeof setInterval>
   let placeholderTimeout: ReturnType<typeof setTimeout>
   let subscribed = false
+  let rafId = -1
+  const data = { enabled }
 
   const updatePlaceholder = (cb: (placeholderWord: string) => void) => {
+    if (!data.enabled) {
+      cb(placeholders.join(', '))
+
+      placeholderTimeout = setTimeout(() => {
+        updatePlaceholder(cb)
+      }, wordDelay)
+      return
+    }
+
     cb('')
 
     let currentPlaceholderLetterIdx = 1
@@ -63,42 +79,47 @@ export function createAnimatedPlaceholderPlugin<
   }
 
   return {
+    data,
+
     subscribe() {
       if (subscribed) return
       subscribed = true
 
-      updatePlaceholder((placeholderWord) => {
-        // Get placeholder input elements
-        const placeholderEl = document.querySelector('.aa-Input')
-        const placeholderDetachedEl = document.querySelector(
-          '.aa-DetachedSearchButtonPlaceholder'
-        )
+      rafId = window.requestAnimationFrame(() => {
+        updatePlaceholder((placeholderWord) => {
+          // Get placeholder input elements
+          const placeholderEl = document.querySelector('.aa-Input')
+          const placeholderDetachedEl = document.querySelector(
+            '.aa-DetachedSearchButtonPlaceholder'
+          )
 
-        // Get final placeholder
-        const placeholder =
-          typeof placeholderTemplate === 'function'
-            ? placeholderTemplate(placeholderWord)
-            : placeholderWord
+          // Get final placeholder
+          const placeholder =
+            typeof placeholderTemplate === 'function'
+              ? placeholderTemplate(placeholderWord)
+              : placeholderWord
 
-        // Don't update placeholder if input is focused or has value
-        if (
-          placeholderEl &&
-          document.activeElement !== placeholderEl &&
-          !(placeholderEl as HTMLInputElement).value
-        ) {
-          placeholderEl.setAttribute('placeholder', placeholder)
-        }
+          // Don't update placeholder if input is focused or has value
+          if (
+            placeholderEl &&
+            document.activeElement !== placeholderEl &&
+            !(placeholderEl as HTMLInputElement).value
+          ) {
+            placeholderEl.setAttribute('placeholder', placeholder)
+          }
 
-        // Update detached mode placeholder if exists
-        if (placeholderDetachedEl) {
-          placeholderDetachedEl.innerHTML = placeholder
-        }
+          // Update detached mode placeholder if exists
+          if (placeholderDetachedEl) {
+            placeholderDetachedEl.innerHTML = placeholder
+          }
+        })
       })
     },
 
     unsubscribe() {
       clearInterval(placeholderInterval)
       clearTimeout(placeholderTimeout)
+      window.cancelAnimationFrame(rafId)
     },
   }
 }

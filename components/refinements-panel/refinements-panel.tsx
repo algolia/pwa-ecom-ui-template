@@ -2,6 +2,8 @@ import classNames from 'classnames'
 import { atom } from 'jotai'
 import { useAtomValue } from 'jotai/utils'
 
+import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
+
 import { RefinementsPanelBody } from './refinements-panel-body'
 import { RefinementsPanelFooter } from './refinements-panel-footer'
 import { RefinementsPanelHeader } from './refinements-panel-header'
@@ -28,10 +30,12 @@ export function RefinementsPanel({
 }: RefinementsPanelProps) {
   const mobileExpanded = useAtomValue(refinementsPanelMobileExpandedAtom)
   const desktopExpanded = useAtomValue(refinementsPanelDesktopExpandedAtom)
+  const searchResults = useAtomValue(searchResultsAtom)
 
   const cn = classNames('RefinementsPanel', {
     'RefinementsPanel-mobileExpanded': mobileExpanded,
     'RefinementsPanel-desktopExpanded': desktopExpanded,
+    hidden: searchResults?.nbHits === 0,
   })
 
   return (

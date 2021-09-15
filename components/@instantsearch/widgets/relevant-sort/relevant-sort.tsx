@@ -18,7 +18,7 @@ function RelevantSortComponent({
   return !isVirtualReplica ? null : (
     <div
       className={classNames(
-        'inline-flex gap-3 small-regular p-2 border border-brand-nebula rounded-sm bg-nebula-lightest',
+        'inline-flex justify-between gap-3 small-regular p-2 border border-brand-nebula rounded-sm bg-nebula-lightest',
         className
       )}
     >
