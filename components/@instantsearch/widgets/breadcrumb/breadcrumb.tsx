@@ -70,7 +70,7 @@ function BreadcrumbComponent({ items, refine, createURL }: BreadcrumbProps) {
 
         <div className="flex items-center">
           <span className="heading-4 mr-1">
-            {currentQuery ? `‘${currentQuery}’` : currentItem?.label}
+            {currentQuery ? `“${currentQuery}”` : currentItem?.label}
           </span>
           {Boolean(nbHits) && (
             <span className="subhead text-neutral-dark"> ({nbHits})</span>
