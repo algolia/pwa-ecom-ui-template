@@ -3,7 +3,7 @@ import BannerImage from '@/public/static/images/home/banner.jpg'
 
 export default function Banners() {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 my-3">
       <Banner
         size="xl"
         title="Banner XL"

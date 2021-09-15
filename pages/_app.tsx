@@ -38,7 +38,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <title>Spencer and Williams</title>
         <meta
           name="viewport"
-          content="width=device-width,initial-scale=1,viewport-fit=cover"
+          content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"
         />
       </Head>
 
