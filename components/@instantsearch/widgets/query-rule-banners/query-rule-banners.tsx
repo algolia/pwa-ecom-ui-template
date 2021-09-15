@@ -1,7 +1,10 @@
+import { useAtomValue } from 'jotai/utils'
 import { memo } from 'react'
 import isEqual from 'react-fast-compare'
 import type { QueryRuleCustomDataProvided } from 'react-instantsearch-core'
 import { connectQueryRules } from 'react-instantsearch-core'
+
+import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 
 import { Banner } from '@/components/banner/banner'
 
@@ -13,7 +16,9 @@ function QueryRuleBannersComponent({
   items,
   limit = Infinity,
 }: QueryRuleBannersProps) {
-  if (!items.length) return null
+  const searchResults = useAtomValue(searchResultsAtom)
+
+  if (!items.length || searchResults?.nbHits === 0) return null
 
   const slicedItems = items.slice(0, limit)
 

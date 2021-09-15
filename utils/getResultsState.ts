@@ -1,7 +1,8 @@
-import algoliasearch from 'algoliasearch/lite'
 import type { SearchState } from 'react-instantsearch-core'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 import { findResultsState } from 'react-instantsearch-dom/server'
+
+import { getSearchClient } from '@/hooks/useSearchClient'
 
 export type GetResultsStateParams = {
   component: React.ComponentType
@@ -19,7 +20,7 @@ export async function getResultsState({
   indexName,
 }: GetResultsStateParams): Promise<InstantSearchProps['resultsState']> {
   // 'useSearchClient' hook is not used here as this function runs on server-side only
-  const searchClient = algoliasearch(appId, searchApiKey)
+  const searchClient = getSearchClient(appId, searchApiKey)
 
   // We need two 'findResultsState' for 'DynamicWidgets' to work properly
   const firstResultsState = await findResultsState(component, {

@@ -4,6 +4,7 @@ import isEqual from 'react-fast-compare'
 import type { BreadcrumbProvided, SearchState } from 'react-instantsearch-core'
 import { connectBreadcrumb } from 'react-instantsearch-core'
 
+import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 import { nbHitsAtom } from '@instantsearch/widgets/virtual-stats/virtual-stats'
 
 import {
@@ -38,7 +39,10 @@ function BreadcrumbComponent({ items, refine, createURL }: BreadcrumbProps) {
 
   const currentItem = useMemo(() => items[items.length - 1], [items])
 
-  if (!currentQuery && !items.length) return null
+  const searchResults = useAtomValue(searchResultsAtom)
+
+  if ((!currentQuery && !items.length) || searchResults?.nbHits === 0)
+    return null
 
   return (
     <ClientOnly>
@@ -72,9 +76,7 @@ function BreadcrumbComponent({ items, refine, createURL }: BreadcrumbProps) {
           <span className="heading-4 mr-1">
             {currentQuery ? `“${currentQuery}”` : currentItem?.label}
           </span>
-          {Boolean(nbHits) && (
-            <span className="subhead text-neutral-dark"> ({nbHits})</span>
-          )}
+          <span className="subhead text-neutral-dark"> ({nbHits})</span>
           {Boolean(currentQuery) && (
             <Button onClick={handleCloseClick}>
               <Icon icon={CloseIcon} className="ml-1.5 w-5 h-5" />
