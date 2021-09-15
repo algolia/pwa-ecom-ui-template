@@ -45,6 +45,8 @@ export function Banner({
   const [loaded, setLoaded] = useState(false)
   const isMounted = useIsMounted()
 
+  if (!size) return null
+
   const Wrapper = fullWidth ? DummyWrapper : Container
 
   return (
