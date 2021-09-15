@@ -8,6 +8,7 @@ import {
 } from '@instantsearch/widgets/current-refinements/current-refinements'
 import { RelevantSort } from '@instantsearch/widgets/relevant-sort/relevant-sort'
 import { SortBy } from '@instantsearch/widgets/sort-by/sort-by'
+import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 import { Button } from '@ui/button/button'
 import { Count } from '@ui/count/count'
 import { IconLabel } from '@ui/icon-label/icon-label'
@@ -41,9 +42,16 @@ export function RefinementsBar({
 
   const setMobileExpanded = useUpdateAtom(refinementsPanelMobileExpandedAtom)
   const refinementCount = useAtomValue(refinementCountAtom)
+  const searchResults = useAtomValue(searchResultsAtom)
 
   return (
-    <section className={classNames('w-full', className)}>
+    <section
+      className={classNames(
+        'w-full',
+        { hidden: searchResults?.nbHits === 0 },
+        className
+      )}
+    >
       <Tablet className="flex flex-col gap-2">
         <div className="flex justify-between">
           <ViewModes />
