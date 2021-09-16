@@ -67,7 +67,7 @@ function InfiniteHitsComponent({
 
       <m.ol
         className={classNames('overflow-hidden', {
-          [classNames('grid grid-cols-2 gap-4', gridClassName)]:
+          [classNames('grid grid-cols-2 gap-2', gridClassName)]:
             viewMode === 'grid',
           [classNames(
             'flex flex-col gap-4 laptop:grid laptop:gap-0',
