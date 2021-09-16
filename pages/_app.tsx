@@ -11,7 +11,7 @@ import '@/lib/dev/wdyr'
 import { Banner } from '@/components/banner/banner'
 import type { FooterProps } from '@/components/footer/footer'
 import type { HeaderProps } from '@/components/header/header'
-import { LoadingBar } from '@/components/loading-bar/loading-bar'
+import { Loader } from '@/components/loader/loader'
 import { Overlay } from '@/components/overlay/overlay'
 import { AppLayout } from '@/layouts/app-layout'
 import { isDev } from '@/utils/env'
@@ -53,7 +53,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
 
       <Footer />
 
-      <LoadingBar />
+      <Loader />
       <Overlay />
 
       {isDev && <Dev />}

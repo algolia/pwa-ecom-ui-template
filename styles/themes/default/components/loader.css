@@ -1,0 +1,83 @@
+.loader {
+  @apply z-loader;
+}
+
+.loader--bar {
+  @apply fixed bottom-0 left-0 w-full h-1 shadow-md bg-white to-invisible motion-reduce:hidden;
+
+  &::after {
+    @apply content-[''] absolute w-full h-full origin-left bg-brand-nebula motion-reduce:animate-none;
+  }
+
+  &.loader--loading {
+    @apply to-visible motion-reduce:block;
+
+    &::after {
+      animation: loading-bar 6s cubic-bezier(0.2, 0.7, 0.4, 1) forwards;
+    }
+  }
+}
+
+.loader--overlay {
+  @apply fixed inset-0 bg-white bg-opacity-75 flex items-center justify-center to-invisible;
+
+  &.loader--loading {
+    @apply to-visible;
+  }
+}
+
+.loading-spinner {
+  @apply relative w-10 h-10;
+
+  animation: loading-spinner 2.5s infinite linear both;
+}
+
+.loading-spinner-dot {
+  @apply absolute top-0 left-0 w-full h-full;
+
+  animation: loading-spinner-dot 2s infinite ease-in-out both;
+}
+
+.loading-spinner-dot::before {
+  @apply content-[''] block w-1/4 h-1/4 bg-brand-nebula rounded-full;
+
+  animation: loading-spinner-dot-before 2s infinite ease-in-out both;
+}
+
+.loading-spinner-dot:nth-child(1) { animation-delay: -1.1s; }
+.loading-spinner-dot:nth-child(2) { animation-delay: -1s; }
+.loading-spinner-dot:nth-child(3) { animation-delay: -0.9s; }
+.loading-spinner-dot:nth-child(4) { animation-delay: -0.8s; }
+.loading-spinner-dot:nth-child(5) { animation-delay: -0.7s; }
+.loading-spinner-dot:nth-child(6) { animation-delay: -0.6s; }
+.loading-spinner-dot:nth-child(1)::before { animation-delay: -1.1s; }
+.loading-spinner-dot:nth-child(2)::before { animation-delay: -1s; }
+.loading-spinner-dot:nth-child(3)::before { animation-delay: -0.9s; }
+.loading-spinner-dot:nth-child(4)::before { animation-delay: -0.8s; }
+.loading-spinner-dot:nth-child(5)::before { animation-delay: -0.7s; }
+.loading-spinner-dot:nth-child(6)::before { animation-delay: -0.6s; }
+
+@keyframes loading-bar {
+  0% { transform: scaleX(0) }
+  100% { transform: scaleX(95%) }
+}
+
+@keyframes loading-spinner {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes loading-spinner-dot {
+  80%,
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes loading-spinner-dot-before {
+  50% {
+    transform: scale(0.4);
+  }
+
+  100%,
+  0% {
+    transform: scale(1);
+  }
+}
