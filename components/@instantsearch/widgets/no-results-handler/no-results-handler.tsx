@@ -29,7 +29,7 @@ const NoResults = memo(
         </h4>
 
         <p className="font-bold mb-2">Try the following:</p>
-        <ul className="flex flex-col gap-1 list-disc list-inside">
+        <ul className="flex flex-col gap-2 list-disc list-inside">
           <li>
             <span className="-ml-1.5">Check your spelling</span>
           </li>
