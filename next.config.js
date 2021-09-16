@@ -15,7 +15,6 @@ const ifdefOpts = {
 module.exports = withPlugins([withBundleAnalyzer, withPWA], {
   reactStrictMode: true,
   experimental: { esmExternals: true },
-  generateBuildId: () => 'build',
   eslint: {
     dirs: ['pages', 'components', 'config', 'layouts', 'lib', 'utils', 'hooks'],
   },
