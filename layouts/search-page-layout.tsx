@@ -5,7 +5,7 @@ import type {
   GetServerSidePropsResult,
   GetStaticPropsResult,
 } from 'next'
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 
 import { Search } from '@instantsearch/search'
@@ -17,24 +17,37 @@ import { BasicPageLayout } from './basic-page-layout'
 
 import { useUrlSync } from '@/components/@instantsearch/hooks/useUrlSync'
 import { configAtom } from '@/config/config'
+import { useUserToken } from '@/hooks/useUserToken'
 import { isBrowser } from '@/utils/browser'
 import { appId, searchApiKey, indexName } from '@/utils/env'
 import { getResultsState } from '@/utils/getResultsState'
 
 export type SearchPageLayoutProps = BasicPageLayoutProps & {
-  searchState?: any
   resultsState?: any
+  searchState?: any
+  userToken?: string
 }
 
 function SearchPageLayoutComponent({
   children,
   resultsState,
   searchState: initialSearchState,
+  userToken: initialUserToken,
   ...props
 }: SearchPageLayoutProps) {
-  const { searchParameters } = useAtomValue(configAtom)
+  const { searchParameters: configSearchParameters } = useAtomValue(configAtom)
   const searchClient = useAtomValue(searchClientAtom)
   const { searchState, onSearchStateChange, createURL } = useUrlSync()
+  const userToken = useUserToken() ?? initialUserToken
+
+  const searchParameters = useMemo(
+    () => ({
+      userToken,
+      enablePersonalization: Boolean(userToken),
+      ...configSearchParameters,
+    }),
+    [userToken, configSearchParameters]
+  )
 
   return (
     <BasicPageLayout>
@@ -62,7 +75,8 @@ export type GetStaticPropsOptions = Partial<GetStaticPropsResult<any>>
 export const getPropsPage = async (
   component: React.ComponentType,
   url: string,
-  options?: GetServerSidePropsOptions | GetStaticPropsOptions
+  options?: GetServerSidePropsOptions | GetStaticPropsOptions,
+  customProps?: any
 ) => {
   const searchState = urlToSearchState(url)
   const resultsState = await getResultsState({
@@ -71,10 +85,12 @@ export const getPropsPage = async (
     appId,
     searchApiKey,
     indexName,
+    userToken: customProps?.userToken,
   })
 
   return {
     props: {
+      ...customProps,
       searchState,
       resultsState,
     },
@@ -83,11 +99,27 @@ export const getPropsPage = async (
 }
 
 export const getServerSidePropsPage =
-  (component: React.ComponentType, options?: GetServerSidePropsOptions) =>
+  (
+    component: React.ComponentType,
+    options?: GetServerSidePropsOptions,
+    customProps?: any
+  ) =>
   (context: GetServerSidePropsContext) =>
-    getPropsPage(component, context?.resolvedUrl || '', options)
+    getPropsPage(component, context?.resolvedUrl || '', options, {
+      userToken: context.req.cookies._ALGOLIA,
+      ...customProps,
+    })
 
 export const getStaticPropsPage =
-  (component: React.ComponentType, options?: GetStaticPropsOptions) =>
+  (
+    component: React.ComponentType,
+    options?: GetStaticPropsOptions,
+    customProps?: any
+  ) =>
   (context: GetStaticPropsContext) =>
-    getPropsPage(component, (context?.params?.id as string) || '', options)
+    getPropsPage(
+      component,
+      (context?.params?.id as string) || '',
+      options,
+      customProps
+    )

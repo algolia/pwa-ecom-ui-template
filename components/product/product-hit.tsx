@@ -1,3 +1,5 @@
+import { useCallback } from 'react'
+import type { WrappedInsightsClient } from 'react-instantsearch-core'
 import { Highlight, Snippet } from 'react-instantsearch-dom'
 
 import type { HitComponentProps } from '@instantsearch/widgets/infinite-hits/infinite-hits'
@@ -7,6 +9,8 @@ import { ProductCard } from './product-card'
 import type { ProductTagType } from './product-tag'
 
 export type ProductHitProps = HitComponentProps & {
+  insights?: WrappedInsightsClient
+  insightsEventName?: string
   highlighting?: boolean
 }
 
@@ -16,6 +20,8 @@ export type ProductCardHitProps = ProductCardProps & {
 
 export function ProductHit({
   hit,
+  insights,
+  insightsEventName = 'PLP: Product Clicked',
   viewMode,
   highlighting = true,
 }: ProductHitProps) {
@@ -66,9 +72,25 @@ export function ProductHit({
     product.colors?.push(hit.hexColorCode.split('//')[1])
   }
 
-  return <ProductCard view={viewMode} {...product} />
+  const handleLinkClick = useCallback(() => {
+    if (typeof insights === 'function') {
+      insights('clickedObjectIDsAfterSearch', {
+        eventName: insightsEventName,
+      })
+    }
+  }, [insights, insightsEventName])
+
+  return (
+    <ProductCard view={viewMode} onLinkClick={handleLinkClick} {...product} />
+  )
 }
 
-export function ProductHitWithoutHighlighting(props: ProductHitProps) {
-  return <ProductHit {...props} highlighting={false} />
+export function ProductHitShowcase(props: ProductHitProps) {
+  return (
+    <ProductHit
+      {...props}
+      highlighting={false}
+      insightsEventName="Showcase: Product Clicked"
+    />
+  )
 }

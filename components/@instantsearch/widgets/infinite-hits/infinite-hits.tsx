@@ -1,14 +1,19 @@
 import classNames from 'classnames'
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion'
-import { memo, useEffect, useState } from 'react'
+import { useAtomValue } from 'jotai/utils'
+import { memo, useEffect, useMemo, useState } from 'react'
 import isEqual from 'react-fast-compare'
 import type { Hit, InfiniteHitsProvided } from 'react-instantsearch-core'
-import { connectInfiniteHits } from 'react-instantsearch-dom'
+import {
+  connectHitInsights,
+  connectInfiniteHits,
+} from 'react-instantsearch-dom'
 
 import { LoadLess } from '@instantsearch/widgets/load-less/load-less'
 import { LoadMore } from '@instantsearch/widgets/load-more/load-more'
 
 import type { ViewMode } from '@/components/view-modes/view-modes'
+import { searchInsightsAtom } from '@/layouts/app-layout'
 
 export type HitComponentProps = {
   viewMode?: ViewMode
@@ -16,10 +21,11 @@ export type HitComponentProps = {
 }
 
 export type InfiniteHitsProps = InfiniteHitsProvided & {
-  hitComponent: React.ComponentType<HitComponentProps>
+  hitComponent: React.ComponentType<any>
   showLess?: boolean
   showMore?: boolean
   viewMode?: ViewMode
+  animation?: boolean
   gridClassName?: string
   listClassName?: string
 }
@@ -49,15 +55,25 @@ function InfiniteHitsComponent({
   showLess = false,
   showMore = false,
   viewMode = 'grid',
+  animation = true,
   gridClassName = 'grid-cols-2 laptop:grid-cols-5',
   listClassName = 'laptop:grid-cols-2',
 }: InfiniteHitsProps) {
   const [hitsPerPage, setHitsPerPage] = useState(0)
   const shouldReduceMotion = useReducedMotion()
+  const searchInsights = useAtomValue(searchInsightsAtom)
 
   useEffect(() => {
     if (!hitsPerPage) setHitsPerPage(hits.length)
   }, [hitsPerPage, hits.length])
+
+  const ConnectedHitComponent: React.ComponentType<any> = useMemo(
+    () =>
+      searchInsights
+        ? connectHitInsights(searchInsights)(HitComponent)
+        : HitComponent,
+    [searchInsights, HitComponent]
+  )
 
   return (
     <section className="w-full">
@@ -82,12 +98,12 @@ function InfiniteHitsComponent({
           {hits.map((hit, i) => (
             <m.li
               key={hit.objectID}
-              layout={shouldReduceMotion ? false : 'position'}
+              layout={shouldReduceMotion || !animation ? false : 'position'}
               transition={listItemTransition}
               variants={listItemVariants}
               custom={i % hitsPerPage}
             >
-              <HitComponent hit={hit} viewMode={viewMode} />
+              <ConnectedHitComponent hit={hit} viewMode={viewMode} />
             </m.li>
           ))}
         </AnimatePresence>

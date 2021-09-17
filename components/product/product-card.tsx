@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import type { MouseEventHandler } from 'react'
 import { useState } from 'react'
 
 import { Link } from '@ui/link/link'
@@ -34,6 +35,7 @@ export type ProductCardProps = {
   reviews?: number
   available?: boolean
   view?: ViewMode
+  onLinkClick?: MouseEventHandler<HTMLElement>
 }
 
 export function ProductCard({
@@ -54,6 +56,7 @@ export function ProductCard({
   reviews,
   available,
   view,
+  onLinkClick,
 }: ProductCardProps) {
   const [isFavorite, setIsFavorite] = useState(false)
 
@@ -71,7 +74,10 @@ export function ProductCard({
           'flex-col': view === 'grid',
           'flex-row items-start': view === 'list',
         })}
-        onClick={(e) => e.preventDefault()}
+        onClick={(e) => {
+          e.preventDefault()
+          if (typeof onLinkClick === 'function') onLinkClick(e)
+        }}
       >
         <div
           className={classNames('relative', {

@@ -1,3 +1,4 @@
+import type { SearchClient } from 'algoliasearch/lite'
 import classNames from 'classnames'
 import { m } from 'framer-motion'
 import { atom, useAtom } from 'jotai'
@@ -38,7 +39,7 @@ export function NavBottom() {
   // Get app state
   const { autocomplete: autocompleteConfig } = useAtomValue(configAtom)
   const { current: initialQuery } = useRef(useAtomValue(searchQueryAtom))
-  const searchClient = useAtomValue(searchClientAtom)
+  const searchClient = useAtomValue(searchClientAtom) as SearchClient
 
   // Autocomplete expand on focused
   // Wait for the component to be mounted,
