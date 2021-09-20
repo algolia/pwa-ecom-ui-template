@@ -53,7 +53,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
 
       <Footer />
 
-      <Loader />
+      <Loader
+        layout={router.pathname === '/catalog/[[...slugs]]' ? 'bar' : 'overlay'}
+      />
       <Overlay />
 
       {isDev && <Dev />}

@@ -6,7 +6,7 @@ import { InfiniteHits } from '@/components/@instantsearch/widgets/infinite-hits/
 import { NoResultsHandler } from '@/components/@instantsearch/widgets/no-results-handler/no-results-handler'
 import { QueryRuleBanners } from '@/components/@instantsearch/widgets/query-rule-banners/query-rule-banners'
 import { Container } from '@/components/container/container'
-import { ProductHit } from '@/components/product/product-hit'
+import { ProductCardHit } from '@/components/product-card/product-card-hit'
 import { viewModeAtom } from '@/components/view-modes/view-modes'
 import { configAtom } from '@/config/config'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
@@ -52,7 +52,7 @@ export default function Catalog(props: SearchPageLayoutProps) {
 
             <NoResultsHandler>
               <InfiniteHits
-                hitComponent={ProductHit}
+                hitComponent={ProductCardHit}
                 viewMode={viewMode}
                 showLess={true}
                 showMore={true}

@@ -4,7 +4,7 @@ import { Configure, Index } from 'react-instantsearch-core'
 import { InfiniteHits } from '@instantsearch/widgets/infinite-hits/infinite-hits'
 
 import { Container } from '@/components/container/container'
-import { ProductHitShowcase } from '@/components/product/product-hit'
+import { ProductCardHitShowcase } from '@/components/product-card/product-card-hit'
 import { indexName as defaultIndexName } from '@/utils/env'
 
 export type ProductsShowcaseProps = {
@@ -33,7 +33,7 @@ export function ProductsShowcase({
             </h3>
           )}
           <InfiniteHits
-            hitComponent={ProductHitShowcase}
+            hitComponent={ProductCardHitShowcase}
             animation={false}
             gridClassName="grid-cols-2 laptop:grid-cols-6"
           />

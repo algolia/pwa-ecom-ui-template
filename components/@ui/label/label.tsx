@@ -1,8 +1,11 @@
 export type LabelProps = {
   label: string
-  theme?: string
+  className?: string
 }
 
-export function Label({ label = '', theme = 'label-uppercase' }: LabelProps) {
-  return <div className={theme}>{label}</div>
+export function Label({
+  label = '',
+  className = 'label-uppercase',
+}: LabelProps) {
+  return <div className={className}>{label}</div>
 }

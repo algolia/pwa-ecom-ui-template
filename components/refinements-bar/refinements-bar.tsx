@@ -64,7 +64,7 @@ export function RefinementsBar({
               icon={FilterIcon}
               label="Filter &amp; Sort"
               labelPosition="right"
-              labelTheme="body-regular"
+              classNameLabel="body-regular"
             />
             {refinementCount > 0 && <Count>{refinementCount}</Count>}
           </Button>

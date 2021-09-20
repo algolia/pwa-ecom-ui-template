@@ -9,7 +9,7 @@ export type LoaderProps = {
   layout?: 'bar' | 'overlay'
 }
 
-const minLoadingTime = 400 // im ms
+const routeLoadingThreshold = 400 // im ms
 
 export function Loader({ layout = 'overlay' }: LoaderProps) {
   const router = useRouter()
@@ -17,7 +17,6 @@ export function Loader({ layout = 'overlay' }: LoaderProps) {
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>
-    let startTime = 0
 
     const handleRouteChangeStart = (
       url: string,
@@ -25,8 +24,9 @@ export function Loader({ layout = 'overlay' }: LoaderProps) {
     ) => {
       if (shallow) return
 
-      startTime = performance.now()
-      setIsRouteLoading(true)
+      timeout = setTimeout(() => {
+        setIsRouteLoading(true)
+      }, routeLoadingThreshold)
     }
 
     const handleRouteChangeComplete = (
@@ -35,12 +35,8 @@ export function Loader({ layout = 'overlay' }: LoaderProps) {
     ) => {
       if (shallow) return
 
-      const loadingTime = performance.now() - startTime
-
       clearTimeout(timeout)
-      timeout = setTimeout(() => {
-        setIsRouteLoading(false)
-      }, Math.max(minLoadingTime - loadingTime, 0))
+      setIsRouteLoading(false)
     }
 
     const handleRouteChangeError = (

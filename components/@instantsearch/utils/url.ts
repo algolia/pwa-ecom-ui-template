@@ -4,7 +4,7 @@ import type { SearchState } from 'react-instantsearch-core'
 import { getMapping } from '@/utils/getMapping'
 import { parseUrl } from '@/utils/parseUrl'
 
-const paramRegexBlacklist = [/configure/, /hierarchicalMenu/]
+const paramRegexBlacklist = [/configure/, /hierarchicalMenu/, /queryID/]
 const [paramToAlias, aliasToParam] = getMapping({
   query: 'q',
   page: 'p',

@@ -1,33 +1,32 @@
-import { useCallback } from 'react'
+import { memo, useCallback } from 'react'
+import isEqual from 'react-fast-compare'
 import type { WrappedInsightsClient } from 'react-instantsearch-core'
+import { connectHitInsights } from 'react-instantsearch-core'
 import { Highlight, Snippet } from 'react-instantsearch-dom'
+import searchInsights from 'search-insights'
 
-import type { HitComponentProps } from '@instantsearch/widgets/infinite-hits/infinite-hits'
+import type { ProductCardProps } from '@/components/product-card/product-card'
+import { ProductCard } from '@/components/product-card/product-card'
+import type { ProductTagType } from '@/components/product/product-tag'
+import type { ViewMode } from '@/components/view-modes/view-modes'
+import type { HitComponentProps, ProductHit } from '@/typings/hits'
 
-import type { ProductCardProps } from './product-card'
-import { ProductCard } from './product-card'
-import type { ProductTagType } from './product-tag'
-
-export type ProductHitProps = HitComponentProps & {
-  insights?: WrappedInsightsClient
+export type ProductCardHitProps = HitComponentProps<ProductHit> & {
+  insights: WrappedInsightsClient
   insightsEventName?: string
+  viewMode?: ViewMode
   highlighting?: boolean
 }
 
-export type ProductCardHitProps = ProductCardProps & {
-  objectID: string
-}
-
-export function ProductHit({
+export function ProductCardHitComponent({
   hit,
   insights,
   insightsEventName = 'PLP: Product Clicked',
   viewMode,
   highlighting = true,
-}: ProductHitProps) {
-  const product: ProductCardHitProps = {
-    objectID: hit.objectID,
-    url: `/${hit.url}`,
+}: ProductCardHitProps) {
+  const product: ProductCardProps = {
+    url: `/products/${hit.objectID}?queryID=${hit.__queryID}`,
     image: hit.image_link,
     tags: [],
     label: hit.category,
@@ -37,13 +36,13 @@ export function ProductHit({
       return <Snippet attribute="description" tagName="mark" hit={hit} />
     },
     colors: [],
-    price: parseInt(hit.newPrice ?? hit.price, 10),
-    originalPrice: hit.newPrice ? parseInt(hit.price, 10) : undefined,
-    rating: parseInt(hit.reviewScore, 10),
-    reviews: parseInt(hit.reviewCount, 10),
+    price: hit.price,
+    rating: hit.reviewScore,
+    reviews: hit.reviewCount,
     available: Boolean(hit.fullStock),
   }
 
+  // Highlighting
   if (highlighting) {
     product.labelHighlighting = () => (
       <Highlight attribute="category" tagName="mark" hit={hit} />
@@ -54,6 +53,7 @@ export function ProductHit({
     )
   }
 
+  // Tags
   if (product.reviews && product.reviews >= 50) {
     product.tags?.push({
       label: 'popular',
@@ -68,16 +68,15 @@ export function ProductHit({
     } as ProductTagType)
   }
 
+  // Colors
   if (hit.hexColorCode) {
     product.colors?.push(hit.hexColorCode.split('//')[1])
   }
 
   const handleLinkClick = useCallback(() => {
-    if (typeof insights === 'function') {
-      insights('clickedObjectIDsAfterSearch', {
-        eventName: insightsEventName,
-      })
-    }
+    insights('clickedObjectIDsAfterSearch', {
+      eventName: insightsEventName,
+    })
   }, [insights, insightsEventName])
 
   return (
@@ -85,9 +84,13 @@ export function ProductHit({
   )
 }
 
-export function ProductHitShowcase(props: ProductHitProps) {
+export const ProductCardHit = connectHitInsights<ProductCardHitProps>(
+  searchInsights
+)(memo(ProductCardHitComponent, isEqual))
+
+export function ProductCardHitShowcase(props: ProductCardHitProps) {
   return (
-    <ProductHit
+    <ProductCardHit
       {...props}
       highlighting={false}
       insightsEventName="Showcase: Product Clicked"

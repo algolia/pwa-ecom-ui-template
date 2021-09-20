@@ -6,10 +6,10 @@ import { searchStateAtom } from '@instantsearch/hooks/useUrlSync'
 import { isSearchStalledAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 
 import { Button } from '@/components/@ui/button/button'
-import type { ProductHitProps } from '@/components/product/product-hit'
+import type { ProductCardHitProps } from '@/components/product-card/product-card-hit'
 
 export type LoadLessProps = Pick<
-  InfiniteHitsProvided<ProductHitProps>,
+  InfiniteHitsProvided<ProductCardHitProps>,
   'hasPrevious' | 'refinePrevious'
 >
 

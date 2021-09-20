@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import searchInsights from 'search-insights'
 
 export type SetUserToken = (
@@ -17,8 +17,6 @@ export function useSearchInsights({
   searchApiKey,
   setUserToken,
 }: SearchInsightsHookOptions) {
-  const userTokenRef = useRef<string | undefined>(undefined)
-
   useEffect(() => {
     searchInsights('init', {
       appId,
@@ -30,11 +28,8 @@ export function useSearchInsights({
       searchInsights('getUserToken', null, (_, generatedUserToken) => {
         setUserToken(generatedUserToken, (userToken) => {
           searchInsights('setUserToken', userToken)
-          userTokenRef.current = userToken
         })
       })
     }
   }, [appId, searchApiKey, setUserToken])
-
-  return { searchInsights, userToken: userTokenRef.current }
 }

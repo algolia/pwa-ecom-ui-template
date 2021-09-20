@@ -1,15 +1,18 @@
+import classNames from 'classnames'
+
 export type ProductLabelProps = {
   children: React.ReactNode
   highlighting?: React.ComponentType
+  className?: string
 }
 
 export function ProductLabel({
   children,
   highlighting: Highlighting,
+  className = 'tag-bold tracking-normal',
 }: ProductLabelProps) {
   return (
-    <h2 className="tag-bold tracking-normal text-neutral-dark">
-      {' '}
+    <h2 className={classNames('text-neutral-dark', className)}>
       {Highlighting ? <Highlighting /> : children}
     </h2>
   )

@@ -4,7 +4,7 @@ export function LogoSymbol() {
   return (
     <svg
       viewBox="0 0 33 31"
-      className="fill-current text-brand-nebula w-8 h-auto"
+      className="fill-current text-brand-nebula w-8 h-auto can-hover:transition-colors can-hover:hover:text-nebula-light"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -20,7 +20,7 @@ export type LogoProps = Record<string, unknown>
 
 export function Logo() {
   return (
-    <Link href="/" tabIndex={0} title="Spencer and Williams">
+    <Link href="/" tabIndex={0} title="Spencer and Williams" className="group">
       <svg
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@ export function Logo() {
           fillRule="evenodd"
           clipRule="evenodd"
           d="M1.768 6.021A3 3 0 00.266 9.989l2.053 4.552.575-.692a5.58 5.58 0 001.2.736c.437.181.848.272 1.232.272.416 0 .715-.064.896-.192a.616.616 0 00.288-.544.518.518 0 00-.096-.32.956.956 0 00-.288-.24 2.333 2.333 0 00-.432-.208c-.17-.075-.368-.155-.592-.24l-1.296-.544a4.08 4.08 0 01-.8-.416 3.406 3.406 0 01-.672-.624 3.156 3.156 0 01-.464-.832c-.107-.31-.16-.651-.16-1.024 0-.448.096-.864.288-1.248.192-.395.459-.736.8-1.024a3.793 3.793 0 011.216-.704 4.65 4.65 0 011.568-.256c.597 0 1.2.112 1.808.336a4.452 4.452 0 011.648 1.056L7.662 9.56A4.904 4.904 0 006.638 9a2.819 2.819 0 00-1.056-.192c-.341 0-.608.058-.8.176a.579.579 0 00-.288.528c0 .245.133.437.4.576a18.1 18.1 0 001.136.464l1.264.496c.65.256 1.152.613 1.504 1.072.352.458.528 1.05.528 1.776 0 .437-.09.858-.272 1.264a3.107 3.107 0 01-.8 1.072 3.92 3.92 0 01-1.264.72c-.501.181-1.077.272-1.728.272a6.359 6.359 0 01-1.866-.294l1.392 3.086a3 3 0 003.968 1.501l9.947-4.485h-1.05l-.8-4.128c-.085-.406-.16-.816-.224-1.232a115.47 115.47 0 00-.16-1.2h-.064a82.47 82.47 0 01-.176 1.2c-.053.416-.122.826-.208 1.232l-.768 4.128H11.83l-1.824-10.4h2.816l.576 4.544c.053.544.112 1.088.176 1.632.064.544.123 1.088.176 1.632h.064l.288-1.632.288-1.632.992-4.544h2.304l.992 4.544a506.48 506.48 0 01.576 3.264h.064c.053-.555.112-1.104.176-1.648.064-.544.123-1.083.176-1.616l.576-4.544h.447l-2.194-4.865A3 3 0 0014.53.266L1.768 6.02zm20.515 4.14l-.944 5.683.18-.08a3 3 0 001.5-3.969l-.736-1.634z"
-          className="fill-current text-brand-nebula"
+          className="fill-current text-brand-nebula can-hover:transition-colors can-hover:group-hover:text-nebula-darkest"
         />
       </svg>
     </Link>

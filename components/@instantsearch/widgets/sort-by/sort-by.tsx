@@ -83,7 +83,7 @@ function SortByComponent({
           icon={SortIcon}
           label="Sort:"
           labelPosition="right"
-          labelTheme="label-regular"
+          classNameLabel="label-regular"
           classNameIcon="w-4 h-4"
         />
       }

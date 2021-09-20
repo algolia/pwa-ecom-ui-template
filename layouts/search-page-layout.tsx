@@ -76,7 +76,7 @@ export const getPropsPage = async (
   component: React.ComponentType,
   url: string,
   options?: GetServerSidePropsOptions | GetStaticPropsOptions,
-  customProps?: any
+  customProps?: Record<string, any>
 ) => {
   const searchState = urlToSearchState(url)
   const resultsState = await getResultsState({
@@ -98,23 +98,27 @@ export const getPropsPage = async (
   }
 }
 
-export const getServerSidePropsPage =
-  (
-    component: React.ComponentType,
-    options?: GetServerSidePropsOptions,
-    customProps?: any
-  ) =>
-  (context: GetServerSidePropsContext) =>
-    getPropsPage(component, context?.resolvedUrl || '', options, {
-      userToken: context.req.cookies._ALGOLIA,
-      ...customProps,
-    })
+export const getServerSidePropsPage = (
+  component: React.ComponentType,
+  options?: GetServerSidePropsOptions,
+  customProps?: Record<string, any>
+) =>
+  function (context: GetServerSidePropsContext) {
+    let props = customProps
+
+    const userTokenCookie = context.req.cookies._ALGOLIA
+    if (userTokenCookie) {
+      props = { ...customProps, userToken: userTokenCookie }
+    }
+
+    return getPropsPage(component, context?.resolvedUrl || '', options, props)
+  }
 
 export const getStaticPropsPage =
   (
     component: React.ComponentType,
     options?: GetStaticPropsOptions,
-    customProps?: any
+    customProps?: Record<string, any>
   ) =>
   (context: GetStaticPropsContext) =>
     getPropsPage(

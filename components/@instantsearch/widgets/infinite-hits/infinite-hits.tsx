@@ -1,24 +1,14 @@
 import classNames from 'classnames'
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion'
-import { useAtomValue } from 'jotai/utils'
-import { memo, useEffect, useMemo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import isEqual from 'react-fast-compare'
-import type { Hit, InfiniteHitsProvided } from 'react-instantsearch-core'
-import {
-  connectHitInsights,
-  connectInfiniteHits,
-} from 'react-instantsearch-dom'
+import type { InfiniteHitsProvided } from 'react-instantsearch-core'
+import { connectInfiniteHits } from 'react-instantsearch-dom'
 
 import { LoadLess } from '@instantsearch/widgets/load-less/load-less'
 import { LoadMore } from '@instantsearch/widgets/load-more/load-more'
 
 import type { ViewMode } from '@/components/view-modes/view-modes'
-import { searchInsightsAtom } from '@/layouts/app-layout'
-
-export type HitComponentProps = {
-  viewMode?: ViewMode
-  hit: Hit
-}
 
 export type InfiniteHitsProps = InfiniteHitsProvided & {
   hitComponent: React.ComponentType<any>
@@ -61,19 +51,10 @@ function InfiniteHitsComponent({
 }: InfiniteHitsProps) {
   const [hitsPerPage, setHitsPerPage] = useState(0)
   const shouldReduceMotion = useReducedMotion()
-  const searchInsights = useAtomValue(searchInsightsAtom)
 
   useEffect(() => {
     if (!hitsPerPage) setHitsPerPage(hits.length)
   }, [hitsPerPage, hits.length])
-
-  const ConnectedHitComponent: React.ComponentType<any> = useMemo(
-    () =>
-      searchInsights
-        ? connectHitInsights(searchInsights)(HitComponent)
-        : HitComponent,
-    [searchInsights, HitComponent]
-  )
 
   return (
     <section className="w-full">
@@ -103,7 +84,7 @@ function InfiniteHitsComponent({
               variants={listItemVariants}
               custom={i % hitsPerPage}
             >
-              <ConnectedHitComponent hit={hit} viewMode={viewMode} />
+              <HitComponent hit={hit} viewMode={viewMode} />
             </m.li>
           ))}
         </AnimatePresence>

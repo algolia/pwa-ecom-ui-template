@@ -59,4 +59,9 @@ declare module 'react-instantsearch-core' {
   export interface QueryRuleCustomDataProvided {
     items: amy[]
   }
+
+  // HitInsights connector
+  export function connectHitInsights<TProps>(
+    insightsClient: InsightsClient
+  ): (hitComponent: React.ComponentType<any>) => React.ComponentType<TProps>
 }
