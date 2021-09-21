@@ -96,6 +96,11 @@ const setUserToken: SetUserToken = (generatedUserToken, setToken) => {
 
 const autocomplete = {
   placeholders: ['products', 'articles', 'faq'],
+  debouncing: 800, // in ms
+}
+
+const url = {
+  debouncing: 1500, // in ms
 }
 
 const config = {
@@ -106,6 +111,7 @@ const config = {
   searchParameters,
   setUserToken,
   autocomplete,
+  url,
 }
 
 export const configAtom = freezeAtom(atom(() => config))

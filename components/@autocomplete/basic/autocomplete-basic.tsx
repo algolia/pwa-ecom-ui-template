@@ -4,7 +4,7 @@ import type {
 } from '@algolia/autocomplete-js'
 import type { SearchClient } from 'algoliasearch/lite'
 import { atom } from 'jotai'
-import { useUpdateAtom } from 'jotai/utils'
+import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { useRouter } from 'next/router'
 import { memo, useCallback, useEffect, useMemo } from 'react'
 import type { SearchState } from 'react-instantsearch-core'
@@ -17,6 +17,7 @@ import { searchButtonPluginCreator } from '@autocomplete/plugins/search-button'
 import { voiceCameraIconsPluginCreator } from '@autocomplete/plugins/voice-camera-icons'
 
 import { searchStateAtom } from '@/components/@instantsearch/hooks/useUrlSync'
+import { configAtom } from '@/config/config'
 import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 import { createAnimatedPlaceholderPlugin } from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
 import { createClearLeftPlugin } from '@/lib/autocomplete/plugins/createClearLeftPlugin'
@@ -46,6 +47,7 @@ function AutocompleteBasicComponent({
 }: AutocompleteBasicProps) {
   const router = useRouter()
   const isHomePage = useMemo(() => router?.pathname === '/', [router?.pathname])
+  const { autocomplete: autocompleteConfig } = useAtomValue(configAtom)
 
   const _setSearchState = useUpdateAtom(searchStateAtom)
 
@@ -57,7 +59,7 @@ function AutocompleteBasicComponent({
         page: 1,
       }))
     },
-    300
+    autocompleteConfig.debouncing
   )
 
   const recentSearchesPlugin = useMemo(

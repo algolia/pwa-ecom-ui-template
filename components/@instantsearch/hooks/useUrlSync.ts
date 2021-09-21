@@ -12,6 +12,7 @@ import {
 
 import { autocompleteAtom } from '@/components/@autocomplete/_default/autocomplete'
 import { autocompleteStateAtom } from '@/components/@autocomplete/basic/autocomplete-basic'
+import { configAtom } from '@/config/config'
 import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 import { useDeepCompareEffect } from '@/hooks/useDeepCompareEffect'
 import { useDeepUpdateAtom } from '@/hooks/useDeepUpdateAtom'
@@ -60,7 +61,11 @@ export function useUrlSync() {
     [router?.asPath] // eslint-disable-line react-hooks/exhaustive-deps
   )
 
-  const debouncedPushRoute = useDebouncedCallback(pushRoute, 500)
+  const { url: urlConfig } = useAtomValue(configAtom)
+  const debouncedPushRoute = useDebouncedCallback(
+    pushRoute,
+    urlConfig.debouncing
+  )
 
   // Listen for route changes and update search state accordingly
   const autocomplete = useAtomValue(autocompleteAtom)
