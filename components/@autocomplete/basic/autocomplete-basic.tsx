@@ -1,5 +1,9 @@
-import type { OnStateChangeProps } from '@algolia/autocomplete-js'
+import type {
+  AutocompleteState,
+  OnStateChangeProps,
+} from '@algolia/autocomplete-js'
 import type { SearchClient } from 'algoliasearch/lite'
+import { atom } from 'jotai'
 import { useUpdateAtom } from 'jotai/utils'
 import { useRouter } from 'next/router'
 import { memo, useCallback, useEffect, useMemo } from 'react'
@@ -13,6 +17,7 @@ import { searchButtonPluginCreator } from '@autocomplete/plugins/search-button'
 import { voiceCameraIconsPluginCreator } from '@autocomplete/plugins/voice-camera-icons'
 
 import { searchStateAtom } from '@/components/@instantsearch/hooks/useUrlSync'
+import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 import { createAnimatedPlaceholderPlugin } from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
 import { createClearLeftPlugin } from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 import { createFocusBlurPlugin } from '@/lib/autocomplete/plugins/createFocusBlurPlugin'
@@ -25,6 +30,8 @@ export type AutocompleteBasicProps = AutocompleteProps & {
   onSelect?: (query: string) => void
   onFocusBlur?: (isFocused: boolean) => void
 }
+
+export const autocompleteStateAtom = atom<AutocompleteState<any> | null>(null)
 
 function AutocompleteBasicComponent({
   searchClient,
@@ -42,7 +49,7 @@ function AutocompleteBasicComponent({
 
   const _setSearchState = useUpdateAtom(searchStateAtom)
 
-  const setSearchState = useCallback(
+  const setSearchState = useDebouncedCallback(
     (nextSearchState: SearchState) => {
       _setSearchState((currentSearchState: SearchState) => ({
         ...currentSearchState,
@@ -50,7 +57,7 @@ function AutocompleteBasicComponent({
         page: 1,
       }))
     },
-    [_setSearchState]
+    300
   )
 
   const recentSearchesPlugin = useMemo(
@@ -123,8 +130,17 @@ function AutocompleteBasicComponent({
     [onSelect]
   )
 
+  const setAutocompleteState = useUpdateAtom(autocompleteStateAtom)
+  useEffect(() => {
+    if (initialQuery)
+      setAutocompleteState({ query: initialQuery } as AutocompleteState<any>)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const onStateChange = useCallback(
     ({ prevState, state }: OnStateChangeProps<any>) => {
+      setAutocompleteState(state)
+
       if (
         prevState.query !== state.query &&
         typeof state.query !== 'undefined'
@@ -132,7 +148,8 @@ function AutocompleteBasicComponent({
         setSearchState({ query: state.query })
       }
     },
-    [setSearchState]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   )
 
   return (

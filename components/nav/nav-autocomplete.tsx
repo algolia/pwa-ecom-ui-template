@@ -1,17 +1,22 @@
+import type { AutocompleteState } from '@algolia/autocomplete-js'
 import type { SearchClient } from 'algoliasearch/lite'
 import classNames from 'classnames'
 import { m } from 'framer-motion'
-import { atom, useAtom } from 'jotai'
+import { atom } from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 
-import { AutocompleteBasic } from '@autocomplete/basic/autocomplete-basic'
+import {
+  AutocompleteBasic,
+  autocompleteStateAtom,
+} from '@autocomplete/basic/autocomplete-basic'
 
 import { searchQueryAtom } from '@/components/@instantsearch/hooks/useUrlSync'
 import { overlayAtom } from '@/components/overlay/overlay'
 import { configAtom } from '@/config/config'
 import { useIsMounted } from '@/hooks/useIsMounted'
+import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 import { searchClientAtom } from '@/layouts/app-layout'
 
 const transition = {
@@ -21,10 +26,12 @@ const transition = {
 
 const isFocusedAtom = atom(false)
 const isExpandedAtom = atom(
-  (get) => get(isFocusedAtom) || Boolean(get(searchQueryAtom))
+  (get) => get(isFocusedAtom) || Boolean(get(autocompleteStateAtom)?.query)
 )
 
 export function NavAutocomplete() {
+  const { laptop } = useTailwindScreens()
+
   // Router
   const router = useRouter()
   const isHomePage = useMemo(() => router?.pathname === '/', [router?.pathname])
@@ -40,16 +47,20 @@ export function NavAutocomplete() {
   const isMounted = useIsMounted()
   const isExpanded = useAtomValue(isExpandedAtom) && isMounted()
 
-  const [isFocused, setIsFocused] = useAtom(isFocusedAtom)
+  const setIsFocused = useUpdateAtom(isFocusedAtom)
   const setOverlay = useUpdateAtom(overlayAtom)
 
-  // Show/hide overlay when autocomplete is focused/blurred
+  // Show/hide overlay when autocomplete panel is open/close
+  const autocompleteState = useAtomValue(autocompleteStateAtom)
+  const autocompleteIsOpen = Boolean(autocompleteState?.isOpen)
+
   useEffect(() => {
     setOverlay({
-      visible: isFocused && isHomePage,
+      visible: autocompleteIsOpen,
+      blur: isHomePage,
       zIndex: 'z-overlay-header',
     })
-  }, [setOverlay, isFocused, isHomePage])
+  }, [setOverlay, autocompleteIsOpen, isHomePage])
 
   // Handlers
   const handleFocusBlur = useCallback(
@@ -60,9 +71,19 @@ export function NavAutocomplete() {
 
   const handleSelect = useCallback(
     (query: string = '') => {
-      setOverlay({ visible: false })
       router.push(`/catalog?q=${query}`)
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  )
+
+  const handleShouldPanelOpen = useCallback(
+    ({ state }: { state: AutocompleteState<any> }) =>
+      (Boolean(state.query) &&
+        Boolean(
+          state.collections.reduce((acc, c) => acc + c.items.length, 0)
+        )) ||
+      !laptop,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
@@ -83,7 +104,8 @@ export function NavAutocomplete() {
         initialQuery={initialQuery}
         searchClient={searchClient}
         placeholders={autocompleteConfig.placeholders}
-        hidePanel={!isHomePage}
+        shouldPanelOpen={handleShouldPanelOpen}
+        openOnFocus={!laptop}
         onFocusBlur={handleFocusBlur}
         onSelect={handleSelect}
       />

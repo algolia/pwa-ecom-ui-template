@@ -2,6 +2,7 @@ import { AnimatePresence } from 'framer-motion'
 import type { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
+import { useMemo } from 'react'
 
 /// #if DEV
 import { Dev } from '@dev/dev'
@@ -32,6 +33,11 @@ export const Footer = dynamic<FooterProps>(() =>
 )
 
 export default function App({ Component, pageProps, router }: AppProps) {
+  const isCatalogPage = useMemo(
+    () => router?.pathname === '/catalog/[[...slugs]]',
+    [router?.pathname]
+  )
+
   return (
     <AppLayout>
       <Head>
@@ -53,9 +59,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
 
       <Footer />
 
-      <Loader
-        layout={router.pathname === '/catalog/[[...slugs]]' ? 'bar' : 'overlay'}
-      />
+      <Loader layout={isCatalogPage ? 'bar' : 'overlay'} />
       <Overlay />
 
       {isDev && <Dev />}
