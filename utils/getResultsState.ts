@@ -10,6 +10,7 @@ export type GetResultsStateParams = {
   appId: string
   searchApiKey: string
   indexName: string
+  [index: string]: any
 }
 
 export async function getResultsState({
@@ -18,18 +19,21 @@ export async function getResultsState({
   appId,
   searchApiKey,
   indexName,
+  ...customProps
 }: GetResultsStateParams): Promise<InstantSearchProps['resultsState']> {
   // 'useSearchClient' hook is not used here as this function runs on server-side only
   const searchClient = getSearchClient(appId, searchApiKey)
 
   // We need two 'findResultsState' for 'DynamicWidgets' to work properly
   const firstResultsState = await findResultsState(component, {
+    ...customProps,
     searchClient,
     indexName,
     searchState,
   })
 
   let resultsState = await findResultsState(component, {
+    ...customProps,
     searchClient,
     indexName,
     searchState,

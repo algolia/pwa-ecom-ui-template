@@ -11,11 +11,10 @@ const ifdefOpts = {
   TEST: process.env.NODE_ENV === 'test',
 }
 
-/** @type {import('next/dist/next-server/server/config').NextConfig} */
+/** @type {import('next').NextConfig} */
 module.exports = withPlugins([withBundleAnalyzer, withPWA], {
   reactStrictMode: true,
   experimental: { esmExternals: true },
-  generateBuildId: () => 'build',
   eslint: {
     dirs: ['pages', 'components', 'config', 'layouts', 'lib', 'utils', 'hooks'],
   },

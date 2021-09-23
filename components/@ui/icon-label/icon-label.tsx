@@ -11,40 +11,40 @@ export type IconLabelProps = {
   labelPosition?: LabelPosition
   className?: string
   classNameIcon?: string
-  labelTheme?: string
+  classNameLabel?: string
 }
 
 export function IconLabel({
   icon,
   label,
   labelPosition = 'bottom',
-  className,
+  className = 'gap-1',
   classNameIcon,
-  labelTheme,
+  classNameLabel,
 }: IconLabelProps) {
-  let posStyle: string
+  let classNamePosition: string
   switch (labelPosition) {
     case 'top':
-      posStyle = 'flex-col-reverse'
+      classNamePosition = 'flex-col-reverse'
       break
     case 'left':
-      posStyle = 'flex-row-reverse'
+      classNamePosition = 'flex-row-reverse'
       break
     case 'right':
-      posStyle = 'flex-row'
+      classNamePosition = 'flex-row'
       break
     case 'bottom':
     default:
-      posStyle = 'flex-col'
+      classNamePosition = 'flex-col'
       break
   }
 
-  const cn = classNames(`flex gap-1 items-center`, posStyle, className)
+  const cn = classNames(`flex items-center`, classNamePosition, className)
 
   return (
     <div className={cn}>
       {icon && <Icon icon={icon} className={classNameIcon} />}
-      {label && <Label label={label} theme={labelTheme} />}
+      {label && <Label label={label} className={classNameLabel} />}
     </div>
   )
 }

@@ -6,10 +6,10 @@ import { searchStateAtom } from '@instantsearch/hooks/useUrlSync'
 import { isSearchStalledAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 
 import { Button } from '@/components/@ui/button/button'
-import type { ProductHitProps } from '@/components/product/product-hit'
+import type { ProductCardHitProps } from '@/components/product-card/product-card-hit'
 
 export type LoadLessProps = Pick<
-  InfiniteHitsProvided<ProductHitProps>,
+  InfiniteHitsProvided<ProductCardHitProps>,
   'hasPrevious' | 'refinePrevious'
 >
 
@@ -34,7 +34,7 @@ export function LoadLess({ hasPrevious, refinePrevious }: LoadLessProps) {
   if (!hasPrevious) return null
 
   return (
-    <div className="flex justify-center gap-4 mb-7">
+    <div className="flex flex-col justify-center gap-2 mb-2 laptop:gap-4 laptop:flex-row laptop:mb-7">
       <Button
         type="secondary"
         disabled={isSearchStalled}

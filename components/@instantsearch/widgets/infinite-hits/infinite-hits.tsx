@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion'
 import { memo, useEffect, useState } from 'react'
 import isEqual from 'react-fast-compare'
-import type { Hit, InfiniteHitsProvided } from 'react-instantsearch-core'
+import type { InfiniteHitsProvided } from 'react-instantsearch-core'
 import { connectInfiniteHits } from 'react-instantsearch-dom'
 
 import { LoadLess } from '@instantsearch/widgets/load-less/load-less'
@@ -10,16 +10,12 @@ import { LoadMore } from '@instantsearch/widgets/load-more/load-more'
 
 import type { ViewMode } from '@/components/view-modes/view-modes'
 
-export type HitComponentProps = {
-  viewMode?: ViewMode
-  hit: Hit
-}
-
 export type InfiniteHitsProps = InfiniteHitsProvided & {
-  hitComponent: React.ComponentType<HitComponentProps>
+  hitComponent: React.ComponentType<any>
   showLess?: boolean
   showMore?: boolean
   viewMode?: ViewMode
+  animation?: boolean
   gridClassName?: string
   listClassName?: string
 }
@@ -49,6 +45,7 @@ function InfiniteHitsComponent({
   showLess = false,
   showMore = false,
   viewMode = 'grid',
+  animation = true,
   gridClassName = 'grid-cols-2 laptop:grid-cols-5',
   listClassName = 'laptop:grid-cols-2',
 }: InfiniteHitsProps) {
@@ -67,7 +64,7 @@ function InfiniteHitsComponent({
 
       <m.ol
         className={classNames('overflow-hidden', {
-          [classNames('grid grid-cols-2 gap-4', gridClassName)]:
+          [classNames('grid grid-cols-2 gap-2', gridClassName)]:
             viewMode === 'grid',
           [classNames(
             'flex flex-col gap-4 laptop:grid laptop:gap-0',
@@ -82,7 +79,7 @@ function InfiniteHitsComponent({
           {hits.map((hit, i) => (
             <m.li
               key={hit.objectID}
-              layout={shouldReduceMotion ? false : 'position'}
+              layout={shouldReduceMotion || !animation ? false : 'position'}
               transition={listItemTransition}
               variants={listItemVariants}
               custom={i % hitsPerPage}

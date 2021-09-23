@@ -49,7 +49,7 @@ function NoResultsQuerySuggestionsHitsComponent({
     <li>
       <span className="-ml-1.5">
         <span>Try searching using a more general term</span>
-        <ul className="ml-4">
+        <ul className="flex flex-col ml-4 gap-1 mt-2">
           {hits.map((hit) => (
             <li key={hit.objectID} className="flex items-center gap-1">
               <Icon icon={SearchIcon} className="w-4 h-4" />

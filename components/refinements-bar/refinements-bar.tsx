@@ -47,7 +47,7 @@ export function RefinementsBar({
   return (
     <section
       className={classNames(
-        'w-full',
+        'w-full laptop:px-3',
         { hidden: searchResults?.nbHits === 0 },
         className
       )}
@@ -64,7 +64,7 @@ export function RefinementsBar({
               icon={FilterIcon}
               label="Filter &amp; Sort"
               labelPosition="right"
-              labelTheme="body-regular"
+              classNameLabel="body-regular"
             />
             {refinementCount > 0 && <Count>{refinementCount}</Count>}
           </Button>
