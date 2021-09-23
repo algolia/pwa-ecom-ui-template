@@ -14,7 +14,6 @@ const ifdefOpts = {
 /** @type {import('next').NextConfig} */
 module.exports = withPlugins([withBundleAnalyzer, withPWA], {
   reactStrictMode: true,
-  experimental: { esmExternals: true },
   eslint: {
     dirs: ['pages', 'components', 'config', 'layouts', 'lib', 'utils', 'hooks'],
   },

@@ -7,7 +7,7 @@ Focused on performance and customization - based on the [Algolia - Ecom UI Desig
 
 <details>
   <summary>Expand</summary>
-  
+
   - [Introduction](#introduction)
   - [Why](#why)
   - [Getting started](#getting-started)
@@ -131,11 +131,11 @@ The UI Template uses **core** and **packaged** **React InstantSearch widgets**.
 - ✅ [ColorRefinementList](https://github.com/algolia/react-instantsearch-widget-color-refinement-list)
 - ✅ [SizeRefinementList](https://github.com/algolia/react-instantsearch-widget-size-refinement-list)
 - ✅ [LoadMoreWithProgressBar](https://github.com/algolia/react-instantsearch-widget-loadmore-with-progressbar)
-- 🔄 [ExpandablePanel](./components/@instantsearch/widgets/expandable-panel/expandable-panel.tsx)
-- 🔄 [RefinementsDropdown](./components/@instantsearch/widgets/refinements-dropdown/refinements-dropdown.tsx)
-- 🔄 [RatingSelector](./components/@instantsearch/widgets/rating-selector/rating-selector.tsx)
-- 🔄 [NoResultsHandler](./components/@instantsearch/widgets/no-results-handler/no-results-handler.tsx)
-- 🔄 [BreadcrumbWithQuery](./components/@instantsearch/widgets/breadcrumb/breadcrumb.tsx)
+- 🔄 [ExpandablePanel](./components/%40instantsearch/widgets/expandable-panel/expandable-panel.tsx)
+- 🔄 [RefinementsDropdown](./components/%40instantsearch/widgets/refinements-dropdown/refinements-dropdown.tsx)
+- 🔄 [RatingSelector](./components/%40instantsearch/widgets/rating-selector/rating-selector.tsx)
+- 🔄 [NoResultsHandler](./components/%40instantsearch/widgets/no-results-handler/no-results-handler.tsx)
+- 🔄 [BreadcrumbWithQuery](./components/%40instantsearch/widgets/breadcrumb/breadcrumb.tsx)
 
 ✅ Published / 🔄 To be published
 
