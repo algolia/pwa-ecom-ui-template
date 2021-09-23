@@ -26,7 +26,7 @@ export function ProductCardHitComponent({
   highlighting = true,
 }: ProductCardHitProps) {
   const product: ProductCardProps = {
-    url: `/products/${hit.objectID}?queryID=${hit.__queryID}`,
+    url: `/product/${hit.objectID}?queryID=${hit.__queryID}`,
     image: hit.image_link,
     tags: [],
     label: hit.category,
