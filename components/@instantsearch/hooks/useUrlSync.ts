@@ -11,6 +11,8 @@ import {
 } from '@instantsearch/utils/url'
 
 import { autocompleteAtom } from '@/components/@autocomplete/_default/autocomplete'
+import { autocompleteStateAtom } from '@/components/@autocomplete/basic/autocomplete-basic'
+import { configAtom } from '@/config/config'
 import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 import { useDeepCompareEffect } from '@/hooks/useDeepCompareEffect'
 import { useDeepUpdateAtom } from '@/hooks/useDeepUpdateAtom'
@@ -59,15 +61,23 @@ export function useUrlSync() {
     [router?.asPath] // eslint-disable-line react-hooks/exhaustive-deps
   )
 
-  const debouncedPushRoute = useDebouncedCallback(pushRoute, 500)
+  const { url: urlConfig } = useAtomValue(configAtom)
+  const debouncedPushRoute = useDebouncedCallback(
+    pushRoute,
+    urlConfig.debouncing
+  )
 
   // Listen for route changes and update search state accordingly
   const autocomplete = useAtomValue(autocompleteAtom)
+  const autocompleteState = useAtomValue(autocompleteStateAtom)
   useEffect(() => {
     const handleRouteChange = () => {
       const newSearchState = urlToSearchState(window.location.href)
       setSearchState(newSearchState)
-      autocomplete?.setQuery(newSearchState.query ?? '')
+
+      if (!newSearchState.query) {
+        autocomplete?.setQuery('')
+      }
     }
 
     router.events.on('routeChangeComplete', handleRouteChange)
@@ -75,7 +85,7 @@ export function useUrlSync() {
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
     }
-  }, [router?.events, setSearchState, autocomplete])
+  }, [router?.events, setSearchState, autocomplete, autocompleteState?.query])
 
   // Sync internal search state with InstantSearch and push new route
   const onSearchStateChange = useCallback(

@@ -5,8 +5,8 @@ import { useMemo } from 'react'
 import { querySuggestionsIndexName } from '@/utils/env'
 
 export type SearchClientHookOptions = {
-  appId?: string
-  searchApiKey?: string
+  appId: string
+  searchApiKey: string
 }
 
 export function getSearchClient(
@@ -60,10 +60,6 @@ export function useSearchClient({
   appId,
   searchApiKey,
 }: SearchClientHookOptions): SearchClient {
-  if (typeof appId === 'undefined' || typeof searchApiKey === 'undefined') {
-    throw new Error(`'useSearchClient': 'appId' or 'searchApiKey' missing.`)
-  }
-
   return useMemo<SearchClient>(
     () => getSearchClient(appId, searchApiKey),
     [appId, searchApiKey]

@@ -7,14 +7,15 @@ import { useIsMounted } from '@/hooks/useIsMounted'
 export type ProductImageProps = {
   src: string
   alt?: string
+  className?: string
 }
 
-export function ProductImage({ src, alt = '' }: ProductImageProps) {
+export function ProductImage({ src, alt = '', className }: ProductImageProps) {
   const [loaded, setLoaded] = useState(false)
   const isMounted = useIsMounted()
 
   return (
-    <div className="bg-neutral-lightest">
+    <div className={classNames('bg-neutral-lightest', className)}>
       <Image
         src={src}
         alt={alt}

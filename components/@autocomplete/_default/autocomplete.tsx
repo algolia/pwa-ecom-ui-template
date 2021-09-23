@@ -46,7 +46,6 @@ export function Autocomplete({
       panelContainer: customPanelContainer ?? panelContainerRef.current,
       panelPlacement: 'full-width',
       detachedMediaQuery: '(max-width: 1439px)',
-      openOnFocus: true,
       initialState: {
         query: initialQuery,
       },

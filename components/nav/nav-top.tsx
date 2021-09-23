@@ -39,7 +39,7 @@ export const NavTop = memo(function NavTop() {
                 icon={HeadsetMicIcon}
                 label="Support"
                 labelPosition="right"
-                labelTheme="label-regular"
+                classNameLabel="label-regular"
               />
             </Link>
             <Link
@@ -51,7 +51,7 @@ export const NavTop = memo(function NavTop() {
                 icon={PinDropIcon}
                 label="Find a store"
                 labelPosition="right"
-                labelTheme="label-regular"
+                classNameLabel="label-regular"
               />
             </Link>
           </div>

@@ -1,6 +1,7 @@
 import { atom } from 'jotai'
 import { freezeAtom } from 'jotai/utils'
 
+import type { SetUserToken } from '@/hooks/useSearchInsights'
 import type { Refinement, RefinementLayout } from '@/typings/refinements'
 
 export type Config = typeof config
@@ -85,10 +86,21 @@ const searchParameters = {
   maxValuesPerFacet: 50,
   attributesToSnippet: ['description:30'],
   snippetEllipsisText: '…',
+  analytics: true,
+  clickAnalytics: true,
+}
+
+const setUserToken: SetUserToken = (generatedUserToken, setToken) => {
+  setToken(generatedUserToken)
 }
 
 const autocomplete = {
   placeholders: ['products', 'articles', 'faq'],
+  debouncing: 800, // in ms
+}
+
+const url = {
+  debouncing: 1500, // in ms
 }
 
 const config = {
@@ -97,7 +109,9 @@ const config = {
   sorts,
   breadcrumbAttributes,
   searchParameters,
+  setUserToken,
   autocomplete,
+  url,
 }
 
 export const configAtom = freezeAtom(atom(() => config))

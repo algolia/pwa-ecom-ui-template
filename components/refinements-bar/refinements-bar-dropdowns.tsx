@@ -69,7 +69,7 @@ export function RefinementsBarDropdowns({
             icon={FilterIcon}
             label={`${showAll ? 'Less' : 'More'} filters`}
             labelPosition="left"
-            labelTheme="small-bold"
+            classNameLabel="small-bold"
             classNameIcon="w-4 h-4"
           />
         </Button>

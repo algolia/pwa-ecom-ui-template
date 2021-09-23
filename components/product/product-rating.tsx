@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { useMemo } from 'react'
 
 import { clamp } from '@/utils/math'
@@ -7,13 +8,19 @@ import StarOulineIcon from '~icons/ic/outline-star-outline'
 export type ProductRatingProps = {
   rating: number
   maxRating?: number
-  review?: number
+  reviews?: number
+  reviewComponent?: React.ComponentType<{ reviews: number }>
+  className?: string
+  classNameStar?: string
 }
 
 export function ProductRating({
   rating,
   maxRating = 6,
-  review,
+  reviews,
+  reviewComponent: ReviewComponent,
+  className,
+  classNameStar = 'w-3 h-3',
 }: ProductRatingProps) {
   const ratingParsed = useMemo(
     () => clamp(Math.round(rating), 0, maxRating),
@@ -23,13 +30,18 @@ export function ProductRating({
   const stars = []
   for (let i = 0; i < maxRating; i++) {
     const Star = i >= ratingParsed ? StarOulineIcon : StarFillIcon
-    stars.push(<li key={i}>{<Star className="w-3 h-3" />}</li>)
+    stars.push(<li key={i}>{<Star className={classNameStar} />}</li>)
   }
 
   return (
-    <div className="flex gap-1.5 items-center">
-      <ul className="flex gap-[1px]">{stars}</ul>
-      {review && <span className="tag-bold">({review})</span>}
+    <div className={classNames('flex gap-1.5 items-center', className)}>
+      <ul className="flex gap-px">{stars}</ul>
+      {reviews &&
+        (ReviewComponent ? (
+          <ReviewComponent reviews={reviews} />
+        ) : (
+          <span className="tag-bold">({reviews})</span>
+        ))}
     </div>
   )
 }

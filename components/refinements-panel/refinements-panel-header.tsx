@@ -45,7 +45,7 @@ export function RefinementsPanelHeader() {
               icon={FilterIcon}
               label="Filter &amp; Sort"
               labelPosition="right"
-              labelTheme="heading-4"
+              classNameLabel="heading-4"
               classNameIcon="w-8 h-8"
             />
 
@@ -60,7 +60,7 @@ export function RefinementsPanelHeader() {
             icon={FilterIcon}
             label="Filters"
             labelPosition="right"
-            labelTheme="body-regular"
+            classNameLabel="body-regular"
             className="heading-5"
             classNameIcon="w-5 h-5"
           />
@@ -73,7 +73,7 @@ export function RefinementsPanelHeader() {
               icon={refinementsPanelsExpanded ? RemoveIcon : AddIcon}
               label={`${refinementsPanelsExpanded ? 'Collapse' : 'Expand'} all`}
               labelPosition="left"
-              labelTheme="body-regular"
+              classNameLabel="body-regular"
             />
           </Button>
         </Laptop>

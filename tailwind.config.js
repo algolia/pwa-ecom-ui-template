@@ -54,15 +54,6 @@ module.exports = {
       spacing: {
         header: '15rem',
       },
-      animation: {
-        loading: 'loading 6s cubic-bezier(0.2, 0.7, 0.4, 1) forwards',
-      },
-      keyframes: {
-        loading: {
-          '0%': { transform: 'scaleX(0)' },
-          '100%': { transform: 'scaleX(95%)' },
-        },
-      },
     },
     screens: {
       tablet: '768px',
@@ -72,13 +63,13 @@ module.exports = {
     },
     zIndex: {
       dropdown: 5,
-      'loading-bar': 10,
-      'overlay-header': 20,
-      header: 30,
-      'autocomplete-panel': 40,
-      dev: 50,
-      'overlay-full': 60,
-      refinements: 70,
+      'overlay-header': 10,
+      header: 20,
+      'autocomplete-panel': 30,
+      dev: 40,
+      'overlay-full': 50,
+      refinements: 60,
+      loader: 70,
       auto: 'auto',
     },
   },

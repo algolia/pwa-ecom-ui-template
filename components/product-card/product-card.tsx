@@ -1,20 +1,20 @@
 import classNames from 'classnames'
-import { useState } from 'react'
+import type { MouseEventHandler } from 'react'
+import { useCallback, useState } from 'react'
 
 import { Link } from '@ui/link/link'
 
-import type { ViewMode } from '../view-modes/view-modes'
-
-import { ProductColorVariationList } from './product-color-variation-list'
-import { ProductDescription } from './product-description'
-import { ProductFavorite } from './product-favorite'
-import { ProductImage } from './product-image'
-import { ProductLabel } from './product-label'
-import { ProductPrice } from './product-price'
-import { ProductRating } from './product-rating'
-import type { ProductTagType } from './product-tag'
-import { ProductTag } from './product-tag'
-import { ProductTitle } from './product-title'
+import { ProductColorVariationList } from '@/components/product/product-color-variation-list'
+import { ProductDescription } from '@/components/product/product-description'
+import { ProductFavorite } from '@/components/product/product-favorite'
+import { ProductImage } from '@/components/product/product-image'
+import { ProductLabel } from '@/components/product/product-label'
+import { ProductPrice } from '@/components/product/product-price'
+import { ProductRating } from '@/components/product/product-rating'
+import type { ProductTagType } from '@/components/product/product-tag'
+import { ProductTag } from '@/components/product/product-tag'
+import { ProductTitle } from '@/components/product/product-title'
+import type { ViewMode } from '@/components/view-modes/view-modes'
 
 export type ProductCardProps = {
   url?: string
@@ -34,6 +34,7 @@ export type ProductCardProps = {
   reviews?: number
   available?: boolean
   view?: ViewMode
+  onLinkClick?: MouseEventHandler<HTMLElement>
 }
 
 export function ProductCard({
@@ -54,8 +55,20 @@ export function ProductCard({
   reviews,
   available,
   view,
+  onLinkClick,
 }: ProductCardProps) {
   const [isFavorite, setIsFavorite] = useState(false)
+  const handleFavoriteClick = useCallback(
+    () => setIsFavorite((favorite) => !favorite),
+    []
+  )
+
+  const handleLinkClick = useCallback(
+    (e) => {
+      if (typeof onLinkClick === 'function') onLinkClick(e)
+    },
+    [onLinkClick]
+  )
 
   return (
     <article
@@ -71,7 +84,7 @@ export function ProductCard({
           'flex-col': view === 'grid',
           'flex-row items-start': view === 'list',
         })}
-        onClick={(e) => e.preventDefault()}
+        onClick={handleLinkClick}
       >
         <div
           className={classNames('relative', {
@@ -122,7 +135,7 @@ export function ProductCard({
               />
             )}
             {typeof rating !== 'undefined' && (
-              <ProductRating rating={rating} review={reviews} />
+              <ProductRating rating={rating} reviews={reviews} />
             )}
           </footer>
         </div>
@@ -134,7 +147,7 @@ export function ProductCard({
           'right-1 laptop:right-4': view === 'grid',
         })}
         isFavorite={isFavorite}
-        onClick={() => setIsFavorite((favorite) => !favorite)}
+        onClick={handleFavoriteClick}
       />
     </article>
   )
