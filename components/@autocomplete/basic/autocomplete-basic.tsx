@@ -19,6 +19,7 @@ import { voiceCameraIconsPluginCreator } from '@autocomplete/plugins/voice-camer
 import { searchStateAtom } from '@/components/@instantsearch/hooks/useUrlSync'
 import { configAtom } from '@/config/config'
 import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
+import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 import { createAnimatedPlaceholderPlugin } from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
 import { createClearLeftPlugin } from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 import { createFocusBlurPlugin } from '@/lib/autocomplete/plugins/createFocusBlurPlugin'
@@ -48,6 +49,7 @@ function AutocompleteBasicComponent({
   const router = useRouter()
   const isHomePage = useMemo(() => router?.pathname === '/', [router?.pathname])
   const { autocomplete: autocompleteConfig } = useAtomValue(configAtom)
+  const { laptop } = useTailwindScreens()
 
   const _setSearchState = useUpdateAtom(searchStateAtom)
 
@@ -145,13 +147,14 @@ function AutocompleteBasicComponent({
 
       if (
         prevState.query !== state.query &&
-        typeof state.query !== 'undefined'
+        typeof state.query !== 'undefined' &&
+        laptop
       ) {
         setSearchState({ query: state.query })
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [laptop]
   )
 
   return (
