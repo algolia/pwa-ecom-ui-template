@@ -22,6 +22,7 @@ import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 import { createAnimatedPlaceholderPlugin } from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
 import { createClearLeftPlugin } from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 import { createFocusBlurPlugin } from '@/lib/autocomplete/plugins/createFocusBlurPlugin'
+import { isomorphicWindow } from '@/utils/browser'
 
 export type AutocompleteBasicProps = AutocompleteProps & {
   searchClient: SearchClient
@@ -147,7 +148,11 @@ function AutocompleteBasicComponent({
         prevState.query !== state.query &&
         typeof state.query !== 'undefined'
       ) {
-        setSearchState({ query: state.query })
+        const isDetached = isomorphicWindow?.matchMedia(
+          autocompleteConfig.detachedMediaQuery
+        ).matches
+
+        if (!isDetached) setSearchState({ query: state.query })
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -158,6 +163,7 @@ function AutocompleteBasicComponent({
     <Autocomplete
       initialQuery={initialQuery}
       plugins={plugins}
+      detachedMediaQuery={autocompleteConfig.detachedMediaQuery}
       onSubmit={onSubmit}
       onStateChange={onStateChange}
       {...props}

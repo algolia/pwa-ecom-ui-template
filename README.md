@@ -7,7 +7,7 @@ Focused on performance and customization - based on the [Algolia - Ecom UI Desig
 
 <details>
   <summary>Expand</summary>
-  
+
   - [Introduction](#introduction)
   - [Why](#why)
   - [Getting started](#getting-started)
@@ -29,9 +29,19 @@ Focused on performance and customization - based on the [Algolia - Ecom UI Desig
 
 ## Introduction
 
-[![UI Template demo](https://i.ibb.co/YkWsYjW/ezgif-6-fbf5988705da.gif)](https://algolia-pwa-ui-template-preview.netlify.app/)
-
 Check out the [latest version](https://algolia-pwa-ui-template-preview.netlify.app/) deployed on Netlify.
+
+### Mobile
+
+[![UI Template mobile demo](https://i.ibb.co/Kjrd162/ezgif-7-bc660a09c6b5.gif)](https://algolia-pwa-ui-template-preview.netlify.app/)
+
+### Desktop
+
+<details>
+  <summary>Expand</summary>
+
+  [![UI Template desktop demo](https://i.ibb.co/YkWsYjW/ezgif-6-fbf5988705da.gif)](https://algolia-pwa-ui-template-preview.netlify.app/)
+</details>
 
 ## Why?
 
@@ -116,7 +126,7 @@ Duplicate the [`.env`](./.env) file to `.env.local` and fill in the environment 
 - ✅ Sending Events / Insights API
 - ✅ Advanced Analytics
 - ✅ A/B Testing
-- ✅ Merhandizing
+- ✅ Merchandizing
 - ✅ Rules (Banners)
 - ✅ Query Suggestions
 - ✅ Multiple sorts + Relevant sort
@@ -131,11 +141,11 @@ The UI Template uses **core** and **packaged** **React InstantSearch widgets**.
 - ✅ [ColorRefinementList](https://github.com/algolia/react-instantsearch-widget-color-refinement-list)
 - ✅ [SizeRefinementList](https://github.com/algolia/react-instantsearch-widget-size-refinement-list)
 - ✅ [LoadMoreWithProgressBar](https://github.com/algolia/react-instantsearch-widget-loadmore-with-progressbar)
-- 🔄 [ExpandablePanel](./components/@instantsearch/widgets/expandable-panel/expandable-panel.tsx)
-- 🔄 [RefinementsDropdown](./components/@instantsearch/widgets/refinements-dropdown/refinements-dropdown.tsx)
-- 🔄 [RatingSelector](./components/@instantsearch/widgets/rating-selector/rating-selector.tsx)
-- 🔄 [NoResultsHandler](./components/@instantsearch/widgets/no-results-handler/no-results-handler.tsx)
-- 🔄 [BreadcrumbWithQuery](./components/@instantsearch/widgets/breadcrumb/breadcrumb.tsx)
+- 🔄 [ExpandablePanel](./components/%40instantsearch/widgets/expandable-panel/expandable-panel.tsx)
+- 🔄 [RefinementsDropdown](./components/%40instantsearch/widgets/refinements-dropdown/refinements-dropdown.tsx)
+- 🔄 [RatingSelector](./components/%40instantsearch/widgets/rating-selector/rating-selector.tsx)
+- 🔄 [NoResultsHandler](./components/%40instantsearch/widgets/no-results-handler/no-results-handler.tsx)
+- 🔄 [BreadcrumbWithQuery](./components/%40instantsearch/widgets/breadcrumb/breadcrumb.tsx)
 
 ✅ Published / 🔄 To be published
 

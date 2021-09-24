@@ -1,12 +1,12 @@
+import CropIcon from '@material-design-icons/svg/outlined/crop_free.svg'
+import VoiceIcon from '@material-design-icons/svg/outlined/keyboard_voice.svg'
+import CameraIcon from '@material-design-icons/svg/outlined/photo_camera.svg'
 import { render } from 'react-dom'
 
 import { Button } from '@ui/button/button'
 
 import { Icon } from '@/components/@ui/icon/icon'
 import { createTemplatePlugin } from '@/lib/autocomplete/plugins/createTemplatePlugin'
-import CropIcon from '~icons/ic/outline-crop-free'
-import VoiceIcon from '~icons/ic/outline-keyboard-voice'
-import CameraIcon from '~icons/ic/outline-photo-camera'
 
 type AutocompleteIconsProps = {
   voice?: boolean

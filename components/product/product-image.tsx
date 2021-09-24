@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { useIsMounted } from '@/hooks/useIsMounted'
 
@@ -13,6 +13,11 @@ export type ProductImageProps = {
 export function ProductImage({ src, alt = '', className }: ProductImageProps) {
   const [loaded, setLoaded] = useState(false)
   const isMounted = useIsMounted()
+
+  const handleLoadingComplete = useCallback(
+    () => (isMounted() ? setLoaded(true) : null),
+    [isMounted]
+  )
 
   return (
     <div className={classNames('bg-neutral-lightest', className)}>
@@ -28,7 +33,7 @@ export function ProductImage({ src, alt = '', className }: ProductImageProps) {
             '!opacity-0': !loaded,
           }
         )}
-        onLoadingComplete={() => (isMounted() ? setLoaded(true) : null)}
+        onLoadingComplete={handleLoadingComplete}
       />
     </div>
   )

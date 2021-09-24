@@ -1,3 +1,7 @@
+import AddIcon from '@material-design-icons/svg/outlined/add.svg'
+import CloseIcon from '@material-design-icons/svg/outlined/close.svg'
+import FilterIcon from '@material-design-icons/svg/outlined/filter_list.svg'
+import RemoveIcon from '@material-design-icons/svg/outlined/remove.svg'
 import { useAtom } from 'jotai'
 import { useCallback } from 'react'
 
@@ -11,10 +15,6 @@ import { refinementsPanelsExpandedAtom } from './refinements-panel-body'
 
 import { useLockedBody } from '@/hooks/useLockedBody'
 import { Laptop, Tablet } from '@/lib/media'
-import AddIcon from '~icons/ic/outline-add'
-import CloseIcon from '~icons/ic/outline-close'
-import FilterIcon from '~icons/ic/outline-filter-list'
-import RemoveIcon from '~icons/ic/outline-remove'
 
 export function RefinementsPanelHeader() {
   const [mobileExpanded, setMobileExpanded] = useAtom(

@@ -1,3 +1,5 @@
+import CloseIcon from '@material-design-icons/svg/outlined/close.svg'
+import ArrowIcon from '@material-design-icons/svg/outlined/keyboard_arrow_right.svg'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { memo, useCallback, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
@@ -14,8 +16,6 @@ import {
 import { Button } from '@/components/@ui/button/button'
 import { Icon } from '@/components/@ui/icon/icon'
 import { ClientOnly } from '@/components/client-only/client-only'
-import CloseIcon from '~icons/ic/outline-close'
-import ArrowIcon from '~icons/ic/outline-keyboard-arrow-right'
 
 export type BreadcrumbProps = BreadcrumbProvided
 

@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import type { ImageProps } from 'next/image'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { Container } from '@/components/container/container'
 import { DummyWrapper } from '@/components/dummy-wrapper/dummy-wrapper'
@@ -45,6 +45,11 @@ export function Banner({
   const [loaded, setLoaded] = useState(false)
   const isMounted = useIsMounted()
 
+  const handleLoadingComplete = useCallback(
+    () => (isMounted() ? setLoaded(true) : null),
+    [isMounted]
+  )
+
   if (!size) return null
 
   const Wrapper = fullWidth ? DummyWrapper : Container
@@ -79,7 +84,7 @@ export function Banner({
           className={classNames('transition-opacity', {
             '!opacity-0': !loaded,
           })}
-          onLoadingComplete={() => (isMounted() ? setLoaded(true) : null)}
+          onLoadingComplete={handleLoadingComplete}
         />
       )}
 

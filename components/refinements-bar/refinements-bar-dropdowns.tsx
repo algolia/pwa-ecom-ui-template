@@ -1,3 +1,5 @@
+import FilterIcon from '@material-design-icons/svg/outlined/filter_list.svg'
+import classNames from 'classnames'
 import { useAtomValue } from 'jotai/utils'
 import { useCallback, useMemo, useState } from 'react'
 
@@ -12,7 +14,6 @@ import { Button } from '@ui/button/button'
 import { IconLabel } from '@ui/icon-label/icon-label'
 
 import { configAtom } from '@/config/config'
-import FilterIcon from '~icons/ic/outline-filter-list'
 
 export type RefinementsBarDropdownsProps = {
   dynamicWidgets?: boolean
@@ -43,24 +44,20 @@ export function RefinementsBarDropdowns({
             key={panelId}
             attributes={panelAttributes}
             header={refinement.header}
+            className={classNames({ hidden: !showAll && limit <= i })}
             classNameContainer="w-52"
           >
             {widget}
           </RefinementsDropdown>
         )
       }),
-    [widgets, refinements]
-  )
-
-  const widgetsSliced = useMemo(
-    () => (showAll ? widgetsDropdowns : widgetsDropdowns.slice(0, limit)),
-    [showAll, widgetsDropdowns, limit]
+    [widgets, refinements, showAll, limit]
   )
 
   return (
     <div className="flex gap-4">
       <DynamicWidgets enabled={dynamicWidgets} className="flex gap-4">
-        {widgetsSliced}
+        {widgetsDropdowns}
       </DynamicWidgets>
 
       {showMore && (

@@ -1,15 +1,20 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useRef, useState } from 'react'
 
-export function useIsMounted() {
+import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect'
+
+export function useIsMounted(shouldTriggerRender = false) {
   const isMounted = useRef(false)
+  const [, triggerRender] = useState(false)
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     isMounted.current = true
+    if (shouldTriggerRender) triggerRender(true)
 
     return () => {
       isMounted.current = false
+      if (shouldTriggerRender) triggerRender(false)
     }
   }, [])
 
-  return () => isMounted.current
+  return useCallback(() => isMounted.current, [])
 }

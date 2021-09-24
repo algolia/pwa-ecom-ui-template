@@ -12,7 +12,7 @@ export function ProductLabel({
   className = 'tag-bold tracking-normal',
 }: ProductLabelProps) {
   return (
-    <h2 className={classNames('text-neutral-dark', className)}>
+    <h2 className={classNames('text-neutral-darkest', className)}>
       {Highlighting ? <Highlighting /> : children}
     </h2>
   )

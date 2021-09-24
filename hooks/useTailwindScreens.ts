@@ -23,11 +23,10 @@ export function useTailwindScreens() {
 
   const matches = useMedia(queries)
 
-  return useMemo(() => {
-    const screensResults: Screens = {}
-    names.forEach((screenName: string, i: number) => {
-      screensResults[screenName] = matches[i]
-    })
-    return screensResults
-  }, [matches, names])
+  const screensResults: Screens = {}
+  names.forEach((screenName: string, i: number) => {
+    screensResults[screenName] = matches[i]
+  })
+
+  return screensResults
 }

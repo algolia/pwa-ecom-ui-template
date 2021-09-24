@@ -1,3 +1,5 @@
+import StarFillIcon from '@material-design-icons/svg/outlined/star.svg'
+import StarOulineIcon from '@material-design-icons/svg/outlined/star_outline.svg'
 import classNames from 'classnames'
 import { memo, useMemo, useState } from 'react'
 import isEqual from 'react-fast-compare'
@@ -6,8 +8,6 @@ import { connectRange } from 'react-instantsearch-dom'
 
 import { Button } from '@/components/@ui/button/button'
 import { Icon } from '@/components/@ui/icon/icon'
-import StarFillIcon from '~icons/ic/outline-star'
-import StarOulineIcon from '~icons/ic/outline-star-outline'
 
 export type RatingSelectorProps = RatingMenuProvided
 
