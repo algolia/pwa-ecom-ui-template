@@ -25,6 +25,7 @@ export function useMedia(queries: string[]) {
       if (!mounted) {
         return
       }
+
       updateState(e.matches, i)
     }
 

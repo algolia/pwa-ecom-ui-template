@@ -50,10 +50,6 @@ function AutocompleteBasicComponent({
   const isHomePage = useMemo(() => router?.pathname === '/', [router?.pathname])
   const { autocomplete: autocompleteConfig } = useAtomValue(configAtom)
 
-  const isDetached = isomorphicWindow?.matchMedia(
-    autocompleteConfig.detachedMediaQuery
-  ).matches
-
   const _setSearchState = useUpdateAtom(searchStateAtom)
 
   const setSearchState = useDebouncedCallback(
@@ -150,14 +146,17 @@ function AutocompleteBasicComponent({
 
       if (
         prevState.query !== state.query &&
-        typeof state.query !== 'undefined' &&
-        !isDetached
+        typeof state.query !== 'undefined'
       ) {
-        setSearchState({ query: state.query })
+        const isDetached = isomorphicWindow?.matchMedia(
+          autocompleteConfig.detachedMediaQuery
+        ).matches
+
+        if (!isDetached) setSearchState({ query: state.query })
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isDetached]
+    []
   )
 
   return (

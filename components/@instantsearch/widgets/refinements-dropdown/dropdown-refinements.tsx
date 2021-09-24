@@ -19,6 +19,7 @@ export function RefinementsDropdownComponent({
   attributes = [],
   items,
   header,
+  className,
   classNameContainer,
 }: RefinementsDropdownProps) {
   const currentRefinementCount = useCurrentRefinementCount(items, attributes)
@@ -26,6 +27,7 @@ export function RefinementsDropdownComponent({
   return (
     <Dropdown
       header={header}
+      className={className}
       classNameContainer={classNameContainer}
       count={currentRefinementCount}
     >

@@ -9,6 +9,7 @@ import {
 } from '@instantsearch/widgets/current-refinements/current-refinements'
 import { RelevantSort } from '@instantsearch/widgets/relevant-sort/relevant-sort'
 import { SortBy } from '@instantsearch/widgets/sort-by/sort-by'
+import { Stats } from '@instantsearch/widgets/stats/stats'
 import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 import { Button } from '@ui/button/button'
 import { Count } from '@ui/count/count'
@@ -28,13 +29,13 @@ const RefinementsBarDropdowns = dynamic<any>(() =>
 
 export type RefinementsBarProps = {
   dynamicWidgets?: boolean
-  showWidgets?: boolean
+  showRefinements?: boolean
   className?: string
 }
 
 export function RefinementsBar({
   dynamicWidgets = true,
-  showWidgets = false,
+  showRefinements = false,
   className,
 }: RefinementsBarProps) {
   const { sorts } = useAtomValue(configAtom)
@@ -71,18 +72,19 @@ export function RefinementsBar({
         </div>
 
         <RelevantSort />
+        <Stats className="ml-auto" />
       </Tablet>
 
       <Laptop className="flex flex-col items-start gap-4">
         <div className="w-full flex gap-6">
-          {showWidgets && (
+          {showRefinements && (
             <RefinementsBarDropdowns dynamicWidgets={dynamicWidgets} />
           )}
 
-          {!showWidgets && <CurrentRefinements />}
+          {!showRefinements && <CurrentRefinements />}
 
           <div className="flex gap-6 ml-auto flex-shrink-0 items-center">
-            {!showWidgets && <ToggleFilters />}
+            {!showRefinements && <ToggleFilters />}
             <ViewModes />
             <SortBy
               defaultRefinement={sortDefaultRefinement}
@@ -92,9 +94,12 @@ export function RefinementsBar({
           </div>
         </div>
 
-        {showWidgets && <CurrentRefinements />}
+        {showRefinements && <CurrentRefinements />}
 
-        <RelevantSort />
+        <div className="w-full flex items-center">
+          <RelevantSort />
+          <Stats className="ml-auto" />
+        </div>
       </Laptop>
     </section>
   )
