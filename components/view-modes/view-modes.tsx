@@ -19,8 +19,9 @@ export function ViewModes() {
       <div className="laptop:small-bold">Display</div>
 
       <Button
+        title="View products as a grid"
         disabled={viewMode === 'grid'}
-        className={classNames({
+        className={classNames('p-3 laptop:p-0', {
           '!text-brand-nebula': viewMode === 'grid',
         })}
         onClick={() => setViewMode('grid')}
@@ -28,8 +29,9 @@ export function ViewModes() {
         <Icon icon={GridViewIcon} />
       </Button>
       <Button
+        title="View products as a list"
         disabled={viewMode === 'list'}
-        className={classNames({
+        className={classNames('p-3 laptop:p-0', {
           '!text-brand-nebula': viewMode === 'list',
         })}
         onClick={() => setViewMode('list')}
