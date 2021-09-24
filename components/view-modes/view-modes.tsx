@@ -1,11 +1,10 @@
+import ListViewIcon from '@material-design-icons/svg/outlined/format_list_bulleted.svg'
+import GridViewIcon from '@material-design-icons/svg/outlined/grid_view.svg'
 import classNames from 'classnames'
 import { atom, useAtom } from 'jotai'
 
 import { Button } from '@ui/button/button'
 import { Icon } from '@ui/icon/icon'
-
-import ListViewIcon from '~icons/ic/outline-format-list-bulleted'
-import GridViewIcon from '~icons/ic/outline-grid-view'
 
 export type ViewMode = 'grid' | 'list'
 
@@ -19,8 +18,9 @@ export function ViewModes() {
       <div className="laptop:small-bold">Display</div>
 
       <Button
+        title="View products as a grid"
         disabled={viewMode === 'grid'}
-        className={classNames({
+        className={classNames('p-3 laptop:p-0', {
           '!text-brand-nebula': viewMode === 'grid',
         })}
         onClick={() => setViewMode('grid')}
@@ -28,8 +28,9 @@ export function ViewModes() {
         <Icon icon={GridViewIcon} />
       </Button>
       <Button
+        title="View products as a list"
         disabled={viewMode === 'list'}
-        className={classNames({
+        className={classNames('p-3 laptop:p-0', {
           '!text-brand-nebula': viewMode === 'list',
         })}
         onClick={() => setViewMode('list')}

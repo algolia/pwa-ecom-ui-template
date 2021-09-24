@@ -126,7 +126,7 @@ Duplicate the [`.env`](./.env) file to `.env.local` and fill in the environment 
 - ✅ Sending Events / Insights API
 - ✅ Advanced Analytics
 - ✅ A/B Testing
-- ✅ Merhandizing
+- ✅ Merchandizing
 - ✅ Rules (Banners)
 - ✅ Query Suggestions
 - ✅ Multiple sorts + Relevant sort

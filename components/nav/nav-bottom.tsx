@@ -1,3 +1,4 @@
+import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
@@ -9,7 +10,6 @@ import { NavItem } from './nav-item'
 
 import { Laptop, Tablet } from '@/lib/media'
 import { parseUrl } from '@/utils/parseUrl'
-import MenuIcon from '~icons/ic/outline-menu'
 
 export function NavBottom() {
   const router = useRouter()

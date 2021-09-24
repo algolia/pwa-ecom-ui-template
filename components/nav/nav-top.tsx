@@ -1,3 +1,8 @@
+import FavoriteIcon from '@material-design-icons/svg/outlined/favorite_border.svg'
+import HeadsetMicIcon from '@material-design-icons/svg/outlined/headset_mic.svg'
+import PersonIcon from '@material-design-icons/svg/outlined/person.svg'
+import PinDropIcon from '@material-design-icons/svg/outlined/pin_drop.svg'
+import ShoppingBagIcon from '@material-design-icons/svg/outlined/shopping_bag.svg'
 import dynamic from 'next/dynamic'
 import { memo } from 'react'
 
@@ -8,11 +13,6 @@ import { Link } from '@ui/link/link'
 import type { LogoProps } from '@/components/logo/logo'
 import { NavItem } from '@/components/nav/nav-item'
 import { Tablet, Laptop } from '@/lib/media'
-import FavoriteIcon from '~icons/ic/outline-favorite-border'
-import HeadsetMicIcon from '~icons/ic/outline-headset-mic'
-import PersonIcon from '~icons/ic/outline-person'
-import PinDropIcon from '~icons/ic/outline-pin-drop'
-import ShoppingBagIcon from '~icons/ic/outline-shopping-bag'
 
 const Logo = dynamic<LogoProps>(() =>
   import(/* webpackChunkName: 'common' */ '@/components/logo/logo').then(

@@ -93,10 +93,12 @@ export function NavAutocomplete() {
     { focused: isExpanded }
   )
 
+  const width = isExpanded ? '90%' : '20rem'
+
   return (
     <m.div
       className={autocompleteCn}
-      animate={{ width: isExpanded ? '90%' : '20rem' }}
+      animate={{ width: laptop ? width : '100%' }}
       transition={transition}
     >
       <div className="hidden absolute w-24 h-full -translate-x-full bg-gradient-to-l from-white laptop:block" />

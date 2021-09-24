@@ -142,10 +142,13 @@ export function ProductCard({
       </Link>
 
       <ProductFavorite
-        className={classNames('absolute top-1 laptop:top-4 ', {
-          'left-1 laptop:left-4': view === 'list',
-          'right-1 laptop:right-4': view === 'grid',
-        })}
+        className={classNames(
+          'hidden absolute top-1 laptop:block laptop:top-4',
+          {
+            'left-1 laptop:left-4': view === 'list',
+            'right-1 laptop:right-4': view === 'grid',
+          }
+        )}
         isFavorite={isFavorite}
         onClick={handleFavoriteClick}
       />

@@ -45,7 +45,6 @@ export function Autocomplete({
       container: customContainer ?? containerRef.current,
       panelContainer: customPanelContainer ?? panelContainerRef.current,
       panelPlacement: 'full-width',
-      detachedMediaQuery: '(max-width: 1439px)',
       initialState: {
         query: initialQuery,
       },

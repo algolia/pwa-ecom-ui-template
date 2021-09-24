@@ -22,6 +22,7 @@ import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 import { createAnimatedPlaceholderPlugin } from '@/lib/autocomplete/plugins/createAnimatedPlaceholderPlugin'
 import { createClearLeftPlugin } from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 import { createFocusBlurPlugin } from '@/lib/autocomplete/plugins/createFocusBlurPlugin'
+import { isomorphicWindow } from '@/utils/browser'
 
 export type AutocompleteBasicProps = AutocompleteProps & {
   searchClient: SearchClient
@@ -48,6 +49,10 @@ function AutocompleteBasicComponent({
   const router = useRouter()
   const isHomePage = useMemo(() => router?.pathname === '/', [router?.pathname])
   const { autocomplete: autocompleteConfig } = useAtomValue(configAtom)
+
+  const isDetached = isomorphicWindow?.matchMedia(
+    autocompleteConfig.detachedMediaQuery
+  ).matches
 
   const _setSearchState = useUpdateAtom(searchStateAtom)
 
@@ -145,19 +150,21 @@ function AutocompleteBasicComponent({
 
       if (
         prevState.query !== state.query &&
-        typeof state.query !== 'undefined'
+        typeof state.query !== 'undefined' &&
+        !isDetached
       ) {
         setSearchState({ query: state.query })
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [isDetached]
   )
 
   return (
     <Autocomplete
       initialQuery={initialQuery}
       plugins={plugins}
+      detachedMediaQuery={autocompleteConfig.detachedMediaQuery}
       onSubmit={onSubmit}
       onStateChange={onStateChange}
       {...props}

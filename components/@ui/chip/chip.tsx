@@ -1,11 +1,10 @@
+import CloseIcon from '@material-design-icons/svg/outlined/close.svg'
 import classNames from 'classnames'
 import type { ForwardedRef } from 'react'
 
 import type { ButtonProps } from '@ui/button/button'
 import { Button } from '@ui/button/button'
 import { Icon } from '@ui/icon/icon'
-
-import CloseIcon from '~icons/ic/outline-close'
 
 export type ChipProps = ButtonProps & {
   ref?: ForwardedRef<HTMLButtonElement>

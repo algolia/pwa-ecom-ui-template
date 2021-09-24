@@ -1,3 +1,5 @@
+import ShoppingBagIcon from '@material-design-icons/svg/outlined/shopping_bag.svg'
+import SyncIcon from '@material-design-icons/svg/outlined/sync.svg'
 import type { MouseEventHandler } from 'react'
 import { useCallback, useState } from 'react'
 
@@ -15,8 +17,6 @@ import { ProductSizes } from '@/components/product/product-sizes'
 import type { ProductTagType } from '@/components/product/product-tag'
 import { ProductTag } from '@/components/product/product-tag'
 import { ProductTitle } from '@/components/product/product-title'
-import ShoppingBagIcon from '~icons/ic/outline-shopping-bag'
-import SyncIcon from '~icons/ic/outline-sync'
 
 export type ProductDetailProps = {
   image?: string

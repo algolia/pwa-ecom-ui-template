@@ -1,3 +1,4 @@
+import FilterIcon from '@material-design-icons/svg/outlined/filter_list.svg'
 import { useAtom } from 'jotai'
 
 import { Button } from '@ui/button/button'
@@ -5,7 +6,6 @@ import { IconLabel } from '@ui/icon-label/icon-label'
 
 import { ClientOnly } from '@/components/client-only/client-only'
 import { refinementsPanelDesktopExpandedAtom } from '@/components/refinements-panel/refinements-panel'
-import FilterIcon from '~icons/ic/outline-filter-list'
 
 export function ToggleFilters() {
   // 'desktopExpanded' is only available in localStorage (client-side only)
