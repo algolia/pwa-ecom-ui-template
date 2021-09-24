@@ -20,6 +20,7 @@ module.exports = withPlugins([withBundleAnalyzer, withPWA], {
   images: {
     domains: ['img1.g-star.com'],
     deviceSizes: [375, 425, 768, 828, 1024, 1440, 1920, 2560],
+    minimumCacheTTL: 60 * 60 * 24,
   },
   pwa: {
     dest: 'public',
