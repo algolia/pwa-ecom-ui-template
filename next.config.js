@@ -1,9 +1,8 @@
-const withPlugins = require('next-compose-plugins')
+const withNextPlugins = require('next-compose-plugins')
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 const withPWA = require('next-pwa')
-const IconsPlugin = require('unplugin-icons/webpack')
 
 const ifdefOpts = {
   DEV: process.env.NODE_ENV === 'development',
@@ -12,7 +11,7 @@ const ifdefOpts = {
 }
 
 /** @type {import('next').NextConfig} */
-module.exports = withPlugins([withBundleAnalyzer, withPWA], {
+module.exports = withNextPlugins([withBundleAnalyzer, withPWA], {
   reactStrictMode: true,
   eslint: {
     dirs: ['pages', 'components', 'config', 'layouts', 'lib', 'utils', 'hooks'],
@@ -48,9 +47,21 @@ module.exports = withPlugins([withBundleAnalyzer, withPWA], {
       babelRule.use = [babelRule.use, ifdefLoader]
     }
 
-    // Icons
-    babelRule.test = /virtual:~icons|\.(tsx|ts|js|mjs|jsx)$/
-    config.plugins.push(IconsPlugin({ compiler: 'jsx', jsx: 'react' }))
+    // SVGR loader
+    rules.push({
+      test: /\.svg$/,
+      use: [
+        {
+          loader: '@svgr/webpack',
+          options: {
+            icon: true,
+            svgProps: {
+              fill: 'currentColor'
+            }
+          },
+        },
+      ],
+    })
 
     return config
   },

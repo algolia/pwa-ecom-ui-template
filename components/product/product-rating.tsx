@@ -1,9 +1,9 @@
+import StarFillIcon from '@material-design-icons/svg/outlined/star.svg'
+import StarOulineIcon from '@material-design-icons/svg/outlined/star_outline.svg'
 import classNames from 'classnames'
 import { useMemo } from 'react'
 
 import { clamp } from '@/utils/math'
-import StarFillIcon from '~icons/ic/outline-star'
-import StarOulineIcon from '~icons/ic/outline-star-outline'
 
 export type ProductRatingProps = {
   rating: number
