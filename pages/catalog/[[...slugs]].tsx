@@ -9,6 +9,7 @@ import { Container } from '@/components/container/container'
 import { ProductCardHit } from '@/components/product-card/product-card-hit'
 import { viewModeAtom } from '@/components/view-modes/view-modes'
 import { configAtom } from '@/config/config'
+import { useIsMounted } from '@/hooks/useIsMounted'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 import type { SearchPageLayoutProps } from '@/layouts/search-page-layout'
 import {
@@ -33,7 +34,10 @@ export default function Catalog(props: SearchPageLayoutProps) {
     useAtomValue(configAtom)
   const refinementsLayout = useAtomValue(refinementsLayoutAtom)
   const viewMode = useAtomValue(viewModeAtom)
+
   const { laptop } = useTailwindScreens()
+  const isMounted = useIsMounted(true)
+  const isLaptop = laptop && isMounted()
 
   return (
     <SearchPageLayout {...props}>
@@ -43,11 +47,11 @@ export default function Catalog(props: SearchPageLayoutProps) {
         <QueryRuleBanners limit={1} />
 
         <div className="flex flex-col laptop:flex-row">
-          {(refinementsLayout === 'panel' || !laptop) && <RefinementsPanel />}
+          {(refinementsLayout === 'panel' || !isLaptop) && <RefinementsPanel />}
 
           <div className="flex-grow flex flex-col gap-2 laptop:gap-5">
             <RefinementsBar
-              showWidgets={refinementsLayout === 'bar' && laptop}
+              showRefinements={refinementsLayout === 'bar' && isLaptop}
             />
 
             <NoResultsHandler>
