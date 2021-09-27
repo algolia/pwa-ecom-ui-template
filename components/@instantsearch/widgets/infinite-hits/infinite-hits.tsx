@@ -96,6 +96,6 @@ function InfiniteHitsComponent({
   )
 }
 
-export const InfiniteHits = connectInfiniteHits(
+export const InfiniteHits = connectInfiniteHits<any, any>(
   memo(withDebugLayer(InfiniteHitsComponent, 'InfiniteHitsWidget'), isEqual)
 )
