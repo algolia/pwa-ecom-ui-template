@@ -8,6 +8,7 @@ import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/
 
 import { withDebugLayer } from '@/components/@dev/debug-layer/debug-layer'
 import { Banner } from '@/components/banner/banner'
+import { useIsMounted } from '@/hooks/useIsMounted'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 
 export type QueryRuleBannersProps = QueryRuleCustomDataProvided & {
@@ -20,6 +21,7 @@ function QueryRuleBannersComponent({
 }: QueryRuleBannersProps) {
   const searchResults = useAtomValue(searchResultsAtom)
   const { laptop } = useTailwindScreens()
+  const isMounted = useIsMounted()
 
   if (!items.length || searchResults?.nbHits === 0) return null
 
@@ -30,7 +32,7 @@ function QueryRuleBannersComponent({
       {slicedItems.map(({ title, description, image }) => (
         <Banner
           key={image}
-          size={laptop ? 'l' : 's'}
+          size={laptop && isMounted() ? 'l' : 's'}
           title={title}
           description={description}
           image={laptop ? image.desktop : image.mobile}
