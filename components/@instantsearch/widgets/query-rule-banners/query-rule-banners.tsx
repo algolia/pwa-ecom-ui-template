@@ -6,6 +6,7 @@ import { connectQueryRules } from 'react-instantsearch-core'
 
 import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 
+import { withDebugLayer } from '@/components/@dev/debug-layer/debug-layer'
 import { Banner } from '@/components/banner/banner'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 
@@ -44,5 +45,8 @@ function QueryRuleBannersComponent({
 }
 
 export const QueryRuleBanners = connectQueryRules(
-  memo(QueryRuleBannersComponent, isEqual)
+  memo(
+    withDebugLayer(QueryRuleBannersComponent, 'QueryRuleBannersWidget'),
+    isEqual
+  )
 )

@@ -10,6 +10,7 @@ import type {
 } from 'react-instantsearch-core'
 import { connectCurrentRefinements } from 'react-instantsearch-dom'
 
+import { withDebugLayer } from '@dev/debug-layer/debug-layer'
 import { ClearRefinements } from '@instantsearch/widgets/clear-refinements/clear-refinements'
 
 import { getCurrentRefinement } from './getCurrentRefinement'
@@ -84,7 +85,9 @@ function CurrentRefinementsComponent({
   )
 }
 
-export const CurrentRefinements =
-  connectCurrentRefinements<CurrentRefinementsProps>(
-    memo(CurrentRefinementsComponent, isEqual)
+export const CurrentRefinements = connectCurrentRefinements<any>(
+  memo(
+    withDebugLayer(CurrentRefinementsComponent, 'CurrentRefinementsWidget'),
+    isEqual
   )
+)

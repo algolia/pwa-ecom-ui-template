@@ -5,6 +5,7 @@ import isEqual from 'react-fast-compare'
 import type { InfiniteHitsProvided } from 'react-instantsearch-core'
 import { connectInfiniteHits } from 'react-instantsearch-dom'
 
+import { withDebugLayer } from '@dev/debug-layer/debug-layer'
 import { LoadLess } from '@instantsearch/widgets/load-less/load-less'
 import { LoadMore } from '@instantsearch/widgets/load-more/load-more'
 
@@ -96,5 +97,5 @@ function InfiniteHitsComponent({
 }
 
 export const InfiniteHits = connectInfiniteHits(
-  memo(InfiniteHitsComponent, isEqual)
+  memo(withDebugLayer(InfiniteHitsComponent, 'InfiniteHitsWidget'), isEqual)
 )
