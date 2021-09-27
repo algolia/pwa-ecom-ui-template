@@ -7,6 +7,7 @@ import { connectQueryRules } from 'react-instantsearch-core'
 import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 
 import { Banner } from '@/components/banner/banner'
+import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 
 export type QueryRuleBannersProps = QueryRuleCustomDataProvided & {
   limit?: number
@@ -17,6 +18,7 @@ function QueryRuleBannersComponent({
   limit = Infinity,
 }: QueryRuleBannersProps) {
   const searchResults = useAtomValue(searchResultsAtom)
+  const { laptop } = useTailwindScreens()
 
   if (!items.length || searchResults?.nbHits === 0) return null
 
@@ -24,13 +26,13 @@ function QueryRuleBannersComponent({
 
   return (
     <div className="flex flex-col">
-      {slicedItems.map(({ size, title, description, image }) => (
+      {slicedItems.map(({ title, description, image }) => (
         <Banner
           key={image}
-          size={size}
+          size={laptop ? 'l' : 's'}
           title={title}
           description={description}
-          image={image.desktop}
+          image={laptop ? image.desktop : image.mobile}
           imageAlt={title}
           fullWidth={true}
           overlay={true}
