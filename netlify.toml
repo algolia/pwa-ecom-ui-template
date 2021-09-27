@@ -2,6 +2,10 @@
   command = "npm run build"
   publish = "out"
 
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["sharp"]
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
