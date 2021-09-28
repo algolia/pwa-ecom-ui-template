@@ -5,6 +5,7 @@ import { memo, useCallback, useEffect, useRef } from 'react'
 
 import { Button } from '@ui/button/button'
 
+import { withDebugLayer } from '@/components/@dev/debug-layer/debug-layer'
 import { searchQueryAtom } from '@/components/@instantsearch/hooks/useUrlSync'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 
@@ -62,4 +63,6 @@ function LoadMoreComponent() {
   )
 }
 
-export const LoadMore = memo(LoadMoreComponent)
+export const LoadMore = memo(
+  withDebugLayer(LoadMoreComponent, 'LoadMoreWidget')
+)

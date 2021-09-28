@@ -4,7 +4,8 @@ import { useRouter } from 'next/router'
 import { useEffect, useRef } from 'react'
 import { Pane as Tweakpane } from 'tweakpane'
 
-import { gridsHiddenAtom } from '../grids/grids'
+import { debugLayerEnabledAtom } from '@dev/debug-layer/debug-layer'
+import { gridsHiddenAtom } from '@dev/grids/grids'
 
 import { configAtom } from '@/config/config'
 
@@ -14,8 +15,12 @@ export function Pane() {
 
   const [gridsHidden, setGridsHidden] = useAtom(gridsHiddenAtom)
   const { refinementsLayoutAtom } = useAtomValue(configAtom)
+
   const [refinementsLayout, setRefinementsLayout] = useAtom(
     refinementsLayoutAtom
+  )
+  const [debugLayerEnabled, setDebugLayerEnabled] = useAtom(
+    debugLayerEnabledAtom
   )
 
   useEffect(() => {
@@ -62,6 +67,16 @@ export function Pane() {
       .addInput({ gridsHidden }, 'gridsHidden', { label: 'Hidden' })
       .on('change', (ev) => {
         setGridsHidden(ev.value)
+      })
+
+    // Debug layer
+    const debugLayerFolder = pane.addFolder({ title: 'Debug Layer' })
+    debugLayerFolder
+      .addInput({ debugLayerEnabled }, 'debugLayerEnabled', {
+        label: 'Enabled',
+      })
+      .on('change', (ev) => {
+        setDebugLayerEnabled(ev.value)
       })
 
     return () => {

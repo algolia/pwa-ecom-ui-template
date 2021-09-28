@@ -33,7 +33,6 @@ function ClearRefinementsComponent({
   )
 }
 
-export const ClearRefinements =
-  connectCurrentRefinements<ClearRefinementsProps>(
-    memo(ClearRefinementsComponent, isEqual)
-  )
+export const ClearRefinements = connectCurrentRefinements<any>(
+  memo(ClearRefinementsComponent, isEqual)
+)

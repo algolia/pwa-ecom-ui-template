@@ -6,7 +6,10 @@ import { connectQueryRules } from 'react-instantsearch-core'
 
 import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 
+import { withDebugLayer } from '@/components/@dev/debug-layer/debug-layer'
 import { Banner } from '@/components/banner/banner'
+import { useIsMounted } from '@/hooks/useIsMounted'
+import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 
 export type QueryRuleBannersProps = QueryRuleCustomDataProvided & {
   limit?: number
@@ -17,6 +20,8 @@ function QueryRuleBannersComponent({
   limit = Infinity,
 }: QueryRuleBannersProps) {
   const searchResults = useAtomValue(searchResultsAtom)
+  const { laptop } = useTailwindScreens()
+  const isMounted = useIsMounted()
 
   if (!items.length || searchResults?.nbHits === 0) return null
 
@@ -24,13 +29,13 @@ function QueryRuleBannersComponent({
 
   return (
     <div className="flex flex-col">
-      {slicedItems.map(({ size, title, description, image }) => (
+      {slicedItems.map(({ title, description, image }) => (
         <Banner
           key={image}
-          size={size}
+          size={laptop && isMounted() ? 'l' : 's'}
           title={title}
           description={description}
-          image={image.desktop}
+          image={laptop ? image.desktop : image.mobile}
           imageAlt={title}
           fullWidth={true}
           overlay={true}
@@ -42,5 +47,8 @@ function QueryRuleBannersComponent({
 }
 
 export const QueryRuleBanners = connectQueryRules(
-  memo(QueryRuleBannersComponent, isEqual)
+  memo(
+    withDebugLayer(QueryRuleBannersComponent, 'QueryRuleBannersWidget'),
+    isEqual
+  )
 )

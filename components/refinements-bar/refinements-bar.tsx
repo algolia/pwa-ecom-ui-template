@@ -3,13 +3,13 @@ import classNames from 'classnames'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import dynamic from 'next/dynamic'
 
+import { withDebugLayer } from '@dev/debug-layer/debug-layer'
 import {
   CurrentRefinements,
   refinementCountAtom,
 } from '@instantsearch/widgets/current-refinements/current-refinements'
 import { RelevantSort } from '@instantsearch/widgets/relevant-sort/relevant-sort'
 import { SortBy } from '@instantsearch/widgets/sort-by/sort-by'
-import { Stats } from '@instantsearch/widgets/stats/stats'
 import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 import { Button } from '@ui/button/button'
 import { Count } from '@ui/count/count'
@@ -33,7 +33,7 @@ export type RefinementsBarProps = {
   className?: string
 }
 
-export function RefinementsBar({
+function RefinementsBarComponent({
   dynamicWidgets = true,
   showRefinements = false,
   className,
@@ -72,7 +72,6 @@ export function RefinementsBar({
         </div>
 
         <RelevantSort />
-        <Stats className="ml-auto" />
       </Tablet>
 
       <Laptop className="flex flex-col items-start gap-4">
@@ -96,11 +95,13 @@ export function RefinementsBar({
 
         {showRefinements && <CurrentRefinements />}
 
-        <div className="w-full flex items-center">
-          <RelevantSort />
-          <Stats className="ml-auto" />
-        </div>
+        <RelevantSort />
       </Laptop>
     </section>
   )
 }
+
+export const RefinementsBar = withDebugLayer(
+  RefinementsBarComponent,
+  'RefinementsBar'
+)
