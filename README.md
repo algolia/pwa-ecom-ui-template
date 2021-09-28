@@ -1,12 +1,12 @@
 # PWA Ecom Storefront - UI Template
 
+Current status: **Public Beta**
+
 React/Next.js based boilerplate, focused on delivering a rich Search & Discovery e-com experience.  
 Focused on performance and customization - based on the [Algolia - Ecom UI Design Kit](https://www.algolia.com/doc/guides/solutions/ecommerce/ui-kits/).
 
-## Table of content
-
 <details>
-  <summary>Expand</summary>
+  <summary>Table of content</summary>
 
   - [Introduction](#introduction)
   - [Why](#why)
