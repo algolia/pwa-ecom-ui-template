@@ -1,39 +1,34 @@
-import classNames from 'classnames'
+import InfoIcon from '@material-design-icons/svg/outlined/info.svg'
 import { memo } from 'react'
 import type { RelevantSortProvided } from 'react-instantsearch-core'
 import { connectRelevantSort } from 'react-instantsearch-dom'
 
-import { Button } from '@/components/@ui/button/button'
+import { Button } from '@ui/button/button'
+import { Icon } from '@ui/icon/icon'
+import { Pill } from '@ui/pill/pill'
 
-export type RevelantSortProps = RelevantSortProvided & {
-  className?: string
-}
-
+export type RevelantSortProps = RelevantSortProvided
 function RelevantSortComponent({
   isVirtualReplica,
   isRelevantSorted,
   refine,
-  className,
 }: RevelantSortProps) {
   return !isVirtualReplica ? null : (
-    <div
-      className={classNames(
-        'inline-flex justify-between gap-3 small-regular p-2 border border-brand-nebula rounded-sm bg-nebula-lightest',
-        className
-      )}
-    >
-      <div>
+    <Pill color="nebula">
+      <span className="flex items-center gap-1">
+        <Icon icon={InfoIcon} />
         {isRelevantSorted
           ? 'We removed some search results to show you the most relevant ones.'
           : 'Currently showing all results.'}
-      </div>
+      </span>
+
       <Button
-        className="small-bold underline flex-shrink-0"
+        className="body-bold underline flex-shrink-0"
         onClick={() => refine(isRelevantSorted ? 0 : undefined)}
       >
         {isRelevantSorted ? 'See all results' : 'See relevant results'}
       </Button>
-    </div>
+    </Pill>
   )
 }
 

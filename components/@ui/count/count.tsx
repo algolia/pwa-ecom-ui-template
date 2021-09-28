@@ -6,9 +6,14 @@ export type CountProps = {
 }
 
 export function Count({ children, className }: CountProps) {
-  const cn = classNames(
-    'bg-neutral-lightest w-5 h-5 small-bold rounded-full flex items-center justify-center',
-    className
+  return (
+    <div
+      className={classNames(
+        'bg-neutral-light text-brand-black w-5 h-5 small-bold rounded-full flex items-center justify-center',
+        className
+      )}
+    >
+      {children}
+    </div>
   )
-  return <div className={cn}>{children}</div>
 }

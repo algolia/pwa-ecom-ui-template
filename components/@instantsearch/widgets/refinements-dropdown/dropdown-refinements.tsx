@@ -36,7 +36,6 @@ export function RefinementsDropdownComponent({
   )
 }
 
-export const RefinementsDropdown =
-  connectCurrentRefinements<RefinementsDropdownProps>(
-    memo(RefinementsDropdownComponent, isEqual)
-  )
+export const RefinementsDropdown = connectCurrentRefinements<any>(
+  memo(RefinementsDropdownComponent, isEqual)
+)

@@ -39,7 +39,7 @@ function togglePanels(panels: Panels, val: boolean) {
   )
 }
 
-export const refinementsPanelsAtom = atom<Panels>({ sort: true })
+export const refinementsPanelsAtom = atom<Panels>({})
 export const refinementsPanelsExpandedAtom = atom(
   (get) =>
     Boolean(Object.values(get(refinementsPanelsAtom)).find((v) => v === true)),

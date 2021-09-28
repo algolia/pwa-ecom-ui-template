@@ -17,9 +17,9 @@ export function Header() {
   return (
     <header
       className={classNames(
-        'z-header sticky -top-px pt-px transition-shadow bg-white',
+        'z-header sticky -top-px pt-px transition-shadow bg-white shadow-md',
         {
-          'shadow-md': isSticky,
+          'shadow-lg': isSticky,
         }
       )}
       ref={setObservedNode}

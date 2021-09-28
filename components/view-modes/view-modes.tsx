@@ -3,6 +3,7 @@ import GridViewIcon from '@material-design-icons/svg/outlined/grid_view.svg'
 import classNames from 'classnames'
 import { atom, useAtom } from 'jotai'
 
+import { withDebugLayer } from '@dev/debug-layer/debug-layer'
 import { Button } from '@ui/button/button'
 import { Icon } from '@ui/icon/icon'
 
@@ -10,7 +11,7 @@ export type ViewMode = 'grid' | 'list'
 
 export const viewModeAtom = atom<ViewMode>('grid')
 
-export function ViewModes() {
+function ViewModesComponent() {
   const [viewMode, setViewMode] = useAtom(viewModeAtom)
 
   return (
@@ -40,3 +41,5 @@ export function ViewModes() {
     </div>
   )
 }
+
+export const ViewModes = withDebugLayer(ViewModesComponent, 'ViewModesWidget')

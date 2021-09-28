@@ -15,6 +15,7 @@ import { popularSearchesPluginCreator } from '@autocomplete/plugins/popular-sear
 import { recentSearchesPluginCreator } from '@autocomplete/plugins/recent-searches'
 import { searchButtonPluginCreator } from '@autocomplete/plugins/search-button'
 import { voiceCameraIconsPluginCreator } from '@autocomplete/plugins/voice-camera-icons'
+import { withDebugLayer } from '@dev/debug-layer/debug-layer'
 
 import { searchStateAtom } from '@/components/@instantsearch/hooks/useUrlSync'
 import { configAtom } from '@/config/config'
@@ -171,4 +172,6 @@ function AutocompleteBasicComponent({
   )
 }
 
-export const AutocompleteBasic = memo(AutocompleteBasicComponent)
+export const AutocompleteBasic = memo(
+  withDebugLayer(AutocompleteBasicComponent, 'AutocompleteBasic')
+)

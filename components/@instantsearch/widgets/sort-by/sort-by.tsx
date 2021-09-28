@@ -5,6 +5,7 @@ import isEqual from 'react-fast-compare'
 import type { SortByProvided } from 'react-instantsearch-core'
 import { connectSortBy } from 'react-instantsearch-core'
 
+import { withDebugLayer } from '@dev/debug-layer/debug-layer'
 import { ExpandablePanel } from '@instantsearch/widgets/expandable-panel/expandable-panel'
 
 import { IconLabel } from '@/components/@ui/icon-label/icon-label'
@@ -94,4 +95,6 @@ function SortByComponent({
   )
 }
 
-export const SortBy = connectSortBy(memo(SortByComponent, isEqual))
+export const SortBy = connectSortBy(
+  memo(withDebugLayer(SortByComponent, 'SortByWidget'), isEqual)
+)

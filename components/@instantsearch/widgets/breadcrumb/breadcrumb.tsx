@@ -46,7 +46,7 @@ function BreadcrumbComponent({ items, refine, createURL }: BreadcrumbProps) {
 
   return (
     <ClientOnly>
-      <div className="flex flex-col gap-1 capitalize laptop:mt-6">
+      <div className="flex flex-col gap-1 capitalize">
         <ul className="flex items-center gap-1 text-neutral-dark">
           {navItems.map((item) => (
             <li
@@ -74,7 +74,7 @@ function BreadcrumbComponent({ items, refine, createURL }: BreadcrumbProps) {
 
         <div className="flex items-center">
           <span className="heading-4 mr-1">
-            {currentQuery ? `“${currentQuery}”` : currentItem?.label}
+            {currentQuery ? `Search “${currentQuery}”` : currentItem?.label}
           </span>
           <span className="subhead text-neutral-dark"> ({nbHits})</span>
           {Boolean(currentQuery) && (

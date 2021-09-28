@@ -17,6 +17,7 @@ import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/
 import { Button } from '@ui/button/button'
 import { Icon } from '@ui/icon/icon'
 
+import { withDebugLayer } from '@/components/@dev/debug-layer/debug-layer'
 import { Collapse } from '@/components/@ui/collapse/collapse'
 import { Count } from '@/components/@ui/count/count'
 
@@ -84,6 +85,9 @@ function ExpandablePanelComponent({
   )
 }
 
-export const ExpandablePanel = connectCurrentRefinements<ExpandablePanelProps>(
-  memo(ExpandablePanelComponent, isEqual)
+export const ExpandablePanel = connectCurrentRefinements<any>(
+  memo(
+    withDebugLayer(ExpandablePanelComponent, 'ExpandablePanelWidget'),
+    isEqual
+  )
 )
