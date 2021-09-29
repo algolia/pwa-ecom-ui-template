@@ -61,7 +61,7 @@ export function RefinementsPanelHeader() {
             label="Filters"
             labelPosition="right"
             classNameLabel="body-regular"
-            className="heading-5"
+            className="gap-1 heading-5"
             classNameIcon="w-5 h-5"
           />
 

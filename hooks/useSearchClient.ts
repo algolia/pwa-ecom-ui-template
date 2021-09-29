@@ -2,6 +2,8 @@ import type { SearchClient } from 'algoliasearch/lite'
 import algoliasearch from 'algoliasearch/lite'
 import { useMemo } from 'react'
 
+// eslint-disable-next-line import/extensions
+import packageJson from '@/package.json'
 import { querySuggestionsIndexName } from '@/utils/env'
 
 export type SearchClientHookOptions = {
@@ -14,6 +16,7 @@ export function getSearchClient(
   searchApiKey: string
 ): SearchClient {
   const client = algoliasearch(appId, searchApiKey)
+  client.addAlgoliaAgent(`pwa-ecom-react-ui-template (${packageJson.version})`)
 
   return {
     ...client,

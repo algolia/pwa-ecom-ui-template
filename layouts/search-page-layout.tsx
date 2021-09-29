@@ -1,6 +1,5 @@
 import { useAtomValue } from 'jotai/utils'
 import type {
-  GetStaticPropsContext,
   GetServerSidePropsContext,
   GetServerSidePropsResult,
   GetStaticPropsResult,
@@ -69,15 +68,16 @@ function SearchPageLayoutComponent({
 
 export const SearchPageLayout = memo(SearchPageLayoutComponent, isEqual)
 
-export type GetServerSidePropsOptions = Partial<GetServerSidePropsResult<any>>
-export type GetStaticPropsOptions = Partial<GetStaticPropsResult<any>>
+export type GetServerSidePropsOptions = GetServerSidePropsResult<any>
+export type GetStaticPropsOptions = GetStaticPropsResult<any>
 
 export const getPropsPage = async (
-  component: React.ComponentType,
-  url: string,
-  options?: GetServerSidePropsOptions | GetStaticPropsOptions,
-  customProps?: Record<string, any>
+  component: React.ElementType,
+  url?: string,
+  options?: GetServerSidePropsOptions | GetStaticPropsOptions
 ) => {
+  const { props, ...customOptions } = (options as { props: any }) || {}
+
   const searchState = urlToSearchState(url)
   const resultsState = await getResultsState({
     component,
@@ -85,45 +85,44 @@ export const getPropsPage = async (
     appId,
     searchApiKey,
     indexName,
-    userToken: customProps?.userToken,
+    ...props,
   })
 
   return {
     props: {
-      ...customProps,
+      ...props,
       searchState,
       resultsState,
     },
-    ...options,
+    ...customOptions,
   }
 }
 
 export const getServerSidePropsPage = (
-  component: React.ComponentType,
+  component: React.ElementType,
+  context: GetServerSidePropsContext,
   options?: GetServerSidePropsOptions,
-  customProps?: Record<string, any>
-) =>
-  function (context: GetServerSidePropsContext) {
-    let props = customProps
+  url?: string
+) => {
+  const customOptions = (options as { props: any }) || {}
 
-    const userTokenCookie = context.req.cookies._ALGOLIA
-    if (userTokenCookie) {
-      props = { ...customProps, userToken: userTokenCookie }
+  const userTokenCookie = context.req.cookies._ALGOLIA
+  if (userTokenCookie) {
+    customOptions.props = {
+      ...customOptions.props,
+      userToken: userTokenCookie,
     }
-
-    return getPropsPage(component, context?.resolvedUrl || '', options, props)
   }
 
-export const getStaticPropsPage =
-  (
-    component: React.ComponentType,
-    options?: GetStaticPropsOptions,
-    customProps?: Record<string, any>
-  ) =>
-  (context: GetStaticPropsContext) =>
-    getPropsPage(
-      component,
-      (context?.params?.id as string) || '',
-      options,
-      customProps
-    )
+  return getPropsPage(
+    component,
+    url || context.resolvedUrl || '',
+    customOptions
+  )
+}
+
+export const getStaticPropsPage = (
+  component: React.ElementType,
+  url?: string,
+  options?: GetServerSidePropsOptions
+) => getPropsPage(component, url, options)
