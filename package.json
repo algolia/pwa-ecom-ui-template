@@ -1,6 +1,6 @@
 {
   "name": "pwa-storefront-ui-template",
-  "version": "0.1.0",
+  "version": "0.7.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
