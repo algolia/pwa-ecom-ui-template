@@ -78,7 +78,7 @@ Pick out of those two paths:
 
 ### Environment variables
 
-Duplicate the [`.env`](./.env) file to `.env.local` and fill in the environment variables as follow:
+Rename the [`.env.sample`](./.env.sample) file to `.env.local`, the following environment varibles are already filled:
 
 <details>
   <summary>Expand</summary><br>
