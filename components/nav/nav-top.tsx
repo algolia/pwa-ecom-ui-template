@@ -34,6 +34,7 @@ export const NavTop = memo(function NavTop() {
               href="/support"
               title="Support"
               className="can-hover:transition-colors can-hover:hover:text-neutral-dark"
+              onClick={(e) => e.preventDefault()}
             >
               <IconLabel
                 icon={HeadsetMicIcon}
@@ -46,6 +47,7 @@ export const NavTop = memo(function NavTop() {
               href="/store-locator"
               title="Find a store"
               className="can-hover:transition-colors can-hover:hover:text-neutral-dark"
+              onClick={(e) => e.preventDefault()}
             >
               <IconLabel
                 icon={PinDropIcon}

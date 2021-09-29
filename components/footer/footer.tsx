@@ -13,12 +13,14 @@ export const Footer = memo(function Footer() {
         {Array.from(Array(6), (ei, i) => (
           <div key={i} className="flex flex-col gap-2">
             <div className="label-semibold">Footer {i + 1}</div>
-            <ul className="small-regular text-neutral-dark flex flex-col gap-2">
+            <ul className="small-regular flex flex-col gap-2">
               {Array.from(Array(3), (ej, j) => (
                 <li key={j}>
                   <Link
                     href={`/footer-link-${i + 1}-${j + 1}`}
                     title={`Link ${j + 1}`}
+                    className="text-neutral-darkest can-hover:transition-colors can-hover:hover:text-neutral-dark"
+                    onClick={(e) => e.preventDefault()}
                   >
                     {`Link ${j + 1}`}
                   </Link>
