@@ -2,10 +2,6 @@
   command = "npm run build"
   publish = "out"
 
-[functions]
-  node_bundler = "esbuild"
-  external_node_modules = ["sharp", "@ampproject/toolbox-optimizer"]
-
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
