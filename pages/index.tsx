@@ -12,7 +12,13 @@ import BannerImage from '@/public/static/images/home/banner.jpg'
 export default function Home(props: SearchPageLayoutProps) {
   return (
     <SearchPageLayout {...props}>
-      <Configure hitsPerPage={6} />
+      <Configure
+        hitsPerPage={6}
+        // We cannot retrieve the user token at build time, so we disable perso
+        // feature to avoid an additional call to retrieve Algolia results at load time
+        enablePersonalization={false}
+        userToken={undefined}
+      />
 
       <Banner
         size="xl"
@@ -41,4 +47,4 @@ export default function Home(props: SearchPageLayoutProps) {
   )
 }
 
-export const getStaticProps = getStaticPropsPage(Home as React.ComponentType)
+export const getStaticProps = () => getStaticPropsPage(Home)

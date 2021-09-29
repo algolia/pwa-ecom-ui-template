@@ -52,7 +52,7 @@ export function ProductDetailHit({ hit }: ProductDetailHitProps) {
   }
 
   const router = useRouter()
-  const queryID = router.query?.queryID as string
+  const queryID = router?.query?.queryID as string
 
   const handleCheckoutClick = useCallback(() => {
     searchInsights(

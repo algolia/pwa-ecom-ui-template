@@ -1,4 +1,5 @@
 import { useAtomValue } from 'jotai/utils'
+import type { GetServerSidePropsContext } from 'next'
 import dynamic from 'next/dynamic'
 
 import { Breadcrumb } from '@/components/@instantsearch/widgets/breadcrumb/breadcrumb'
@@ -69,6 +70,5 @@ export default function Catalog(props: SearchPageLayoutProps) {
   )
 }
 
-export const getServerSideProps = getServerSidePropsPage(
-  Catalog as React.ComponentType
-)
+export const getServerSideProps = (context: GetServerSidePropsContext) =>
+  getServerSidePropsPage(Catalog, context)
