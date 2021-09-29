@@ -6,7 +6,7 @@ React/Next.js based boilerplate, focused on delivering a rich Search & Discovery
 Focused on performance and customization - based on the [Algolia - Ecom UI Design Kit](https://www.algolia.com/doc/guides/solutions/ecommerce/ui-kits/).
 
 <details>
-  <summary>Table of content</summary>
+  <summary>Table of content</summary><br>
 
   - [Introduction](#introduction)
   - [Why](#why)
@@ -14,6 +14,7 @@ Focused on performance and customization - based on the [Algolia - Ecom UI Desig
     - [Installation](#installation)
     - [Environment variables](#environment-variables)
     - [Structure](#structure)
+    - [Record sample](#record-sample)
   - [Used technologies](#used-technologies)
     - [Front-end bricks](#front-end-bricks)
     - [The best of the Algolia platform](#the-best-of-the-algolia-platform)
@@ -103,6 +104,48 @@ Rename the [`.env.sample`](./.env.sample) file to `.env.local`, the following en
 - `/styles`: Themes (default one is using Tailwind CSS).
 - `/typings`: TypeScript types.
 - `/utils`: Various utils.
+
+### Record sample
+
+A dataset record sample:
+
+<details>
+  <summary>Expand</summary><br>
+
+  ```json
+  {
+    "name": "Cirst Slim T-Shirt",
+    "price": 35,
+    "url": "women/t-shirts/d04445-2757-6370",
+    "hierarchical_categories": {
+      "lvl0": "women",
+      "lvl1": "women > tops and jackets",
+      "lvl2": "women > tops and jackets > t-shirts"
+    },
+    "priceFilter": "$0 - $50",
+    "sizeFilter": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "availabilityDetail": "Product is available",
+    "fullStock": true,
+    "description": "With an open neckline and slim silhouette, this soft t-shirt is the perfect option for easy, daily style. A bold graphic brings the chest to life. And thanks to soft, lightweight jersey, it feels great against the skin. Throw it on for day and night.",
+    "sizeFilter": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "hexColorCode": "Dark blue//#00008B",
+    "reviewScore": 4,
+    "reviewCount": 32
+  }
+  ```
+</details>
 
 ## Used technologies
 
