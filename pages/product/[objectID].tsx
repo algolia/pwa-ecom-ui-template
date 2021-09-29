@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import type { GetServerSidePropsContext } from 'next'
 import { Configure } from 'react-instantsearch-core'
 import { Hits } from 'react-instantsearch-dom'
 
@@ -10,10 +10,11 @@ import {
   SearchPageLayout,
 } from '@/layouts/search-page-layout'
 
-export default function Product(props: SearchPageLayoutProps) {
-  const router = useRouter()
-  const objectID = router?.query.objectID as string
+export type ProductPageProps = SearchPageLayoutProps & {
+  objectID: string
+}
 
+export default function Product({ objectID, ...props }: ProductPageProps) {
   return (
     <SearchPageLayout {...props}>
       <Container>
@@ -24,6 +25,7 @@ export default function Product(props: SearchPageLayoutProps) {
   )
 }
 
-export const getServerSideProps = getServerSidePropsPage(
-  Product as React.ComponentType
-)
+export const getServerSideProps = (context: GetServerSidePropsContext) =>
+  getServerSidePropsPage(Product, context, {
+    props: { objectID: context.params?.objectID },
+  })
