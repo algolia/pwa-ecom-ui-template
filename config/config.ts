@@ -3,6 +3,7 @@ import { freezeAtom } from 'jotai/utils'
 
 import type { SetUserToken } from '@/hooks/useSearchInsights'
 import type { Refinement, RefinementLayout } from '@/typings/refinements'
+import { indexName } from '@/utils/env'
 
 export type Config = typeof config
 
@@ -70,9 +71,9 @@ const refinements: Refinement[] = [
 ]
 
 const sorts = [
-  { value: 'gstar_demo', label: 'Most popular', isDefault: true },
-  { value: 'gstar_demo_price_asc', label: 'Price Low to High' },
-  { value: 'gstar_demo_price_desc', label: 'Price High to Low' },
+  { value: indexName, label: 'Most popular', isDefault: true },
+  { value: `${indexName}_asc_price`, label: 'Price Low to High' },
+  { value: `${indexName}_desc_price`, label: 'Price High to Low' },
 ]
 
 const breadcrumbAttributes = [
