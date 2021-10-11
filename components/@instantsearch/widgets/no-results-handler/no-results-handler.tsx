@@ -43,7 +43,7 @@ const NoResults = memo(
   // where you click on a Query Suggestion, the "no results" title updates
   // with the clicked query showing that there's no result whereas it's only
   // loading waiting for new results.
-  (prevProps, nextProps) => nextProps.isSearching === true
+  (_, nextProps) => nextProps.isSearching === true
 )
 
 function NoResultsHandlerComponent({

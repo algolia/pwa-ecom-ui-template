@@ -26,11 +26,6 @@ export function LoadLess({ hasPrevious, refinePrevious }: LoadLessProps) {
     [setSearchState]
   )
 
-  const handleLoadPrevious = useCallback(
-    () => refinePrevious(),
-    [refinePrevious]
-  )
-
   if (!hasPrevious) return null
 
   return (
@@ -46,7 +41,7 @@ export function LoadLess({ hasPrevious, refinePrevious }: LoadLessProps) {
       <Button
         type="primary"
         disabled={isSearchStalled}
-        onClick={handleLoadPrevious}
+        onClick={refinePrevious}
       >
         {isSearchStalled ? 'Loading' : 'Load previous'}
       </Button>
