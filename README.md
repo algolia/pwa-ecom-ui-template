@@ -2,11 +2,15 @@
 
 Current status: **Public Beta**
 
-React/Next.js based boilerplate, focused on delivering a rich Search & Discovery e-com experience.  
-Focused on performance and customization - based on the [Algolia - Ecom UI Design Kit](https://www.algolia.com/doc/guides/solutions/ecommerce/ui-kits/).
+This is a React/Next.js based template for an ecommerce application, focused on delivering a rich search and discovery experience.
+The design is based on the [Algolia ecommerce UI design kit](https://www.algolia.com/doc/guides/solutions/ecommerce/ui-kits/) and the implementation focuses on performance and customization. 
+
+<p align="center">
+  <a href="https://algolia-pwa-ui-template-preview.netlify.app/">View Demo</a>
+</p>
 
 <details>
-  <summary>Table of content</summary><br>
+  <summary>Table of content</summary>
 
   - [Introduction](#introduction)
   - [Why](#why)
@@ -23,13 +27,13 @@ Focused on performance and customization - based on the [Algolia - Ecom UI Desig
     - [Core widgets](#core-widgets)
   - [Browser support](#browser-support)
   - [Troubleshooting](#troubleshooting)
-  - [Contributing & License](#contributing--license)
-    - [How to contribute](#how-to-contribute)
-    - [License](#license)
+  - [How to contribute](#how-to-contribute)
+  - [License](#license)
 </details>
 
 ## Introduction
 
+The UI template is fully responsive.
 Check out the [latest version](https://algolia-pwa-ui-template-preview.netlify.app/) deployed on Netlify.
 
 ### Mobile
@@ -46,68 +50,71 @@ Check out the [latest version](https://algolia-pwa-ui-template-preview.netlify.a
 
 ## Why?
 
-This UI Template is built with 2 main objectives:
-- Inspire you on the creation of a engaging Search & Discovery experiences.
-- Accelerate your development by providing you an end-to-end implementation with building blocks ready to be cherry picked. So you can re-use 90% or 10% of it - your choice.
+This UI template has two main objectives:
 
-We are building this UI Template based on the following guiding principals:
-- **Seemless Search & Discovery experience**: Navigate the catalog (and more) via a unified Search & Browse experience that takes place in a single Product Listing Page - allowing the end-users to explore products the same way they'd do in a store.
-- **Mobile-first**: Optimized for a cross-device device experience with Mobile at the heart of it. 
-- **Designed with "real life" constraints in mind**: We know that no compromize can be made when it comes to Performance, SEO via SRR and Accessibility. As a benchmark we design it to reach > 90% on all Google Vital / Lighthouse criteria (see the report).
-- **Easily customizable**: Configure it according to your needs, by creating a custom theme or new pages for example.
-- **Modular and extensible by design**: Built leveraging [InstantSearch widgets](#instantSearch-widgets) and Autocomplete.js plugins which can be easily customized and extended.
-- **UX Best Practices**: Based on [Algolia Ecom UI Design Kit](https://www.algolia.com/doc/guides/solutions/ecommerce/ui-kits/).
-- **Open source**.
+- **Inspire you** to create engaging search and discovery experiences.
+- **Accelerate your development** by providing you with an end-to-end implementation with all building blocks you need. You can re-use 90% or 10% of it and customize the rest - it's your choice.
+
+Wer'e building this UI template with the following guiding principles in mind:
+
+- **Seamless searching and browsing:** navigate the catalog (and more) via a single product listing page for a unified search and browse experience.
+- **Mobile-first:**: optimized for a cross-device device experience with mobile at the heart of it. 
+- **Designed with "real-life" constraints in mind:** don't compromise on performance, SEO, or accessibility. As a start, this template reaches more than 90% on all Lighthouse scores.
+- **Easily customizable:**: configure the UI template according to your needs. Create a custom theme, or add new pages to your site.
+- **Modular and extensible by design:** builds on top of [InstantSearch widgets](#instantSearch-widgets) and [Autocomplete.js plugins](https://www.algolia.com/doc/ui-libraries/autocomplete/core-concepts/plugins/), which can be customized and extended.
+- **UX best practices:** based on the [Algolia ecommerce UI design kit](https://www.algolia.com/doc/guides/solutions/ecommerce/ui-kits/)
+- **Open source:** MIT License
 
 Find more about the key characteristics of this PWA Storefront UI Template in the [Used technologies](#used-technologies) section.
 
 ## Getting started
 
-Pick out of those two paths:
+You can use the UI template in two different ways:
 
-- You want to start a **new implementation**, you can fork the project and follow the [**steps below**](#installation).
-- You **already have an implementation**, you can start looking at the [**project struture**](#structure) and cherry pick some code.
+- If you want to start a **new implementation**, see [Installation](#installation).
+- If you **already have an implementation** and want to integrate parts of this UI template, start looking at the [project struture](#structure).
 
 ### Installation
 
 1. [Fork the project](https://help.github.com/articles/fork-a-repo/)
 1. [Clone the repository](https://help.github.com/articles/cloning-a-repository/)
 1. Install the dependencies: `npm install` or `yarn install`
-1. Configure the [environment variables](#configuration) below
-1. Run the development mode: `npm run dev` or `yarn dev`
-1. [Open the project locally](http://localhost:3000)
+1. Configure the [environment variables](#configuration)
+1. Start the development server: `npm run dev` or `yarn dev`
+1. [Open the project in your browser](http://localhost:3000)
 
 ### Environment variables
 
-Rename the [`.env.sample`](./.env.sample) file to `.env.local`, the following environment varibles are already filled:
+Rename the [`.env.sample`](./.env.sample) file to `.env.local`.
+The following environment variables are already filled with data from the [demo](https://algolia-pwa-ui-template-preview.netlify.app/):
 
 <details>
-  <summary>Expand</summary><br>
+  <summary>Expand</summary>
 
   | Name | Value |
   | -- | -- |
-  | **NEXT_PUBLIC_INSTANTSEARCH_APP_ID** | InstantSearch Application ID |
-  | **NEXT_PUBLIC_INSTANTSEARCH_SEARCH_API_KEY** | InstantSearch Search API Key |
-  | **NEXT_PUBLIC_INSTANTSEARCH_INDEX_NAME** | InstantSearch Index name |
-  | **NEXT_PUBLIC_INSTANTSEARCH_QUERY_SUGGESTIONS_INDEX_NAME** | InstantSearch Query Suggestions index name |
+  | **NEXT_PUBLIC_INSTANTSEARCH_APP_ID** | Algolia Application ID |
+  | **NEXT_PUBLIC_INSTANTSEARCH_SEARCH_API_KEY** | Algolia Search API Key |
+  | **NEXT_PUBLIC_INSTANTSEARCH_INDEX_NAME** | Algolia index name |
+  | **NEXT_PUBLIC_INSTANTSEARCH_QUERY_SUGGESTIONS_INDEX_NAME** | Algolia Query Suggestions index name |
 </details>
 
 ### Structure
 
 - `/components`: Components (UI, Autocomplete, InstantSearch widgets).
-- `/config`: Configurations (for example, you can configure displayed refinement or search parameters).
+- `/config`: Configuration files (for example, you can configure displayed refinement or search parameters).
 - `/hooks`: Custom common hooks.
 - `/layouts`: Application and page layouts.
 - `/lib`: Library-related code.
 - `/pages`: Pages (for example, home and product listing/detail pages).
 - `/public`: Static assets.
-- `/styles`: Themes (default one is using Tailwind CSS).
+- `/styles`: Themes (the default theme is using Tailwind CSS).
 - `/typings`: TypeScript types.
-- `/utils`: Various utils.
+- `/utils`: Various utility functions.
 
 ### Record sample
 
-A dataset record sample:
+Below is a sample record for a product in the index:
 
 <details>
   <summary>Expand</summary><br>
@@ -149,21 +156,21 @@ A dataset record sample:
 
 ## Used technologies
 
-### Front-end bricks
+### Front-end
 
 - [**Autocomplete.js**](https://www.algolia.com/doc/ui-libraries/autocomplete/introduction/what-is-autocomplete/)
 - [**React InstantSearch**](https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react/)
 - Uses **React hooks/functional components**
 - **SEO** optimized
 - [**PWA**](https://web.dev/progressive-web-apps/) compliant
-- Server-Side Rendering (with [**Next.js**](https://nextjs.org/))
-- Theming (uses [**Tailwind CSS**](https://tailwindcss.com/) by default)
+- Server-Side Rendering with [**Next.js**](https://nextjs.org/)
+- Theming with [**Tailwind CSS**](https://tailwindcss.com/)
 - [**Lighthouse**](https://developers.google.com/web/tools/lighthouse) scores >90%
 - Built with [**TypeScript**](https://www.typescriptlang.org/)
 
 ### The best of the Algolia platform
 
-- ✅ Search (fuzzy search, synonyms, ...) & Browse 
+- ✅ Search (fuzzy search, synonyms, ...) and Browse 
 - ✅ AI Re-Ranking
 - ✅ AI Personalisation
 - ✅ Sending Events / Insights API
@@ -181,6 +188,8 @@ The UI Template uses **core** and **packaged** **React InstantSearch widgets**.
 
 ### Packaged widgets
 
+These ready-to-use _packaged_ widgets are distributed as separate NPM packages.
+
 - ✅ [ColorRefinementList](https://github.com/algolia/react-instantsearch-widget-color-refinement-list)
 - ✅ [SizeRefinementList](https://github.com/algolia/react-instantsearch-widget-size-refinement-list)
 - ✅ [LoadMoreWithProgressBar](https://github.com/algolia/react-instantsearch-widget-loadmore-with-progressbar)
@@ -194,7 +203,7 @@ The UI Template uses **core** and **packaged** **React InstantSearch widgets**.
 
 ### Core widgets
 
-List of Core widgets customized using connectors.
+These _core_ widgets are part of InstantSearch and are [customized](https://www.algolia.com/doc/guides/building-search-ui/widgets/customize-an-existing-widget/react/) using connectors:
 
 <details>
   <summary>Expand</summary>
@@ -230,33 +239,23 @@ List of Core widgets customized using connectors.
 
 ## Browser support
 
-The UI Template supports the **last two versions of major browsers:** Chrome, Edge, Firefox, Safari.
+The UI template supports the **last two versions of the major browsers:** Chrome, Edge, Firefox, Safari.
 
 ## Troubleshooting
 
-Encountering an issue? Before reaching out to support, we recommend heading to our [FAQ](https://www.algolia.com/doc/guides/building-search-ui/troubleshooting/faq/react/) where you will find answers for the most common issues and gotchas with the library.
+Encountering an issue? Read the [FAQ](https://www.algolia.com/doc/guides/building-search-ui/troubleshooting/faq/react/) where you will find help for the most common issues and gotchas.
 
-## Contributing & License
+## How to contribute
 
-### How to contribute
-
-We welcome all contributors, from casual to regular 💙
+We welcome all contributors, from casual to regular 💙. See [CONTRIBUTING](CONTRIBUTING.md) for more information about the contribution process. 
 
 - **Bug report**. Is something not working as expected? [Send a bug report](https://github.com/algolia/pwa-storefront-ui-template/issues/new?template=Bug_report.md).
 - **Feature request**. Would you like to add something to the library? [Send a feature request](https://github.com/algolia/pwa-storefront-ui-template/issues/new?template=Feature_request.md).
-- **Documentation**. Did you find a typo in the doc? [Open an issue](https://github.com/algolia/pwa-storefront-ui-template/issues/new) and we'll take care of it.
+- **Documentation**. Did you find a typo in the doc? [Open an issue](https://github.com/algolia/pwa-storefront-ui-template/issues/new).
 - **Development**. If you don't know where to start, you can check the open issues that are [tagged easy](https://github.com/algolia/pwa-storefront-ui-template/issues?q=is%3Aopen+is%3Aissue+label%3A%22Difficulty%3A++++++%E2%9D%84%EF%B8%8F+easy%22), the [bugs](https://github.com/algolia/pwa-storefront-ui-template/issues?q=is%3Aissue+is%3Aopen+label%3A%22%E2%9D%A4+Bug%22) or [chores](https://github.com/algolia/pwa-storefront-ui-template/issues?q=is%3Aissue+is%3Aopen+label%3A%22%E2%9C%A8+Chore%22).
 
-To start contributing to code, you need to:
+See [Installation](#installation) for instructions how to install the project.
 
-1. [Fork the project](https://help.github.com/articles/fork-a-repo/)
-1. [Clone the repository](https://help.github.com/articles/cloning-a-repository/)
-1. Install the dependencies: `npm install` or `yarn install`
-1. Run the development mode: `npm run dev` or `yarn dev`
-1. [Open the project](http://localhost:3000)
+## License
 
-Please read [our contribution process](CONTRIBUTING.md) to learn more.
-
-### License
-
-Licensed under the [MIT license](LICENSE).
+The UI template is licensed under the [MIT license](LICENSE).
