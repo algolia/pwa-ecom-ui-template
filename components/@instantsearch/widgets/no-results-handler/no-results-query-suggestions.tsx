@@ -2,8 +2,8 @@ import SearchIcon from '@material-design-icons/svg/outlined/search.svg'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { memo, useCallback } from 'react'
 import isEqual from 'react-fast-compare'
-import { Configure, connectHits, Index } from 'react-instantsearch-core'
 import type { HitsProvided } from 'react-instantsearch-core'
+import { Configure, connectHits, Index } from 'react-instantsearch-dom'
 
 import { searchStateAtom } from '@instantsearch/hooks/useUrlSync'
 
