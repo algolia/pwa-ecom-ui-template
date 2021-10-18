@@ -4,7 +4,7 @@ import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { memo, useCallback, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 import type { BreadcrumbProvided, SearchState } from 'react-instantsearch-core'
-import { connectBreadcrumb } from 'react-instantsearch-core'
+import { connectBreadcrumb } from 'react-instantsearch-dom'
 
 import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 import { nbHitsAtom } from '@instantsearch/widgets/virtual-stats/virtual-stats'

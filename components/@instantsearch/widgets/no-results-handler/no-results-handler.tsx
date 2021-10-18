@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import isEqual from 'react-fast-compare'
-import { connectStateResults } from 'react-instantsearch-core'
 import type { StateResultsProvided } from 'react-instantsearch-core'
+import { connectStateResults } from 'react-instantsearch-dom'
 
 import { NoResultsCurrentRefinements } from './no-results-current-refinements'
 import { NoResultsQuerySuggestions } from './no-results-query-suggestions'
@@ -43,7 +43,7 @@ const NoResults = memo(
   // where you click on a Query Suggestion, the "no results" title updates
   // with the clicked query showing that there's no result whereas it's only
   // loading waiting for new results.
-  (prevProps, nextProps) => nextProps.isSearching === true
+  (_, nextProps) => nextProps.isSearching === true
 )
 
 function NoResultsHandlerComponent({

@@ -22,7 +22,7 @@ export function Overlay() {
   }, [setOverlay])
 
   const cn = classNames(
-    'fixed w-full h-full inset-0 bg-black bg-opacity-50 opacity-0  transition-opacity pointer-events-none cursor-pointer',
+    'fixed w-full h-full inset-0 bg-black bg-opacity-50 opacity-0 transition-opacity pointer-events-none cursor-pointer',
     zIndex,
     {
       'opacity-100 pointer-events-auto': visible,
