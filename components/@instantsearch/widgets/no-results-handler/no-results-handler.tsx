@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import isEqual from 'react-fast-compare'
-import { connectStateResults } from 'react-instantsearch-core'
 import type { StateResultsProvided } from 'react-instantsearch-core'
+import { connectStateResults } from 'react-instantsearch-dom'
 
 import { NoResultsCurrentRefinements } from './no-results-current-refinements'
 import { NoResultsQuerySuggestions } from './no-results-query-suggestions'

@@ -2,7 +2,7 @@ import type { ChangeEvent } from 'react'
 import { memo, useCallback, useEffect, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 import type { RangeInputProvided } from 'react-instantsearch-core'
-import { connectRange } from 'react-instantsearch-core'
+import { connectRange } from 'react-instantsearch-dom'
 
 import { RangeInputCurrency } from './range-input-currency'
 
