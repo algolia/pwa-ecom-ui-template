@@ -15,7 +15,7 @@ export type ProductDetailHitProps = HitComponentProps<ProductHit>
 export function ProductDetailHit({ hit }: ProductDetailHitProps) {
   const product: ProductDetailProps = {
     image: hit.full_url_image,
-    label: hit.category?.replaceAll('_', ' '),
+    label: hit.category?.replace(/_/g, ' '),
     title: capitalize(hit.name),
     tags: [],
     rating: hit.reviewScore,
