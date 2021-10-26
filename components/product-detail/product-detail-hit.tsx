@@ -7,22 +7,21 @@ import { ProductDetail } from './product-detail'
 
 import type { ProductTagType } from '@/components/product/product-tag'
 import type { HitComponentProps, ProductHit } from '@/typings/hits'
+import { capitalize } from '@/utils/capitalize'
 import { indexName } from '@/utils/env'
 
 export type ProductDetailHitProps = HitComponentProps<ProductHit>
 
 export function ProductDetailHit({ hit }: ProductDetailHitProps) {
   const product: ProductDetailProps = {
-    image: hit.image_link,
-    label: hit.category,
-    title: hit.name,
-    description: hit.description,
+    image: hit.full_url_image,
+    label: hit.category.replaceAll('_', ' '),
+    title: capitalize(hit.name),
     tags: [],
     rating: hit.reviewScore,
     reviews: hit.reviewCount,
-    available: Boolean(hit.fullStock),
     sizes: [],
-    price: hit.price,
+    price: hit.unformated_price,
   }
 
   // Tags
@@ -34,20 +33,10 @@ export function ProductDetailHit({ hit }: ProductDetailHitProps) {
     } as ProductTagType)
   }
 
-  if (!hit.fullStock) {
-    product.tags?.push({
-      label: 'out of stock',
-      theme: 'out-of-stock',
-    } as ProductTagType)
-  }
-
   // Sizes
-  if (hit.sizes?.size?.length) {
-    hit.sizes.size.forEach((size) =>
-      product.sizes?.push({
-        size,
-        available: hit.sizeFilter?.indexOf(size) !== -1,
-      })
+  if (hit.sizeFilter.length) {
+    product.sizes?.push(
+      ...hit.sizeFilter.map((size) => ({ size, available: true }))
     )
   }
 

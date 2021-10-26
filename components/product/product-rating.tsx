@@ -16,7 +16,7 @@ export type ProductRatingProps = {
 
 export function ProductRating({
   rating,
-  maxRating = 6,
+  maxRating = 5,
   reviews,
   reviewComponent: ReviewComponent,
   className,

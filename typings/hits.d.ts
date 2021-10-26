@@ -12,12 +12,11 @@ export type ProductHit = {
   default_variant: string
   description: string
   dynamic_attributes: string[]
-  fullStock: true
   genderFilter: string
   gender_category_size: string[]
   hexColorCode: string
   hierarchical_categories: { lvl0: string; lvl1: string; lvl2: string }
-  image_link: string
+  full_url_image: string
   keywords: string[]
   margin: number
   name: string
@@ -25,7 +24,7 @@ export type ProductHit = {
   numeric_attributes: Record<string, any>
   objectID: string
   position: number
-  price: number
+  unformated_price: number
   priceFilter: string
   reviewCount: number
   reviewScore: number
