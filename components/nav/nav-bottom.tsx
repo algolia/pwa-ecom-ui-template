@@ -31,16 +31,13 @@ export function NavBottom() {
           <nav>
             <ul className="flex gap-6 small-uppercase">
               <NavItem
-                label="Jeans &amp; Bottoms"
-                href={`/catalog/${currentSex}/jeans-bottoms`}
+                label="Clothing"
+                href={`/catalog/${currentSex}/Clothing`}
               />
+              <NavItem label="Shoes" href={`/catalog/${currentSex}/Shoes`} />
               <NavItem
-                label="Shoes &amp; Accesories"
-                href={`/catalog/${currentSex}/shoes-and-accesories`}
-              />
-              <NavItem
-                label="Tops &amp; Jackets"
-                href={`/catalog/${currentSex}/tops-and-jackets`}
+                label="Accessories"
+                href={`/catalog/${currentSex}/Accessories`}
               />
             </ul>
           </nav>

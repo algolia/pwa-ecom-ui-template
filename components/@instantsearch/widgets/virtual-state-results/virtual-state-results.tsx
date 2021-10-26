@@ -3,7 +3,7 @@ import { selectAtom, useUpdateAtom } from 'jotai/utils'
 import { memo, useEffect } from 'react'
 import isEqual from 'react-fast-compare'
 import type { StateResultsProvided } from 'react-instantsearch-core'
-import { connectStateResults } from 'react-instantsearch-core'
+import { connectStateResults } from 'react-instantsearch-dom'
 
 export type VirtualStateResultsProps = StateResultsProvided
 

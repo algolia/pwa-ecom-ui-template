@@ -1,6 +1,7 @@
 import { Configure } from 'react-instantsearch-dom'
 
 import { Banner } from '@/components/banner/banner'
+import { ProductCardHitShowcase } from '@/components/product-card/product-card-hit'
 import { ProductsShowcase } from '@/components/products-showcase/products-showcase'
 import type { SearchPageLayoutProps } from '@/layouts/search-page-layout'
 import {
@@ -31,17 +32,24 @@ export default function Home(props: SearchPageLayoutProps) {
         classNameTitle="text-3xl font-normal tracking-wider leading-tight laptop:text-7xl"
       />
 
-      <ProductsShowcase indexId="shoes" title="New in shoes" query="shoes" />
       <ProductsShowcase
-        indexId="spring-summer-2021"
-        title="Spring/summer 2021"
-        ruleContexts={['home-spring-summer-2021']}
-        className="laptop:bg-gray-50"
+        title="New in shoes"
+        indexId="shoes"
+        query="shoes"
+        hitComponent={ProductCardHitShowcase}
       />
       <ProductsShowcase
-        indexId="recommended"
+        title="Spring/summer 2021"
+        indexId="spring-summer-2021"
+        ruleContexts={['home-spring-summer-2021']}
+        className="laptop:bg-gray-50"
+        hitComponent={ProductCardHitShowcase}
+      />
+      <ProductsShowcase
         title="Recommended for you"
+        indexId="recommended"
         query="knitwear"
+        hitComponent={ProductCardHitShowcase}
       />
     </SearchPageLayout>
   )

@@ -18,7 +18,7 @@ module.exports = withNextPlugins([withBundleAnalyzer, withPWA], {
     dirs: ['pages', 'components', 'config', 'layouts', 'lib', 'utils', 'hooks'],
   },
   images: {
-    domains: ['img1.g-star.com'],
+    domains: ['res.cloudinary.com'],
     deviceSizes: [375, 425, 768, 828, 1024, 1440, 1920, 2560],
     minimumCacheTTL: 60 * 60 * 24,
   },
@@ -57,8 +57,8 @@ module.exports = withNextPlugins([withBundleAnalyzer, withPWA], {
           options: {
             icon: true,
             svgProps: {
-              fill: 'currentColor'
-            }
+              fill: 'currentColor',
+            },
           },
         },
       ],

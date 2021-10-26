@@ -17,29 +17,19 @@ const refinements: Refinement[] = [
     isExpanded: true,
     options: {
       attributes: [
-        'hierarchical_categories.lvl0',
-        'hierarchical_categories.lvl1',
-        'hierarchical_categories.lvl2',
+        'hierarchicalCategories.lvl0',
+        'hierarchicalCategories.lvl1',
+        'hierarchicalCategories.lvl2',
       ],
     },
   },
   {
+    type: 'price',
     header: 'Price',
     label: 'Price',
-    widgets: [
-      {
-        type: 'price',
-        options: {
-          attribute: 'price',
-        },
-      },
-      {
-        type: 'list',
-        options: {
-          attribute: 'priceFilter',
-        },
-      },
-    ],
+    options: {
+      attribute: 'unformated_price',
+    },
   },
   {
     type: 'size',
@@ -50,16 +40,16 @@ const refinements: Refinement[] = [
       limit: 8,
     },
   },
-  {
-    type: 'color',
-    header: 'Colors',
-    label: 'Color',
-    options: {
-      attribute: 'hexColorCode',
-      separator: '//',
-      limit: 9,
-    },
-  },
+  // {
+  //   type: 'color',
+  //   header: 'Colors',
+  //   label: 'Color',
+  //   options: {
+  //     attribute: 'hexColorCode',
+  //     separator: '//',
+  //     limit: 9,
+  //   },
+  // },
   {
     type: 'rating',
     header: 'Rating',

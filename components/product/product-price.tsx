@@ -13,7 +13,7 @@ export type ProductPriceProps = {
 export function ProductPrice({
   price,
   originalPrice,
-  currency = '$',
+  currency = '£',
   precision = 2,
   className = 'items-baseline gap-2 italic',
   classNamePrice,

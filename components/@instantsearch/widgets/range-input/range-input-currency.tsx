@@ -9,7 +9,7 @@ export type RangeInputCurrencyProps = {
 
 export function RangeInputCurrency({
   children,
-  currency = '$',
+  currency = '£',
 }: RangeInputCurrencyProps) {
   const child = Children.only(children) as ReactElement
   const props = {

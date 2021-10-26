@@ -23,7 +23,7 @@ export function popularSearchesPluginCreator({
   return createQuerySuggestionsPlugin({
     searchClient,
     indexName: querySuggestionsIndexName,
-    categoryAttribute: [indexName, 'facets', 'exact_matches', 'keywords'],
+    categoryAttribute: [indexName, 'facets', 'exact_matches', 'categories'],
     getSearchParams() {
       return recentSearchesPlugin.data?.getAlgoliaSearchParams({
         hitsPerPage: 8,
