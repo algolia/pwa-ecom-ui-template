@@ -45,9 +45,7 @@ export function ProductCardHitComponent({
       <Highlight attribute="name" tagName="mark" hit={hit} />
     )
   } else {
-    product.label = hit.category
-      ? hit.category?.replaceAll('_', ' ')
-      : undefined
+    product.label = hit.category?.replaceAll('_', ' ')
     product.title = capitalize(hit.name)
   }
 
