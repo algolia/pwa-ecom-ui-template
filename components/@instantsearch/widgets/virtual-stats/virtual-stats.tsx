@@ -3,7 +3,7 @@ import { selectAtom, useUpdateAtom } from 'jotai/utils'
 import { memo, useEffect } from 'react'
 import isEqual from 'react-fast-compare'
 import type { StatsProvided } from 'react-instantsearch-core'
-import { connectStats } from 'react-instantsearch-core'
+import { connectStats } from 'react-instantsearch-dom'
 
 export type VirtualStatsProps = StatsProvided
 

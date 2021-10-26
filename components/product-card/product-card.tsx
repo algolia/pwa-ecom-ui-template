@@ -53,7 +53,7 @@ export function ProductCard({
   currency,
   rating,
   reviews,
-  available,
+  available = true,
   view,
   onLinkClick,
 }: ProductCardProps) {
@@ -108,12 +108,12 @@ export function ProductCard({
 
         <div className="flex flex-col gap-1">
           <header className="flex flex-col gap-1">
-            {label && (
+            {(label || labelHighlighting) && (
               <ProductLabel highlighting={labelHighlighting}>
                 {label}
               </ProductLabel>
             )}
-            {title && (
+            {(title || titleHighlighting) && (
               <ProductTitle highlighting={titleHighlighting}>
                 {title}
               </ProductTitle>
