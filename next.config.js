@@ -10,6 +10,12 @@ const ifdefOpts = {
   TEST: process.env.NODE_ENV === 'test',
 }
 
+console.log(
+  process.env.NEXT_PUBLIC_INSTANTSEARCH_APP_ID,
+  process.env.NEXT_PUBLIC_INSTANTSEARCH_SEARCH_API_KEY,
+  process.env.NEXT_PUBLIC_INSTANTSEARCH_INDEX_NAME
+)
+
 /** @type {import('next').NextConfig} */
 module.exports = withNextPlugins([withBundleAnalyzer, withPWA], {
   target: 'serverless',
@@ -57,8 +63,8 @@ module.exports = withNextPlugins([withBundleAnalyzer, withPWA], {
           options: {
             icon: true,
             svgProps: {
-              fill: 'currentColor'
-            }
+              fill: 'currentColor',
+            },
           },
         },
       ],
