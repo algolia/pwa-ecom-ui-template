@@ -1,8 +1,7 @@
 import { memo, useCallback } from 'react'
 import isEqual from 'react-fast-compare'
 import type { WrappedInsightsClient } from 'react-instantsearch-core'
-import { connectHitInsights } from 'react-instantsearch-core'
-import { Highlight, Snippet } from 'react-instantsearch-dom'
+import { Highlight, Snippet, connectHitInsights } from 'react-instantsearch-dom'
 import searchInsights from 'search-insights'
 
 import type { ProductCardProps } from '@/components/product-card/product-card'

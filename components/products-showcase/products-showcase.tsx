@@ -1,17 +1,17 @@
 import classNames from 'classnames'
-import { Configure, Index } from 'react-instantsearch-core'
+import { Configure, Index } from 'react-instantsearch-dom'
 
 import { InfiniteHits } from '@instantsearch/widgets/infinite-hits/infinite-hits'
 
 import { Container } from '@/components/container/container'
-import { ProductCardHitShowcase } from '@/components/product-card/product-card-hit'
 import { indexName as defaultIndexName } from '@/utils/env'
 
 export type ProductsShowcaseProps = {
+  title?: string
   indexName?: string
   indexId?: string
-  title?: string
   className?: string
+  hitComponent: React.ComponentType<any>
   [index: string]: any
 }
 
@@ -20,6 +20,7 @@ export function ProductsShowcase({
   indexId,
   title,
   className,
+  hitComponent,
   ...searchParameters
 }: ProductsShowcaseProps) {
   return (
@@ -34,7 +35,7 @@ export function ProductsShowcase({
             </h2>
           )}
           <InfiniteHits
-            hitComponent={ProductCardHitShowcase}
+            hitComponent={hitComponent}
             animation={false}
             gridClassName="grid-cols-2 laptop:grid-cols-6"
           />

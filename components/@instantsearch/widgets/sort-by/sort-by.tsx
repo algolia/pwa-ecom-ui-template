@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { memo, useCallback, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 import type { SortByProvided } from 'react-instantsearch-core'
-import { connectSortBy } from 'react-instantsearch-core'
+import { connectSortBy } from 'react-instantsearch-dom'
 
 import { withDebugLayer } from '@dev/debug-layer/debug-layer'
 import { ExpandablePanel } from '@instantsearch/widgets/expandable-panel/expandable-panel'
