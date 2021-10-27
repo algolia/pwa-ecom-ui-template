@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
+const screens = require('./config/screens')
 
 /** @type {import('tailwindcss/tailwind-config').TailwindConfig } */
 module.exports = {
@@ -55,12 +56,7 @@ module.exports = {
         header: '15rem',
       },
     },
-    screens: {
-      tablet: '768px',
-      laptop: '1440px',
-      'can-hover': { raw: '(any-hover: hover)' },
-      'cannot-hover': { raw: '(any-hover: none)' },
-    },
+    screens,
     zIndex: {
       dropdown: 5,
       'overlay-header': 10,

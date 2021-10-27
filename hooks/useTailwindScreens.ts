@@ -2,12 +2,15 @@ import { useMemo } from 'react'
 
 import { useMedia } from './useMatchMedia'
 
+import tailwindScreens from '@/utils/tailwindScreens'
+
 export type Screens = {
   [key: string]: boolean
 }
 
 export function useTailwindScreens() {
-  const screens = useMemo(() => require('@/utils/tailwindScreens'), [])
+  const screens = useMemo(() => tailwindScreens, [])
+
   const [queries, names] = useMemo(() => {
     const q = []
     const n = []
