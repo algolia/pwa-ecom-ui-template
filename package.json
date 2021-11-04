@@ -34,7 +34,7 @@
     "search-insights": "^2.1.0"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^3.9.2",
+    "@netlify/plugin-nextjs": "^4.0.0-beta.5",
     "@next/bundle-analyzer": "^12.0.2",
     "@svgr/webpack": "^5.5.0",
     "@tailwindcss/aspect-ratio": "^0.3.0",
