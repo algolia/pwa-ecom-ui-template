@@ -1,17 +1,10 @@
-// @preval
-/* eslint @typescript-eslint/no-var-requires: 0, import/no-commonjs: 0, import/extensions: 0 */
+import screens from '@/config/screens'
 
-const resolveConfig = require('tailwindcss/resolveConfig')
-
-const tailwindConfig = require('../tailwind.config.js')
-
-const config = resolveConfig(tailwindConfig)
-const screens = config.theme.screens
-const screensParsed = {}
+const screensParsed: any = {}
 
 for (const screenName in screens) {
   if (Object.prototype.hasOwnProperty.call(screens, screenName)) {
-    const screenBreakpoint = screens[screenName]
+    const screenBreakpoint = (screens as any)[screenName]
     const screenValue = parseInt(screenBreakpoint, 10)
     if (!isNaN(screenValue)) {
       screensParsed[screenName] = screenValue
@@ -19,4 +12,4 @@ for (const screenName in screens) {
   }
 }
 
-module.exports = screensParsed
+export default screensParsed

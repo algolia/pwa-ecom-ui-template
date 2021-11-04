@@ -17,8 +17,9 @@
     "paths": {
       "@/*": ["./*"],
       "@*": ["./components/@*"]
-    }
+    },
+    "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "./utils/tailwindScreens.ts"]
+  "exclude": ["node_modules"]
 }

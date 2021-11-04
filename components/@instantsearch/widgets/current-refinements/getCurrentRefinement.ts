@@ -43,7 +43,9 @@ export function getCurrentRefinement(
         refinement?.items?.map((item) => ({
           category: refinementConfig?.label,
           label: item.label.split(
-            refinementConfig?.options?.separator ?? ';'
+            refinementConfig?.options?.separator
+              ? refinementConfig?.options?.separator
+              : ';'
           )[0],
           value: item.value,
         })) || []

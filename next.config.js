@@ -12,41 +12,35 @@ const ifdefOpts = {
 
 /** @type {import('next').NextConfig} */
 module.exports = withNextPlugins([withBundleAnalyzer, withPWA], {
-  target: 'serverless',
+  generateBuildId: () => 'build',
   reactStrictMode: true,
+  swcMinify: true,
   eslint: {
     dirs: ['pages', 'components', 'config', 'layouts', 'lib', 'utils', 'hooks'],
   },
   images: {
+    formats: ['image/avif', 'image/webp'],
     domains: ['res.cloudinary.com'],
     deviceSizes: [375, 425, 768, 828, 1024, 1440, 1920, 2560],
     minimumCacheTTL: 60 * 60 * 24,
   },
   pwa: {
     dest: 'public',
-    disable: ifdefOpts.DEV,
+    disable: process.env.NODE_ENV !== 'production',
   },
   webpack: (config) => {
     const rules = config.module.rules
 
     // Ifdef loader
-    const ifdefLoader = {
-      loader: 'ifdef-loader',
-      options: ifdefOpts,
-    }
-
-    let babelRule
-    rules.forEach((rule) => {
-      if (rule.test && '.tsx'.match(rule.test)) {
-        babelRule = rule
-      }
+    rules.push({
+      test: /\.tsx$/,
+      use: [
+        {
+          loader: 'ifdef-loader',
+          options: ifdefOpts,
+        },
+      ],
     })
-
-    if (Array.isArray(babelRule.use)) {
-      babelRule.use.push(ifdefLoader)
-    } else {
-      babelRule.use = [babelRule.use, ifdefLoader]
-    }
 
     // SVGR loader
     rules.push({

@@ -6,7 +6,6 @@ import { useMemo } from 'react'
 
 /// #if DEV
 import { Dev } from '@dev/dev'
-import '@/lib/dev/wdyr'
 /// #endif
 
 import { Banner } from '@/components/banner/banner'

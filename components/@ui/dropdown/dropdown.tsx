@@ -47,8 +47,8 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       setIsVisible: setIsOpen,
     } = useIsVisible(initialIsOpen)
 
-    const isOpen = customIsOpen ?? isVisible
-    const ref = customRef ?? defaultRef
+    const isOpen = customIsOpen ? customIsOpen : isVisible
+    const ref = customRef ? customRef : defaultRef
 
     return (
       <div className={classNames('relative group', className)} ref={ref}>

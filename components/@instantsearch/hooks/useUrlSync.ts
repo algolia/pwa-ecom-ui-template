@@ -41,7 +41,7 @@ export function useUrlSync() {
 
   const setSearchState = useCallback(
     (nextSearchState: SearchState) =>
-      _setSearchState((currentSearchState) => ({
+      _setSearchState((currentSearchState: SearchState) => ({
         ...currentSearchState,
         ...nextSearchState,
       })),
