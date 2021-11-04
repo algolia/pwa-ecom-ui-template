@@ -37,8 +37,7 @@ function SearchPageLayoutComponent({
   const { searchParameters: configSearchParameters } = useAtomValue(configAtom)
   const searchClient = useAtomValue(searchClientAtom)
   const { searchState, onSearchStateChange, createURL } = useUrlSync()
-  const userTokenHookValue = useUserToken()
-  const userToken = userTokenHookValue ? userTokenHookValue : initialUserToken
+  const userToken = useUserToken() ?? initialUserToken
 
   const searchParameters = useMemo(
     () => ({
