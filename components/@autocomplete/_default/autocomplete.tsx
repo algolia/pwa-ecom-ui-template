@@ -42,8 +42,10 @@ export function Autocomplete({
     }
 
     const autocompleteInstance = autocomplete({
-      container: customContainer ?? containerRef.current,
-      panelContainer: customPanelContainer ?? panelContainerRef.current,
+      container: customContainer ? customContainer : containerRef.current,
+      panelContainer: customPanelContainer
+        ? customPanelContainer
+        : panelContainerRef.current,
       panelPlacement: 'full-width',
       initialState: {
         query: initialQuery,

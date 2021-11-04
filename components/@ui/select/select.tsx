@@ -44,7 +44,9 @@ export function Select({
   } = useIsVisible(defaultOpen)
 
   const [defaultCurrentOption, setCurrentOption] = useState(defaultOption)
-  const currentOption = customCurrentOption ?? defaultCurrentOption
+  const currentOption = customCurrentOption
+    ? customCurrentOption
+    : defaultCurrentOption
 
   const currentFocusedOptionIdx = useRef(-1)
   const optionEls = useRef<HTMLButtonElement[]>([])
