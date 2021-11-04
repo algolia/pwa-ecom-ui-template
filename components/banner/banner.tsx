@@ -85,6 +85,7 @@ export function Banner({
             className={classNames('transition-opacity', {
               '!opacity-0': !loaded,
             })}
+            priority={true}
             onLoadingComplete={handleLoadingComplete}
           />
         )}

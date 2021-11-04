@@ -2,8 +2,7 @@ import { createMedia } from '@artsy/fresnel'
 import classNames from 'classnames'
 import type { PropsWithChildren } from 'react'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires, import/no-commonjs
-const screens = require('@/utils/tailwindScreens')
+import tailwindScreens from '@/utils/tailwindScreens'
 
 type BreakpointProps = PropsWithChildren<{
   className?: string
@@ -14,7 +13,7 @@ export type Breakpoints = 'laptop' | 'mobile' | 'tablet'
 export const AppMedia = createMedia({
   breakpoints: {
     mobile: 0,
-    ...screens,
+    ...tailwindScreens,
   },
 })
 
