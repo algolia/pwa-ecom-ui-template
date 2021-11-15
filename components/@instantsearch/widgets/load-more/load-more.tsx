@@ -1,4 +1,7 @@
-import type { ButtonComponentProps } from '@algolia/react-instantsearch-widget-loadmore-with-progressbar'
+import type {
+  ButtonComponentProps,
+  TextTranslationArgs,
+} from '@algolia/react-instantsearch-widget-loadmore-with-progressbar'
 import { LoadMoreWithProgressBar } from '@algolia/react-instantsearch-widget-loadmore-with-progressbar'
 import { useAtomValue } from 'jotai/utils'
 import { memo, useCallback, useEffect, useRef } from 'react'
@@ -59,6 +62,12 @@ function LoadMoreComponent() {
     <LoadMoreWithProgressBar
       buttonComponent={LoadMoreButton}
       className="my-12 gap-4"
+      translations={{
+        text: ({ nbSeenHits, nbTotalHits }: TextTranslationArgs) =>
+          `You've seen ${nbSeenHits} product${
+            nbSeenHits > 1 ? 's' : ''
+          } out of ${nbTotalHits}`,
+      }}
     />
   )
 }
