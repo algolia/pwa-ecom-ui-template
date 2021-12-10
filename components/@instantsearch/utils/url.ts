@@ -11,15 +11,12 @@ const [paramToAlias, aliasToParam] = getMapping({
 })
 const [categoryToSlug, slugToCategory] = getMapping({
   // 'jeans & bottoms': 'jeans-bottoms',
-  // 'jackets & blazers': 'jackets-blazers',
-  // 'sweatshirts & hoodies': 'sweatshirts-hoodies',
-  // 'jumpsuits & overalls': 'jumpsuits-overalls',
 })
 const categorySeparator = '/'
 const categorySpaceSeparator = '-'
 const categorySpaceSeparatorReplacement = '+'
 const hierarchicalSeparator = '>'
-const hierarchicalAttribute = 'hierarchicalCategories.lvl0'
+const hierarchicalAttribute = 'hierarchical_categories.lvl0'
 
 const getCategorySlug = (name: string) => {
   const parsedName =

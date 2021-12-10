@@ -35,7 +35,7 @@ function QueryRuleBannersComponent({
           size={laptop && isMounted() ? 'l' : 's'}
           title={title}
           description={description}
-          image={laptop ? image.desktop : image.mobile}
+          image={laptop && isMounted() ? image.desktop : image.mobile}
           imageAlt={title}
           fullWidth={true}
           overlay={true}

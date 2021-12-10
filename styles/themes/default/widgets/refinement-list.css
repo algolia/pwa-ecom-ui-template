@@ -8,7 +8,7 @@
   }
 
   .ais-SearchBox-input {
-    @apply input;
+    @apply input-searchable;
   }
 
   .ais-SearchBox-submit,
@@ -53,7 +53,8 @@
 }
 
 .ais-RefinementList-checkbox {
-  @apply appearance-none w-5 h-5 border-2 border-brand-black rounded-sm cursor-pointer transition-colors can-hover:hover:bg-nebula-lightest;
+  @apply appearance-none w-5 h-5 border-2 border-brand-black rounded-sm
+    cursor-pointer transition-colors can-hover:hover:bg-nebula-lightest;
 }
 
 .ais-RefinementList-labelText {

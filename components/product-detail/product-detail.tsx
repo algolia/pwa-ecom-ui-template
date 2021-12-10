@@ -10,6 +10,7 @@ import { ProductDescription } from '@/components/product/product-description'
 import { ProductFavorite } from '@/components/product/product-favorite'
 import { ProductImage } from '@/components/product/product-image'
 import { ProductLabel } from '@/components/product/product-label'
+import type { ProductPriceCurrency } from '@/components/product/product-price'
 import { ProductPrice } from '@/components/product/product-price'
 import { ProductRating } from '@/components/product/product-rating'
 import type { ProductSizeType } from '@/components/product/product-sizes'
@@ -30,7 +31,7 @@ export type ProductDetailProps = {
   sizes?: ProductSizeType[]
   price?: number
   originalPrice?: number
-  currency?: string
+  currency?: ProductPriceCurrency
   popular?: boolean
   onCheckoutClick?: MouseEventHandler<HTMLButtonElement>
 }

@@ -84,7 +84,7 @@
 
   /* ---------- Highlighting */
   .highlighting {
-    @apply font-bold !text-brand-nebula bg-transparent border-b border-brand-nebula not-italic;
+    @apply font-bold bg-transparent not-italic;
   }
 
   /* ========== Layout utilities */
@@ -93,7 +93,7 @@
   }
 
   .h-container {
-    height: calc(100vh - theme('spacing.header'));
+    height: calc(100vh - theme("spacing.header"));
   }
 
   /* ========== Transition utilities */
@@ -101,7 +101,7 @@
     @apply opacity-100 visible;
 
     transition:
-      opacity theme('transitionDuration.DEFAULT') linear 0s,
+      opacity theme("transitionDuration.DEFAULT") linear 0s,
       visibility 0s linear 0s;
   }
 
@@ -109,21 +109,21 @@
     @apply opacity-0 invisible;
 
     transition:
-      opacity theme('transitionDuration.DEFAULT') linear 0s,
-      visibility 0s linear theme('transitionDuration.DEFAULT');
+      opacity theme("transitionDuration.DEFAULT") linear 0s,
+      visibility 0s linear theme("transitionDuration.DEFAULT");
   }
 
   /* ========== Text shadow utilities */
   .text-shadow-small {
-    text-shadow: theme('boxShadow.small');
+    text-shadow: theme("boxShadow.small");
   }
 
   .text-shadow-medium {
-    text-shadow: theme('boxShadow.medium');
+    text-shadow: theme("boxShadow.medium");
   }
 
   .text-shadow-large {
-    text-shadow: theme('boxShadow.large');
+    text-shadow: theme("boxShadow.large");
   }
 
   /* ========== Misc utilities */

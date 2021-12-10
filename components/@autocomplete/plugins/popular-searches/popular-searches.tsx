@@ -23,7 +23,7 @@ export function popularSearchesPluginCreator({
   return createQuerySuggestionsPlugin({
     searchClient,
     indexName: querySuggestionsIndexName,
-    categoryAttribute: [indexName, 'facets', 'exact_matches', 'categories'],
+    categoryAttribute: [indexName, 'facets', 'exact_matches', 'brand'],
     getSearchParams() {
       return recentSearchesPlugin.data?.getAlgoliaSearchParams({
         hitsPerPage: 8,
@@ -73,7 +73,10 @@ export function popularSearchesPluginCreator({
                   </div>
                   <div className="aa-ItemContentBody">
                     <div className="aa-ItemContentTitle">
-                      <components.Highlight hit={item} attribute="query" />
+                      <components.ReverseHighlight
+                        hit={item}
+                        attribute="query"
+                      />
                     </div>
                   </div>
                 </div>

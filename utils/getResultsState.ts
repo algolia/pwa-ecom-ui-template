@@ -5,7 +5,16 @@ import { findResultsState } from 'react-instantsearch-dom/server'
 import { getSearchClient } from '@/hooks/useSearchClient'
 
 export type GetResultsStateParams = {
-  component: React.ComponentType
+  component: React.ComponentType<
+    Pick<
+      InstantSearchProps,
+      | 'indexName'
+      | 'resultsState'
+      | 'searchClient'
+      | 'searchState'
+      | 'widgetsCollector'
+    >
+  >
   searchState: SearchState
   appId: string
   searchApiKey: string

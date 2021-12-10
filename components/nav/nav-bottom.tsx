@@ -13,10 +13,27 @@ import { parseUrl } from '@/utils/parseUrl'
 
 export function NavBottom() {
   const router = useRouter()
-  const currentSex = useMemo(() => {
+  const currentCategory = useMemo(() => {
     const { pathname } = parseUrl(router?.asPath)
     return pathname.match(/\/catalog\/(.[^/]*)\/?/)?.[1]
   }, [router?.asPath])
+
+  const genderSubCategories = (
+    <>
+      {currentCategory === 'Women' && (
+        <NavItem label="Bags" href={`/catalog/${currentCategory}/Bags`} />
+      )}
+      <NavItem label="Clothing" href={`/catalog/${currentCategory}/Clothing`} />
+      <NavItem label="Shoes" href={`/catalog/${currentCategory}/Shoes`} />
+    </>
+  )
+
+  const accessoriesSubCategories = (
+    <>
+      <NavItem label="Men" href={`/catalog/${currentCategory}/Men`} />
+      <NavItem label="Women" href={`/catalog/${currentCategory}/Women`} />
+    </>
+  )
 
   return (
     <div className="flex items-center px-4 relative divide-x border-b border-neutral-light laptop:h-12 laptop:mx-20 laptop:mb-5 laptop:px-0 laptop:justify-between laptop:border-none laptop:divide-none">
@@ -27,18 +44,12 @@ export function NavBottom() {
       </Tablet>
 
       <Laptop>
-        {currentSex && (
+        {currentCategory && (
           <nav>
             <ul className="flex gap-6 small-uppercase">
-              <NavItem
-                label="Clothing"
-                href={`/catalog/${currentSex}/Clothing`}
-              />
-              <NavItem label="Shoes" href={`/catalog/${currentSex}/Shoes`} />
-              <NavItem
-                label="Accessories"
-                href={`/catalog/${currentSex}/Accessories`}
-              />
+              {currentCategory === 'Accessories'
+                ? accessoriesSubCategories
+                : genderSubCategories}
             </ul>
           </nav>
         )}
