@@ -36,6 +36,18 @@ The design is based on the [Algolia ecommerce UI design kit](https://www.algolia
 The UI template is fully responsive.
 Check out the [latest version](https://algolia-pwa-ecom-ui-template.netlify.app/) deployed on Netlify.
 
+### Mobile
+
+[![UI Template mobile preview](https://i.ibb.co/THpSJcB/pwa-ecom-ui-template-mobile-preview.gif)](https://algolia-pwa-ecom-ui-template.netlify.app/)
+
+### Desktop
+
+<details>
+  <summary>Expand</summary>
+
+  [![UI Template desktop preview](https://i.ibb.co/v45SfGQ/pwa-ecom-ui-template-desktop-preview.gif)](https://algolia-pwa-ecom-ui-template.netlify.app/)
+</details>
+
 ## Why?
 
 This UI template has two main objectives:
