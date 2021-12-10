@@ -60,7 +60,7 @@ export function RefinementsBarDropdowns({
         {widgetsDropdowns}
       </DynamicWidgets>
 
-      {showMore && (
+      {showMore && widgets.length > limit && (
         <Button onClick={handleShowMoreClick}>
           <IconLabel
             icon={FilterIcon}

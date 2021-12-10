@@ -6,7 +6,7 @@
   @apply fixed bottom-0 left-0 w-full h-1 shadow-md bg-white to-invisible motion-reduce:hidden;
 
   &::after {
-    @apply content-[''] absolute w-full h-full origin-left bg-brand-nebula motion-reduce:animate-none;
+    @apply content-[""] absolute w-full h-full origin-left bg-brand-nebula motion-reduce:animate-none;
   }
 
   &.loader--loading {
@@ -39,7 +39,7 @@
 }
 
 .loading-spinner-dot::before {
-  @apply content-[''] block w-1/4 h-1/4 bg-brand-nebula rounded-full;
+  @apply content-[""] block w-1/4 h-1/4 bg-brand-nebula rounded-full;
 
   animation: loading-spinner-dot-before 2s infinite ease-in-out both;
 }

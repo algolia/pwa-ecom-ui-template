@@ -1,5 +1,13 @@
 @layer utilities {
+  .input-common {
+    @apply bg-neutral-lightest h-12 w-full outline-none appearance-none;
+  }
+
   .input {
-    @apply bg-neutral-lightest h-12 w-full outline-none appearance-none px-4;
+    @apply input-common px-4;
+  }
+
+  .input-searchable {
+    @apply input-common px-10 pr-4;
   }
 }

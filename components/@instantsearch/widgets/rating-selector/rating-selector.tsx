@@ -25,7 +25,7 @@ function RatingSelectorComponent({
     [count, currRefinement]
   )
 
-  if (!min || !max) return null
+  if (typeof min === 'undefined' || typeof max === 'undefined') return null
 
   return (
     <div className="flex items-center">

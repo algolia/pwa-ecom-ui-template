@@ -18,7 +18,7 @@
   }
 
   .ais-RefinementList-labelText {
-    @apply m-0;
+    @apply m-0 capitalize;
   }
 
   .ais-RefinementList-count {

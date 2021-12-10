@@ -39,7 +39,10 @@ export function recentSearchesPluginCreator({
                   </div>
                   <div className="aa-ItemContentBody">
                     <div className="aa-ItemContentTitle">
-                      <components.Highlight hit={item} attribute="label" />
+                      <components.ReverseHighlight
+                        hit={item}
+                        attribute="label"
+                      />
                       {item.category && (
                         <span className="aa-ItemContentSubtitle aa-ItemContentSubtitle--inline">
                           <span className="aa-ItemContentSubtitleIcon" /> in{' '}

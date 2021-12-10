@@ -6,7 +6,7 @@
   @apply bg-uranus-base text-white uppercase;
 }
 
-.tag-theme-price {
+.tag-theme-on-sale {
   @apply bg-venus-base text-white uppercase;
 }
 

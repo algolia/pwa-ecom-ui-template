@@ -9,6 +9,7 @@ import { ProductDescription } from '@/components/product/product-description'
 import { ProductFavorite } from '@/components/product/product-favorite'
 import { ProductImage } from '@/components/product/product-image'
 import { ProductLabel } from '@/components/product/product-label'
+import type { ProductPriceCurrency } from '@/components/product/product-price'
 import { ProductPrice } from '@/components/product/product-price'
 import { ProductRating } from '@/components/product/product-rating'
 import type { ProductTagType } from '@/components/product/product-tag'
@@ -29,7 +30,7 @@ export type ProductCardProps = {
   colors?: string[]
   price?: number
   originalPrice?: number
-  currency?: string
+  currency?: ProductPriceCurrency
   rating?: number
   reviews?: number
   available?: boolean
@@ -54,7 +55,7 @@ export function ProductCard({
   rating,
   reviews,
   available = true,
-  view,
+  view = 'grid',
   onLinkClick,
 }: ProductCardProps) {
   const [isFavorite, setIsFavorite] = useState(false)
@@ -118,7 +119,7 @@ export function ProductCard({
                 {title}
               </ProductTitle>
             )}
-            {description && view === 'list' && (
+            {(description || descriptionSnippeting) && view === 'list' && (
               <ProductDescription snippeting={descriptionSnippeting}>
                 {description}
               </ProductDescription>
