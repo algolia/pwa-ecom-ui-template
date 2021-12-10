@@ -202,7 +202,7 @@ These ready-to-use _custom_ widgets are distributed as separate NPM packages.
 - [NoResultsHandler](./components/%40instantsearch/widgets/no-results-handler/no-results-handler.tsx)
 - [BreadcrumbWithQuery](./components/%40instantsearch/widgets/breadcrumb/breadcrumb.tsx)
 
-The ones with the 📦 icon are available on NPM, the other are inside this repo.
+The ones with the 📦 icon are available on NPM, the others are in this repository.
 
 ### Core widgets
 
