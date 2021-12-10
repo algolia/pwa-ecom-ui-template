@@ -48,7 +48,7 @@ export default function Home(props: SearchPageLayoutProps) {
       <ProductsShowcase
         title="Recommended for you"
         indexId="recommended"
-        query="knitwear"
+        query="jacket"
         hitComponent={ProductCardHitShowcase}
       />
     </SearchPageLayout>

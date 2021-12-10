@@ -3,6 +3,7 @@ import { freezeAtom } from 'jotai/utils'
 
 import type { SetUserToken } from '@/hooks/useSearchInsights'
 import type { Refinement, RefinementLayout } from '@/typings/refinements'
+import { capitalize } from '@/utils/capitalize'
 import { indexName } from '@/utils/env'
 
 export type Config = typeof config
@@ -17,10 +18,19 @@ const refinements: Refinement[] = [
     isExpanded: true,
     options: {
       attributes: [
-        'hierarchicalCategories.lvl0',
-        'hierarchicalCategories.lvl1',
-        'hierarchicalCategories.lvl2',
+        'hierarchical_categories.lvl0',
+        'hierarchical_categories.lvl1',
+        'hierarchical_categories.lvl2',
       ],
+    },
+  },
+  {
+    type: 'list',
+    header: 'Brands',
+    label: 'Brand',
+    options: {
+      searchable: true,
+      attribute: 'brand',
     },
   },
   {
@@ -28,7 +38,7 @@ const refinements: Refinement[] = [
     header: 'Price',
     label: 'Price',
     options: {
-      attribute: 'unformated_price',
+      attribute: 'price.value',
     },
   },
   {
@@ -36,34 +46,41 @@ const refinements: Refinement[] = [
     header: 'Sizes',
     label: 'Size',
     options: {
-      attribute: 'sizeFilter',
+      attribute: 'available_sizes',
       limit: 8,
     },
   },
-  // {
-  //   type: 'color',
-  //   header: 'Colors',
-  //   label: 'Color',
-  //   options: {
-  //     attribute: 'hexColorCode',
-  //     separator: '//',
-  //     limit: 9,
-  //   },
-  // },
+  {
+    type: 'color',
+    header: 'Colors',
+    label: 'Color',
+    options: {
+      attribute: 'color.filter_group',
+      separator: ';',
+      limit: 9,
+      showMore: true,
+      showMoreLimit: 15,
+      transformItems: (items: any) =>
+        items.map((item: any) => ({
+          ...item,
+          label: capitalize(item.label),
+        })),
+    },
+  },
   {
     type: 'rating',
     header: 'Rating',
     label: 'Rating',
     options: {
-      attribute: 'reviewScore',
+      attribute: 'reviews.rating',
     },
   },
 ]
 
 const sorts = [
   { value: indexName, label: 'Most popular', isDefault: true },
-  { value: `${indexName}_asc_price`, label: 'Price Low to High' },
-  { value: `${indexName}_desc_price`, label: 'Price High to Low' },
+  { value: `${indexName}_price_asc`, label: 'Price Low to High' },
+  { value: `${indexName}_price_desc`, label: 'Price High to Low' },
 ]
 
 const breadcrumbAttributes = [
@@ -75,7 +92,7 @@ const breadcrumbAttributes = [
 const searchParameters = {
   hitsPerPage: 10,
   maxValuesPerFacet: 50,
-  attributesToSnippet: ['description:30'],
+  attributesToSnippet: ['description:60'],
   snippetEllipsisText: '…',
   analytics: true,
   clickAnalytics: true,

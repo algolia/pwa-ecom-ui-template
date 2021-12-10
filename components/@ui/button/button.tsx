@@ -26,7 +26,7 @@ export type ButtonProps = Omit<HTMLProps<HTMLButtonElement>, 'size'> & {
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
+  function Button(
     {
       children,
       className,
@@ -40,7 +40,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ...props
     }: ButtonProps,
     ref
-  ) => {
+  ) {
     const cn = classNames(className, 'btn', {
       'btn-primary': type === 'primary',
       'btn-secondary': type === 'secondary',

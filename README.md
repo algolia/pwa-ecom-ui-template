@@ -1,12 +1,12 @@
-# PWA Ecom Storefront - UI Template
+# PWA Ecom UI Template
 
 Current status: **Public Beta**
 
 This is a React/Next.js based template for an ecommerce application, focused on delivering a rich search and discovery experience.
-The design is based on the [Algolia ecommerce UI design kit](https://www.algolia.com/doc/guides/solutions/ecommerce/ui-kits/) and the implementation focuses on performance and customization. 
+The design is based on the [Algolia ecommerce UI design kit](https://www.algolia.com/doc/guides/solutions/ecommerce/ui-kits/) and the implementation focuses on performance and customization.
 
 <p align="center">
-  <a href="https://algolia-pwa-ui-template-preview.netlify.app/">View Demo</a>
+  <a href="https://algolia-pwa-ecom-ui-template.netlify.app/">View Preview</a>
 </p>
 
 <details>
@@ -20,10 +20,10 @@ The design is based on the [Algolia ecommerce UI design kit](https://www.algolia
     - [Structure](#structure)
     - [Record sample](#record-sample)
   - [Used technologies](#used-technologies)
-    - [Front-end bricks](#front-end-bricks)
+    - [Front-end](#front-end)
     - [The best of the Algolia platform](#the-best-of-the-algolia-platform)
   - [InstantSearch widgets](#instantsearch-widgets)
-    - [Packaged widgets](#packaged-widgets)
+    - [Custom widgets](#custom-widgets)
     - [Core widgets](#core-widgets)
   - [Browser support](#browser-support)
   - [Troubleshooting](#troubleshooting)
@@ -34,7 +34,7 @@ The design is based on the [Algolia ecommerce UI design kit](https://www.algolia
 ## Introduction
 
 The UI template is fully responsive.
-Check out the [latest version](https://algolia-pwa-ui-template-preview.netlify.app/) deployed on Netlify.
+Check out the [latest version](https://algolia-pwa-ecom-ui-template.netlify.app/) deployed on Netlify.
 
 ## Why?
 
@@ -49,11 +49,11 @@ Wer'e building this UI template with the following guiding principles in mind:
 - **Mobile-first:**: optimized for a cross-device device experience with mobile at the heart of it. 
 - **Designed with "real-life" constraints in mind:** don't compromise on performance, SEO, or accessibility. As a start, this template reaches more than 90% on all Lighthouse scores.
 - **Easily customizable:**: configure the UI template according to your needs. Create a custom theme, or add new pages to your site.
-- **Modular and extensible by design:** builds on top of [InstantSearch widgets](#instantSearch-widgets) and [Autocomplete.js plugins](https://www.algolia.com/doc/ui-libraries/autocomplete/core-concepts/plugins/), which can be customized and extended.
+- **Modular and extensible by design:** builds on top of [InstantSearch widgets](#instantsearch-widgets) and [Autocomplete.js plugins](https://www.algolia.com/doc/ui-libraries/autocomplete/core-concepts/plugins/), which can be customized and extended.
 - **UX best practices:** based on the [Algolia ecommerce UI design kit](https://www.algolia.com/doc/guides/solutions/ecommerce/ui-kits/)
 - **Open source:** MIT License
 
-Find more about the key characteristics of this PWA Storefront UI Template in the [Used technologies](#used-technologies) section.
+Find more about the key characteristics of this PWA Ecom UI Template in the [Used technologies](#used-technologies) section.
 
 ## Getting started
 
@@ -67,14 +67,14 @@ You can use the UI template in two different ways:
 1. [Fork the project](https://help.github.com/articles/fork-a-repo/)
 1. [Clone the repository](https://help.github.com/articles/cloning-a-repository/)
 1. Install the dependencies: `npm install` or `yarn install`
-1. Configure the [environment variables](#configuration)
+1. Configure the [environment variables](#environment-variables)
 1. Start the development server: `npm run dev` or `yarn dev`
 1. [Open the project in your browser](http://localhost:3000)
 
 ### Environment variables
 
 Rename the [`.env.sample`](./.env.sample) file to `.env.local`.
-The following environment variables are already filled with data from the [demo](https://algolia-pwa-ui-template-preview.netlify.app/):
+The following environment variables are already filled with data from the [preview](https://algolia-pwa-ecom-ui-template.netlify.app/):
 
 <details>
   <summary>Expand</summary>
@@ -102,42 +102,45 @@ The following environment variables are already filled with data from the [demo]
 
 ### Record sample
 
-Below is a sample record for a product in the index:
+Below is a sample record for a product in the dataset:
 
 <details>
   <summary>Expand</summary><br>
 
   ```json
   {
-    "name": "Cirst Slim T-Shirt",
-    "price": 35,
-    "url": "women/t-shirts/d04445-2757-6370",
+    "objectID": "A0E200000002GZB",
+    "name": "Michael Kors – shopper “Jet Set Travel”",
+    "description": "The sleek leather shopper from Michael Kors is the perfect Everyday- Bag, which offers enough space for the most important essentials in the office, while traveling or shopping. The longer handles allow you to carry the bag comfortably on the shoulder while the black leather and silver tag provide subtle elegance. A real investment piece that will accompany you from season to season.",
+    "brand": "Michael Kors",
+    "gender": "women",
     "hierarchical_categories": {
-      "lvl0": "women",
-      "lvl1": "women > tops and jackets",
-      "lvl2": "women > tops and jackets > t-shirts"
+      "lvl0": "Women",
+      "lvl1": "Women > Bags",
+      "lvl2": "Women > Bags > Shopper"
     },
-    "priceFilter": "$0 - $50",
-    "sizeFilter": [
-      "XS",
-      "S",
-      "M",
-      "L",
-      "XL"
+    "image_urls": [
+      "https://res.cloudinary.com/hilnmyskv/image/upload/v1638375538/flagship_sunrise/A0E200000002GZB_0.jpg"
     ],
-    "availabilityDetail": "Product is available",
-    "fullStock": true,
-    "description": "With an open neckline and slim silhouette, this soft t-shirt is the perfect option for easy, daily style. A bold graphic brings the chest to life. And thanks to soft, lightweight jersey, it feels great against the skin. Throw it on for day and night.",
-    "sizeFilter": [
-      "XS",
-      "S",
-      "M",
-      "L",
-      "XL"
+    "reviews": {
+      "rating": 4,
+      "count": 42,
+      "bayesian_avg": 3.906976744186046
+    },
+    "color": {
+      "filter_group": "black;#333",
+      "original_name": "black"
+    },
+    "available_sizes": [
+      "one size"
     ],
-    "hexColorCode": "Dark blue//#00008B",
-    "reviewScore": 4,
-    "reviewCount": 32
+    "price": {
+      "currency": "EUR",
+      "value": 343.75,
+      "discounted_value": 0,
+      "discount_level": -100,
+      "on_sales": false
+    }
   }
   ```
 </details>
@@ -174,20 +177,20 @@ Below is a sample record for a product in the index:
 
 The UI Template uses **core** and **packaged** **React InstantSearch widgets**.
 
-### Packaged widgets
+### Custom widgets
 
-These ready-to-use _packaged_ widgets are distributed as separate NPM packages.
+These ready-to-use _custom_ widgets are distributed as separate NPM packages.
 
-- ✅ [ColorRefinementList](https://github.com/algolia/react-instantsearch-widget-color-refinement-list)
-- ✅ [SizeRefinementList](https://github.com/algolia/react-instantsearch-widget-size-refinement-list)
-- ✅ [LoadMoreWithProgressBar](https://github.com/algolia/react-instantsearch-widget-loadmore-with-progressbar)
-- 🔄 [ExpandablePanel](./components/%40instantsearch/widgets/expandable-panel/expandable-panel.tsx)
-- 🔄 [RefinementsDropdown](./components/%40instantsearch/widgets/refinements-dropdown/refinements-dropdown.tsx)
-- 🔄 [RatingSelector](./components/%40instantsearch/widgets/rating-selector/rating-selector.tsx)
-- 🔄 [NoResultsHandler](./components/%40instantsearch/widgets/no-results-handler/no-results-handler.tsx)
-- 🔄 [BreadcrumbWithQuery](./components/%40instantsearch/widgets/breadcrumb/breadcrumb.tsx)
+- 📦 [ColorRefinementList](https://github.com/algolia/react-instantsearch-widget-color-refinement-list)
+- 📦 [SizeRefinementList](https://github.com/algolia/react-instantsearch-widget-size-refinement-list)
+- 📦 [LoadMoreWithProgressBar](https://github.com/algolia/react-instantsearch-widget-loadmore-with-progressbar)
+- [ExpandablePanel](./components/%40instantsearch/widgets/expandable-panel/expandable-panel.tsx)
+- [RefinementsDropdown](./components/%40instantsearch/widgets/refinements-dropdown/refinements-dropdown.tsx)
+- [RatingSelector](./components/%40instantsearch/widgets/rating-selector/rating-selector.tsx)
+- [NoResultsHandler](./components/%40instantsearch/widgets/no-results-handler/no-results-handler.tsx)
+- [BreadcrumbWithQuery](./components/%40instantsearch/widgets/breadcrumb/breadcrumb.tsx)
 
-✅ Published / 🔄 To be published
+The ones with the 📦 icon are available on NPM, the other are inside this repo.
 
 ### Core widgets
 
@@ -237,10 +240,10 @@ Encountering an issue? Read the [FAQ](https://www.algolia.com/doc/guides/buildin
 
 We welcome all contributors, from casual to regular 💙. See [CONTRIBUTING](CONTRIBUTING.md) for more information about the contribution process. 
 
-- **Bug report**. Is something not working as expected? [Send a bug report](https://github.com/algolia/pwa-storefront-ui-template/issues/new?template=Bug_report.md).
-- **Feature request**. Would you like to add something to the library? [Send a feature request](https://github.com/algolia/pwa-storefront-ui-template/issues/new?template=Feature_request.md).
-- **Documentation**. Did you find a typo in the doc? [Open an issue](https://github.com/algolia/pwa-storefront-ui-template/issues/new).
-- **Development**. If you don't know where to start, you can check the open issues that are [tagged easy](https://github.com/algolia/pwa-storefront-ui-template/issues?q=is%3Aopen+is%3Aissue+label%3A%22Difficulty%3A++++++%E2%9D%84%EF%B8%8F+easy%22), the [bugs](https://github.com/algolia/pwa-storefront-ui-template/issues?q=is%3Aissue+is%3Aopen+label%3A%22%E2%9D%A4+Bug%22) or [chores](https://github.com/algolia/pwa-storefront-ui-template/issues?q=is%3Aissue+is%3Aopen+label%3A%22%E2%9C%A8+Chore%22).
+- **Bug report**. Is something not working as expected? [Send a bug report](https://github.com/algolia/pwa-ecom-ui-template/issues/new?template=Bug_report.md).
+- **Feature request**. Would you like to add something to the library? [Send a feature request](https://github.com/algolia/pwa-ecom-ui-template/issues/new?template=Feature_request.md).
+- **Documentation**. Did you find a typo in the doc? [Open an issue](https://github.com/algolia/pwa-ecom-ui-template/issues/new).
+- **Development**. If you don't know where to start, you can check the open issues that are [tagged easy](https://github.com/algolia/pwa-ecom-ui-template/issues?q=is%3Aopen+is%3Aissue+label%3A%22Difficulty%3A++++++%E2%9D%84%EF%B8%8F+easy%22), the [bugs](https://github.com/algolia/pwa-ecom-ui-template/issues?q=is%3Aissue+is%3Aopen+label%3A%22%E2%9D%A4+Bug%22) or [chores](https://github.com/algolia/pwa-ecom-ui-template/issues?q=is%3Aissue+is%3Aopen+label%3A%22%E2%9C%A8+Chore%22).
 
 See [Installation](#installation) for instructions how to install the project.
 

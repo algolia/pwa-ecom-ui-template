@@ -2,7 +2,7 @@ import classNames from 'classnames'
 
 export type ProductTagType = {
   label: string
-  theme?: 'default' | 'eco' | 'out-of-stock' | 'popular' | 'price'
+  theme?: 'default' | 'eco' | 'on-sale' | 'out-of-stock' | 'popular'
 }
 
 export type ProductTagProps = ProductTagType

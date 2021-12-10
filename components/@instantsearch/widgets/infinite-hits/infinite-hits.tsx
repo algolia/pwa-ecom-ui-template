@@ -48,7 +48,7 @@ function InfiniteHitsComponent({
   viewMode = 'grid',
   animation = true,
   gridClassName = 'grid-cols-2 laptop:grid-cols-5',
-  listClassName = 'laptop:grid-cols-2',
+  listClassName = 'laptop:grid-cols-1',
 }: InfiniteHitsProps) {
   const [hitsPerPage, setHitsPerPage] = useState(0)
   const shouldReduceMotion = useReducedMotion()
