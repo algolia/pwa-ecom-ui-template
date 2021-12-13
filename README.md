@@ -5,9 +5,7 @@ Current status: **Public Beta**
 This is a React/Next.js based template for an ecommerce application, focused on delivering a rich search and discovery experience.
 The design is based on the [Algolia ecommerce UI design kit](https://www.algolia.com/doc/guides/solutions/ecommerce/ui-kits/) and the implementation focuses on performance and customization.
 
-<p align="center">
-  <a href="https://algolia-pwa-ecom-ui-template.netlify.app/">View Preview</a>
-</p>
+[View Preview](https://algolia-pwa-ecom-ui-template.netlify.app/)
 
 <details>
   <summary>Table of content</summary>
@@ -60,7 +58,7 @@ Wer'e building this UI template with the following guiding principles in mind:
 - **Seamless searching and browsing:** navigate the catalog (and more) via a single product listing page for a unified search and browse experience.
 - **Mobile-first:**: optimized for a cross-device device experience with mobile at the heart of it. 
 - **Designed with "real-life" constraints in mind:** don't compromise on performance, SEO, or accessibility. As a start, this template reaches more than 90% on all Lighthouse scores.
-- **Easily customizable:**: configure the UI template according to your needs. Create a custom theme, or add new pages to your site.
+- **Easily customizable:** configure the UI template according to your needs. Create a custom theme, or add new pages to your site.
 - **Modular and extensible by design:** builds on top of [InstantSearch widgets](#instantsearch-widgets) and [Autocomplete.js plugins](https://www.algolia.com/doc/ui-libraries/autocomplete/core-concepts/plugins/), which can be customized and extended.
 - **UX best practices:** based on the [Algolia ecommerce UI design kit](https://www.algolia.com/doc/guides/solutions/ecommerce/ui-kits/)
 - **Open source:** MIT License
@@ -191,7 +189,7 @@ The UI Template uses **core** and **packaged** **React InstantSearch widgets**.
 
 ### Custom widgets
 
-These ready-to-use _custom_ widgets are distributed as separate NPM packages.
+These ready-to-use _custom_ widgets are distributed as separate NPM packages (only those with with the 📦 icon for now).
 
 - 📦 [ColorRefinementList](https://github.com/algolia/react-instantsearch-widget-color-refinement-list)
 - 📦 [SizeRefinementList](https://github.com/algolia/react-instantsearch-widget-size-refinement-list)
@@ -201,8 +199,6 @@ These ready-to-use _custom_ widgets are distributed as separate NPM packages.
 - [RatingSelector](./components/%40instantsearch/widgets/rating-selector/rating-selector.tsx)
 - [NoResultsHandler](./components/%40instantsearch/widgets/no-results-handler/no-results-handler.tsx)
 - [BreadcrumbWithQuery](./components/%40instantsearch/widgets/breadcrumb/breadcrumb.tsx)
-
-The ones with the 📦 icon are available on NPM, the others are in this repository.
 
 ### Core widgets
 
