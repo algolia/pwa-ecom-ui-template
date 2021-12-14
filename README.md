@@ -68,51 +68,33 @@ Find more about the key characteristics of this PWA Ecom UI Template in the [Use
 
 ## Getting started
 
-You can use the PWA Ecom UI Template in two different ways:
-
-- If you want to start a **new implementation**, see [Installation](#installation).
-- If you **already have an implementation** and want to integrate parts of this UI template, start looking at the [project struture](#structure).
+You can run the PWA Ecommerce UI template locally in one of two ways:
+- **Using Algolia's `latency` application.** If you use the `latency` application, you can't customize records or the index configurations (such as settings, Rules, or synonyms).
+- **Using your own application.** To do this, you must import the demo site's dataset into your Algolia application with the template's CLI tool.
 
 ### Installation
 
-1. [Fork the project](https://help.github.com/articles/fork-a-repo/)
-1. [Clone the repository](https://help.github.com/articles/cloning-a-repository/)
+1. [Fork the PWA Ecom UI Template repository](https://github.com/algolia/pwa-storefront-ui-template)
+1. [Clone the forked repository](https://help.github.com/articles/cloning-a-repository/) to your local machine
 1. Install the dependencies: `npm install` or `yarn install`
-1. Configure the [environment variables](#environment-variables)
+1. If you want to use the default `latency` application, continue with the next step. If you want to use your own application, [run the CLI tool](#running-the-cli-tool)
+1. Configure the [environment variables](#connecting-your-algolia-app-to-the-ui)
 1. Start the development server: `npm run dev` or `yarn dev`
 1. [Open the project in your browser](http://localhost:3000)
 
-### Import datasets and configurations
+#### Running the CLI tool
 
-By default, the PWA Ecom UI Template uses environment variables pointing to the `latency` Algolia application. It lets you run locally right away the template but not customize the records or the indices configurations (settings, rules or synonyms for example).
+Use this tool to import the demo site's data into your Algolia application.
 
-If you want to import the preview datasets along with their configurations or directly your own datasets to your own Algolia application, you can do so using the [CLI tool](./cli) as explained below.
-
-#### Using the preview datasets and configurations
-
-1. Make sure the dependencies are installed: `npm install` or `yarn install`
 1. Run the CLI: `npm run cli`
-1. Follow the CLI steps using the `Import` action, now, you should have 4 indices in your Algolia application
-1. Configure the environment variables in the `.env.local` file as described below using your __Algolia app ID__, __search API key__ and the __products index and query suggestions names__ you used in the CLI
-1. Start the development server: `npm run dev` or `yarn dev`
+1. Follow the CLI steps using the `Import` action. This will import four new indices into your Algolia application
+1. Configure the `CLI_APP_ID` and `CLI_ADMIN_API_KEY` [environment variables](#connecting-your-algolia-app-to-the-ui)
 
-__Note:__ You can fill in the `CLI_APP_ID` and `CLI_ADMIN_API_KEY` environment variables described below in the `.env.local` file so that the CLI tool uses these defaults when requested.
+#### Connecting your Algolia app to the UI
 
-#### Using your own datasets and configurations
+Rename the `.env.sample` file to `.env.local` and change the values. To use the sample data from Algolia's [Ecommerce UI demo site](https://algolia-pwa-ecom-ui-template.netlify.app/), leave the values as they are.
 
-The preview datasets and configurations are located in the folder `cli/data` as JSON files:
-
-- `products_configuration.json`
-- `products_dataset.json`
-- `products_query_suggestions_configuration.json`
-- `products_query_suggestions_dataset.json`
-
-You can replace these files with your own and use the CLI tool again to import your own data instead of the preview ones.
-
-### Environment variables
-
-Rename the [`.env.sample`](./.env.sample) file to `.env.local`.
-The following environment variables are already filled with data from the [preview](https://algolia-pwa-ecom-ui-template.netlify.app/):
+The following environment variables are used:
 
 <details>
   <summary>Expand</summary>
@@ -123,27 +105,42 @@ The following environment variables are already filled with data from the [previ
   | **NEXT_PUBLIC_INSTANTSEARCH_SEARCH_API_KEY** | Your Algolia Search API Key |
   | **NEXT_PUBLIC_INSTANTSEARCH_INDEX_NAME** | Your Algolia index name |
   | **NEXT_PUBLIC_INSTANTSEARCH_QUERY_SUGGESTIONS_INDEX_NAME** | Your Algolia Query Suggestions index name |
-  | **CLI_APP_ID** | Your Algolia Application ID used by the CLI to import/delete datasets and configurations |
-  | **CLI_ADMIN_API_KEY** | Your Algolia Admin API key used by the CLI to import/delete datasets and configurations |
+  | **CLI_APP_ID** | Your Algolia Application ID (used by the CLI to import and delete datasets and configurations) |
+  | **CLI_ADMIN_API_KEY** | Your Algolia Admin API key (used by the CLI to import and delete datasets and configurations) |
 </details>
+
+__Note:__ You can fill in the `CLI_APP_ID` and `CLI_ADMIN_API_KEY` environment variables described above in the `.env.local` file so that the [CLI tool](#running-the-cli-tool) uses these values by default when requested.
 
 ### Structure
 
-- `/components`: Components (UI, Autocomplete, InstantSearch widgets).
-- `/config`: Configuration files (for example, you can configure displayed refinement or search parameters).
-- `/hooks`: Custom common hooks.
-- `/layouts`: Application and page layouts.
-- `/lib`: Library-related code.
-- `/pages`: Pages (for example, home and product listing/detail pages).
-- `/public`: Static assets.
-- `/styles`: Themes (the default theme is using Tailwind CSS).
-- `/cli`: Command line interface tool to import/delete datasets and configurations to your Algolia application.
-- `/typings`: TypeScript types.
-- `/utils`: Various utility functions.
+If you want to experiment with customization, the PWA Ecommerce UI template is structured as follows:
 
-### Record sample
+- `/components`: UI components (Autocomplete and InstantSearch widgets)
+- `/config`: configuration files (for example, you can configure displayed refinements or search parameters)
+- `/hooks`: custom React hooks
+- `/layouts`: application and page layouts
+- `/lib`: library-related code
+- `/pages`: pages (home, product listing/, and product detail pages)
+- `/public`: static assets
+- `/styles`: themes (the default theme uses Tailwind CSS)
+- `/cli`: [command line interface tool](#running-the-cli-tool) to import/delete datasets and configurations to your Algolia application
+- `/typings`: TypeScript types
+- `/utils`: various utility functions
 
-Below is a sample record for a product in the dataset:
+### Using your own data and configurations
+
+The demo site's data and configurations can be found in the `cli/data` folder as JSON files:
+
+- products_configuration.json
+- products_dataset.json
+- products_query_suggestions_configuration.json
+- products_query_suggestions_dataset.json
+
+Replace these files with your own and [use the CLI tool](#running-the-cli-tool) to import this data instead of the demo site data.
+
+## Example product record
+
+The following is an example of a typical product record:
 
 <details>
   <summary>Expand</summary><br>
@@ -152,7 +149,7 @@ Below is a sample record for a product in the dataset:
   {
     "objectID": "A0E200000002GZB",
     "name": "Michael Kors – shopper “Jet Set Travel”",
-    "description": "The sleek leather shopper from Michael Kors is the perfect Everyday- Bag, which offers enough space for the most important essentials in the office, while traveling or shopping. The longer handles allow you to carry the bag comfortably on the shoulder while the black leather and silver tag provide subtle elegance. A real investment piece that will accompany you from season to season.",
+    "description": "The sleek leather shopper from Michael Kors is the perfect every day bag, which offers enough space for the most important essentials in the office while traveling or shopping. The longer handles allow you to carry the bag comfortably on the shoulder, while the black leather and silver tag provides subtle elegance. A real investment piece that will accompany you from season to season.",
     "brand": "Michael Kors",
     "gender": "women",
     "hierarchical_categories": {
