@@ -14,10 +14,9 @@ The design is based on the [Algolia ecommerce UI design kit](https://www.algolia
   - [Why](#why)
   - [Getting started](#getting-started)
     - [Installation](#installation)
-    - [Import datasets and configurations](#import-datasets-and-configurations)
-    - [Environment variables](#environment-variables)
     - [Structure](#structure)
-    - [Record sample](#record-sample)
+    - [Using your own data and configurations](#using-your-own-data-and-configurations)
+    - [Example product record](#example-product-record)
   - [Used technologies](#used-technologies)
     - [Front-end](#front-end)
     - [The best of the Algolia platform](#the-best-of-the-algolia-platform)
@@ -77,7 +76,7 @@ You can run the PWA Ecommerce UI template locally in one of two ways:
 1. [Fork this repository](https://help.github.com/articles/fork-a-repo/)
 1. [Clone the forked repository](https://help.github.com/articles/cloning-a-repository/) to your local machine
 1. Install the dependencies: `npm install` or `yarn install`
-1. If you want to use the default `latency` application, continue with the next step.  
+1. If you want to use the default `latency` application, continue with the next step  
 If you want to use your own application, [run the CLI tool](#running-the-cli-tool)
 1. Configure the [environment variables](#connecting-your-algolia-app-to-the-ui)
 1. Start the development server: `npm run dev` or `yarn dev`
@@ -139,7 +138,7 @@ The demo site's data and configurations can be found in the `cli/data` folder as
 
 Replace these files with your own and [use the CLI tool](#running-the-cli-tool) to import this data instead of the demo site data.
 
-## Example product record
+### Example product record
 
 The following is an example of a typical product record:
 
