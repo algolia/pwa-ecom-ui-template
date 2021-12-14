@@ -1,7 +1,5 @@
 # PWA Ecom UI Template
 
-Current status: **Public Beta**
-
 This is a React/Next.js based template for an ecommerce application, focused on delivering a rich search and discovery experience.
 The design is based on the [Algolia ecommerce UI design kit](https://www.algolia.com/doc/guides/solutions/ecommerce/ui-kits/) and the implementation focuses on performance and customization.
 
@@ -13,10 +11,6 @@ The design is based on the [Algolia ecommerce UI design kit](https://www.algolia
   - [Introduction](#introduction)
   - [Why](#why)
   - [Getting started](#getting-started)
-    - [Installation](#installation)
-    - [Environment variables](#environment-variables)
-    - [Structure](#structure)
-    - [Record sample](#record-sample)
   - [Used technologies](#used-technologies)
     - [Front-end](#front-end)
     - [The best of the Algolia platform](#the-best-of-the-algolia-platform)
@@ -31,7 +25,7 @@ The design is based on the [Algolia ecommerce UI design kit](https://www.algolia
 
 ## Introduction
 
-The UI template is fully responsive.
+The PWA Ecom UI Template is fully responsive.
 Check out the [latest version](https://algolia-pwa-ecom-ui-template.netlify.app/) deployed on Netlify.
 
 ### Mobile
@@ -67,93 +61,7 @@ Find more about the key characteristics of this PWA Ecom UI Template in the [Use
 
 ## Getting started
 
-You can use the UI template in two different ways:
-
-- If you want to start a **new implementation**, see [Installation](#installation).
-- If you **already have an implementation** and want to integrate parts of this UI template, start looking at the [project struture](#structure).
-
-### Installation
-
-1. [Fork the project](https://help.github.com/articles/fork-a-repo/)
-1. [Clone the repository](https://help.github.com/articles/cloning-a-repository/)
-1. Install the dependencies: `npm install` or `yarn install`
-1. Configure the [environment variables](#environment-variables)
-1. Start the development server: `npm run dev` or `yarn dev`
-1. [Open the project in your browser](http://localhost:3000)
-
-### Environment variables
-
-Rename the [`.env.sample`](./.env.sample) file to `.env.local`.
-The following environment variables are already filled with data from the [preview](https://algolia-pwa-ecom-ui-template.netlify.app/):
-
-<details>
-  <summary>Expand</summary>
-
-  | Name | Value |
-  | -- | -- |
-  | **NEXT_PUBLIC_INSTANTSEARCH_APP_ID** | Algolia Application ID |
-  | **NEXT_PUBLIC_INSTANTSEARCH_SEARCH_API_KEY** | Algolia Search API Key |
-  | **NEXT_PUBLIC_INSTANTSEARCH_INDEX_NAME** | Algolia index name |
-  | **NEXT_PUBLIC_INSTANTSEARCH_QUERY_SUGGESTIONS_INDEX_NAME** | Algolia Query Suggestions index name |
-</details>
-
-### Structure
-
-- `/components`: Components (UI, Autocomplete, InstantSearch widgets).
-- `/config`: Configuration files (for example, you can configure displayed refinement or search parameters).
-- `/hooks`: Custom common hooks.
-- `/layouts`: Application and page layouts.
-- `/lib`: Library-related code.
-- `/pages`: Pages (for example, home and product listing/detail pages).
-- `/public`: Static assets.
-- `/styles`: Themes (the default theme is using Tailwind CSS).
-- `/typings`: TypeScript types.
-- `/utils`: Various utility functions.
-
-### Record sample
-
-Below is a sample record for a product in the dataset:
-
-<details>
-  <summary>Expand</summary><br>
-
-  ```json
-  {
-    "objectID": "A0E200000002GZB",
-    "name": "Michael Kors – shopper “Jet Set Travel”",
-    "description": "The sleek leather shopper from Michael Kors is the perfect Everyday- Bag, which offers enough space for the most important essentials in the office, while traveling or shopping. The longer handles allow you to carry the bag comfortably on the shoulder while the black leather and silver tag provide subtle elegance. A real investment piece that will accompany you from season to season.",
-    "brand": "Michael Kors",
-    "gender": "women",
-    "hierarchical_categories": {
-      "lvl0": "Women",
-      "lvl1": "Women > Bags",
-      "lvl2": "Women > Bags > Shopper"
-    },
-    "image_urls": [
-      "https://res.cloudinary.com/hilnmyskv/image/upload/v1638375538/flagship_sunrise/A0E200000002GZB_0.jpg"
-    ],
-    "reviews": {
-      "rating": 4,
-      "count": 42,
-      "bayesian_avg": 3.906976744186046
-    },
-    "color": {
-      "filter_group": "black;#333",
-      "original_name": "black"
-    },
-    "available_sizes": [
-      "one size"
-    ],
-    "price": {
-      "currency": "EUR",
-      "value": 343.75,
-      "discounted_value": 0,
-      "discount_level": -100,
-      "on_sales": false
-    }
-  }
-  ```
-</details>
+You can find the [Getting started](https://www.algolia.com/doc/guides/building-search-ui/ecommerce-ui-template/getting-started) page in the docs.
 
 ## Used technologies
 
@@ -189,7 +97,7 @@ The UI Template uses **core** and **packaged** **React InstantSearch widgets**.
 
 ### Custom widgets
 
-These ready-to-use _custom_ widgets are distributed as separate NPM packages (only those with with the 📦 icon for now).
+These ready-to-use _custom_ widgets are distributed as separate NPM packages (only those with with the 📦 icon for now) or present in this repository.
 
 - 📦 [ColorRefinementList](https://github.com/algolia/react-instantsearch-widget-color-refinement-list)
 - 📦 [SizeRefinementList](https://github.com/algolia/react-instantsearch-widget-size-refinement-list)
