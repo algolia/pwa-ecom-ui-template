@@ -1,6 +1,6 @@
 {
   "name": "pwa-ecom-ui-template",
-  "version": "0.10.1",
+  "version": "1.0.0",
   "description": "React/Next.js based starter kit, focused on delivering a rich Search & Discovery e-commerce experience.",
   "private": true,
   "scripts": {
