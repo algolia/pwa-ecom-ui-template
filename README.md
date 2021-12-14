@@ -74,10 +74,11 @@ You can run the PWA Ecommerce UI template locally in one of two ways:
 
 ### Installation
 
-1. [Fork the PWA Ecom UI Template repository](https://github.com/algolia/pwa-storefront-ui-template)
+1. [Fork this repository](https://help.github.com/articles/fork-a-repo/)
 1. [Clone the forked repository](https://help.github.com/articles/cloning-a-repository/) to your local machine
 1. Install the dependencies: `npm install` or `yarn install`
-1. If you want to use the default `latency` application, continue with the next step. If you want to use your own application, [run the CLI tool](#running-the-cli-tool)
+1. If you want to use the default `latency` application, continue with the next step.  
+If you want to use your own application, [run the CLI tool](#running-the-cli-tool)
 1. Configure the [environment variables](#connecting-your-algolia-app-to-the-ui)
 1. Start the development server: `npm run dev` or `yarn dev`
 1. [Open the project in your browser](http://localhost:3000)
