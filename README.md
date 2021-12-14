@@ -92,8 +92,8 @@ If you want to import the preview datasets along with their configurations or di
 
 1. Make sure the dependencies are installed: `npm install` or `yarn install`
 1. Run the CLI: `npm run cli`
-1. Follow the CLI steps using the `Import` action, now, you should have 4 indices in your Algolia application.
-1. Configure the environment variables in the `.env.local` file as described below using your __Algolia app ID__, __search API key__ and the __products index and query suggestions names__ you used in the CLI.
+1. Follow the CLI steps using the `Import` action, now, you should have 4 indices in your Algolia application
+1. Configure the environment variables in the `.env.local` file as described below using your __Algolia app ID__, __search API key__ and the __products index and query suggestions names__ you used in the CLI
 1. Start the development server: `npm run dev` or `yarn dev`
 
 __Note:__ You can fill in the `CLI_APP_ID` and `CLI_ADMIN_API_KEY` environment variables described below in the `.env.local` file so that the CLI tool uses these defaults when requested.
