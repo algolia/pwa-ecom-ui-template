@@ -15,7 +15,6 @@ The design is based on the [Algolia ecommerce UI design kit](https://www.algolia
   - [Getting started](#getting-started)
     - [Installation](#installation)
     - [Structure](#structure)
-    - [Using your own data and configurations](#using-your-own-data-and-configurations)
     - [Example product record](#example-product-record)
   - [Used technologies](#used-technologies)
     - [Front-end](#front-end)
@@ -127,7 +126,7 @@ If you want to experiment with customization, the PWA Ecommerce UI template is s
 - `/typings`: TypeScript types
 - `/utils`: various utility functions
 
-### Using your own data and configurations
+#### Using your own data and configurations
 
 The demo site's data and configurations can be found in the `cli/data` folder as JSON files:
 
