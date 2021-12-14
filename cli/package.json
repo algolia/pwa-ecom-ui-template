@@ -1,0 +1,19 @@
+{
+  "name": "pwa-ecom-ui-template-cli",
+  "version": "0.0.1",
+  "description": "PWA Ecom UI Template command line interface.",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node -r dotenv/config index dotenv_config_path=../.env.local",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "prompts": "^2.4.2",
+    "stream-json": "^1.7.3"
+  }
+}

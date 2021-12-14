@@ -1,13 +1,16 @@
 {
   "name": "pwa-ecom-ui-template",
   "version": "0.10.1",
+  "description": "React/Next.js based starter kit, focused on delivering a rich Search & Discovery e-commerce experience.",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "analyze": "ANALYZE=true next build"
+    "analyze": "ANALYZE=true next build",
+    "cli": "cd cli && npm start",
+    "postinstall": "cd cli && npm install"
   },
   "dependencies": {
     "@algolia/autocomplete-js": "^1.5.0",

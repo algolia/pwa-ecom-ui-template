@@ -14,6 +14,7 @@ The design is based on the [Algolia ecommerce UI design kit](https://www.algolia
   - [Why](#why)
   - [Getting started](#getting-started)
     - [Installation](#installation)
+    - [Import datasets and configurations](#import-datasets-and-configurations)
     - [Environment variables](#environment-variables)
     - [Structure](#structure)
     - [Record sample](#record-sample)
@@ -67,7 +68,7 @@ Find more about the key characteristics of this PWA Ecom UI Template in the [Use
 
 ## Getting started
 
-You can use the UI template in two different ways:
+You can use the PWA Ecom UI Template in two different ways:
 
 - If you want to start a **new implementation**, see [Installation](#installation).
 - If you **already have an implementation** and want to integrate parts of this UI template, start looking at the [project struture](#structure).
@@ -81,6 +82,33 @@ You can use the UI template in two different ways:
 1. Start the development server: `npm run dev` or `yarn dev`
 1. [Open the project in your browser](http://localhost:3000)
 
+### Import datasets and configurations
+
+By default, the PWA Ecom UI Template uses environment variables pointing to the `latency` Algolia application. It lets you run locally right away the template but not customize the records or the indices configurations (settings, rules or synonyms for example).
+
+If you want to import the preview datasets along with their configurations or directly your own datasets to your own Algolia application, you can do so using the [CLI tool](./cli) as explained below.
+
+#### Using the preview datasets and configurations
+
+1. Make sure the dependencies are installed: `npm install` or `yarn install`
+1. Run the CLI: `npm run cli`
+1. Follow the CLI steps using the `Import` action, now, you should have 4 indices in your Algolia application.
+1. Configure the environment variables in the `.env.local` file as described below using your __Algolia app ID__, __search API key__ and the __products index and query suggestions names__ you used in the CLI.
+1. Start the development server: `npm run dev` or `yarn dev`
+
+__Note:__ You can fill in the `CLI_APP_ID` and `CLI_ADMIN_API_KEY` environment variables described below in the `.env.local` file so that the CLI tool uses these defaults when requested.
+
+#### Using your own datasets and configurations
+
+The preview datasets and configurations are located in the folder `cli/data` as JSON files:
+
+- `products_configuration.json`
+- `products_dataset.json`
+- `products_query_suggestions_configuration.json`
+- `products_query_suggestions_dataset.json`
+
+You can replace these files with your own and use the CLI tool again to import your own data instead of the preview ones.
+
 ### Environment variables
 
 Rename the [`.env.sample`](./.env.sample) file to `.env.local`.
@@ -91,10 +119,12 @@ The following environment variables are already filled with data from the [previ
 
   | Name | Value |
   | -- | -- |
-  | **NEXT_PUBLIC_INSTANTSEARCH_APP_ID** | Algolia Application ID |
-  | **NEXT_PUBLIC_INSTANTSEARCH_SEARCH_API_KEY** | Algolia Search API Key |
-  | **NEXT_PUBLIC_INSTANTSEARCH_INDEX_NAME** | Algolia index name |
-  | **NEXT_PUBLIC_INSTANTSEARCH_QUERY_SUGGESTIONS_INDEX_NAME** | Algolia Query Suggestions index name |
+  | **NEXT_PUBLIC_INSTANTSEARCH_APP_ID** | Your Algolia Application ID |
+  | **NEXT_PUBLIC_INSTANTSEARCH_SEARCH_API_KEY** | Your Algolia Search API Key |
+  | **NEXT_PUBLIC_INSTANTSEARCH_INDEX_NAME** | Your Algolia index name |
+  | **NEXT_PUBLIC_INSTANTSEARCH_QUERY_SUGGESTIONS_INDEX_NAME** | Your Algolia Query Suggestions index name |
+  | **CLI_APP_ID** | Your Algolia Application ID used by the CLI to import/delete datasets and configurations |
+  | **CLI_ADMIN_API_KEY** | Your Algolia Admin API key used by the CLI to import/delete datasets and configurations |
 </details>
 
 ### Structure
@@ -107,6 +137,7 @@ The following environment variables are already filled with data from the [previ
 - `/pages`: Pages (for example, home and product listing/detail pages).
 - `/public`: Static assets.
 - `/styles`: Themes (the default theme is using Tailwind CSS).
+- `/cli`: Command line interface tool to import/delete datasets and configurations to your Algolia application.
 - `/typings`: TypeScript types.
 - `/utils`: Various utility functions.
 
