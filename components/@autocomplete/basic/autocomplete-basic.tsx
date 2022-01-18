@@ -9,14 +9,6 @@ import { useRouter } from 'next/router'
 import { memo, useCallback, useEffect, useMemo } from 'react'
 import type { SearchState } from 'react-instantsearch-core'
 
-import type { AutocompleteProps } from '@autocomplete/_default/autocomplete'
-import { Autocomplete } from '@autocomplete/_default/autocomplete'
-import { popularSearchesPluginCreator } from '@autocomplete/plugins/popular-searches/popular-searches'
-import { recentSearchesPluginCreator } from '@autocomplete/plugins/recent-searches'
-import { searchButtonPluginCreator } from '@autocomplete/plugins/search-button'
-import { voiceCameraIconsPluginCreator } from '@autocomplete/plugins/voice-camera-icons'
-import { withDebugLayer } from '@dev/debug-layer/debug-layer'
-
 import { searchStateAtom } from '@/components/@instantsearch/hooks/useUrlSync'
 import { configAtom } from '@/config/config'
 import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
@@ -24,6 +16,13 @@ import { createAnimatedPlaceholderPlugin } from '@/lib/autocomplete/plugins/crea
 import { createClearLeftPlugin } from '@/lib/autocomplete/plugins/createClearLeftPlugin'
 import { createFocusBlurPlugin } from '@/lib/autocomplete/plugins/createFocusBlurPlugin'
 import { isomorphicWindow } from '@/utils/browser'
+import type { AutocompleteProps } from '@autocomplete/_default/autocomplete'
+import { Autocomplete } from '@autocomplete/_default/autocomplete'
+import { popularSearchesPluginCreator } from '@autocomplete/plugins/popular-searches/popular-searches'
+import { recentSearchesPluginCreator } from '@autocomplete/plugins/recent-searches'
+import { searchButtonPluginCreator } from '@autocomplete/plugins/search-button'
+import { voiceCameraIconsPluginCreator } from '@autocomplete/plugins/voice-camera-icons'
+import { withDebugLayer } from '@dev/debug-layer/debug-layer'
 
 export type AutocompleteBasicProps = AutocompleteProps & {
   searchClient: SearchClient

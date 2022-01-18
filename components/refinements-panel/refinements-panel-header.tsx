@@ -5,6 +5,8 @@ import RemoveIcon from '@material-design-icons/svg/outlined/remove.svg'
 import { useAtom } from 'jotai'
 import { useCallback } from 'react'
 
+import { useLockedBody } from '@/hooks/useLockedBody'
+import { Laptop, Tablet } from '@/lib/media'
 import { CurrentRefinements } from '@instantsearch/widgets/current-refinements/current-refinements'
 import { Button } from '@ui/button/button'
 import { IconLabel } from '@ui/icon-label/icon-label'
@@ -12,9 +14,6 @@ import { Icon } from '@ui/icon/icon'
 
 import { refinementsPanelMobileExpandedAtom } from './refinements-panel'
 import { refinementsPanelsExpandedAtom } from './refinements-panel-body'
-
-import { useLockedBody } from '@/hooks/useLockedBody'
-import { Laptop, Tablet } from '@/lib/media'
 
 export function RefinementsPanelHeader() {
   const [mobileExpanded, setMobileExpanded] = useAtom(

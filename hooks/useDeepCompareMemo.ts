@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 
-import { checkDeps, useDeepCompareMemoize } from './useDeepCompareMemoize'
-
 import { isDev } from '@/utils/env'
+
+import { checkDeps, useDeepCompareMemoize } from './useDeepCompareMemoize'
 
 export function useDeepCompareMemo<T>(
   factory: () => T,

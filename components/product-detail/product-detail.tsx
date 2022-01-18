@@ -3,9 +3,6 @@ import SyncIcon from '@material-design-icons/svg/outlined/sync.svg'
 import type { MouseEventHandler } from 'react'
 import { useCallback, useState } from 'react'
 
-import { Button } from '@ui/button/button'
-import { IconLabel } from '@ui/icon-label/icon-label'
-
 import { ProductDescription } from '@/components/product/product-description'
 import { ProductFavorite } from '@/components/product/product-favorite'
 import { ProductImage } from '@/components/product/product-image'
@@ -18,6 +15,8 @@ import { ProductSizes } from '@/components/product/product-sizes'
 import type { ProductTagType } from '@/components/product/product-tag'
 import { ProductTag } from '@/components/product/product-tag'
 import { ProductTitle } from '@/components/product/product-title'
+import { Button } from '@ui/button/button'
+import { IconLabel } from '@ui/icon-label/icon-label'
 
 export type ProductDetailProps = {
   image?: string

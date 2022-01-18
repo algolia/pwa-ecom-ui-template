@@ -7,19 +7,18 @@ import type {
 import { memo, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 
-import { Search } from '@instantsearch/search'
-import { urlToSearchState } from '@instantsearch/utils/url'
-
-import { searchClientAtom } from './app-layout'
-import type { BasicPageLayoutProps } from './basic-page-layout'
-import { BasicPageLayout } from './basic-page-layout'
-
 import { useUrlSync } from '@/components/@instantsearch/hooks/useUrlSync'
 import { configAtom } from '@/config/config'
 import { useUserToken } from '@/hooks/useUserToken'
 import { isBrowser } from '@/utils/browser'
 import { appId, searchApiKey, indexName } from '@/utils/env'
 import { getResultsState } from '@/utils/getResultsState'
+import { Search } from '@instantsearch/search'
+import { urlToSearchState } from '@instantsearch/utils/url'
+
+import { searchClientAtom } from './app-layout'
+import { BasicPageLayout } from './basic-page-layout'
+import type { BasicPageLayoutProps } from './basic-page-layout'
 
 export type SearchPageLayoutProps = BasicPageLayoutProps & {
   resultsState?: any

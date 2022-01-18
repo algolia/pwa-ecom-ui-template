@@ -4,12 +4,6 @@ import { useRouter } from 'next/router'
 import { useCallback, useEffect, useMemo } from 'react'
 import type { SearchState } from 'react-instantsearch-core'
 
-import {
-  searchStateToUrl,
-  urlToSearchState,
-  createURL,
-} from '@instantsearch/utils/url'
-
 import { autocompleteAtom } from '@/components/@autocomplete/_default/autocomplete'
 import { autocompleteStateAtom } from '@/components/@autocomplete/basic/autocomplete-basic'
 import { configAtom } from '@/config/config'
@@ -18,6 +12,11 @@ import { useDeepCompareEffect } from '@/hooks/useDeepCompareEffect'
 import { useDeepUpdateAtom } from '@/hooks/useDeepUpdateAtom'
 import { isomorphicWindow } from '@/utils/browser'
 import { scrollToTop } from '@/utils/scrollToTop'
+import {
+  searchStateToUrl,
+  urlToSearchState,
+  createURL,
+} from '@instantsearch/utils/url'
 
 // Atoms
 export const searchStateAtom = atom<SearchState>(

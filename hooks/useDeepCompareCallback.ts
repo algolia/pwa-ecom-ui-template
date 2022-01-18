@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
 
-import { checkDeps, useDeepCompareMemoize } from './useDeepCompareMemoize'
-
 import { isDev } from '@/utils/env'
+
+import { checkDeps, useDeepCompareMemoize } from './useDeepCompareMemoize'
 
 export function useDeepCompareCallback<T extends (...args: any[]) => any>(
   callback: T,

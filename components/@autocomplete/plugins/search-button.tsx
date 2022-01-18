@@ -2,9 +2,8 @@ import type { OnStateChangeProps } from '@algolia/autocomplete-js'
 import { useCallback } from 'react'
 import { render } from 'react-dom'
 
-import { Button } from '@ui/button/button'
-
 import { createTemplatePlugin } from '@/lib/autocomplete/plugins/createTemplatePlugin'
+import { Button } from '@ui/button/button'
 
 type SearchButtonPluginCreatorParams = {
   initialQuery?: string

@@ -2,8 +2,6 @@ import classNames from 'classnames'
 import type { MouseEventHandler } from 'react'
 import { useCallback, useState } from 'react'
 
-import { Link } from '@ui/link/link'
-
 import { ProductColorVariationList } from '@/components/product/product-color-variation-list'
 import { ProductDescription } from '@/components/product/product-description'
 import { ProductFavorite } from '@/components/product/product-favorite'
@@ -16,6 +14,7 @@ import type { ProductTagType } from '@/components/product/product-tag'
 import { ProductTag } from '@/components/product/product-tag'
 import { ProductTitle } from '@/components/product/product-title'
 import type { ViewMode } from '@/components/view-modes/view-modes'
+import { Link } from '@ui/link/link'
 
 export type ProductCardProps = {
   url?: string

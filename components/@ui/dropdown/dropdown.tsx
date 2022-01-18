@@ -2,13 +2,12 @@ import ArrowIcon from '@material-design-icons/svg/outlined/keyboard_arrow_down.s
 import classNames from 'classnames'
 import { forwardRef } from 'react'
 
+import { useIsVisible } from '@/hooks/useIsVisible'
 import type { ButtonProps } from '@ui/button/button'
 import { Button } from '@ui/button/button'
 import { Collapse } from '@ui/collapse/collapse'
 import { Count } from '@ui/count/count'
 import { Icon } from '@ui/icon/icon'
-
-import { useIsVisible } from '@/hooks/useIsVisible'
 
 export type DropdownOption = {
   value: string

@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
-import { checkDeps, useDeepCompareMemoize } from './useDeepCompareMemoize'
-
 import { isDev } from '@/utils/env'
+
+import { checkDeps, useDeepCompareMemoize } from './useDeepCompareMemoize'
 
 export function useDeepCompareEffect(
   effect: React.EffectCallback,

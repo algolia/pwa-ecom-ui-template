@@ -4,10 +4,10 @@ import type {
   Refinement as ISRefinement,
 } from 'react-instantsearch-core'
 
-import type { CurrentRefinement } from './current-refinements'
-
 import type { Config } from '@/config/config'
 import type { Refinement, RefinementWidget } from '@/typings/refinements'
+
+import type { CurrentRefinement } from './current-refinements'
 
 function getRefinementConfig(
   r: Refinement | RefinementWidget,

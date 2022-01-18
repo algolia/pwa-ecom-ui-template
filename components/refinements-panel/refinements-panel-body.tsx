@@ -2,6 +2,9 @@ import { atom, useAtom } from 'jotai'
 import { useAtomValue } from 'jotai/utils'
 import { useCallback, useEffect, useMemo } from 'react'
 
+import { configAtom } from '@/config/config'
+import { useTailwindScreens } from '@/hooks/useTailwindScreens'
+import { Tablet } from '@/lib/media'
 import { useGetRefinementWidgets } from '@instantsearch/hooks/useGetRefinementWidgets'
 import {
   getPanelAttributes,
@@ -12,10 +15,6 @@ import { ExpandablePanel } from '@instantsearch/widgets/expandable-panel/expanda
 import { SortBy } from '@instantsearch/widgets/sort-by/sort-by'
 
 import type { RefinementsPanelProps } from './refinements-panel'
-
-import { configAtom } from '@/config/config'
-import { useTailwindScreens } from '@/hooks/useTailwindScreens'
-import { Tablet } from '@/lib/media'
 
 export type RefinementsPanelBodyProps = Pick<
   RefinementsPanelProps,

@@ -6,11 +6,10 @@ import { LoadMoreWithProgressBar } from '@algolia/react-instantsearch-widget-loa
 import { useAtomValue } from 'jotai/utils'
 import { memo, useCallback, useEffect, useRef } from 'react'
 
-import { Button } from '@ui/button/button'
-
 import { withDebugLayer } from '@/components/@dev/debug-layer/debug-layer'
 import { searchQueryAtom } from '@/components/@instantsearch/hooks/useUrlSync'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
+import { Button } from '@ui/button/button'
 
 function LoadMoreButton({
   translations,

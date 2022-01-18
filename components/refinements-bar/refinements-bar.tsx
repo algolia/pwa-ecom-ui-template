@@ -3,6 +3,11 @@ import classNames from 'classnames'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import dynamic from 'next/dynamic'
 
+import { refinementsPanelMobileExpandedAtom } from '@/components/refinements-panel/refinements-panel'
+import { ToggleFilters } from '@/components/toggle-filters/toggle-filters'
+import { ViewModes } from '@/components/view-modes/view-modes'
+import { configAtom } from '@/config/config'
+import { Laptop, Tablet } from '@/lib/media'
 import { withDebugLayer } from '@dev/debug-layer/debug-layer'
 import {
   CurrentRefinements,
@@ -14,12 +19,6 @@ import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/
 import { Button } from '@ui/button/button'
 import { Count } from '@ui/count/count'
 import { IconLabel } from '@ui/icon-label/icon-label'
-
-import { refinementsPanelMobileExpandedAtom } from '@/components/refinements-panel/refinements-panel'
-import { ToggleFilters } from '@/components/toggle-filters/toggle-filters'
-import { ViewModes } from '@/components/view-modes/view-modes'
-import { configAtom } from '@/config/config'
-import { Laptop, Tablet } from '@/lib/media'
 
 const RefinementsBarDropdowns = dynamic<any>(() =>
   import(

@@ -5,12 +5,11 @@ import isEqual from 'react-fast-compare'
 import type { HitsProvided } from 'react-instantsearch-core'
 import { Configure, connectHits, Index } from 'react-instantsearch-dom'
 
-import { searchStateAtom } from '@instantsearch/hooks/useUrlSync'
-
 import { Button } from '@/components/@ui/button/button'
 import { Icon } from '@/components/@ui/icon/icon'
 import { configAtom } from '@/config/config'
 import { querySuggestionsIndexName } from '@/utils/env'
+import { searchStateAtom } from '@instantsearch/hooks/useUrlSync'
 
 export type NoResultsQuerySuggestionsProps = {
   query: string
