@@ -10,3 +10,9 @@ export const searchApiKey =
 export const indexName = process.env.NEXT_PUBLIC_INSTANTSEARCH_INDEX_NAME!
 export const querySuggestionsIndexName =
   process.env.NEXT_PUBLIC_INSTANTSEARCH_QUERY_SUGGESTIONS_INDEX_NAME!
+
+if (!appId || !searchApiKey || !indexName || !querySuggestionsIndexName) {
+  throw new Error(
+    `An environment variable is missing. Rename the '.env.sample' file to '.env.local' and change the values.`
+  )
+}
