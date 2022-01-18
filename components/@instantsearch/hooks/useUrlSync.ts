@@ -21,8 +21,9 @@ import { scrollToTop } from '@/utils/scrollToTop'
 
 // Atoms
 export const searchStateAtom = atom<SearchState>(
-  urlToSearchState(isomorphicWindow?.location.href)
+  urlToSearchState(isomorphicWindow ? isomorphicWindow.location.href : null)
 )
+
 export const searchQueryAtom = selectAtom<SearchState, string | undefined>(
   searchStateAtom,
   ({ query }) => query
