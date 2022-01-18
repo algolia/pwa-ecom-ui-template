@@ -140,6 +140,6 @@ const questions = [
         break
     }
   } catch (err) {
-    console.error(bold().red(`✖ Error: ${err}`))
+    console.error(bold().red(`✖ Error: ${err.message}`))
   }
 })()
