@@ -4,10 +4,9 @@ import { useRouter } from 'next/router'
 import { useEffect, useRef } from 'react'
 import { Pane as Tweakpane } from 'tweakpane'
 
+import { configAtom } from '@/config/config'
 import { debugLayerEnabledAtom } from '@dev/debug-layer/debug-layer'
 import { gridsHiddenAtom } from '@dev/grids/grids'
-
-import { configAtom } from '@/config/config'
 
 export function Pane() {
   const paneContainer = useRef(null)

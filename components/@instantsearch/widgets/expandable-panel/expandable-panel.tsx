@@ -11,15 +11,14 @@ import type {
 } from 'react-instantsearch-core'
 import { connectCurrentRefinements } from 'react-instantsearch-dom'
 
+import { withDebugLayer } from '@/components/@dev/debug-layer/debug-layer'
+import { Collapse } from '@/components/@ui/collapse/collapse'
+import { Count } from '@/components/@ui/count/count'
 import { useCurrentRefinementCount } from '@instantsearch/hooks/useCurrentRefinementCount'
 import { useHasRefinements } from '@instantsearch/hooks/useHasRefinements'
 import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 import { Button } from '@ui/button/button'
 import { Icon } from '@ui/icon/icon'
-
-import { withDebugLayer } from '@/components/@dev/debug-layer/debug-layer'
-import { Collapse } from '@/components/@ui/collapse/collapse'
-import { Count } from '@/components/@ui/count/count'
 
 export type ExpandablePanelProps = CurrentRefinementsProvided & {
   children: React.ReactNode

@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react'
 
-import { useEventListener } from './useEventListener'
-
 import { isomorphicWindow } from '@/utils/browser'
+
+import { useEventListener } from './useEventListener'
 
 export function useKeyPress(targetKey: string): boolean {
   const [keyPressed, setKeyPressed] = useState(false)

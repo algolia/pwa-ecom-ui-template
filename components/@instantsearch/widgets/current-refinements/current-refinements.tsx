@@ -10,13 +10,12 @@ import type {
 } from 'react-instantsearch-core'
 import { connectCurrentRefinements } from 'react-instantsearch-dom'
 
+import { Chip } from '@/components/@ui/chip/chip'
+import { configAtom } from '@/config/config'
 import { withDebugLayer } from '@dev/debug-layer/debug-layer'
 import { ClearRefinements } from '@instantsearch/widgets/clear-refinements/clear-refinements'
 
 import { getCurrentRefinement } from './getCurrentRefinement'
-
-import { Chip } from '@/components/@ui/chip/chip'
-import { configAtom } from '@/config/config'
 
 export type CurrentRefinementsProps = CurrentRefinementsProvided & {
   header?: string

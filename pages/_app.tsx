@@ -5,6 +5,7 @@ import Head from 'next/head'
 import { useMemo } from 'react'
 
 /// #if DEV
+// eslint-disable-next-line import/order
 import { Dev } from '@dev/dev'
 /// #endif
 

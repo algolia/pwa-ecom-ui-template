@@ -6,9 +6,6 @@ import isEqual from 'react-fast-compare'
 import type { BreadcrumbProvided, SearchState } from 'react-instantsearch-core'
 import { connectBreadcrumb } from 'react-instantsearch-dom'
 
-import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
-import { nbHitsAtom } from '@instantsearch/widgets/virtual-stats/virtual-stats'
-
 import {
   searchQueryAtom,
   searchStateAtom,
@@ -16,6 +13,8 @@ import {
 import { Button } from '@/components/@ui/button/button'
 import { Icon } from '@/components/@ui/icon/icon'
 import { ClientOnly } from '@/components/client-only/client-only'
+import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
+import { nbHitsAtom } from '@instantsearch/widgets/virtual-stats/virtual-stats'
 
 export type BreadcrumbProps = BreadcrumbProvided
 

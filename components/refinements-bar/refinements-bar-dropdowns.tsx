@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { useAtomValue } from 'jotai/utils'
 import { useCallback, useMemo, useState } from 'react'
 
+import { configAtom } from '@/config/config'
 import { useGetRefinementWidgets } from '@instantsearch/hooks/useGetRefinementWidgets'
 import {
   getPanelAttributes,
@@ -12,8 +13,6 @@ import { DynamicWidgets } from '@instantsearch/widgets/dynamic-widgets/dynamic-w
 import { RefinementsDropdown } from '@instantsearch/widgets/refinements-dropdown/dropdown-refinements'
 import { Button } from '@ui/button/button'
 import { IconLabel } from '@ui/icon-label/icon-label'
-
-import { configAtom } from '@/config/config'
 
 export type RefinementsBarDropdownsProps = {
   dynamicWidgets?: boolean

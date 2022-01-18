@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 
-import { useMedia } from './useMatchMedia'
-
 import tailwindScreens from '@/utils/tailwindScreens'
+
+import { useMedia } from './useMatchMedia'
 
 export type Screens = {
   [key: string]: boolean

@@ -4,12 +4,12 @@ import isEqual from 'react-fast-compare'
 import type { RangeInputProvided } from 'react-instantsearch-core'
 import { connectRange } from 'react-instantsearch-dom'
 
-import { RangeInputCurrency } from './range-input-currency'
-
 import { Input } from '@/components/@ui/input/input'
 import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 import { useDeepCompareState } from '@/hooks/useDeepCompareSetState'
 import { clamp } from '@/utils/math'
+
+import { RangeInputCurrency } from './range-input-currency'
 
 export type RangeInputValueType = 'max' | 'min'
 

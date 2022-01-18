@@ -2,12 +2,12 @@ import { useRouter } from 'next/router'
 import { useCallback } from 'react'
 import searchInsights from 'search-insights'
 
-import type { ProductDetailProps } from './product-detail'
-import { ProductDetail } from './product-detail'
-
 import type { ProductTagType } from '@/components/product/product-tag'
 import type { HitComponentProps, ProductHit } from '@/typings/hits'
 import { indexName } from '@/utils/env'
+
+import { ProductDetail } from './product-detail'
+import type { ProductDetailProps } from './product-detail'
 
 export type ProductDetailHitProps = HitComponentProps<ProductHit>
 

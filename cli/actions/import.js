@@ -3,7 +3,11 @@ const { bold, dim } = require('kleur')
 
 const { readJsonFiles, saveObjectsByChunks } = require('../utils')
 
-async function importAction(productsIndices, productsIndicesNames) {
+async function importAction(
+  productsIndices,
+  productsIndicesNames,
+  useVirtualReplicas
+) {
   const [
     productsIndex,
     productsPriceAscIndex,
@@ -51,14 +55,20 @@ async function importAction(productsIndices, productsIndicesNames) {
     './data/products_query_suggestions_configuration.json',
   ])
 
-  // Products index - Create virtual replicas
-  console.info(dim('Create products virtual replicas...'))
+  // Products index - Create replicas
+  console.info(
+    dim(`Create products ${useVirtualReplicas ? 'virtual ' : ''}replicas...`)
+  )
 
   await productsIndex
     .setSettings({
       replicas: [
-        `virtual(${productsPriceAscIndexName})`,
-        `virtual(${productsPriceDescIndexName})`,
+        useVirtualReplicas
+          ? `virtual(${productsPriceAscIndexName})`
+          : productsPriceAscIndexName,
+        useVirtualReplicas
+          ? `virtual(${productsPriceDescIndexName})`
+          : productsPriceDescIndexName,
       ],
     })
     .wait()
@@ -90,8 +100,14 @@ async function importAction(productsIndices, productsIndicesNames) {
 
   await saveObjectsByChunks(productsIndex, JSON.stringify(productsDataset))
 
-  // Products virtual replicas - Set settings
-  console.info(dim('Update virtual replicas custom ranking...'))
+  // Products replicas - Set settings
+  console.info(
+    dim(
+      `Update ${
+        useVirtualReplicas ? 'virtual ' : ''
+      }replicas custom ranking...`
+    )
+  )
 
   await productsPriceAscIndex.setSettings({
     customRanking: ['asc(price.value)', 'desc(reviews.bayesian_avg)'],
@@ -129,10 +145,7 @@ async function importAction(productsIndices, productsIndicesNames) {
 
   const productsQuerySuggestionsFormatted = JSON.stringify(
     productsQuerySuggestionsDataset
-  ).replace(
-    /_products_index_name_/gi,
-    productsIndexName
-  )
+  ).replace(/_products_index_name_/gi, productsIndexName)
   await saveObjectsByChunks(
     productsQuerySuggestionsIndex,
     productsQuerySuggestionsFormatted

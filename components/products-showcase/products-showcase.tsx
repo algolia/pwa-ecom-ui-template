@@ -1,10 +1,9 @@
 import classNames from 'classnames'
 import { Configure, Index } from 'react-instantsearch-dom'
 
-import { InfiniteHits } from '@instantsearch/widgets/infinite-hits/infinite-hits'
-
 import { Container } from '@/components/container/container'
 import { indexName as defaultIndexName } from '@/utils/env'
+import { InfiniteHits } from '@instantsearch/widgets/infinite-hits/infinite-hits'
 
 export type ProductsShowcaseProps = {
   title?: string

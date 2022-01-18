@@ -4,12 +4,11 @@ import isEqual from 'react-fast-compare'
 import type { QueryRuleCustomDataProvided } from 'react-instantsearch-core'
 import { connectQueryRules } from 'react-instantsearch-dom'
 
-import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
-
 import { withDebugLayer } from '@/components/@dev/debug-layer/debug-layer'
 import { Banner } from '@/components/banner/banner'
 import { useIsMounted } from '@/hooks/useIsMounted'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
+import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 
 export type QueryRuleBannersProps = QueryRuleCustomDataProvided & {
   limit?: number
