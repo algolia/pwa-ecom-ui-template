@@ -2,14 +2,13 @@ import MenuIcon from '@material-design-icons/svg/outlined/menu.svg'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
+import { Laptop, Tablet } from '@/lib/media'
+import { parseUrl } from '@/utils/parseUrl'
 import { Button } from '@ui/button/button'
 import { IconLabel } from '@ui/icon-label/icon-label'
 
 import { NavAutocomplete } from './nav-autocomplete'
 import { NavItem } from './nav-item'
-
-import { Laptop, Tablet } from '@/lib/media'
-import { parseUrl } from '@/utils/parseUrl'
 
 export function NavBottom() {
   const router = useRouter()

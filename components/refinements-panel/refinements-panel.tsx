@@ -2,14 +2,13 @@ import classNames from 'classnames'
 import { atom } from 'jotai'
 import { useAtomValue } from 'jotai/utils'
 
+import { overlayAtom } from '@/components/overlay/overlay'
+import { Tablet } from '@/lib/media'
 import { searchResultsAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 
 import { RefinementsPanelBody } from './refinements-panel-body'
 import { RefinementsPanelFooter } from './refinements-panel-footer'
 import { RefinementsPanelHeader } from './refinements-panel-header'
-
-import { overlayAtom } from '@/components/overlay/overlay'
-import { Tablet } from '@/lib/media'
 
 export type RefinementsPanelProps = {
   dynamicWidgets?: boolean

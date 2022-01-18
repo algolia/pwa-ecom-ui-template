@@ -5,11 +5,10 @@ import isEqual from 'react-fast-compare'
 import type { SortByProvided } from 'react-instantsearch-core'
 import { connectSortBy } from 'react-instantsearch-dom'
 
-import { withDebugLayer } from '@dev/debug-layer/debug-layer'
-import { ExpandablePanel } from '@instantsearch/widgets/expandable-panel/expandable-panel'
-
 import { IconLabel } from '@/components/@ui/icon-label/icon-label'
 import { Select } from '@/components/@ui/select/select'
+import { withDebugLayer } from '@dev/debug-layer/debug-layer'
+import { ExpandablePanel } from '@instantsearch/widgets/expandable-panel/expandable-panel'
 
 export type SortByView = 'dropdown' | 'select'
 

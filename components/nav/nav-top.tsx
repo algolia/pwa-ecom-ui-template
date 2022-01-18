@@ -6,13 +6,12 @@ import ShoppingBagIcon from '@material-design-icons/svg/outlined/shopping_bag.sv
 import dynamic from 'next/dynamic'
 import { memo } from 'react'
 
-import { Button } from '@ui/button/button'
-import { IconLabel } from '@ui/icon-label/icon-label'
-import { Link } from '@ui/link/link'
-
 import type { LogoProps } from '@/components/logo/logo'
 import { NavItem } from '@/components/nav/nav-item'
 import { Tablet, Laptop } from '@/lib/media'
+import { Button } from '@ui/button/button'
+import { IconLabel } from '@ui/icon-label/icon-label'
+import { Link } from '@ui/link/link'
 
 const Logo = dynamic<LogoProps>(() =>
   import(/* webpackChunkName: 'common' */ '@/components/logo/logo').then(

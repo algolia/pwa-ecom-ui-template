@@ -1,9 +1,8 @@
 import { useMemo } from 'react'
 
-import { getPanelId } from '@instantsearch/utils/refinements'
-
 import { RefinementsPanelWidget } from '@/components/refinements-panel/refinements-panel-widget'
 import type { Refinement } from '@/typings/refinements'
+import { getPanelId } from '@instantsearch/utils/refinements'
 
 export function useGetRefinementWidgets(refinements: Refinement[]) {
   return useMemo(

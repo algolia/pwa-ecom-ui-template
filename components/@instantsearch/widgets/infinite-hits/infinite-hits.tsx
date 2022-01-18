@@ -5,11 +5,10 @@ import isEqual from 'react-fast-compare'
 import type { InfiniteHitsProvided } from 'react-instantsearch-core'
 import { connectInfiniteHits } from 'react-instantsearch-dom'
 
+import type { ViewMode } from '@/components/view-modes/view-modes'
 import { withDebugLayer } from '@dev/debug-layer/debug-layer'
 import { LoadLess } from '@instantsearch/widgets/load-less/load-less'
 import { LoadMore } from '@instantsearch/widgets/load-more/load-more'
-
-import type { ViewMode } from '@/components/view-modes/view-modes'
 
 export type InfiniteHitsProps = InfiniteHitsProvided & {
   hitComponent: React.ComponentType<any>

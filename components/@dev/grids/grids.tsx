@@ -1,9 +1,9 @@
 import { atom } from 'jotai'
 import { useAtomValue } from 'jotai/utils'
 
-import { Grid } from './grid'
-
 import { Laptop, Tablet } from '@/lib/media'
+
+import { Grid } from './grid'
 
 export const gridsHiddenAtom = atom(true)
 

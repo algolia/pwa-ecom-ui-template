@@ -1,8 +1,7 @@
 import { memo } from 'react'
 
-import { Link } from '@ui/link/link'
-
 import { LogoSymbol } from '@/components/logo/logo'
+import { Link } from '@ui/link/link'
 
 export type FooterProps = Record<string, unknown>
 

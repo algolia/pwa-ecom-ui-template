@@ -2,11 +2,10 @@ import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { useCallback } from 'react'
 import type { InfiniteHitsProvided } from 'react-instantsearch-core'
 
-import { searchStateAtom } from '@instantsearch/hooks/useUrlSync'
-import { isSearchStalledAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
-
 import { Button } from '@/components/@ui/button/button'
 import type { ProductCardHitProps } from '@/components/product-card/product-card-hit'
+import { searchStateAtom } from '@instantsearch/hooks/useUrlSync'
+import { isSearchStalledAtom } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 
 export type LoadLessProps = Pick<
   InfiniteHitsProvided<ProductCardHitProps>,

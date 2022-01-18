@@ -2,12 +2,11 @@ import CheckIcon from '@material-design-icons/svg/outlined/check.svg'
 import classNames from 'classnames'
 import { useCallback, useRef, useState } from 'react'
 
+import { useIsVisible } from '@/hooks/useIsVisible'
+import { modAbs } from '@/utils/math'
 import { Button } from '@ui/button/button'
 import { Dropdown } from '@ui/dropdown/dropdown'
 import { Icon } from '@ui/icon/icon'
-
-import { useIsVisible } from '@/hooks/useIsVisible'
-import { modAbs } from '@/utils/math'
 
 export type SelectOption = {
   value: string

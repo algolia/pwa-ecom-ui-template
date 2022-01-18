@@ -67,7 +67,7 @@ export const createURL = (searchState: SearchState): string => {
   return categoryPath || queryString ? `/${categoryPath}${queryString}` : ''
 }
 
-export const urlToSearchState = (url: string = ''): SearchState => {
+export const urlToSearchState = (url: string | null = ''): SearchState => {
   if (!url) return {}
 
   const { pathname, search } = parseUrl(url)

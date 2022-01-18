@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { isomorphicDocument } from '@/utils/browser'
+
 import { useEventListener } from './useEventListener'
 import { useKeyPress } from './useKeyPress'
-
-import { isomorphicDocument } from '@/utils/browser'
 
 export function useIsVisible(initialIsVisible = false) {
   const [isVisible, setIsVisible] = useState(initialIsVisible)

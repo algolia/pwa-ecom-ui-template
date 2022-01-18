@@ -7,17 +7,16 @@ import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 
-import {
-  AutocompleteBasic,
-  autocompleteStateAtom,
-} from '@autocomplete/basic/autocomplete-basic'
-
 import { searchQueryAtom } from '@/components/@instantsearch/hooks/useUrlSync'
 import { overlayAtom } from '@/components/overlay/overlay'
 import { configAtom } from '@/config/config'
 import { useIsMounted } from '@/hooks/useIsMounted'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 import { searchClientAtom } from '@/layouts/app-layout'
+import {
+  AutocompleteBasic,
+  autocompleteStateAtom,
+} from '@autocomplete/basic/autocomplete-basic'
 
 const transition = {
   type: 'spring',
