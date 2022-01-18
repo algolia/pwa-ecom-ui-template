@@ -68,6 +68,13 @@ const questions = [
     validate: validateNotEmpty,
   },
   {
+    type: (prev, values) => (values.action === 'import' ? 'confirm' : null),
+    name: 'useVirtualReplicas',
+    message:
+      'Do you want to use virtual replicas? (only available with the Premium plan)',
+    initial: false,
+  },
+  {
     type: 'confirm',
     name: 'confirm',
     message: (prev, { action, indexNamePrefix, indexNameProducts }) => {
@@ -79,7 +86,7 @@ const questions = [
         .map((i) => `    - ${i}`)
         .join('\n')}\nAre you sure to continue?`
     },
-    initial: false,
+    initial: true,
   },
 ]
 
@@ -96,6 +103,7 @@ const questions = [
     adminApiKey,
     indexNamePrefix,
     indexNameProducts,
+    useVirtualReplicas,
     confirm,
   } = await prompts(questions, {
     onCancel,
@@ -120,7 +128,11 @@ const questions = [
 
     switch (action) {
       case 'import':
-        await importAction(productsIndices, productsIndicesNames)
+        await importAction(
+          productsIndices,
+          productsIndicesNames,
+          useVirtualReplicas
+        )
         break
 
       case 'delete':
