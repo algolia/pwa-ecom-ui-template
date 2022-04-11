@@ -2,6 +2,7 @@ import { AnimatePresence } from 'framer-motion'
 import type { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
+import Script from 'next/script'
 import { useMemo } from 'react'
 
 /// #if DEV
@@ -15,7 +16,7 @@ import type { HeaderProps } from '@/components/header/header'
 import { Loader } from '@/components/loader/loader'
 import { Overlay } from '@/components/overlay/overlay'
 import { AppLayout } from '@/layouts/app-layout'
-import { isDev } from '@/utils/env'
+import { gaTrackingId, isDev, isProd } from '@/utils/env'
 import { scrollToTop } from '@/utils/scrollToTop'
 
 import '@/styles/_index.css'
@@ -47,6 +48,25 @@ export default function App({ Component, pageProps, router }: AppProps) {
           content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"
         />
       </Head>
+
+      {/* Google Analytics */}
+      {isProd && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${gaTrackingId}`}
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){window.dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', '${gaTrackingId}');
+            `}
+          </Script>
+        </>
+      )}
 
       <Banner size="xs-large" className="z-header" fullWidth={true}>
         20% Off! Code: SPRING21 - Terms apply*
