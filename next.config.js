@@ -14,7 +14,6 @@ const ifdefOpts = {
 module.exports = withNextPlugins([withBundleAnalyzer, withPWA], {
   generateBuildId: () => 'build',
   reactStrictMode: true,
-  swcMinify: true,
   eslint: {
     dirs: ['pages', 'components', 'config', 'layouts', 'lib', 'utils', 'hooks'],
   },
