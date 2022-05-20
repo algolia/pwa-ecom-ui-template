@@ -29,6 +29,7 @@ export type CurrentRefinement = {
 }
 
 export const refinementCountAtom = atom(0)
+export const currentRefinementAtom = atom({})
 
 function CurrentRefinementsComponent({
   items,
@@ -37,6 +38,7 @@ function CurrentRefinementsComponent({
   className,
 }: CurrentRefinementsProps) {
   const config = useAtomValue(configAtom)
+  
 
   const refinements = useMemo(
     () =>
@@ -46,9 +48,13 @@ function CurrentRefinementsComponent({
     [config, items]
   )
 
+ const setCurrentRefinement = useUpdateAtom(currentRefinementAtom)
   const setRefinementCount = useUpdateAtom(refinementCountAtom)
   useEffect(() => {
     setRefinementCount(refinements.length)
+    items.map(item => {
+      setCurrentRefinement(item)
+    } )
   }, [setRefinementCount, refinements])
 
   if (!refinements.length) return null

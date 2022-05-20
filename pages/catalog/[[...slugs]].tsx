@@ -13,6 +13,8 @@ import { configAtom } from '@/config/config'
 import { useIsMounted } from '@/hooks/useIsMounted'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 import type { SearchPageLayoutProps } from '@/layouts/search-page-layout'
+import { TrendingShowcase } from '@/components/recommend-showcase/trending-showcase'
+import { RecommendCardHitShowcase } from '@/components/product-card/recommend-card-hit'
 import {
   getServerSidePropsPage,
   SearchPageLayout,
@@ -56,6 +58,13 @@ export default function Catalog(props: SearchPageLayoutProps) {
             />
 
             <NoResultsHandler>
+              <TrendingShowcase  
+                title="Trending"
+                indexId="recommended"
+                threshold={4}
+                maxRecommendations={6}
+                hitComponent={RecommendCardHitShowcase}
+              />
               <InfiniteHits
                 hitComponent={ProductCardHit}
                 viewMode={viewMode}

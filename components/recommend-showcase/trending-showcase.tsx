@@ -6,6 +6,8 @@ import { TrendingItems } from '@algolia/recommend-react';
 
 import { recommendClientAtom } from '@/layouts/app-layout'
 
+import { currentRefinementAtom } from '../@instantsearch/widgets/current-refinements/current-refinements';
+
 import { useAtomValue } from 'jotai/utils'
 
 
@@ -28,6 +30,9 @@ export function TrendingShowcase({
 }: TrendingShowcaseProps) {
 
   const recommendClient = useAtomValue(recommendClientAtom)
+  const currentRefinement = useAtomValue(currentRefinementAtom)
+
+
 
   return (
     <Container>
@@ -35,6 +40,8 @@ export function TrendingShowcase({
         recommendClient={recommendClient}
         indexName={indexName}
         itemComponent={hitComponent}
+        facetName={currentRefinement.attribute}
+        facetValue={currentRefinement.currentRefinement}
         {...searchParameters}
       />
     </Container>
