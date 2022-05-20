@@ -19,7 +19,7 @@ export type ProductCardHitProps = HitComponentProps<ProductHit> & {
 }
 
 export function ProductCardHitComponent({
-  hit,
+  item: hit,
   insights,
   insightsEventName = 'PLP: Product Clicked',
   viewMode,
@@ -27,10 +27,10 @@ export function ProductCardHitComponent({
   snipetting = true,
 }: ProductCardHitProps) {
   if(hit === undefined) {
-    console.log('hit is undefined')
+    console.log('item is undefined')
     return <></>
   } else {
-    // console.log(hit)
+    console.log(hit)
   }
 
   const product: ProductCardProps = {
@@ -61,11 +61,11 @@ export function ProductCardHitComponent({
   // Highlighting
   if (highlighting) {
     product.labelHighlighting = () => (
-      <Highlight attribute="brand" tagName="mark" hit={hit} />
+      <Highlight attribute="brand" tagName="mark" item={hit} />
     )
 
     product.titleHighlighting = () => (
-      <Highlight attribute="name" tagName="mark" hit={hit} />
+      <Highlight attribute="name" tagName="mark" item={hit} />
     )
   } else {
     product.label = hit.brand
@@ -109,7 +109,7 @@ export const ProductCardHit = connectHitInsights<ProductCardHitProps>(
   searchInsights
 )(memo(ProductCardHitComponent, isEqual))
 
-export function ProductCardHitShowcase(props: ProductCardHitProps) {
+export function RecommendCardHitShowcase(props: ProductCardHitProps) {
   return (
     <ProductCardHit
       {...props}

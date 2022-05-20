@@ -2,7 +2,9 @@ import { Configure } from 'react-instantsearch-dom'
 
 import { Banner } from '@/components/banner/banner'
 import { ProductCardHitShowcase } from '@/components/product-card/product-card-hit'
+import { RecommendCardHitShowcase } from '@/components/product-card/recommend-card-hit'
 import { ProductsShowcase } from '@/components/products-showcase/products-showcase'
+import { TrendingShowcase } from '@/components/recommend-showcase/trending-showcase'
 import type { SearchPageLayoutProps } from '@/layouts/search-page-layout'
 import {
   getStaticPropsPage,
@@ -50,6 +52,13 @@ export default function Home(props: SearchPageLayoutProps) {
         indexId="recommended"
         query="jacket"
         hitComponent={ProductCardHitShowcase}
+      />
+       <TrendingShowcase
+        title="Trending"
+        indexId="recommended"
+        threshold={4}
+        maxRecommendations={8}
+        hitComponent={RecommendCardHitShowcase}
       />
     </SearchPageLayout>
   )
