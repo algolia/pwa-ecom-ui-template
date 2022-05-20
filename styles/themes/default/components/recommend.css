@@ -1,0 +1,7 @@
+.auc-Recommend {
+@apply w-full
+}
+
+.auc-Recommend-list {
+@apply overflow-hidden grid grid-cols-2 gap-2 grid-cols-2 laptop:grid-cols-6
+}

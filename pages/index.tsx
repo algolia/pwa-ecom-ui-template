@@ -57,7 +57,7 @@ export default function Home(props: SearchPageLayoutProps) {
         title="Trending"
         indexId="recommended"
         threshold={4}
-        maxRecommendations={8}
+        maxRecommendations={6}
         hitComponent={RecommendCardHitShowcase}
       />
     </SearchPageLayout>
