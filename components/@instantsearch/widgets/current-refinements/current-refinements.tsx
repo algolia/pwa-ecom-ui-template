@@ -43,6 +43,7 @@ function CurrentRefinementsComponent({
   const refinements = useMemo(
     () =>
       items.reduce((acc: CurrentRefinement[], current) => {
+        console.log(current, config)
         return [...acc, ...getCurrentRefinement(current, config)]
       }, []),
     [config, items]
@@ -51,11 +52,13 @@ function CurrentRefinementsComponent({
  const setCurrentRefinement = useUpdateAtom(currentRefinementAtom)
   const setRefinementCount = useUpdateAtom(refinementCountAtom)
   useEffect(() => {
+    console.log(items)
     setRefinementCount(refinements.length)
+    !items.length && setCurrentRefinement([])
     items.map(item => {
       setCurrentRefinement(item)
     } )
-  }, [setRefinementCount, refinements])
+  }, [setRefinementCount, refinements, items])
 
   if (!refinements.length) return null
 

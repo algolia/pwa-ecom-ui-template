@@ -33,7 +33,7 @@ export function TrendingShowcase({
   const currentRefinement = useAtomValue(currentRefinementAtom)
 
 
-
+console.log(currentRefinement)
   return (
     <Container>
       <TrendingItems
