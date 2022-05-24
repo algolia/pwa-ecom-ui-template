@@ -6,7 +6,7 @@ import { TrendingItems } from '@algolia/recommend-react';
 
 import { recommendClientAtom } from '@/layouts/app-layout'
 
-import { currentRefinementAtom } from '../@instantsearch/widgets/current-refinements/current-refinements';
+import { currentRefinementAtom, currentHierarchicalAtom, currentBrandAtom } from '../@instantsearch/widgets/current-refinements/current-refinements';
 
 import { useAtomValue } from 'jotai/utils'
 
@@ -31,17 +31,18 @@ export function TrendingShowcase({
 
   const recommendClient = useAtomValue(recommendClientAtom)
   const currentRefinement = useAtomValue(currentRefinementAtom)
+  const currentHierarchical = useAtomValue(currentHierarchicalAtom)
+  const currentHBrand = useAtomValue(currentBrandAtom)
 
 
-console.log(currentRefinement)
   return (
     <Container>
       <TrendingItems
         recommendClient={recommendClient}
         indexName={indexName}
         itemComponent={hitComponent}
-        facetName={currentRefinement.attribute}
-        facetValue={currentRefinement.currentRefinement}
+        facetName={currentHierarchical ? currentHierarchical : currentRefinement.attribute}
+        facetValue={currentHBrand ? currentHBrand : currentRefinement.currentRefinement }
         {...searchParameters}
       />
     </Container>
