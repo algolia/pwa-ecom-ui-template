@@ -1,0 +1,40 @@
+diff --git a/node_modules/@algolia/ui-components-horizontal-slider-vdom/dist/esm/index.js b/node_modules/@algolia/ui-components-horizontal-slider-vdom/dist/esm/index.js
+index f87417d..4d874dc 100644
+--- a/node_modules/@algolia/ui-components-horizontal-slider-vdom/dist/esm/index.js
++++ b/node_modules/@algolia/ui-components-horizontal-slider-vdom/dist/esm/index.js
+@@ -1,2 +1,2 @@
+-export * from './HorizontalSlider';
+-export * from './types';
+\ No newline at end of file
++export * from './HorizontalSlider.js';
++export * from './types/index.js';
+diff --git a/node_modules/@algolia/ui-components-horizontal-slider-vdom/dist/esm/types/index.js b/node_modules/@algolia/ui-components-horizontal-slider-vdom/dist/esm/types/index.js
+index 1175dd5..bc65d69 100644
+--- a/node_modules/@algolia/ui-components-horizontal-slider-vdom/dist/esm/types/index.js
++++ b/node_modules/@algolia/ui-components-horizontal-slider-vdom/dist/esm/types/index.js
+@@ -1,3 +1,3 @@
+-export * from './FrameworkProps';
+-export * from './HorizontalSlider';
+-export * from './Renderer';
+\ No newline at end of file
++export * from './FrameworkProps.js';
++export * from './HorizontalSlider.js';
++export * from './Renderer.js';
+diff --git a/node_modules/@algolia/ui-components-horizontal-slider-vdom/package.json b/node_modules/@algolia/ui-components-horizontal-slider-vdom/package.json
+index 77abcf4..35c4946 100644
+--- a/node_modules/@algolia/ui-components-horizontal-slider-vdom/package.json
++++ b/node_modules/@algolia/ui-components-horizontal-slider-vdom/package.json
+@@ -15,6 +15,13 @@
+   "umd:main": "dist/umd/index.js",
+   "unpkg": "dist/umd/index.js",
+   "jsdelivr": "dist/umd/index.js",
++  "type": "module",
++  "exports": {
++    ".": {
++      "import": "./dist/esm/index.js",
++      "require": "./dist/cjs/index.js"
++    }
++  },
+   "sideEffects": false,
+   "files": [
+     "dist/"
