@@ -34,6 +34,7 @@ export type ProductCardProps = {
   reviews?: number
   available?: boolean
   view?: ViewMode
+  promoted?: boolean
   onLinkClick?: MouseEventHandler<HTMLElement>
 }
 
