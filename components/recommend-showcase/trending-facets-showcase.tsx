@@ -1,9 +1,6 @@
 import { indexName as defaultIndexName } from '@/utils/env'
 
-import { Container } from '@/components/container/container'
 import { useRouter } from 'next/router';
-
-// import { TrendingItems } from '@algolia/recommend-react';
 
 import { recommendClientAtom } from '@/layouts/app-layout'
 
@@ -30,20 +27,13 @@ export type TrendingFacetsShowcaseProps = {
 export function TrendingFacetsShowcase({
   indexName = defaultIndexName,
   indexId,
-//   className,
-//   hitComponent,
   ...searchParameters
 }: TrendingFacetsShowcaseProps) {
 
   const recommendClient = useAtomValue(recommendClientAtom)
-  const currentRefinement = useAtomValue(currentRefinementAtom)
-  const currentHierarchical = useAtomValue(currentHierarchicalAtom)
-  const currentHBrand = useAtomValue(currentBrandAtom)
-
 
   return (
       <section className='trendingFacets'>
-
             <h4>The most trending brands</h4>
             <TrendingFacets<FacetHit>
             recommendClient={recommendClient}
@@ -52,15 +42,6 @@ export function TrendingFacetsShowcase({
             itemComponent={({ item }) => (
             <Facet
                 hit={item}
-
-                // onSelect={(facetHits) => {
-                //   setSelectedFacetValue(
-                //     facetHits.facetValue === selectedFacetValue?.facetValue
-                //       ? undefined
-                //       : facetHits
-                //   );
-                // }}
-                // indexName={indexName}
             />
             )}
             maxRecommendations={5}
@@ -68,7 +49,6 @@ export function TrendingFacetsShowcase({
             title: '',
             }}
         />
-     
     </section>
   )
 }

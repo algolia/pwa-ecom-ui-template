@@ -9,7 +9,7 @@ import { IconLabel } from '@ui/icon-label/icon-label'
 
 import { NavAutocomplete } from './nav-autocomplete'
 import { NavItem } from './nav-item'
-import { TrendingFacetsShowcase } from '../recommend-showcase/trending-facets-showcase'
+
 
 export function NavBottom() {
   const router = useRouter()
@@ -55,7 +55,7 @@ export function NavBottom() {
         )}
       </Laptop>
       <NavAutocomplete />
-      <TrendingFacetsShowcase indexId='brand'/>
+
 
     </div>
   )
