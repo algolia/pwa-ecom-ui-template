@@ -5,6 +5,7 @@ import { ProductCardHitShowcase } from '@/components/product-card/product-card-h
 import { RecommendCardHitShowcase } from '@/components/product-card/recommend-card-hit'
 import { ProductsShowcase } from '@/components/products-showcase/products-showcase'
 import { TrendingShowcase } from '@/components/recommend-showcase/trending-showcase'
+import { TrendingFacetsShowcase } from '@/components/recommend-showcase/trending-facets-showcase'
 import type { SearchPageLayoutProps } from '@/layouts/search-page-layout'
 import {
   getStaticPropsPage,
@@ -33,6 +34,8 @@ export default function Home(props: SearchPageLayoutProps) {
         overlay={true}
         classNameTitle="text-3xl font-normal tracking-wider leading-tight laptop:text-7xl"
       />
+
+      {/* <TrendingFacetsShowcase indexId='brand'/> */}
 
       <ProductsShowcase
         title="New in shoes"

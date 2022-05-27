@@ -74,7 +74,6 @@ export function RefinementsPanelBody({
 }: RefinementsPanelBodyProps) {
   const { refinements } = useAtomValue(configAtom)
   const { laptop } = useTailwindScreens()
-
   const [panels, setPanels] = useAtom(refinementsPanelsAtom)
 
   // Set initial panels value
@@ -112,10 +111,11 @@ export function RefinementsPanelBody({
   const widgetsPanels = useMemo(
     () =>
       widgets.map((widget, i) => {
+        console.log(widgets)
         const refinement = refinements[i]
         const panelId = getPanelId(refinement)
         const panelAttributes = getPanelAttributes(refinement)
-
+// console.log(widgets)
         return (
           <WidgetPanel
             key={panelId}

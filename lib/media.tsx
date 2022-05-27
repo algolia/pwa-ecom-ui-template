@@ -26,6 +26,7 @@ const getMediaRender = (children: React.ReactNode, className?: string) => {
     mediaClassNames: string,
     renderChildren: React.ReactNode
   ) {
+
     return (
       <div
         className={classNames(mediaClassNames, className)}
@@ -46,6 +47,7 @@ export function Tablet({ children, className }: BreakpointProps) {
 }
 
 export function Laptop({ children, className }: BreakpointProps) {
+
   return (
     <Media greaterThanOrEqual="laptop">
       {getMediaRender(children, className)}

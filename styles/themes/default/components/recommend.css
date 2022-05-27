@@ -5,3 +5,15 @@
 .auc-Recommend-list {
 @apply overflow-hidden grid grid-cols-2 gap-2 grid-cols-2 laptop:grid-cols-6
 }
+
+.trendingFacets .auc-Recommend-list {
+@apply flex gap-8 mt-2
+}
+
+.trendingFacets .auc-Recommend-item {
+@apply cursor-pointer uppercase
+}
+
+.fresnel-greaterThanOrEqual-laptop:empty{
+@apply hidden
+}

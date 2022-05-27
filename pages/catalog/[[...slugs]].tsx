@@ -20,6 +20,10 @@ import {
   SearchPageLayout,
 } from '@/layouts/search-page-layout'
 
+
+
+
+
 const RefinementsBar = dynamic<any>(() =>
   import(
     /* webpackChunkName: 'search' */ '@/components/refinements-bar/refinements-bar'
