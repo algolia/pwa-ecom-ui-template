@@ -31,17 +31,19 @@ export function TrendingFacetsShowcase({
 }: TrendingFacetsShowcaseProps) {
 
   const recommendClient = useAtomValue(recommendClientAtom)
-
+  const facetAttribute = 'brand'
+  
   return (
       <section className='trendingFacets'>
             <h4>The most trending brands</h4>
             <TrendingFacets<FacetHit>
             recommendClient={recommendClient}
             indexName={indexName}
-            facetName="brand"
+            facetName={facetAttribute}
             itemComponent={({ item }) => (
             <Facet
                 hit={item}
+                facetAttribute={facetAttribute}
             />
             )}
             maxRecommendations={5}
@@ -53,7 +55,12 @@ export function TrendingFacetsShowcase({
   )
 }
 
-const Facet = ({hit}) => {
+const Facet = ({hit, facetAttribute}) => {
     const router = useRouter()
-    return <div><p onClick={() => router.push('/catalog/[[...slugs]]')}>{hit.facetValue}</p></div>
+    return (<div>
+                <p onClick={(e) =>{
+                router.pathname.includes('catalog') ? router.push(`?refinementList%5B${facetAttribute}%5D%5B0%5D=${e.target.innerHTML}`) : router.push(`/catalog?refinementList%5B${facetAttribute}%5D%5B0%5D=${e.target.innerHTML}`)}}>
+                {hit.facetValue}
+                </p>
+            </div>)
 }
