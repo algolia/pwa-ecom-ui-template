@@ -26,12 +26,6 @@ export function ProductCardHitComponent({
   highlighting = true,
   snipetting = true,
 }: ProductCardHitProps) {
-  if(hit === undefined) {
-    console.log('hit is undefined')
-    return <></>
-  } else {
-    // console.log(hit)
-  }
 
   const product: ProductCardProps = {
     url: `/product/${hit.objectID}?queryID=${hit.__queryID}`,
