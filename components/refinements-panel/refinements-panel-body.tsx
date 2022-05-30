@@ -114,7 +114,6 @@ export function RefinementsPanelBody({
         const refinement = refinements[i]
         const panelId = getPanelId(refinement)
         const panelAttributes = getPanelAttributes(refinement)
-// console.log(widgets)
         return (
           <WidgetPanel
             key={panelId}
