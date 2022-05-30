@@ -26,6 +26,7 @@ export type CurrentRefinement = {
   category?: string
   label: string
   value: RefinementValue
+ 
 }
 
 export const refinementCountAtom = atom(0)
@@ -55,14 +56,14 @@ function CurrentRefinementsComponent({
   const setCurrentHierarchical = useUpdateAtom(currentHierarchicalAtom)
   const setCurrentBrand = useUpdateAtom(currentBrandAtom)
   useEffect(() => {
-      const hierarchicalMenuRefinement = items.find(
+      const hierarchicalMenuRefinement: boolean | undefined | any  = items.find(
         (item) => item.attribute === 'hierarchical_categories.lvl0'
       );
-      const brandRefinement = items.find(
+      const brandRefinement: boolean | undefined | any = items.find(
         (item) => item.attribute === 'brand'
       );
       if(brandRefinement){
-        brandRefinement.currentRefinement.map(brandName => setCurrentBrand(brandName))
+        brandRefinement.currentRefinement.map((brandName: string | any) => setCurrentBrand(brandName))
       }
       if (hierarchicalMenuRefinement) {
         const levels = hierarchicalMenuRefinement.currentRefinement.split(' > ');
