@@ -93,37 +93,35 @@
   }
 
   .h-container {
-    height: calc(100vh - theme("spacing.header"));
+    height: calc(100vh - theme('spacing.header'));
   }
 
   /* ========== Transition utilities */
   .to-visible {
     @apply opacity-100 visible;
 
-    transition:
-      opacity theme("transitionDuration.DEFAULT") linear 0s,
+    transition: opacity theme('transitionDuration.DEFAULT') linear 0s,
       visibility 0s linear 0s;
   }
 
   .to-invisible {
     @apply opacity-0 invisible;
 
-    transition:
-      opacity theme("transitionDuration.DEFAULT") linear 0s,
-      visibility 0s linear theme("transitionDuration.DEFAULT");
+    transition: opacity theme('transitionDuration.DEFAULT') linear 0s,
+      visibility 0s linear theme('transitionDuration.DEFAULT');
   }
 
   /* ========== Text shadow utilities */
   .text-shadow-small {
-    text-shadow: theme("boxShadow.small");
+    text-shadow: theme('boxShadow.small');
   }
 
   .text-shadow-medium {
-    text-shadow: theme("boxShadow.medium");
+    text-shadow: theme('boxShadow.medium');
   }
 
   .text-shadow-large {
-    text-shadow: theme("boxShadow.large");
+    text-shadow: theme('boxShadow.large');
   }
 
   /* ========== Misc utilities */

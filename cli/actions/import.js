@@ -103,9 +103,7 @@ async function importAction(
   // Products replicas - Set settings
   console.info(
     dim(
-      `Update ${
-        useVirtualReplicas ? 'virtual ' : ''
-      }replicas custom ranking...`
+      `Update ${useVirtualReplicas ? 'virtual ' : ''}replicas custom ranking...`
     )
   )
 

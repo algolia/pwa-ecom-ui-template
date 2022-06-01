@@ -35,7 +35,7 @@ export function NavBottom() {
   )
 
   return (
-    <div className="flex items-center px-4 relative divide-x border-b border-neutral-light laptop:h-12 laptop:mx-20 laptop:mb-5 laptop:px-0 laptop:justify-between laptop:border-none laptop:divide-none">
+    <div className="flex justify-between px-4 relative divide-x border-b border-neutral-light laptop:h-12 laptop:mx-20 laptop:mb-5 laptop:px-0 laptop:justify-between laptop:border-none laptop:divide-none">
       <Tablet>
         <Button className="p-3 pl-0">
           <IconLabel icon={MenuIcon} label="Menu" labelPosition="right" />
@@ -53,7 +53,6 @@ export function NavBottom() {
           </nav>
         )}
       </Laptop>
-
       <NavAutocomplete />
     </div>
   )

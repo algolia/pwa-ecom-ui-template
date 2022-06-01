@@ -8,6 +8,8 @@ import { NoResultsHandler } from '@/components/@instantsearch/widgets/no-results
 import { QueryRuleBanners } from '@/components/@instantsearch/widgets/query-rule-banners/query-rule-banners'
 import { Container } from '@/components/container/container'
 import { ProductCardHit } from '@/components/product-card/product-card-hit'
+import { RecommendCardHitShowcase } from '@/components/product-card/recommend-card-hit'
+import { TrendingShowcase } from '@/components/recommend-showcase/trending-showcase'
 import { viewModeAtom } from '@/components/view-modes/view-modes'
 import { configAtom } from '@/config/config'
 import { useIsMounted } from '@/hooks/useIsMounted'
@@ -56,6 +58,13 @@ export default function Catalog(props: SearchPageLayoutProps) {
             />
 
             <NoResultsHandler>
+              <TrendingShowcase
+                title="Trending"
+                indexId="recommended"
+                threshold={4}
+                maxRecommendations={6}
+                hitComponent={RecommendCardHitShowcase}
+              />
               <InfiniteHits
                 hitComponent={ProductCardHit}
                 viewMode={viewMode}

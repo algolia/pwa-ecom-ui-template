@@ -28,6 +28,6 @@ export function useDeepUpdateAtom<TValue, TUpdate>(
       _setAtomValue(nextAtomValue)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
+  // @ts-expect-error
   return [currentAtomValue, setAtomValue]
 }
