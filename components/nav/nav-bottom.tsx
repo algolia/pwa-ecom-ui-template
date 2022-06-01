@@ -10,7 +10,6 @@ import { IconLabel } from '@ui/icon-label/icon-label'
 import { NavAutocomplete } from './nav-autocomplete'
 import { NavItem } from './nav-item'
 
-
 export function NavBottom() {
   const router = useRouter()
   const currentCategory = useMemo(() => {
@@ -55,8 +54,6 @@ export function NavBottom() {
         )}
       </Laptop>
       <NavAutocomplete />
-
-
     </div>
   )
 }

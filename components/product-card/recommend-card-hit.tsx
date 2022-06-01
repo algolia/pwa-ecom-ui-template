@@ -16,6 +16,7 @@ export type ProductCardHitProps = HitComponentProps<ProductHit> & {
   viewMode?: ViewMode
   highlighting?: boolean
   snipetting?: boolean
+  item: any
 }
 
 export function ProductCardHitComponent({
@@ -26,7 +27,6 @@ export function ProductCardHitComponent({
   highlighting = true,
   snipetting = true,
 }: ProductCardHitProps) {
-
   const product: ProductCardProps = {
     url: `/product/${hit.objectID}?queryID=${hit.__queryID}`,
     image: hit.image_urls[0],

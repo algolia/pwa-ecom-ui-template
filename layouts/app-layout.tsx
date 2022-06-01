@@ -4,8 +4,8 @@ import { atom, Provider as JotaiProvider } from 'jotai'
 import { useAtomValue } from 'jotai/utils'
 
 import { configAtom } from '@/config/config'
-import { useSearchClient } from '@/hooks/useSearchClient'
 import { useRecommendClient } from '@/hooks/useRecommendClient'
+import { useSearchClient } from '@/hooks/useSearchClient'
 import { useSearchInsights } from '@/hooks/useSearchInsights'
 import { MediaContextProvider } from '@/lib/media'
 import { createInitialValues } from '@/utils/createInitialValues'
@@ -22,7 +22,7 @@ const loadFramerMotionFeatures = () =>
 
 export const searchClientAtom = atom<SearchClient | undefined>(undefined)
 
-export const recommendClientAtom = atom< any >(undefined)
+export const recommendClientAtom = atom<any>(undefined)
 
 export function AppLayout({ children }: AppLayoutProps) {
   const { setUserToken } = useAtomValue(configAtom)

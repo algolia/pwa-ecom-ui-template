@@ -74,7 +74,7 @@
   @apply body-regular text-neutral-dark font-normal;
 }
 
-.aa-Item[aria-selected=true] {
+.aa-Item[aria-selected='true'] {
   @apply bg-neutral-lightest;
 }
 

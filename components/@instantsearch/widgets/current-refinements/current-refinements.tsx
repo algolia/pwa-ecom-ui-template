@@ -26,7 +26,6 @@ export type CurrentRefinement = {
   category?: string
   label: string
   value: RefinementValue
- 
 }
 
 export const refinementCountAtom = atom(0)
@@ -41,7 +40,6 @@ function CurrentRefinementsComponent({
   className,
 }: CurrentRefinementsProps) {
   const config = useAtomValue(configAtom)
-  
 
   const refinements = useMemo(
     () =>
@@ -56,33 +54,32 @@ function CurrentRefinementsComponent({
   const setCurrentHierarchical = useUpdateAtom(currentHierarchicalAtom)
   const setCurrentBrand = useUpdateAtom(currentBrandAtom)
   useEffect(() => {
-      const hierarchicalMenuRefinement: boolean | undefined | any  = items.find(
-        (item) => item.attribute === 'hierarchical_categories.lvl0'
-      );
-      const brandRefinement: boolean | undefined | any = items.find(
-        (item) => item.attribute === 'brand'
-      );
-      if(brandRefinement){
-        brandRefinement.currentRefinement.map((brandName: string | any) => setCurrentBrand(brandName))
-      }
-      if (hierarchicalMenuRefinement) {
-        const levels = hierarchicalMenuRefinement.currentRefinement.split(' > ');
-        const currentLevelNumber = levels.length - 1;
-        const hierarchicalLevel = hierarchicalMenuRefinement.attribute.slice(0, -1) + currentLevelNumber
-        setCurrentHierarchical(hierarchicalLevel)
-      }
-    
+    const hierarchicalMenuRefinement: any | boolean | undefined = items.find(
+      (item) => item.attribute === 'hierarchical_categories.lvl0'
+    )
+    const brandRefinement: any | boolean | undefined = items.find(
+      (item) => item.attribute === 'brand'
+    )
+    if (brandRefinement) {
+      brandRefinement.currentRefinement.map((brandName: any | string) =>
+        setCurrentBrand(brandName)
+      )
+    }
+    if (hierarchicalMenuRefinement) {
+      const levels = hierarchicalMenuRefinement.currentRefinement.split(' > ')
+      const currentLevelNumber = levels.length - 1
+      const hierarchicalLevel =
+        hierarchicalMenuRefinement.attribute.slice(0, -1) + currentLevelNumber
+      setCurrentHierarchical(hierarchicalLevel)
+    }
 
- 
     setRefinementCount(refinements.length)
-    if(!items.length){
+    if (!items.length) {
       setCurrentRefinement([])
       setCurrentHierarchical(null)
       setCurrentBrand(null)
-    }  
-    items.map(item => {
-      setCurrentRefinement(item)
-    } )
+    }
+    items.map((item) => setCurrentRefinement(item))
   }, [setRefinementCount, refinements, items])
 
   if (!refinements.length) return null
