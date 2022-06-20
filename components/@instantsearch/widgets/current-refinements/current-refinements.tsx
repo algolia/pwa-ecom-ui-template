@@ -29,6 +29,9 @@ export type CurrentRefinement = {
 }
 
 export const refinementCountAtom = atom(0)
+export const currentRefinementAtom = atom({})
+export const currentHierarchicalAtom = atom(null)
+export const currentBrandAtom = atom(null)
 
 function CurrentRefinementsComponent({
   items,
@@ -46,10 +49,42 @@ function CurrentRefinementsComponent({
     [config, items]
   )
 
+  const setCurrentRefinement = useUpdateAtom(currentRefinementAtom)
   const setRefinementCount = useUpdateAtom(refinementCountAtom)
+  const setCurrentHierarchical = useUpdateAtom(currentHierarchicalAtom)
+  const setCurrentBrand = useUpdateAtom(currentBrandAtom)
   useEffect(() => {
+    const hierarchicalMenuRefinement: any | boolean | undefined = items.find(
+      (item) => item.attribute === 'hierarchical_categories.lvl0'
+    )
+    const brandRefinement: any | boolean | undefined = items.find(
+      (item) => item.attribute === 'brand'
+    )
+    if (brandRefinement) {
+      brandRefinement.currentRefinement.map((brandName: any | string) =>
+        setCurrentBrand(brandName)
+      )
+    }
+    if (hierarchicalMenuRefinement) {
+      const levels = hierarchicalMenuRefinement.currentRefinement.split(' > ')
+      const currentLevelNumber = levels.length - 1
+      const hierarchicalLevel =
+        hierarchicalMenuRefinement.attribute.slice(0, -1) + currentLevelNumber
+      setCurrentHierarchical(hierarchicalLevel)
+    }
+
     setRefinementCount(refinements.length)
-  }, [setRefinementCount, refinements])
+    if (!items.length) {
+      setCurrentRefinement([])
+      setCurrentHierarchical(null)
+      setCurrentBrand(null)
+    }
+    // eslint-disable-next-line array-callback-return
+    items.map((item) => {
+      setCurrentRefinement(item)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setRefinementCount, refinements, items])
 
   if (!refinements.length) return null
 
