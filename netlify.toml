@@ -3,6 +3,7 @@
   publish = ".next"
 
 [build.environment]
+  # Disable Netlify Edge Functions due to timeouts (>10s)
   NEXT_DISABLE_EDGE_IMAGES = "true"
 
 [[plugins]]
