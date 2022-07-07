@@ -11,8 +11,8 @@ import { searchQueryAtom } from '@/components/@instantsearch/hooks/useUrlSync'
 import { overlayAtom } from '@/components/overlay/overlay'
 import { configAtom } from '@/config/config'
 import { useIsMounted } from '@/hooks/useIsMounted'
-import { useTailwindScreens } from '@/hooks/useTailwindScreens'
 import { searchClientAtom } from '@/layouts/app-layout'
+import { useLaptopMediaQuery } from '@/lib/media'
 import {
   AutocompleteBasic,
   autocompleteStateAtom,
@@ -29,7 +29,7 @@ const isExpandedAtom = atom(
 )
 
 export function NavAutocomplete() {
-  const { laptop } = useTailwindScreens()
+  const isLaptop = useLaptopMediaQuery()
 
   // Router
   const router = useRouter()
@@ -82,7 +82,7 @@ export function NavAutocomplete() {
         Boolean(
           state.collections.reduce((acc, c) => acc + c.items.length, 0)
         )) ||
-      !laptop,
+      !isLaptop,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
@@ -97,7 +97,7 @@ export function NavAutocomplete() {
   return (
     <m.div
       className={autocompleteCn}
-      animate={{ width: laptop ? width : '100%' }}
+      animate={{ width: isLaptop ? width : '100%' }}
       transition={transition}
     >
       <div className="hidden absolute w-24 h-full -translate-x-full bg-gradient-to-l from-white laptop:block" />
@@ -106,7 +106,7 @@ export function NavAutocomplete() {
         searchClient={searchClient}
         placeholders={autocompleteConfig.placeholders}
         shouldPanelOpen={handleShouldPanelOpen}
-        openOnFocus={!laptop}
+        openOnFocus={!isLaptop}
         onFocusBlur={handleFocusBlur}
         onSelect={handleSelect}
       />

@@ -3,8 +3,7 @@ import { useAtomValue } from 'jotai/utils'
 import { useCallback, useEffect, useMemo } from 'react'
 
 import { configAtom } from '@/config/config'
-import { useTailwindScreens } from '@/hooks/useTailwindScreens'
-import { Tablet } from '@/lib/media'
+import { Tablet, useLaptopMediaQuery } from '@/lib/media'
 import { useGetRefinementWidgets } from '@instantsearch/hooks/useGetRefinementWidgets'
 import {
   getPanelAttributes,
@@ -73,7 +72,7 @@ export function RefinementsPanelBody({
   dynamicWidgets,
 }: RefinementsPanelBodyProps) {
   const { refinements } = useAtomValue(configAtom)
-  const { laptop } = useTailwindScreens()
+  const isLaptop = useLaptopMediaQuery()
 
   const [panels, setPanels] = useAtom(refinementsPanelsAtom)
 
@@ -84,7 +83,9 @@ export function RefinementsPanelBody({
       ...refinements.reduce(
         (acc, current) => ({
           ...acc,
-          [getPanelId(current)]: !laptop ? false : Boolean(current.isExpanded),
+          [getPanelId(current)]: !isLaptop
+            ? false
+            : Boolean(current.isExpanded),
         }),
         {}
       ),
@@ -95,7 +96,7 @@ export function RefinementsPanelBody({
   const onToggle = useCallback(
     (panelId: string) => {
       setPanels((prevPanels) => {
-        const otherPanels = !laptop
+        const otherPanels = !isLaptop
           ? togglePanels(prevPanels, false)
           : prevPanels
 
@@ -105,7 +106,7 @@ export function RefinementsPanelBody({
         }
       })
     },
-    [setPanels, laptop]
+    [setPanels, isLaptop]
   )
 
   const widgets = useGetRefinementWidgets(refinements)

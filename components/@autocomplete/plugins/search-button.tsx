@@ -1,6 +1,7 @@
 import type { OnStateChangeProps } from '@algolia/autocomplete-js'
 import { useCallback } from 'react'
-import { render } from 'react-dom'
+import type { Root } from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
 
 import { createTemplatePlugin } from '@/lib/autocomplete/plugins/createTemplatePlugin'
 import { Button } from '@ui/button/button'
@@ -40,11 +41,19 @@ export function searchButtonPluginCreator({
   initialQuery,
   onClick,
 }: SearchButtonPluginCreatorParams) {
+  let root: Root | null = null
+  let rootElCache: HTMLElement | null = null
+
   return createTemplatePlugin({
     initialQuery,
     container: '.aa-InputWrapperSuffix',
-    render(root, props) {
-      render(<SearchButton props={props} onClick={onClick} />, root)
+    render(rootEl, props) {
+      if (!root || rootElCache !== rootEl) {
+        rootElCache = rootEl
+        root?.unmount()
+        root = createRoot(rootEl)
+      }
+      root.render(<SearchButton props={props} onClick={onClick} />)
     },
   })
 }
