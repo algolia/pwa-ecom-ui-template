@@ -1,10 +1,11 @@
 import classNames from 'classnames'
 import { atom } from 'jotai'
 import { useAtomValue } from 'jotai/utils'
-import React, { useState, useCallback } from 'react'
+import type { ReactNode } from 'react'
+import { useState, useCallback } from 'react'
 
 export type DebugLayerProps = {
-  children: React.ReactNode
+  children: ReactNode
   name: string
 }
 
@@ -15,11 +16,11 @@ export const debugLayerEnabledAtom = atom(false)
 function DebugLayer({ children, name }: DebugLayerProps) {
   const [isHovered, setIsHovered] = useState(false)
 
-  const handleOver = useCallback((e) => {
+  const handleOver = useCallback((e: any) => {
     e.stopPropagation()
     setIsHovered(true)
   }, [])
-  const handleOut = useCallback((e) => {
+  const handleOut = useCallback((e: any) => {
     e.stopPropagation()
     setIsHovered(false)
   }, [])

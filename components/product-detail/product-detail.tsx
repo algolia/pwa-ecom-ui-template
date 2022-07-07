@@ -1,6 +1,6 @@
 import ShoppingBagIcon from '@material-design-icons/svg/outlined/shopping_bag.svg'
 import SyncIcon from '@material-design-icons/svg/outlined/sync.svg'
-import type { MouseEventHandler } from 'react'
+import type { MouseEvent, MouseEventHandler } from 'react'
 import { useCallback, useState } from 'react'
 
 import { ProductDescription } from '@/components/product/product-description'
@@ -68,7 +68,7 @@ export function ProductDetail({
   )
 
   const handleCheckoutClick = useCallback(
-    (e) => {
+    (e: MouseEvent<HTMLButtonElement>) => {
       if (typeof onCheckoutClick === 'function') onCheckoutClick(e)
     },
     [onCheckoutClick]

@@ -6,6 +6,7 @@ import type { SortByProvided } from 'react-instantsearch-core'
 import { connectSortBy } from 'react-instantsearch-dom'
 
 import { IconLabel } from '@/components/@ui/icon-label/icon-label'
+import type { SelectOption } from '@/components/@ui/select/select'
 import { Select } from '@/components/@ui/select/select'
 import { withDebugLayer } from '@dev/debug-layer/debug-layer'
 import { ExpandablePanel } from '@instantsearch/widgets/expandable-panel/expandable-panel'
@@ -35,7 +36,7 @@ function SortByComponent({
   const refinedOption = items.find((item) => item.isRefined)
 
   const handleSelectChange = useCallback(
-    (selectedOption) => {
+    (selectedOption: SelectOption) => {
       refine(selectedOption.value)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -3,11 +3,10 @@ import type {
   AutocompletePlugin,
   OnStateChangeProps,
 } from '@algolia/autocomplete-js'
-import { unmountComponentAtNode } from 'react-dom'
 
 type CreateTemplatePluginProps = {
   container: HTMLElement | string
-  render?: (root: HTMLElement, props: OnStateChangeProps<any>) => void
+  render?: (rootEl: HTMLElement, props: OnStateChangeProps<any>) => void
   initialQuery?: string
 }
 
@@ -60,10 +59,6 @@ export function createTemplatePlugin<
 
     unsubscribe() {
       window.cancelAnimationFrame(rafId)
-
-      if (rootEl) {
-        unmountComponentAtNode(rootEl)
-      }
     },
 
     onStateChange(props) {

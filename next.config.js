@@ -13,7 +13,6 @@ const ifdefOpts = {
 /** @type {import('next').NextConfig} */
 module.exports = withNextPlugins([withBundleAnalyzer, withPWA], {
   generateBuildId: () => 'build',
-  reactStrictMode: true,
   eslint: {
     dirs: ['pages', 'components', 'config', 'layouts', 'lib', 'utils', 'hooks'],
   },

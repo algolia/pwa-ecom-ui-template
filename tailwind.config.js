@@ -3,13 +3,11 @@ const screens = require('./config/screens')
 
 /** @type {import('tailwindcss/tailwind-config').TailwindConfig } */
 module.exports = {
-  mode: 'jit',
-  purge: [
+  content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
     './layouts/**/*.{js,ts,jsx,tsx}',
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {

@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import type { MouseEventHandler } from 'react'
+import type { MouseEvent, MouseEventHandler } from 'react'
 import { useCallback, useState } from 'react'
 
 import { ProductColorVariationList } from '@/components/product/product-color-variation-list'
@@ -64,7 +64,7 @@ export function ProductCard({
   )
 
   const handleLinkClick = useCallback(
-    (e) => {
+    (e: MouseEvent<HTMLAnchorElement>) => {
       if (typeof onLinkClick === 'function') onLinkClick(e)
     },
     [onLinkClick]

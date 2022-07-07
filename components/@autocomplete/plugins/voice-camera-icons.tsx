@@ -1,7 +1,8 @@
 import CropIcon from '@material-design-icons/svg/outlined/crop_free.svg'
 import VoiceIcon from '@material-design-icons/svg/outlined/keyboard_voice.svg'
 import CameraIcon from '@material-design-icons/svg/outlined/photo_camera.svg'
-import { render } from 'react-dom'
+import type { Root } from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
 
 import { Icon } from '@/components/@ui/icon/icon'
 import { createTemplatePlugin } from '@/lib/autocomplete/plugins/createTemplatePlugin'
@@ -41,10 +42,18 @@ function AutocompleteIcons({
 }
 
 export function voiceCameraIconsPluginCreator() {
+  let root: Root | null = null
+  let rootElCache: HTMLElement | null = null
+
   return createTemplatePlugin({
     container: '.aa-InputWrapperSuffix',
-    render(root) {
-      render(<AutocompleteIcons />, root)
+    render(rootEl) {
+      if (!root || rootElCache !== rootEl) {
+        rootElCache = rootEl
+        root?.unmount()
+        root = createRoot(rootEl)
+      }
+      root.render(<AutocompleteIcons />)
     },
   })
 }

@@ -52,49 +52,53 @@ function RefinementsBarComponent({
         className
       )}
     >
-      <Tablet className="flex flex-col gap-2">
-        <div className="flex justify-between">
-          <ViewModes />
+      <Tablet>
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-between">
+            <ViewModes />
 
-          <Button
-            className="flex items-center gap-1"
-            onClick={() => setMobileExpanded(true)}
-          >
-            <IconLabel
-              icon={FilterIcon}
-              label="Filter &amp; Sort"
-              labelPosition="right"
-              classNameLabel="body-regular"
-            />
-            {refinementCount > 0 && <Count>{refinementCount}</Count>}
-          </Button>
+            <Button
+              className="flex items-center gap-1"
+              onClick={() => setMobileExpanded(true)}
+            >
+              <IconLabel
+                icon={FilterIcon}
+                label="Filter &amp; Sort"
+                labelPosition="right"
+                classNameLabel="body-regular"
+              />
+              {refinementCount > 0 && <Count>{refinementCount}</Count>}
+            </Button>
+          </div>
+
+          <RelevantSort />
         </div>
-
-        <RelevantSort />
       </Tablet>
 
-      <Laptop className="flex flex-col items-start gap-4">
-        <div className="w-full flex gap-6">
-          {showRefinements && (
-            <RefinementsBarDropdowns dynamicWidgets={dynamicWidgets} />
-          )}
+      <Laptop>
+        <div className="flex flex-col items-start gap-4">
+          <div className="w-full flex gap-6">
+            {showRefinements && (
+              <RefinementsBarDropdowns dynamicWidgets={dynamicWidgets} />
+            )}
 
-          {!showRefinements && <CurrentRefinements />}
+            {!showRefinements && <CurrentRefinements />}
 
-          <div className="flex gap-6 ml-auto flex-shrink-0 items-center">
-            {!showRefinements && <ToggleFilters />}
-            <ViewModes />
-            <SortBy
-              defaultRefinement={sortDefaultRefinement}
-              items={sorts}
-              className="w-52"
-            />
+            <div className="flex gap-6 ml-auto flex-shrink-0 items-center">
+              {!showRefinements && <ToggleFilters />}
+              <ViewModes />
+              <SortBy
+                defaultRefinement={sortDefaultRefinement}
+                items={sorts}
+                className="w-52"
+              />
+            </div>
           </div>
+
+          {showRefinements && <CurrentRefinements />}
+
+          <RelevantSort />
         </div>
-
-        {showRefinements && <CurrentRefinements />}
-
-        <RelevantSort />
       </Laptop>
     </section>
   )

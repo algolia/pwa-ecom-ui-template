@@ -1,6 +1,10 @@
 [build]
   command = "npm run build"
-  publish = ".next" 
+  publish = ".next"
+
+[build.environment]
+  # Disable Netlify Edge Functions due to timeouts (>10s)
+  NEXT_DISABLE_EDGE_IMAGES = "true"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
