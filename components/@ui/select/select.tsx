@@ -1,5 +1,6 @@
 import CheckIcon from '@material-design-icons/svg/outlined/check.svg'
 import classNames from 'classnames'
+import type { KeyboardEvent } from 'react'
 import { useCallback, useRef, useState } from 'react'
 
 import { useIsVisible } from '@/hooks/useIsVisible'
@@ -51,7 +52,7 @@ export function Select({
   const optionEls = useRef<HTMLButtonElement[]>([])
 
   const handleKeyDown = useCallback(
-    (e) => {
+    (e: KeyboardEvent<HTMLButtonElement>) => {
       const isArrowDown = e.key === 'ArrowDown'
       const isArrowUp = e.key === 'ArrowUp'
 
@@ -72,7 +73,7 @@ export function Select({
   )
 
   const handleDropdownToggle = useCallback(
-    (o) => {
+    (o: boolean) => {
       setIsOpen(!o)
       if (!o) currentFocusedOptionIdx.current = -1
     },

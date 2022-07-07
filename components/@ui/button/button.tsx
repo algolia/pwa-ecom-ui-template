@@ -16,7 +16,7 @@ export type ButtonSize = 'large' | 'small'
 export type ButtonProps = Omit<HTMLProps<HTMLButtonElement>, 'size'> & {
   children?: React.ReactNode
   className?: string
-  onClick?: MouseEventHandler
+  onClick?: MouseEventHandler<HTMLButtonElement>
   title?: string
   type?: ButtonType
   size?: ButtonSize
