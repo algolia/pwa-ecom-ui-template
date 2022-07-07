@@ -20,9 +20,10 @@ import type { AutocompleteProps } from '@autocomplete/_default/autocomplete'
 import { Autocomplete } from '@autocomplete/_default/autocomplete'
 import { popularSearchesPluginCreator } from '@autocomplete/plugins/popular-searches/popular-searches'
 import { recentSearchesPluginCreator } from '@autocomplete/plugins/recent-searches'
-import { searchButtonPluginCreator } from '@autocomplete/plugins/search-button'
-import { voiceCameraIconsPluginCreator } from '@autocomplete/plugins/voice-camera-icons'
 import { withDebugLayer } from '@dev/debug-layer/debug-layer'
+
+import { searchButtonPluginCreator } from '../plugins/search-button'
+import { voiceCameraIconsPluginCreator } from '../plugins/voice-camera-icons'
 
 export type AutocompleteBasicProps = AutocompleteProps & {
   searchClient: SearchClient
@@ -127,7 +128,7 @@ function AutocompleteBasicComponent({
   )
 
   const onSubmit = useCallback(
-    ({ state }) => {
+    ({ state }: any) => {
       if (typeof onSelect === 'function') onSelect(state.query)
     },
     [onSelect]

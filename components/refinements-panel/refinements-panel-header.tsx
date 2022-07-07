@@ -38,8 +38,8 @@ export function RefinementsPanelHeader() {
   return (
     <header className="flex flex-col laptop:my-5 laptop:mt-0">
       <div className="flex items-center gap-1 my-6 laptop:my-0">
-        <Tablet className="flex-grow">
-          <div className="flex items-center justify-between">
+        <Tablet>
+          <div className="flex items-center justify-between flex-grow">
             <IconLabel
               icon={FilterIcon}
               label="Filter &amp; Sort"
@@ -54,27 +54,31 @@ export function RefinementsPanelHeader() {
           </div>
         </Tablet>
 
-        <Laptop className="flex-grow flex items-center justify-between">
-          <IconLabel
-            icon={FilterIcon}
-            label="Filters"
-            labelPosition="right"
-            classNameLabel="body-regular"
-            className="gap-1 heading-5"
-            classNameIcon="w-5 h-5"
-          />
-
-          <Button
-            className="text-neutral-darkest"
-            onClick={onTogglePanelsClick}
-          >
+        <Laptop>
+          <div className="flex-grow flex items-center justify-between">
             <IconLabel
-              icon={refinementsPanelsExpanded ? RemoveIcon : AddIcon}
-              label={`${refinementsPanelsExpanded ? 'Collapse' : 'Expand'} all`}
-              labelPosition="left"
+              icon={FilterIcon}
+              label="Filters"
+              labelPosition="right"
               classNameLabel="body-regular"
+              className="gap-1 heading-5"
+              classNameIcon="w-5 h-5"
             />
-          </Button>
+
+            <Button
+              className="text-neutral-darkest"
+              onClick={onTogglePanelsClick}
+            >
+              <IconLabel
+                icon={refinementsPanelsExpanded ? RemoveIcon : AddIcon}
+                label={`${
+                  refinementsPanelsExpanded ? 'Collapse' : 'Expand'
+                } all`}
+                labelPosition="left"
+                classNameLabel="body-regular"
+              />
+            </Button>
+          </div>
         </Laptop>
       </div>
 

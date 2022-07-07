@@ -1,54 +1,51 @@
-import { createMedia } from '@artsy/fresnel'
-import classNames from 'classnames'
 import type { PropsWithChildren } from 'react'
+import { useMediaQuery } from 'react-responsive'
 
-import tailwindScreens from '@/utils/tailwindScreens'
+import screensConfig from '@/config/screens'
 
-type BreakpointProps = PropsWithChildren<{
-  className?: string
-}>
+type BreakpointProps = PropsWithChildren
 
-export type Breakpoints = 'laptop' | 'mobile' | 'tablet'
+function parseScreens(screens: Record<string, any>) {
+  const screensParsed: Record<string, number> = {}
 
-export const AppMedia = createMedia({
-  breakpoints: {
-    mobile: 0,
-    ...tailwindScreens,
-  },
-})
-
-export const mediaStyles = AppMedia.createMediaStyle()
-
-export const { Media, MediaContextProvider } = AppMedia
-
-const getMediaRender = (children: React.ReactNode, className?: string) => {
-  return function MediaRender(
-    mediaClassNames: string,
-    renderChildren: React.ReactNode
-  ) {
-    return (
-      <div
-        className={classNames(mediaClassNames, className)}
-        suppressHydrationWarning={!renderChildren}
-      >
-        {renderChildren ? children : null}
-      </div>
-    )
+  for (const screenName in screens) {
+    if (Object.prototype.hasOwnProperty.call(screens, screenName)) {
+      const screenBreakpoint = (screens as any)[screenName]
+      const screenValue = parseInt(screenBreakpoint, 10)
+      if (!isNaN(screenValue)) {
+        screensParsed[screenName] = screenValue
+      }
+    }
   }
+
+  return screensParsed
 }
 
-export function Mobile({ children, className }: BreakpointProps) {
-  return <Media at="mobile">{getMediaRender(children, className)}</Media>
+const { tablet, laptop } = parseScreens(screensConfig)
+
+export function useMobileMediaQuery() {
+  return useMediaQuery({ maxWidth: tablet - 1 })
 }
 
-export function Tablet({ children, className }: BreakpointProps) {
-  return <Media lessThan="laptop">{getMediaRender(children, className)}</Media>
+export function useTabletMediaQuery() {
+  return useMediaQuery({ maxWidth: laptop - 1 })
 }
 
-export function Laptop({ children, className }: BreakpointProps) {
-  return (
-    <Media greaterThanOrEqual="laptop">
-      {getMediaRender(children, className)}
-    </Media>
-  )
+export function useLaptopMediaQuery() {
+  return useMediaQuery({ minWidth: laptop })
+}
+
+export function Mobile({ children }: BreakpointProps) {
+  const isMobile = useMobileMediaQuery()
+  return isMobile ? <>{children}</> : null
+}
+
+export function Tablet({ children }: BreakpointProps) {
+  const isTablet = useTabletMediaQuery()
+  return isTablet ? <>{children}</> : null
+}
+
+export function Laptop({ children }: BreakpointProps) {
+  const isLaptop = useLaptopMediaQuery()
+  return isLaptop ? <>{children}</> : null
 }

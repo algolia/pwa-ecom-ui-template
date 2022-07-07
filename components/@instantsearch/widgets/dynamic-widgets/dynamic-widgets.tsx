@@ -1,4 +1,7 @@
+import { useAtomValue } from 'jotai'
 import { ExperimentalDynamicWidgets } from 'react-instantsearch-dom'
+
+import { configAtom } from '@/config/config'
 
 export type DynamicWidgetsProps = {
   children: React.ReactNode
@@ -11,8 +14,12 @@ export function DynamicWidgets({
   enabled = true,
   ...props
 }: DynamicWidgetsProps) {
+  const { searchParameters } = useAtomValue(configAtom)
   return enabled ? (
-    <ExperimentalDynamicWidgets {...props}>
+    <ExperimentalDynamicWidgets
+      maxValuesPerFacet={searchParameters.maxValuesPerFacet}
+      {...props}
+    >
       {children}
     </ExperimentalDynamicWidgets>
   ) : (
