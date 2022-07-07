@@ -1,6 +1,9 @@
 [build]
   command = "npm run build"
-  publish = ".next" 
+  publish = ".next"
+
+[build.environment]
+  NEXT_USE_NETLIFY_EDGE = "true"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
