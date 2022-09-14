@@ -22,6 +22,7 @@
     "@algolia/react-instantsearch-widget-loadmore-with-progressbar": "^1.4.0",
     "@algolia/react-instantsearch-widget-size-refinement-list": "^1.0.3",
     "@material-design-icons/svg": "^0.11.4",
+    "@types/ua-parser-js": "^0.7.36",
     "algoliasearch": "^4.13.1",
     "classnames": "^2.3.1",
     "framer-motion": "^6.4.2",
@@ -34,7 +35,8 @@
     "react-instantsearch-core": "^6.30.0",
     "react-instantsearch-dom": "^6.30.0",
     "react-responsive": "^9.0.0-beta.10",
-    "search-insights": "^2.2.1"
+    "search-insights": "^2.2.1",
+    "ua-parser-js": "^1.0.2"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^4.11.1",
