@@ -3,6 +3,7 @@ import isEqual from 'react-fast-compare'
 import type { InstantSearchProps } from 'react-instantsearch-dom'
 import { Configure, InstantSearch } from 'react-instantsearch-dom'
 
+import { QueryRuleRedirect } from '@instantsearch/widgets/query-rule-redirect/query-rule-redirect'
 import { VirtualSearchBox } from '@instantsearch/widgets/virtual-search-box/virtual-search-box'
 import { VirtualStateResults } from '@instantsearch/widgets/virtual-state-results/virtual-state-results'
 import { VirtualStats } from '@instantsearch/widgets/virtual-stats/virtual-stats'
@@ -24,6 +25,8 @@ function SearchComponent({
       <VirtualSearchBox />
       <VirtualStateResults />
       <VirtualStats />
+
+      <QueryRuleRedirect />
 
       {children}
     </InstantSearch>
