@@ -26,6 +26,7 @@
     "@algolia/ui-components-horizontal-slider-theme": "^1.0.0",
     "@artsy/fresnel": "^3.0.2",
     "@material-design-icons/svg": "^0.10.8",
+    "@types/ua-parser-js": "^0.7.36",
     "algoliasearch": "^4.11.0",
     "classnames": "^2.3.1",
     "framer-motion": "^5.2.0",
@@ -37,7 +38,8 @@
     "react-fast-compare": "^3.2.0",
     "react-instantsearch-core": "^6.15.0",
     "react-instantsearch-dom": "^6.15.0",
-    "search-insights": "^2.1.0"
+    "search-insights": "^2.1.0",
+    "ua-parser-js": "^1.0.2"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^4.3.2",

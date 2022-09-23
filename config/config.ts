@@ -3,6 +3,7 @@ import { freezeAtom } from 'jotai/utils'
 
 import type { SetUserToken } from '@/hooks/useSearchInsights'
 import type { Refinement, RefinementLayout } from '@/typings/refinements'
+import { userAnalyticsTags } from '@/utils/analyticsTags'
 import { capitalize } from '@/utils/capitalize'
 import { indexName } from '@/utils/env'
 
@@ -96,6 +97,7 @@ const searchParameters = {
   snippetEllipsisText: '…',
   analytics: true,
   clickAnalytics: true,
+  analyticsTags: userAnalyticsTags,
 }
 
 const setUserToken: SetUserToken = (generatedUserToken, setToken) => {
