@@ -21,6 +21,7 @@ function QueryRuleBannersComponent({
   const searchResults = useAtomValue(searchResultsAtom)
   const { laptop } = useTailwindScreens()
   const isMounted = useIsMounted()
+  const isLaptop = laptop && isMounted
 
   if (!items.length || searchResults?.nbHits === 0) return null
 
@@ -28,19 +29,28 @@ function QueryRuleBannersComponent({
 
   return (
     <div className="flex flex-col">
-      {slicedItems.map(({ title, description, image }) => (
-        <Banner
-          key={image}
-          size={laptop && isMounted() ? 'l' : 's'}
-          title={title}
-          description={description}
-          image={laptop && isMounted() ? image.desktop : image.mobile}
-          imageAlt={title}
-          fullWidth={true}
-          overlay={true}
-          gradient={true}
-        />
-      ))}
+      {slicedItems.map(
+        ({
+          title,
+          description,
+          image,
+          overlay = true,
+          gradient = true,
+          size = isLaptop ? 'l' : 's',
+        }) => (
+          <Banner
+            key={image}
+            size={size}
+            title={title}
+            description={description}
+            image={isLaptop ? image.desktop : image.mobile}
+            imageAlt={title}
+            fullWidth={true}
+            overlay={overlay}
+            gradient={gradient}
+          />
+        )
+      )}
     </div>
   )
 }

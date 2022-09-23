@@ -1,6 +1,7 @@
 import { useAtomValue } from 'jotai/utils'
 import type { GetServerSidePropsContext } from 'next'
 import dynamic from 'next/dynamic'
+import { useMemo } from 'react'
 
 import { Breadcrumb } from '@/components/@instantsearch/widgets/breadcrumb/breadcrumb'
 import {
@@ -23,6 +24,7 @@ import {
   getServerSidePropsPage,
   SearchPageLayout,
 } from '@/layouts/search-page-layout'
+import { isMobile } from '@/utils/userAgent'
 
 const RefinementsBar = dynamic<any>(() =>
   import(
@@ -49,8 +51,10 @@ export default function Catalog(props: SearchPageLayoutProps) {
   const currentHierarchical = useAtomValue(currentHierarchicalAtom)
   const currentBrand = useAtomValue(currentBrandAtom)
 
+  const ruleContexts = useMemo(() => (isMobile ? ['mobile-app'] : null), [])
+
   return (
-    <SearchPageLayout {...props}>
+    <SearchPageLayout ruleContexts={ruleContexts} {...props}>
       <Container className="flex flex-col gap-2 laptop:mt-10 laptop:gap-10">
         <Breadcrumb attributes={breadcrumbAttributes} />
 

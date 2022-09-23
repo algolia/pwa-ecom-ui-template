@@ -53,7 +53,7 @@ export function TrendingFacetsShowcase({
 
   return (
     <section className={classNames('trendingFacets', className)}>
-      {title && <h4>{title}</h4>}
+      {title && <h4 className="pt-2">{title}</h4>}
 
       <TrendingFacets
         recommendClient={recommendClient}

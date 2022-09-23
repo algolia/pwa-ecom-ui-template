@@ -24,6 +24,7 @@ export type SearchPageLayoutProps = BasicPageLayoutProps & {
   resultsState?: any
   searchState?: any
   userToken?: string
+  ruleContexts?: string[] | null
 }
 
 function SearchPageLayoutComponent({
@@ -31,6 +32,7 @@ function SearchPageLayoutComponent({
   resultsState,
   searchState: initialSearchState,
   userToken: initialUserToken,
+  ruleContexts,
   ...props
 }: SearchPageLayoutProps) {
   const { searchParameters: configSearchParameters } = useAtomValue(configAtom)
@@ -43,9 +45,10 @@ function SearchPageLayoutComponent({
     () => ({
       userToken,
       enablePersonalization: Boolean(userToken),
+      ruleContexts,
       ...configSearchParameters,
     }),
-    [userToken, configSearchParameters]
+    [userToken, configSearchParameters, ruleContexts]
   )
 
   return (

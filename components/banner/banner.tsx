@@ -155,7 +155,7 @@ export function Banner({
       {description && (
         <p
           className={classNames(
-            'block mt-4 laptop:hidden',
+            'block mt-4 has-link-brand laptop:hidden',
             classNameDescription
           )}
           dangerouslySetInnerHTML={{ __html: description }}
