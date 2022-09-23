@@ -1,6 +1,7 @@
 import { TrendingItems } from '@algolia/recommend-react'
 import { useAtomValue } from 'jotai/utils'
-import { Container } from '@/components/container/container'
+import { createElement, useMemo } from 'react'
+
 import { recommendClientAtom } from '@/layouts/app-layout'
 import { indexName as defaultIndexName } from '@/utils/env'
 
@@ -16,37 +17,52 @@ export type TrendingShowcaseProps = {
   indexId?: string
   className?: string
   hitComponent: React.ComponentType<any>
+  headerComponent?: React.ComponentType<any>
   [index: string]: any
+}
+
+function HeaderComponentDefault({ title }: { title?: string }) {
+  return (
+    <h2 className="text-sm font-semibold tracking-[2px] uppercase mb-3 laptop:mb-6 laptop:ml-3 laptop:heading-3">
+      {title || 'Trending items'}
+    </h2>
+  )
 }
 
 export function TrendingShowcase({
   indexName = defaultIndexName,
   hitComponent,
+  headerComponent,
+  title,
   ...searchParameters
 }: TrendingShowcaseProps) {
   const recommendClient = useAtomValue(recommendClientAtom)
   const currentRefinement = useAtomValue(currentRefinementAtom)
   const currentHierarchical = useAtomValue(currentHierarchicalAtom)
   const currentHBrand = useAtomValue(currentBrandAtom)
+
+  const header = useMemo(() => {
+    // eslint-disable-next-line react/display-name, react/function-component-definition
+    return () =>
+      headerComponent ? (
+        createElement(headerComponent)
+      ) : (
+        <HeaderComponentDefault title={title} />
+      )
+  }, [headerComponent, title])
+
   return (
-    <Container>
-      <TrendingItems
-        recommendClient={recommendClient}
-        indexName={indexName}
-        // @ts-expect-error
-        itemComponent={hitComponent}
-        facetName={
-          currentHierarchical
-            ? currentHierarchical
-            : // @ts-expect-error
-              currentRefinement.attribute
-        }
-        facetValue={
-          // @ts-expect-error
-          currentHBrand ? currentHBrand : currentRefinement.currentRefinement
-        }
-        {...searchParameters}
-      />
-    </Container>
+    <TrendingItems
+      recommendClient={recommendClient}
+      headerComponent={header}
+      indexName={indexName}
+      // @ts-expect-error
+      itemComponent={hitComponent}
+      // @ts-expect-error
+      facetName={currentHierarchical || currentRefinement.attribute}
+      // @ts-expect-error
+      facetValue={currentHBrand || currentRefinement.currentRefinement}
+      {...searchParameters}
+    />
   )
 }

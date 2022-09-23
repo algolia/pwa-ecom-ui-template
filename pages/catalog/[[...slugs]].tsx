@@ -3,21 +3,21 @@ import type { GetServerSidePropsContext } from 'next'
 import dynamic from 'next/dynamic'
 
 import { Breadcrumb } from '@/components/@instantsearch/widgets/breadcrumb/breadcrumb'
+import {
+  currentHierarchicalAtom,
+  currentBrandAtom,
+} from '@/components/@instantsearch/widgets/current-refinements/current-refinements'
 import { InfiniteHits } from '@/components/@instantsearch/widgets/infinite-hits/infinite-hits'
 import { NoResultsHandler } from '@/components/@instantsearch/widgets/no-results-handler/no-results-handler'
 import { QueryRuleBanners } from '@/components/@instantsearch/widgets/query-rule-banners/query-rule-banners'
 import { Container } from '@/components/container/container'
 import { ProductCardHit } from '@/components/product-card/product-card-hit'
+import { RecommendCardHit } from '@/components/product-card/recommend-card-hit'
+import { TrendingShowcase } from '@/components/recommend-showcase/trending-showcase'
 import { viewModeAtom } from '@/components/view-modes/view-modes'
 import { configAtom } from '@/config/config'
 import { useIsMounted } from '@/hooks/useIsMounted'
 import { useTailwindScreens } from '@/hooks/useTailwindScreens'
-import { RecommendCardHitShowcase } from '@/components/product-card/recommend-card-hit'
-import { TrendingShowcase } from '@/components/recommend-showcase/trending-showcase'
-import {
-  currentHierarchicalAtom,
-  currentBrandAtom,
-} from '@/components/@instantsearch/widgets/current-refinements/current-refinements'
 import type { SearchPageLayoutProps } from '@/layouts/search-page-layout'
 import {
   getServerSidePropsPage,
@@ -36,8 +36,6 @@ const RefinementsPanel = dynamic<any>(() =>
   ).then((mod) => mod.RefinementsPanel)
 )
 
-
-
 export default function Catalog(props: SearchPageLayoutProps) {
   const { breadcrumbAttributes, refinementsLayoutAtom } =
     useAtomValue(configAtom)
@@ -50,8 +48,6 @@ export default function Catalog(props: SearchPageLayoutProps) {
 
   const currentHierarchical = useAtomValue(currentHierarchicalAtom)
   const currentBrand = useAtomValue(currentBrandAtom)
-
-
 
   return (
     <SearchPageLayout {...props}>
@@ -69,14 +65,27 @@ export default function Catalog(props: SearchPageLayoutProps) {
             />
 
             <NoResultsHandler>
-            {(currentBrand || currentHierarchical) && (
-                <TrendingShowcase
-                  title="Trending"
-                  indexId="recommended"
-                  threshold={4}
-                  maxRecommendations={6}
-                  hitComponent={RecommendCardHitShowcase}
-                />
+              {(currentBrand || currentHierarchical) && (
+                <section className="p-4 laptop:bg-nebula-lightest">
+                  <TrendingShowcase
+                    title="Trending in this category"
+                    indexId="recommended"
+                    threshold={4}
+                    maxRecommendations={6}
+                    hitComponent={(cardProps) => (
+                      <RecommendCardHit
+                        insightsEventName="PLP: Trending Product Clicked"
+                        highlighting={false}
+                        {...cardProps}
+                      />
+                    )}
+                    headerComponent={() => (
+                      <h2 className="text-[1.2rem] ml-3 mb-3 mt-2">
+                        Featured products
+                      </h2>
+                    )}
+                  />
+                </section>
               )}
               <InfiniteHits
                 hitComponent={ProductCardHit}

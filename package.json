@@ -42,7 +42,7 @@
   "devDependencies": {
     "@netlify/plugin-nextjs": "^4.3.2",
     "@next/bundle-analyzer": "^12.1.4",
-    "@svgr/webpack": "^5.5.0",
+    "@svgr/webpack": "^6.3.1",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tweakpane/core": "^1.0.9",
     "@types/node": "^16.11.12",
@@ -72,7 +72,7 @@
     "next-pwa": "^5.5.0",
     "patch-package": "^6.2.2",
     "postcss": "^8.4.12",
-    "postcss-easy-import": "^3.0.0",
+    "postcss-easy-import": "^4.0.0",
     "prettier": "^2.4.1",
     "stylelint": "^14.1.0",
     "stylelint-config-standard": "^23.0.0",

@@ -25,7 +25,7 @@ export const recommendClientAtom = atom<any>(undefined)
 
 export function AppLayout({ children }: AppLayoutProps) {
   const { setUserToken } = useAtomValue(configAtom)
-  
+
   // Initialize search client
   const searchClient = useSearchClient({
     appId,

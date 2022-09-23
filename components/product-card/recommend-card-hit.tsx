@@ -1,34 +1,32 @@
 import { memo, useCallback } from 'react'
 import isEqual from 'react-fast-compare'
-import type { WrappedInsightsClient } from 'react-instantsearch-core'
-import { Highlight, connectHitInsights, Snippet } from 'react-instantsearch-dom'
+import { Highlight, Snippet } from 'react-instantsearch-dom'
 import searchInsights from 'search-insights'
 
 import type { ProductCardProps } from '@/components/product-card/product-card'
 import { ProductCard } from '@/components/product-card/product-card'
 import type { ProductTagType } from '@/components/product/product-tag'
 import type { ViewMode } from '@/components/view-modes/view-modes'
-import type { HitComponentProps, ProductHit } from '@/typings/hits'
+import type { ProductHit } from '@/typings/hits'
+import { indexName } from '@/utils/env'
 
-export type ProductCardHitProps = HitComponentProps<ProductHit> & {
-  insights: WrappedInsightsClient
+export type RecommendCardHitProps = {
+  item: ProductHit
   insightsEventName?: string
   viewMode?: ViewMode
   highlighting?: boolean
   snipetting?: boolean
-  item: any
 }
 
-export function ProductCardHitComponent({
+export function RecommendCardHitComponent({
   item: hit,
-  insights,
-  insightsEventName = 'PLP: Product Clicked',
+  insightsEventName = 'Recommended Product Clicked',
   viewMode,
   highlighting = true,
   snipetting = true,
-}: ProductCardHitProps) {
+}: RecommendCardHitProps) {
   const product: ProductCardProps = {
-    url: `/product/${hit.objectID}?queryID=${hit.__queryID}`,
+    url: `/product/${hit.objectID}`,
     image: hit.image_urls[0],
     tags: [],
     colors: [],
@@ -89,26 +87,16 @@ export function ProductCardHitComponent({
   }
 
   const handleLinkClick = useCallback(() => {
-    insights('clickedObjectIDsAfterSearch', {
+    searchInsights('clickedObjectIDs', {
       eventName: insightsEventName,
+      index: indexName,
+      objectIDs: [hit.objectID],
     })
-  }, [insights, insightsEventName])
+  }, [insightsEventName, hit.objectID])
 
   return (
     <ProductCard view={viewMode} onLinkClick={handleLinkClick} {...product} />
   )
 }
 
-export const ProductCardHit = connectHitInsights<ProductCardHitProps>(
-  searchInsights
-)(memo(ProductCardHitComponent, isEqual))
-
-export function RecommendCardHitShowcase(props: ProductCardHitProps) {
-  return (
-    <ProductCardHit
-      {...props}
-      highlighting={false}
-      insightsEventName="Showcase: Product Clicked"
-    />
-  )
-}
+export const RecommendCardHit = memo(RecommendCardHitComponent, isEqual)

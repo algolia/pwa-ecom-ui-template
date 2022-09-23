@@ -11,7 +11,7 @@ export const recommendApiKey = process.env.NEXT_PUBLIC_RECOMMEND_API_KEY!
 export const indexName = process.env.NEXT_PUBLIC_INSTANTSEARCH_INDEX_NAME!
 export const querySuggestionsIndexName =
   process.env.NEXT_PUBLIC_INSTANTSEARCH_QUERY_SUGGESTIONS_INDEX_NAME!
-  export const recommendIndexName =
+export const recommendIndexName =
   process.env.NEXT_PUBLIC_INSTANTSEARCH_RECOMMEND_INDEX_NAME!
 
 // Google Analytics

@@ -1,31 +1,39 @@
 .auc-Recommend {
-    @apply w-full;
+  @apply w-full;
+}
+
+.auc-Recommend-list {
+  @apply overflow-hidden grid grid-cols-2 gap-2 grid-cols-2 laptop:grid-cols-6;
+}
+
+.trendingFacets {
+  @apply flex flex-col items-end laptop:mx-20 border-b-2;
+}
+
+.trendingFacets .auc-Recommend {
+  @apply w-auto mb-4;
+}
+
+.trendingFacets .auc-Recommend-list {
+  @apply flex gap-8 mt-2;
+}
+
+.trendingFacets .auc-Recommend-item {
+  @apply cursor-pointer uppercase;
+}
+
+.fresnel-greaterThanOrEqual-laptop:empty {
+  @apply hidden;
+}
+
+.trendingItems .aa-List {
+  @apply flex justify-between;
+}
+
+.uic-HorizontalSlider-list {
+  @apply gap-0;
+
+  @media (min-width: 999px) {
+    grid-auto-columns: 19.5% !important;
   }
-  
-  .auc-Recommend-list {
-    @apply overflow-hidden grid grid-cols-2 gap-2 grid-cols-2 laptop:grid-cols-6;
-  }
-  
-  .trendingFacets {
-    @apply flex flex-col items-end laptop:mx-20 border-b-2 mb-24;
-  }
-  
-  .trendingFacets .auc-Recommend {
-    @apply w-auto mb-4;
-  }
-  
-  .trendingFacets .auc-Recommend-list {
-    @apply flex gap-8 mt-2;
-  }
-  
-  .trendingFacets .auc-Recommend-item {
-    @apply cursor-pointer uppercase;
-  }
-  
-  .fresnel-greaterThanOrEqual-laptop:empty {
-    @apply hidden;
-  }
-  
-  .trendingItems .aa-List {
-    @apply flex justify-between;
-  }
+}
