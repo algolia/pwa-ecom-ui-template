@@ -57,7 +57,7 @@ declare module 'react-instantsearch-core' {
 
   // QueryRuleCustomData
   export interface QueryRuleCustomDataProvided {
-    items: amy[]
+    items: any[]
   }
 
   // HitInsights connector
