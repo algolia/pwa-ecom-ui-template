@@ -61,7 +61,7 @@ Find more about the key characteristics of this PWA Ecom UI Template in the [Use
 
 ## Getting started
 
-You can find the [Getting started](https://www.algolia.com/doc/guides/building-search-ui/ecommerce-ui-template/getting-started) page in the docs.
+You can find the [Getting started](https://www.algolia.com/doc/deprecated/instantsearch/react/v6/guides/ecommerce-ui-template/in-depth/getting-started/) page in the docs.
 
 ## Used technologies
 
